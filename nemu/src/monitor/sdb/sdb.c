@@ -1,5 +1,6 @@
 #include <isa.h>
 #include <cpu/cpu.h>
+#include <memory/vaddr.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"
@@ -66,7 +67,16 @@ static int cmd_info(char *args) {
   return 0;
 }
 
+static int cmd_x(char *args){
+  int N;
+  vaddr_t addr;
+  sscanf(args, "%d %lx", &N,&addr);
+  for(int i=0; i < N; i++)
+    printf("%lx == %ld\n",addr,vaddr_read(addr,4));
 
+  return 0;
+
+}
 
 static struct {
   const char *name;
@@ -79,8 +89,9 @@ static struct {
 
   /* TODO: Add more commands */
   { "si", "The program suspends execution after stepping N instructions. When N is not given, it defaults to 1", cmd_si},
-  { "info", "r : print register status\n\
-       w : print watch point information", cmd_info},
+  { "info", "r : Print register status\n\
+       w : Print watch point information", cmd_info},
+  { "x" , "Solve the expression EXPR, take the result as the first memory address, and output N consecutive 4 bytes in hex form", cmd_x},
 
 };
 
