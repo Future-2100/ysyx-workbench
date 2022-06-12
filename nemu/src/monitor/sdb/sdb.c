@@ -45,8 +45,9 @@ static int cmd_si(char *args) {
   char *arg = strtok(NULL, " ");
   if(arg == NULL)
     N = 1;
-  else {
-    sscanf(arg,"%d", &N);
+  else if(sscanf(arg,"%d", &N)==EOF){
+    printf("Parameter entered error!\n");
+    return 0;
   }
     cpu_exec(N);
   return 0;
