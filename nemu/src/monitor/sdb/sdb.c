@@ -59,7 +59,7 @@ static int cmd_info(char *args) {
   if(*arg == 'r')
     isa_reg_display();
   else if (*arg == 'w')
-    printf("function has not complished");
+    printf("function has not complished\n");
   else
     printf("Parameter error!\n");
   
