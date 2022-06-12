@@ -57,9 +57,9 @@ static int cmd_si(char *args) {
 static int cmd_info(char *args) {
 
   char *arg = strtok(NULL, " ");
-  if(*arg == 'r')
+  if(strcmp(arg,"r") == 0)
     isa_reg_display();
-  else if (*arg == 'w')
+  else if (strcmp(arg,"w")== 0)
     printf("function has not complished\n");
   else
     printf("Parameter error!\n");
@@ -79,6 +79,15 @@ static int cmd_x(char *args){
 
 }
 
+static int cmd_p(char *args){
+  bool success;
+  word_t result;
+  result = expr(args,&success);
+  printf("%ld\n", result);
+
+  return 0;
+}
+
 static struct {
   const char *name;
   const char *description;
@@ -93,7 +102,7 @@ static struct {
   { "info", "r : Print register status\n\
        w : Print watch point information", cmd_info},
   { "x" , "Solve the expression EXPR, take the result as the first memory address, and output N consecutive 4 bytes in hex form", cmd_x},
-
+  { "p" , "Solve the expression EXPR", cmd_p},
 };
 
 #define NR_CMD ARRLEN(cmd_table)
