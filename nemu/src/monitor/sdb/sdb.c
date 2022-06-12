@@ -44,11 +44,11 @@ static int cmd_si(char *args) {
   int N;
   char *arg = strtok(NULL, " ");
   if(arg == NULL)
-    cpu_exec(1);
+    N = 1;
   else {
     sscanf(arg,"%d", &N);
-    cpu_exec(N);
   }
+    cpu_exec(N);
   return 0;
 }
 
