@@ -71,9 +71,10 @@ static int cmd_x(char *args){
   int N;
   vaddr_t addr;
   sscanf(args, "%d %lx", &N,&addr);
-  for(int i=0; i < N; i++)
-    printf("0x%lx == %ld\n",addr,vaddr_read(addr,4));
-
+  for(int i=0; i < N; i++) {
+    printf("0x%lx = %ld\n",addr,vaddr_read(addr,4));
+    addr += 4;
+  }
   return 0;
 
 }
