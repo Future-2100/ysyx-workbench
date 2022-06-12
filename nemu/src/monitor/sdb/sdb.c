@@ -58,6 +58,8 @@ static int cmd_info(char *args) {
   sscanf(args,"%c",&para);
   if(para == 'r')
     isa_reg_display();
+  else if (para == 'w')
+    printf("function has not complished");
   else
     printf("Parameter error!\n");
   
