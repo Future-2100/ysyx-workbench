@@ -80,7 +80,7 @@ static struct {
   /* TODO: Add more commands */
   { "si", "The program suspends execution after stepping N instructions. When N is not given, it defaults to 1", cmd_si},
   { "info", "r : print register status\n\
-        w : print watch point information", cmd_info},
+       w : print watch point information", cmd_info},
 
 };
 
