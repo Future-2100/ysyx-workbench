@@ -41,14 +41,12 @@ static int cmd_q(char *args) {
 static int cmd_help(char *args);
 
 static int cmd_si(char *args) {
-  int N;
-  int num = sscanf(args, "%d", &N) ;
-  if(num == 1)
-    cpu_exec(N);
-  else if ( num == -1 )
+  int N = 0;
+  sscanf(args, "%d", &N) ;
+  if(N == 0)
     cpu_exec(1);
-  else
-    printf("error: entered too many parameters");
+  else 
+    cpu_exec(N);
   return 0;
 }
 
