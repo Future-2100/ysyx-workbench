@@ -45,7 +45,7 @@ static int cmd_si(char *args) {
   int num = sscanf(args, "%d", &N) ;
   if(num == 1)
     cpu_exec(N);
-  else if ( num == 0 )
+  else if ( num == -1 )
     cpu_exec(1);
   else
     printf("error: entered too many parameters");
