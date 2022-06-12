@@ -95,7 +95,7 @@ static bool make_token(char *e) {
           case ('(')       : tokens[nr_token].type = '('   ; break;
           case (')')       : tokens[nr_token].type = ')'   ; break;
           case (TK_NUM)    : tokens[nr_token].type = TK_NUM; break;
-          default: TODO();
+          default          : assert(0)                     ; break;
         }
         if( rules[i].token_type == TK_NUM ) {
           int j;
