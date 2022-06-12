@@ -70,7 +70,7 @@ static int cmd_info(char *args) {
 static int cmd_x(char *args){
   int N;
   vaddr_t addr;
-  sscanf(args, "%d %lx", &N,&addr);
+  sscanf(args, "%d 0x%lx", &N,&addr);
   for(int i=0; i < N; i++) {
     printf("0x%lx = %ld\n",addr,vaddr_read(addr,4));
     addr += 4;
