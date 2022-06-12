@@ -42,8 +42,7 @@ static int cmd_help(char *args);
 
 static int cmd_si(char *args) {
   int N = 0;
-  sscanf(args, "%d", &N) ;
-  if(N == 0)
+  if(sscanf(args, "%d", &N) == EOF)
     cpu_exec(1);
   else 
     cpu_exec(N);
