@@ -42,11 +42,13 @@ static int cmd_help(char *args);
 
 static int cmd_si(char *args) {
   int N;
-  if(args==NULL)
+  char *arg = strtok(NULL, " ");
+  if(arg == NULL)
     cpu_exec(1);
-  else if(sscanf(args,"%d",&N)==1) 
+  else {
+    sscanf(arg,"%d", &N);
     cpu_exec(N);
-  
+  }
   return 0;
 }
 
