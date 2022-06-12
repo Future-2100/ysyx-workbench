@@ -52,6 +52,18 @@ static int cmd_si(char *args) {
   return 0;
 }
 
+static int cmd_info(char *args) {
+
+  char para;
+  sscanf(args,"%c",&para);
+  if(para == 'r')
+    isa_reg_display();
+  else
+    printf("Parameter error!\n");
+  
+  return 0;
+}
+
 static struct {
   const char *name;
   const char *description;
@@ -63,6 +75,8 @@ static struct {
 
   /* TODO: Add more commands */
   { "si", "The program suspends execution after stepping N instructions. When N is not given, it defaults to 1", cmd_si},
+  { "info", "r : print register status\n\
+           w : print watch point information", cmd_info},
 
 };
 
