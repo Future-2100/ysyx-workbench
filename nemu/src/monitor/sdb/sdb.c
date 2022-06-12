@@ -40,6 +40,18 @@ static int cmd_q(char *args) {
 
 static int cmd_help(char *args);
 
+static int cmd_si(char *args) {
+  int N;
+  int num = sscanf(args, "%d", &N) ;
+  if(num == 1)
+    cpu_exec(N);
+  else if ( num == 0 )
+    cpu_exec(1);
+  else
+    printf("error: entered too many parameters");
+  return 0;
+}
+
 static struct {
   const char *name;
   const char *description;
@@ -50,6 +62,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
+  { "si", "The program suspends execution after stepping N instructions. When N is not given, it defaults to 1", cmd_si},
 
 };
 
