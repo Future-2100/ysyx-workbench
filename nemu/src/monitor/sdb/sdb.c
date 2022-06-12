@@ -42,14 +42,14 @@ static int cmd_help(char *args);
 
 static int cmd_si(char *args) {
   int N;
-  char *arg = strtok(NULL, " ");
-  if(arg == NULL)
-    N = 1;
-  else if(sscanf(arg,"%d", &N)==-1){
-    printf("Parameter entered error!\n");
-    return 0;
-  }
-    cpu_exec(N);
+  char *arg = strtok(NULL," ");
+  if( arg == NULL )
+    N = 1; 
+  else
+    sscanf(arg,"%d", &N);
+  
+  cpu_exec(N);
+
   return 0;
 }
 
