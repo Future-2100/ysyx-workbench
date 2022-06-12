@@ -41,11 +41,12 @@ static int cmd_q(char *args) {
 static int cmd_help(char *args);
 
 static int cmd_si(char *args) {
-  int N = 0;
-  if(sscanf(args, "%d", &N) == EOF)
+  int N;
+  if(args==NULL)
     cpu_exec(1);
-  else 
+  else if(sscanf(args,"%d",&N)==1) 
     cpu_exec(N);
+  
   return 0;
 }
 
