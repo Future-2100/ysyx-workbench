@@ -25,7 +25,7 @@ static uint32_t choose(uint32_t i) {
 
 static void gen_num() {
   char str[32] ;
-  int size = sprintf(str,"%d",rand()%10);
+  int size = sprintf(str,"%d",rand()%256);
   for(int i=0; i<size; i++) {
     buf[n] = str[i];
     n++;
