@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
 
   FILE *fp=NULL;
   fp = fopen("./input","r");
-  char buff[255];
+  char buff[1024];
   int a=0,b=0;
   word_t result=0,answer=0;
     
