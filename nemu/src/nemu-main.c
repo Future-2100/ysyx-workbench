@@ -25,14 +25,17 @@ int main(int argc, char *argv[]) {
 
   FILE *fp=NULL;
   fp = fopen("./input","r");
-/*
-  word_t result=0;
   char buff[255];
-  bool success = true;
   int a=0,b=0;
-  printf("test1");
-
-  printf("test2");
+  word_t result=0;
+    a = fscanf(fp, "%ld", &result);
+    b = fscanf(fp, "%s" , buff);
+    if(a==EOF || b==EOF) ; 
+    else
+      printf("%s==%ld\n",buff,result);
+    
+/*
+  bool success = true;
 
   for(int i=0; i<TEST_NUM; i++) {
     a = fscanf(fp, "%ld", &result);
