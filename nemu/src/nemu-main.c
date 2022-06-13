@@ -32,8 +32,8 @@ int main(int argc, char *argv[]) {
   bool success = true;
 
   //for(int i=0; i<TEST_NUM; i++) {
-    a = fscanf(fp, "%ld", &result);
-    b = fscanf(fp, "%s" , buff);
+       a =  fscanf(fp, "%ld", &result);
+       b =  fscanf(fp, "%s" , buff);
     if(a!=EOF && b!=EOF) {
       answer = expr(buff,&success);
       if(success == true && answer==result)
