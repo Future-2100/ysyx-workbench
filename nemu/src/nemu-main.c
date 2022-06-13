@@ -28,8 +28,10 @@ int main(int argc, char *argv[]) {
   char buff[255];
   bool success = true;
   int a,b;
+  printf("test1");
 
   fp = fopen("./input","r");
+  printf("test2");
   for(int i=0; i<TEST_NUM; i++) {
     a = fscanf(fp, "%ld", &result);
     b = fscanf(fp, "%s", buff);
