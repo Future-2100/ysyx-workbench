@@ -1,5 +1,4 @@
 #include <common.h>
-#include <stdio.h>
 #define TEST_NUM 10 
 
 void init_monitor(int, char *[]);
