@@ -47,7 +47,7 @@ static void gen_rand_op() {
 }
 
 static void gen_rand_expr() {
-  if(n <=16) {
+  if(n <=15) {
     switch (choose(3)) {
      case 0 : gen_num(); break;
      case 1 : gen('(') ; gen_rand_expr(); gen(')'); break;
