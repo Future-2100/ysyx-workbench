@@ -56,10 +56,10 @@ static int cmd_si(char *args) {
 
 static int cmd_info(char *args) {
 
-  char *arg = strtok(NULL, " ");
-  if(strcmp(arg,"r") == 0)
+//  char *arg = strtok(NULL, " ");
+  if(strcmp(args,"r") == 0)
     isa_reg_display();
-  else if (strcmp(arg,"w")== 0)
+  else if (strcmp(args,"w")== 0)
     printf("function has not complished\n");
   else
     printf("Parameter error!\n");
