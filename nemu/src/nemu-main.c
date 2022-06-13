@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
 
   FILE *fp=NULL;
   fp = fopen("./input","r");
-
+/*
   word_t result=0;
   char buff[255];
   bool success = true;
@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
      }
    }
   }
-
+*/
   fclose(fp);
   return 0;
 }
