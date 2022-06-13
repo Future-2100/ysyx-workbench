@@ -24,23 +24,24 @@ int main(int argc, char *argv[]) {
   */
 
   FILE *fp=NULL;
-  int result;
+  word_t result;
   char buff[255];
   bool success = true;
   int a,b;
 
   fp = fopen("./input","r");
   for(int i=0; i<TEST_NUM; i++) {
-    a = fscanf(fp, "%d", &result);
+    a = fscanf(fp, "%ld", &result);
     b = fscanf(fp, "%s", buff);
     if(a==EOF || b==EOF) continue;
 
    if(result==expr(buff,&success)) {
      if(success == true)
        printf("success\n");
-   }
-   else {
-     printf("error\n");
+   
+     else {
+      printf("error\n");
+     }
    }
 
   }
