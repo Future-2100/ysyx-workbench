@@ -26,6 +26,7 @@ int main(int argc, char *argv[]) {
   FILE *fp=NULL;
   fp = fopen("./input","r");
   char buff[1024];
+  char str[1024] = "1*2+3*5-(4+5)";
   int a=0,b=0;
   word_t result=0,answer=0;
     
@@ -36,10 +37,9 @@ int main(int argc, char *argv[]) {
        b =  fscanf(fp, "%s" , buff);
     //if(a!=EOF && b!=EOF) {
     printf("a=%d, b=%d\n",a,b);
-      answer = expr(buff,&success);
+      answer = expr(str,&success);
       if(success == true && answer==result)
         printf("success\n");
-   
       else
         printf("error\n");
    //}
