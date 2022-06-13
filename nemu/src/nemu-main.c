@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
 
 
   FILE *fp=NULL;
-  fp = fopen("input","r");
+  fp = fopen("./input","r");
 
   word_t result=0;
   char buff[255];
@@ -35,8 +35,8 @@ int main(int argc, char *argv[]) {
   printf("test2");
 
   for(int i=0; i<TEST_NUM; i++) {
- //   a = fscanf(fp, "%ld", &result);
- //   b = fscanf(fp, "%s" , buff);
+    a = fscanf(fp, "%ld", &result);
+    b = fscanf(fp, "%s" , buff);
     if(a==EOF || b==EOF) continue;
 
    if(result==expr(buff,&success)) {
