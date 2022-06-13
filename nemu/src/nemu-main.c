@@ -35,10 +35,11 @@ int main(int argc, char *argv[]) {
        a =  fscanf(fp, "%ld", &result);
        b =  fscanf(fp, "%s" , buff);
     if(a!=EOF && b!=EOF) {
-      printf("a=%d, b=%d\n",a,b);
       answer = expr(buff,&success);
-      if(success == true && answer==result)
+      if(success == true && answer==result) {
+        printf("%s = %ld----",buff,answer);
         printf("success\n");
+      }
       else
         printf("error\n");
     }
