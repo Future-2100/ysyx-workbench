@@ -12,9 +12,8 @@ static int n=0;
 static char code_buf[65536 + 128] = {}; // a little larger than `buf`
 static char *code_format =
 "#include <stdio.h>\n"
-"#include <stdint.h>\n"
 "int main() { "
-"  uint32_t result = %s; "
+"  unsigned int result = %s; "
 "  printf(\"%%u\", result); "
 "  return 0; "
 "}";
@@ -124,24 +123,28 @@ static uint32_t eval(int p, int q, bool *success ){
       uint64_t val2 = eval(op+1, q,success);
       uint64_t result;
       switch (buf[op]) {
-        case '+': result =  val1 + val2;
-        case '-': if(val2 <= val1) 
-                    result = val1 - val2;
+        case '+': result =  val1 + val2; break;
+        case '-': if(val2 <= val1) {
+                    result = val1 - val2; break;
+                  }
                   else { 
                     *success = false;
                     return 0;
                   }
-        case '*': result =  val1 * val2;
+        case '*': result =  val1 * val2; break;
         case '/': if (val2 == 0) {
                     *success = false;
                     return 0;
                   }
-                  else
+                  else {
                     result = val1 / val2;
+                    break;
+                  }
         default : *success = false;
-                  return 0;
+                  return 0; break;
       } 
-      if(result <= 0xffffffff) { return result; }
+      if(result <= 0xffffffff && result >=0) { return (uint32_t)result; }
+
       else { *success = false; return 0; }
     } 
 }
