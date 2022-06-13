@@ -120,27 +120,29 @@ static uint32_t eval(int p, int q, bool *success ){
         }
       }
       op = (op1==0)? op2 : op1 ;
-      uint32_t val1 = eval(p ,op-1,success);
-      uint32_t val2 = eval(op+1, q,success);
-      //int result;
+      uint64_t val1 = eval(p ,op-1,success);
+      uint64_t val2 = eval(op+1, q,success);
+      uint64_t result;
       switch (buf[op]) {
-        case '+': return  val1 + val2;
+        case '+': result =  val1 + val2;
         case '-': if(val2 <= val1) 
-                    return val1 - val2;
+                    result = val1 - val2;
                   else { 
                     *success = false;
                     return 0;
                   }
-        case '*': return val1 * val2;
+        case '*': result =  val1 * val2;
         case '/': if (val2 == 0) {
                     *success = false;
                     return 0;
                   }
                   else
-                    return val1 / val2;
+                    result = val1 / val2;
         default : *success = false;
                   return 0;
       } 
+      if(result <= 0xffffffff) { return result; }
+      else { *success = false; return 0; }
     } 
 }
 
