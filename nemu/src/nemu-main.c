@@ -34,14 +34,15 @@ int main(int argc, char *argv[]) {
   //for(int i=0; i<TEST_NUM; i++) {
        a =  fscanf(fp, "%ld", &result);
        b =  fscanf(fp, "%s" , buff);
-    if(a!=EOF && b!=EOF) {
+    //if(a!=EOF && b!=EOF) {
+    printf("a=%d, b=%d\n",a,b);
       answer = expr(buff,&success);
       if(success == true && answer==result)
         printf("success\n");
    
       else
         printf("error\n");
-   }
+   //}
   //}
 
   fclose(fp);
