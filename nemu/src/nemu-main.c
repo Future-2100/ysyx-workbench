@@ -1,5 +1,5 @@
 #include <common.h>
-#define TEST_NUM 100
+#define TEST_NUM 86
 
 void init_monitor(int, char *[]);
 void am_init_monitor();
