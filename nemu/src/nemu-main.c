@@ -25,16 +25,18 @@ int main(int argc, char *argv[]) {
 
   FILE *fp=NULL;
   fp = fopen("input","r");
-  word_t result;
+
+  word_t result=0;
   char buff[255];
   bool success = true;
-  int a,b;
+  int a=0,b=0;
   printf("test1");
 
   printf("test2");
+
   for(int i=0; i<TEST_NUM; i++) {
-    a = fscanf(fp, "%ld", &result);
-    b = fscanf(fp, "%s", buff);
+ //   a = fscanf(fp, "%ld", &result);
+ //   b = fscanf(fp, "%s" , buff);
     if(a==EOF || b==EOF) continue;
 
    if(result==expr(buff,&success)) {
