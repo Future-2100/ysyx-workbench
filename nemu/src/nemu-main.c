@@ -1,5 +1,5 @@
 #include <common.h>
-#define TEST_NUM 86
+#define TEST_NUM 825
 
 void init_monitor(int, char *[]);
 void am_init_monitor();
@@ -40,8 +40,10 @@ int main(int argc, char *argv[]) {
         printf("%d:%s = %ld----",i,buff,answer);
         printf("success\n");
       }
-      else
+      else {
         printf("error\n");
+        assert(0);
+      }
     }
   }
 

@@ -4,6 +4,7 @@
 #include <time.h>
 #include <assert.h>
 #include <string.h>
+#include <stdbool.h>
 
 // this should be enough
 static char buf[65536] = {};
@@ -12,7 +13,7 @@ static char code_buf[65536 + 128] = {}; // a little larger than `buf`
 static char *code_format =
 "#include <stdio.h>\n"
 "int main() { "
-"  unsigned result = %s; "
+"  unsigned int result = %s; "
 "  printf(\"%%u\", result); "
 "  return 0; "
 "}";
@@ -25,7 +26,7 @@ static uint32_t choose(uint32_t i) {
 
 static void gen_num() {
   char str[32] ;
-  int size = sprintf(str,"%d",rand()%256);
+  uint32_t size = sprintf(str,"%u",rand()%256);
   for(int i=0; i<size; i++) {
     buf[n] = str[i];
     n++;
@@ -58,6 +59,91 @@ static void gen_rand_expr() {
   buf[n] = '\0';
 }
 
+static bool check_parentheses(int p,int q){
+    int i;
+    int num = 0;
+    int pair = 0;
+    for(i=p;i<=q;i++) { 
+      if( buf[i] == '(')   
+        num++;
+      else if ( buf[i] == ')' ) {
+        num--;
+        if(num == 0)  pair++; 
+      }
+    }
+    if ( (buf[p] == '(') && (buf[q] == ')') && (pair == 1) ) {
+      return true; 
+    }
+    else 
+      return false;
+}
+
+static uint32_t eval(int p, int q, bool *success ){
+    int op=0;
+    int nu=0;
+    int i,j;
+    int op1=0,op2=0;
+    int nonum=0;
+
+    for(i=p;i<=q;i++) {
+      if ( (buf[i]=='(') || (buf[i]==')') ||
+          (buf[i]=='+') || (buf[i]=='-') || 
+          (buf[i]=='*') || (buf[i]=='/') )
+        nonum++;
+    }
+
+    if(nonum == 0) {
+      char number[30] = {};
+      j = 0 ;
+      for(i = p; i <=q; i++) {
+        number[j] = buf[i];
+        j ++ ;
+      }
+      number[j] = '\0';
+      return (uint32_t)atoi(number);
+    }
+    else if (check_parentheses(p,q) == true) {
+      return eval(p+1, q-1,success);
+    }
+    else {
+      for(i=p; i<=q; i++){
+        if( buf[i]=='(') 
+          nu++;
+        else if ( buf[i] == ')' ) 
+          nu--;
+        else if ( nu == 0 ) {
+          if( (buf[i] == '+') || (buf[i] == '-') ) 
+            op1 = i;
+          else if ( (buf[i] == '*') || (buf[i] == '/') ) 
+            op2 = i;
+        }
+      }
+      op = (op1==0)? op2 : op1 ;
+      uint32_t val1 = eval(p ,op-1,success);
+      uint32_t val2 = eval(op+1, q,success);
+      //int result;
+      switch (buf[op]) {
+        case '+': return  val1 + val2;
+        case '-': if(val2 <= val1) 
+                    return val1 - val2;
+                  else { 
+                    *success = false;
+                    return 0;
+                  }
+        case '*': return val1 * val2;
+        case '/': if (val2 == 0) {
+                    *success = false;
+                    return 0;
+                  }
+                  else
+                    return val1 / val2;
+        default : *success = false;
+                  return 0;
+      } 
+    } 
+}
+
+
 int main(int argc, char *argv[]) {
   int seed = time(0);
   srand(seed);
@@ -66,28 +152,33 @@ int main(int argc, char *argv[]) {
     sscanf(argv[1], "%d", &loop);
   }
   int i;
+  bool success=true;
   for (i = 0; i < loop; i ++) {
     gen_rand_expr();
-
-    sprintf(code_buf, code_format, buf);
-
-    FILE *fp = fopen("/tmp/.code.c", "w");
-    assert(fp != NULL);
-    fputs(code_buf, fp);
-    fclose(fp);
-
-    int ret = system("gcc /tmp/.code.c -o /tmp/.expr");
-    if (ret != 0) continue;
-
-    fp = popen("/tmp/.expr", "r");
-    assert(fp != NULL);
-
-    int result;
-    int x = fscanf(fp, "%d", &result);
-    if(x==EOF) continue;
-    pclose(fp);
-
-    printf("%u %s\n", result, buf);
+    eval(0,n-1,&success);
+    if(success == true) {
+  
+      sprintf(code_buf, code_format, buf);
+  
+      FILE *fp = fopen("/tmp/.code.c", "w");
+      assert(fp != NULL);
+      fputs(code_buf, fp);
+      fclose(fp);
+  
+      int ret = system("gcc /tmp/.code.c -o /tmp/.expr");
+      if (ret != 0) continue;
+  
+      fp = popen("/tmp/.expr", "r");
+      assert(fp != NULL);
+  
+      uint32_t result;
+      int x = fscanf(fp, "%u", &result);
+      if(x==EOF) continue;
+      pclose(fp);
+  
+      printf("%u %s\n", result, buf);
+    }
+    success = true;
     n=0;
   }
   return 0;
