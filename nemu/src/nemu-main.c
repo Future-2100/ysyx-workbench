@@ -21,16 +21,17 @@ int main(int argc, char *argv[]) {
 
   return is_exit_status_bad();
   */
-/*
+
 
   FILE *fp=NULL;
+  fp = fopen("./input","r");
+/*
   word_t result;
   char buff[255];
   bool success = true;
   int a,b;
   printf("test1");
 
-  fp = fopen("./input","r");
   printf("test2");
   for(int i=0; i<TEST_NUM; i++) {
     a = fscanf(fp, "%ld", &result);
@@ -47,7 +48,8 @@ int main(int argc, char *argv[]) {
    }
 
   }
-  fclose(fp);
 */
+
+  fclose(fp);
   return 0;
 }
