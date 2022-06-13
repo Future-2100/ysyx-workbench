@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
     if(a!=EOF && b!=EOF) {
       answer = expr(buff,&success);
       if(success == true && answer==result) {
-        printf("%s = %ld----",buff,answer);
+        printf("%d:%s = %ld----",i,buff,answer);
         printf("success\n");
       }
       else
