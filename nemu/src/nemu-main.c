@@ -27,31 +27,23 @@ int main(int argc, char *argv[]) {
   fp = fopen("./input","r");
   char buff[255];
   int a=0,b=0;
-  word_t result=0;
-    a = fscanf(fp, "%ld", &result);
-    b = fscanf(fp, "%s" , buff);
-    if(a==EOF || b==EOF) ; 
-    else
-      printf("%s==%ld\n",buff,result);
+  word_t result=0,answer=0;
     
-/*
   bool success = true;
 
   for(int i=0; i<TEST_NUM; i++) {
     a = fscanf(fp, "%ld", &result);
     b = fscanf(fp, "%s" , buff);
-    if(a==EOF || b==EOF) continue;
-
-   if(result==expr(buff,&success)) {
-     if(success == true)
-       printf("success\n");
+    if(a!=EOF && b!=EOF) {
+      answer = expr(buff,&success);
+      if(success == true && answer==result)
+        printf("success\n");
    
-     else {
-      printf("error\n");
-     }
+      else
+        printf("error\n");
    }
   }
-*/
+
   fclose(fp);
   return 0;
 }
