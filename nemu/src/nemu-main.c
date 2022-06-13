@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
     
   bool success = true;
 
-  for(int i=0; i<TEST_NUM; i++) {
+  //for(int i=0; i<TEST_NUM; i++) {
     a = fscanf(fp, "%ld", &result);
     b = fscanf(fp, "%s" , buff);
     if(a!=EOF && b!=EOF) {
@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
       else
         printf("error\n");
    }
-  }
+  //}
 
   fclose(fp);
   return 0;
