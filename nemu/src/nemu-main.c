@@ -21,6 +21,7 @@ int main(int argc, char *argv[]) {
 
   return is_exit_status_bad();
   */
+/*
 
   FILE *fp=NULL;
   word_t result;
@@ -47,6 +48,6 @@ int main(int argc, char *argv[]) {
 
   }
   fclose(fp);
-
+*/
   return 0;
 }
