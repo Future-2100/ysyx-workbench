@@ -182,18 +182,6 @@ static word_t eval(int p, int q, bool *success){
     return 0;
   }
 
-  else if (q == p+1) {
-    if(tokens[p].type == TK_POINT) {
-      vaddr_t addr = (vaddr_t)eval(q,q,success);
-        return vaddr_read(addr,4);
-    }
-    else {
-      *success = false;
-      printf("Bad expression, POINT error!\n");
-      return 0;
-    }
-  }
-
   else if (p == q) {
     word_t result;
     switch (tokens[p].type) {
@@ -216,42 +204,53 @@ static word_t eval(int p, int q, bool *success){
     int op_2=0;
     int op_3=0;
     int op_4=0;
-    for(n=0; n <= (q-p); n++) {
-      if( tokens[p+n].type=='(' )
+    int op_5=0;
+    for(n=p; n <= q; n++) {
+      if( tokens[n].type=='(' )
         point ++ ;
-      else if ( tokens[p+n].type==')' ) {
+      else if ( tokens[n].type==')' ) {
         point -- ;
       }
       if(point==0) {
-        if( tokens[p+n].type == TK_AND )
-          op_1 = p+n;
-        if( tokens[p+n].type == TK_EQ || tokens[p+n].type == TK_NE )
-          op_2 = p+n;
-        if( tokens[p+n].type == '+'   || tokens[p+n].type == '-' )
-          op_3 = p+n;
-        if( tokens[p+n].type == '*'   || tokens[p+n].type == '/' )
-          op_4 = p+n;
+        if( tokens[n].type == TK_AND )
+          op_1 = n;
+        if( tokens[n].type == TK_EQ || tokens[n].type == TK_NE )
+          op_2 = n;
+        if( tokens[n].type == '+'   || tokens[n].type == '-' )
+          op_3 = n;
+        if( tokens[n].type == '*'   || tokens[n].type == '/' )
+          op_4 = n;
+        if( tokens[n].type == TK_POINT)
+          op_5 = n;
       }
     }
     int op;
     if      ( op_1 != 0 ) op = op_1;
     else if ( op_2 != 0 ) op = op_2;
     else if ( op_3 != 0 ) op = op_3;
-    else                  op = op_4;
+    else if ( op_4 != 0 ) op = op_4;
+    else                  op = op_5;
 
-    word_t val1 = eval(p,op-1,success);
-    word_t val2 = eval(op+1,q,success);
+    if(tokens[op].type == TK_POINT) {
+      vaddr_t addr = (vaddr_t) eval(p+1,q,success);
+      return vaddr_read(addr,4);
+    }
 
-    switch (tokens[op].type) {
-      case ('+')    : return  val1 +  val2 ;  break;  
-      case ('-')    : return  val1 -  val2 ;  break;
-      case ('*')    : return  val1 *  val2 ;  break;
-      case ('/')    : return  val1 /  val2 ;  break;
-      case (TK_EQ)  : return (val1 == val2);  break;
-      case (TK_NE)  : return (val1 != val2);  break;
-      case (TK_AND) : return (val1 && val2);  break;
-      default       : *success = false     ;  
-                      return 0             ; 
+    else {
+      word_t val1 = eval(p,op-1,success);
+      word_t val2 = eval(op+1,q,success);
+
+      switch (tokens[op].type) {
+        case ('+')    : return  val1 +  val2 ;  break;  
+        case ('-')    : return  val1 -  val2 ;  break;
+        case ('*')    : return  val1 *  val2 ;  break;
+        case ('/')    : return  val1 /  val2 ;  break;
+        case (TK_EQ)  : return (val1 == val2);  break;
+        case (TK_NE)  : return (val1 != val2);  break;
+        case (TK_AND) : return (val1 && val2);  break;
+        default       : *success = false     ;  
+                        return 0             ; 
+      }
     }
   }
 }
