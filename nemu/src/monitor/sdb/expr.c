@@ -6,10 +6,10 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,
-
+  TK_NOTYPE = 256, 
   /* TODO: Add more token types */
-  TK_NUM,
+  TK_EQ, TK_NE, TK_AND,
+  TK_NUM, TK_HEX, TK_REG, TK_POINT,
 
 };
 
@@ -24,13 +24,18 @@ static struct rule {
 
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
-  {"==", TK_EQ},        // equal
   {"-" , '-'},
   {"\\*" , '*'},
   {"/" , '/'},
+  {"&&",TK_AND},
+  {"==", TK_EQ},        // equal
+  {"!=", TK_NE},
   {"[0-9]+", TK_NUM} ,
+  {"^0x[0-9a-fA-F]+",TK_HEX},
+  {"^\\$[\\$a-z0-9]+",TK_REG},
   {"\\(" , '('},
   {"\\)" , ')'},
+
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -85,23 +90,48 @@ static bool make_token(char *e) {
           case (TK_NOTYPE) :                                 break;
           case ('+')       : tokens[nr_token].type = '+'   ; break;
           case ('-')       : tokens[nr_token].type = '-'   ; break;
-          case ('*')       : tokens[nr_token].type = '*'   ; break;
+          case ('*')       : 
+            if( (nr_token==0) || ( tokens[nr_token-1].type != TK_NUM &&
+                                   tokens[nr_token-1].type != TK_HEX &&
+                                   tokens[nr_token-1].type != TK_REG &&
+                                   tokens[nr_token-1].type != ')' 
+                                   ) 
+                ) 
+                             tokens[nr_token].type = TK_POINT; 
+            else             tokens[nr_token].type = '*'   ;  
+                                                             break;
+                             tokens[nr_token].type = '*'   ; break;
           case ('/')       : tokens[nr_token].type = '/'   ; break;
           case ('(')       : tokens[nr_token].type = '('   ; break;
           case (')')       : tokens[nr_token].type = ')'   ; break;
           case (TK_NUM)    : tokens[nr_token].type = TK_NUM; break;
-          default          : assert(0)                     ; break;
+          case (TK_HEX)    : tokens[nr_token].type = TK_HEX; break;
+          case (TK_REG)    : tokens[nr_token].type = TK_REG; break;
+          case (TK_EQ )    : tokens[nr_token].type = TK_EQ ; break;
+          case (TK_NE )    : tokens[nr_token].type = TK_NE ; break;
+          case (TK_AND)    : tokens[nr_token].type = TK_AND; break;
+          default          : return false                  ; break;
         }
-        if( rules[i].token_type == TK_NUM ) {
+        if( rules[i].token_type == TK_NUM ||
+            rules[i].token_type == TK_HEX ||
+            rules[i].token_type == TK_REG 
+            ) 
+        {
           int j;
-          for(j=0; j<substr_len; j++) {
-            tokens[nr_token].str[j] = substr_start[j];
-          }
+          if(substr_len <=32) 
+          {
+            for(j=0; j<substr_len; j++)
+              tokens[nr_token].str[j] = substr_start[j];
             tokens[nr_token].str[j] = '\0';
+          }
+          else 
+          {
+            printf("error: beyond the boundary of tokens.str\n");
+            return false;
+          }
         }
         if( rules[i].token_type != TK_NOTYPE )
           nr_token++;
-
         break;
       }
     }
@@ -172,6 +202,8 @@ static word_t eval(int p, int q, bool *success){
     int point=0;
     int op_1=0;
     int op_2=0;
+    int op_3=0;
+    int op_4=0;
     for(n=0; n <= (q-p); n++) {
       if( tokens[p+n].type=='(' )
         point ++ ;
@@ -179,29 +211,39 @@ static word_t eval(int p, int q, bool *success){
         point -- ;
       }
       if(point==0) {
-        if( tokens[p+n].type=='+' || tokens[p+n].type=='-' )
+        if( tokens[p+n].type == TK_AND )
           op_1 = p+n;
-        if( tokens[p+n].type=='*' || tokens[p+n].type=='/' )
+        if( tokens[p+n].type == TK_EQ || tokens[p+n].type == TK_NE )
           op_2 = p+n;
+        if( tokens[p+n].type == '+'   || tokens[p+n].type == '-' )
+          op_3 = p+n;
+        if( tokens[p+n].type == '*'   || tokens[p+n].type == '/' )
+          op_4 = p+n;
       }
     }
     int op;
-    if( op_1 !=0 ) op = op_1;
-    else op = op_2;
+    if      ( op_1 != 0 ) op = op_1;
+    else if ( op_2 != 0 ) op = op_2;
+    else if ( op_3 != 0 ) op = op_3;
+    else                  op = op_4;
 
     word_t val1 = eval(p,op-1,success);
     word_t val2 = eval(op+1,q,success);
 
     switch (tokens[op].type) {
-      case ('+') : return val1 + val2;  break;  
-      case ('-') : return val1 - val2;  break;
-      case ('*') : return val1 * val2;  break;
-      case ('/') : return val1 / val2;  break;
-      default  :          assert(0);  break;
+      case ('+')    : return  val1 +  val2 ;  break;  
+      case ('-')    : return  val1 -  val2 ;  break;
+      case ('*')    : return  val1 *  val2 ;  break;
+      case ('/')    : return  val1 /  val2 ;  break;
+      case (TK_EQ)  : return (val1 == val2);  break;
+      case (TK_NE)  : return (val1 != val2);  break;
+      case (TK_AND) : return (val1 && val2);  break;
+      default       : *success = false     ;  
+                      return 0             ;  break;
     }
   }
-
 }
+
 
 word_t expr(char *e, bool *success) {
   *success = true;
