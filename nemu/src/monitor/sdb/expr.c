@@ -1,4 +1,5 @@
 #include <isa.h>
+#include <memory/vaddr.h>
 
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
@@ -110,7 +111,7 @@ static bool make_token(char *e) {
           case (TK_EQ )    : tokens[nr_token].type = TK_EQ ; break;
           case (TK_NE )    : tokens[nr_token].type = TK_NE ; break;
           case (TK_AND)    : tokens[nr_token].type = TK_AND; break;
-          default          : return false                  ; break;
+          default          : return false                  ; 
         }
         if( rules[i].token_type == TK_NUM ||
             rules[i].token_type == TK_HEX ||
@@ -176,23 +177,34 @@ static bool check_parentheses(int p,int q,bool *success) {
 
 static word_t eval(int p, int q, bool *success){
   if(p>q) {
-    printf("Bad expression, p > q");
+    printf("Bad expression, p > q !\n");
     *success = false;
     return 0;
   }
-  else if (p == q) {
-    word_t result;
-    if(tokens[p].type==TK_NUM) {
-      sscanf(tokens[p].str, "%ld", &result);
-      return result;
+
+  else if (q == p+1) {
+    if(tokens[p].type == TK_POINT) {
+      vaddr_t addr = (vaddr_t)eval(q,q,success);
+        return vaddr_read(addr,4);
     }
     else {
-      printf("Bad expression, p==q but type is not TK_NUM.\n");
       *success = false;
+      printf("Bad expression, POINT error!\n");
       return 0;
     }
-
   }
+
+  else if (p == q) {
+    word_t result;
+    switch (tokens[p].type) {
+      case TK_NUM: sscanf(tokens[p].str, "%ld"  , &result); break;
+      case TK_HEX: sscanf(tokens[p].str, "0x%lx", &result); break;
+      case TK_REG: result = isa_reg_str2val(tokens[p].str+1, success); break;
+      default    : printf("Bad expression, p==q !\n"); result=0; *success = false;
+    }
+    return result;
+  }
+
   else if (check_parentheses(p,q,success)==true){
     return eval(p+1,q-1,success);
   }
@@ -239,7 +251,7 @@ static word_t eval(int p, int q, bool *success){
       case (TK_NE)  : return (val1 != val2);  break;
       case (TK_AND) : return (val1 && val2);  break;
       default       : *success = false     ;  
-                      return 0             ;  break;
+                      return 0             ; 
     }
   }
 }
