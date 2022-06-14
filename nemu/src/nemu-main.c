@@ -16,13 +16,13 @@ int main(int argc, char *argv[]) {
   init_monitor(argc, argv);
 #endif
 
-  // Start engine. 
- // engine_start();
+ //  Start engine. 
+    engine_start();
 
-//  return is_exit_status_bad();
+    return is_exit_status_bad();
  
 
-
+/*
   FILE *fp=NULL;
   fp = fopen("./input","r");
   char buff[1024];
@@ -49,4 +49,5 @@ int main(int argc, char *argv[]) {
 
   fclose(fp);
   return 0;
+  */
 }
