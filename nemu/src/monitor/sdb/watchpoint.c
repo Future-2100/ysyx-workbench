@@ -71,10 +71,12 @@ void free_wp(WP *wp) {
     wp->using = false;
 
     if(free_.next == NULL) {
+      printf("free_.next = NULL");
       free_.next = wp;
       wp->next = NULL;
     }
     else {
+      printf("free_.next != NULL");
 
       WP *p = &head;
       WP *q = &free_;
