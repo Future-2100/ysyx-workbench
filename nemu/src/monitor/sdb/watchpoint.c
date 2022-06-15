@@ -46,6 +46,7 @@ void new_wp(char *arg) {
     q->next = p->next;
     p->next = q;
     strcpy(q->expr, arg);
+    printf("watchpoint NO.%d : %s \n",q->NO,q->expr);
   }
 }
 
