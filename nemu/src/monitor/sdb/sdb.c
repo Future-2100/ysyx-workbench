@@ -109,8 +109,8 @@ static int cmd_w(char *args){
     return 0;
   }
   else {
-    WP *wp = new_wp(arg);
-    printf("watchpoint NO.%d : %s \n",wp->NO,wp->expr);
+    //WP *wp = new_wp(arg);
+    //printf("watchpoint NO.%d : %s \n",wp->NO,wp->expr);
     return 0;
   }
 }
@@ -124,7 +124,7 @@ static int cmd_d(char *args){
   else {
     int N;
     sscanf(arg,"%d", &N);
-    free_wp(wp_pool+N-1);
+    //free_wp(wp_pool+N-1);
     return 0;
   }
 }
