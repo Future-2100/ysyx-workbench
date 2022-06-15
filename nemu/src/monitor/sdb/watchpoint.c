@@ -10,6 +10,7 @@ typedef struct watchpoint {
   char expr[64];
   word_t result_pre;
   word_t result_now;
+  bool using;
 } WP ;
 
 static WP wp_pool[NR_WP] = {};
@@ -22,12 +23,17 @@ void init_wp_pool() {
   for (i = 0; i < NR_WP; i ++) {
     wp_pool[i].NO = i+1;
     wp_pool[i].next = (i == NR_WP - 1 ? NULL : &wp_pool[i + 1]);
+    wp_pool[i].result_pre = 0;
+    wp_pool[i].result_now = 0;
+    wp_pool[i].using = false;
   }
 
   head.next = NULL;
   head.NO = 0;
+  head.using = true;
   free_.next = wp_pool;
   free_.NO = 0;
+  free_.using = false;
 }
 
 /* TODO: Implement the functionality of watchpoint */
@@ -46,28 +52,37 @@ void new_wp(char *arg) {
     q->next = p->next;
     p->next = q;
     strcpy(q->expr, arg);
+    q->using = true;
     printf("watchpoint NO.%d : %s \n",q->NO,q->expr);
   }
 }
 
 void free_wp(WP *wp) {
-  WP *p = &head;
-  WP *q = &free_;
-
-  char *arg = NULL;
-  strcpy(wp->expr, arg);
-  wp->result_pre = 0;
-  wp->result_now = 0;
-
-  while(p->next != wp) {
-    p = p->next;
+  if(wp->using == false) {
+    printf("the watchpoint NO.%d is not in using\n",wp->NO);
+    return ;
   }
-  p->next = wp->next;
-  while( wp->NO < q->NO || wp->NO > q->next->NO ) {
-    q = q->next;
+  else {
+    WP *p = &head;
+    WP *q = &free_;
+
+    char *arg = NULL;
+    strcpy(wp->expr, arg);
+    wp->result_pre = 0;
+    wp->result_now = 0;
+
+    while(p->next != wp) {
+      p = p->next;
+    }
+    p->next = wp->next;
+    while( wp->NO < q->NO || wp->NO > q->next->NO ) {
+      q = q->next;
+    }
+    wp->next = q->next;
+    q->next = wp;
+    wp->using = false;
+    printf("deleted the watchpoint NO.%d \n", wp->NO);
   }
-  wp->next = q->next;
-  q->next = wp;
 }
 
 void free_no(int NO) {
