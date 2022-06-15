@@ -16,24 +16,35 @@ typedef struct watchpoint {
 static WP wp_pool[NR_WP] = {};
 
 static WP head ;
+static WP head_end;
 static WP free_;
+static WP free_end;
 
 void init_wp_pool() {
   int i;
   for (i = 0; i < NR_WP; i ++) {
     wp_pool[i].NO = i+1;
-    wp_pool[i].next = (i == NR_WP - 1 ? NULL : &wp_pool[i + 1]);
+    wp_pool[i].next = (i == NR_WP - 1 ? &free_end : &wp_pool[i + 1]);
     wp_pool[i].result_pre = 0;
     wp_pool[i].result_now = 0;
     wp_pool[i].using = false;
   }
 
-  head.next = NULL;
+  head.next = &head_end;
   head.NO = 0;
   head.using = true;
+  
+  head_end.next = NULL;
+  head_end.NO   = NR_WP+1; 
+  head_end.using = true;
+
   free_.next = wp_pool;
   free_.NO = 0;
   free_.using = false;
+
+  free_end.next = NULL;
+  free_end.NO = NR_WP+1;
+  free_end.using = false;
 }
 
 /* TODO: Implement the functionality of watchpoint */
@@ -71,12 +82,12 @@ void free_wp(WP *wp) {
     wp->result_now = 0;
     wp->using = false;
 
-    if(free_.next == NULL) {
+ /*   if(free_.next == NULL) {
       printf("free_.next = NULL\n");
       free_.next = wp;
       wp->next = NULL;
-    }
-    else {
+    }  */
+//    else {
       printf("free_.next != NULL\n");
 
       WP *p = &head;
@@ -87,7 +98,6 @@ void free_wp(WP *wp) {
       while(p->next != wp) {
         p = p->next;
         printf("3\n");
-
       }
       printf("4\n");
 
@@ -102,7 +112,7 @@ void free_wp(WP *wp) {
 
       q->next = wp;
       printf("8\n");
-    }
+ //   }
     printf("deleted the watchpoint NO.%d \n", wp->NO);
   }
 }
