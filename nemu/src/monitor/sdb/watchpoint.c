@@ -42,7 +42,8 @@ void new_wp(char *arg) {
   WP *p = &head;
   WP *q = free_.next;
   if( q == NULL) {
-    assert(0);
+    printf("the number of the watchpoint is not enough!\n");
+    return ;
   }
   else {
     free_.next = q->next;
