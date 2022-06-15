@@ -123,8 +123,14 @@ static int cmd_d(char *args){
   else {
     int N;
     sscanf(arg,"%d", &N);
-    free_no(N);
-    return 0;
+    if( N < 1 || N > 32) {
+      printf("Error: N should be 1~32\n");
+      return 0;
+    }
+    else {
+      free_no(N);
+      return 0;
+    }
   }
 }
 
