@@ -1,5 +1,9 @@
 mainmenu "NEMU Configuration Menu"
 
+config WATCHPOINT
+  bool "Enable watchpoint"
+  default n
+
 choice
   prompt "Base ISA"
   default ISA_riscv32
@@ -25,7 +29,6 @@ config ISA64
   depends on ISA_riscv64
   bool
   default y
-
 
 choice
   prompt "NEMU execution engine"
