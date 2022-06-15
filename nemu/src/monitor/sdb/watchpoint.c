@@ -59,12 +59,13 @@ void new_wp(char *arg) {
 }
 
 void free_wp(WP *wp) {
+
+  printf("???\n");
   if(wp->using == false) {
     printf("the watchpoint NO.%d is not in using\n",wp->NO);
     return ;
   }
   else {
-    printf("???");
     //char *arg = NULL;
     //strcpy(wp->expr, arg);
     wp->result_pre = 0;
@@ -72,12 +73,12 @@ void free_wp(WP *wp) {
     wp->using = false;
 
     if(free_.next == NULL) {
-      printf("free_.next = NULL");
+      printf("free_.next = NULL\n");
       free_.next = wp;
       wp->next = NULL;
     }
     else {
-      printf("free_.next != NULL");
+      printf("free_.next != NULL\n");
 
       WP *p = &head;
       WP *q = &free_;
