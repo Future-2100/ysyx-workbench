@@ -31,7 +31,7 @@ WP* new_wp(char *arg) {
     }
     q->next = p->next;
     p->next = q;
-    q->expr = arg;
+    strcpy(q->expr, arg);
     return q;
   }
 }
@@ -40,7 +40,8 @@ void free_wp(WP *wp) {
   WP *p = &head;
   WP *q = &free_;
 
-  wp->expr = NULL;
+  char *arg = NULL;
+  strcpy(wp->expr, arg);
   wp->result_pre = 0;
   wp->result_now = 0;
 
