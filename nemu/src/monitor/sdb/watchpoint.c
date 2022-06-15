@@ -138,6 +138,7 @@ void info_w() {
   WP *p = head.next;
   while(p->next !=NULL) {
     printf("watchpoint NO.%d : %s = (%ld,%ld)\n",p->NO,p->expr,p->result_pre,p->result_now);
+    p = p->next;
   }
 }
 
