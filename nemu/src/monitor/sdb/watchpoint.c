@@ -60,7 +60,6 @@ void new_wp(char *arg) {
 
 void free_wp(WP *wp) {
 
-  printf("???\n");
   if(wp->using == false) {
     printf("the watchpoint NO.%d is not in using\n",wp->NO);
     return ;
@@ -81,17 +80,28 @@ void free_wp(WP *wp) {
       printf("free_.next != NULL\n");
 
       WP *p = &head;
+      printf("1\n");
       WP *q = &free_;
+      printf("2\n");
 
       while(p->next != wp) {
         p = p->next;
+        printf("3\n");
+
       }
+      printf("4\n");
+
       p->next = wp->next;
+      printf("5\n");
       while( wp->NO < q->NO || wp->NO > q->next->NO ) {
         q = q->next;
+        printf("6\n");
       }
       wp->next = q->next;
+      printf("7\n");
+
       q->next = wp;
+      printf("8\n");
     }
     printf("deleted the watchpoint NO.%d \n", wp->NO);
   }
