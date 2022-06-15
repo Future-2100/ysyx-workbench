@@ -68,14 +68,29 @@ static int cmd_info(char *args) {
 
 static int cmd_x(char *args){
   int N;
-  vaddr_t addr;
-  sscanf(args, "%d 0x%lx", &N,&addr);
-  for(int i=0; i < N; i++) {
-   printf("0x%08lx = 0x%08lx\n",addr,vaddr_read(addr,4));
-    addr += 4;
+  char *arg = strtok(NULL, " ");
+  if(arg == NULL) { 
+    printf("Error : missing the parameter N!\n");
+    return 0;
   }
+  else {
+    sscanf(arg, "%d", &N);
+    arg = strtok(NULL, " ");
+    if(arg == NULL) {
+      printf("Error: missing the expression EXPR !\n");
+      return 0;
+    }
+    else{
+      bool success = true;
+      vaddr_t addr;
+      addr = (vaddr_t)expr(arg, &success);
+      for(int i=0; i < N; i++) {
+        printf("0x%08lx = 0x%08lx\n",addr,vaddr_read(addr,4));
+        addr += 4;
+      }
+    }
   return 0;
-
+  }
 }
 
 static int cmd_p(char *args){
