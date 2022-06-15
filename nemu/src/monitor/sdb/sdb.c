@@ -128,7 +128,7 @@ static int cmd_d(char *args){
       return 0;
     }
     else {
-      free_no(N);
+      free_NO(N);
       return 0;
     }
   }
