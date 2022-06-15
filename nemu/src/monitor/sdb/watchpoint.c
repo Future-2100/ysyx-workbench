@@ -70,3 +70,6 @@ void free_wp(WP *wp) {
   q->next = wp;
 }
 
+void free_no(int NO) {
+  free_wp(wp_pool+NO-1);
+}

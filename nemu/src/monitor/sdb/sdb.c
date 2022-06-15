@@ -123,7 +123,7 @@ static int cmd_d(char *args){
   else {
     int N;
     sscanf(arg,"%d", &N);
-    //free_wp(wp_pool+N-1);
+    free_no(N);
     return 0;
   }
 }
