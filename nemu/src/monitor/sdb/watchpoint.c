@@ -64,24 +64,31 @@ void free_wp(WP *wp) {
     return ;
   }
   else {
-    WP *p = &head;
-    WP *q = &free_;
-
-    //char *arg = NULL;
-    //strcpy(wp->expr, arg);
-    wp->result_pre = 0;
-    wp->result_now = 0;
-    wp->using = false;
-
-    while(p->next != wp) {
-      p = p->next;
+    if(free_.next == NULL) {
+      free_.next = wp;
+      wp->next = NULL;
     }
-    p->next = wp->next;
-    while( wp->NO < q->NO || wp->NO > q->next->NO ) {
-      q = q->next;
+    else {
+
+      WP *p = &head;
+      WP *q = &free_;
+
+      //char *arg = NULL;
+      //strcpy(wp->expr, arg);
+      wp->result_pre = 0;
+      wp->result_now = 0;
+      wp->using = false;
+
+      while(p->next != wp) {
+        p = p->next;
+      }
+      p->next = wp->next;
+      while( wp->NO < q->NO || wp->NO > q->next->NO ) {
+        q = q->next;
+      }
+      wp->next = q->next;
+      q->next = wp;
     }
-    wp->next = q->next;
-    q->next = wp;
     printf("deleted the watchpoint NO.%d \n", wp->NO);
   }
 }
