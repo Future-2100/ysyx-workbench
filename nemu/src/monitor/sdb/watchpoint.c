@@ -40,8 +40,8 @@ void free_wp(WP *wp) {
   WP *p = &head;
   WP *q = &free_;
 
-  char *arg = NULL;
-  strcpy(wp->expr, arg);
+//  char *arg = NULL;
+//  strcpy(wp->expr, arg);
   wp->result_pre = 0;
   wp->result_now = 0;
 
