@@ -64,6 +64,10 @@ void free_wp(WP *wp) {
     return ;
   }
   else {
+    wp->result_pre = 0;
+    wp->result_now = 0;
+    wp->using = false;
+
     if(free_.next == NULL) {
       free_.next = wp;
       wp->next = NULL;
@@ -75,9 +79,6 @@ void free_wp(WP *wp) {
 
       //char *arg = NULL;
       //strcpy(wp->expr, arg);
-      wp->result_pre = 0;
-      wp->result_now = 0;
-      wp->using = false;
 
       while(p->next != wp) {
         p = p->next;
