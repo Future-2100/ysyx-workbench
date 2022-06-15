@@ -52,7 +52,7 @@ void init_wp_pool() {
 void new_wp(char *arg) {
   WP *p = &head;
   WP *q = free_.next;
-  if( q == NULL) {
+  if( q == &free_end) {
     printf("the number of the watchpoint is not enough!\n");
     return ;
   }
