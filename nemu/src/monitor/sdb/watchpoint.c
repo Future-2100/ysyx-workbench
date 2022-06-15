@@ -33,10 +33,14 @@ void init_wp_pool() {
   head.next = &head_end;
   head.NO = 0;
   head.using = true;
+  strcpy(head.expr,"0");
+  //head.expr = "0";
   
   head_end.next = NULL;
   head_end.NO   = NR_WP+1; 
   head_end.using = true;
+  strcpy(head_end.expr,"0");
+  //head_end.expr = "0";
 
   free_.next = wp_pool;
   free_.NO = 0;
@@ -69,7 +73,7 @@ void new_wp(char *arg) {
   }
 }
 
-void free_wp(WP *wp) {
+static void free_wp(WP *wp) {
 
   if(wp->using == false) {
     printf("the watchpoint NO.%d is not in using\n",wp->NO);
@@ -81,7 +85,6 @@ void free_wp(WP *wp) {
       wp->result_pre = 0;
       wp->result_now = 0;
       wp->using = false;
-      printf("free_.next != NULL\n");
 
       WP *p = &head;
       WP *q = &free_;
@@ -105,3 +108,29 @@ void free_NO(int NO) {
   printf("deleting the watchpoint NO.%d...\n",(wp_pool+NO-1)->NO);
   free_wp(wp_pool+NO-1);
 }
+
+bool head_expr() {
+  WP *p = head.next;
+  bool success=true;
+  word_t result;
+  bool stop = false;
+
+  while (p->next != NULL) {
+    result = expr(p->expr,&success);
+    if(success==false) {
+      printf("watchpoint NO.%d : %s , expression calculated error\n",p->NO,p->expr);
+      return true;
+    }
+    else {
+      p->result_pre = p->result_now;
+      p->result_now = result;
+      if (p->result_pre != p->result_now) {
+        printf("watchpoint NO.%d : %s = (%ld->%ld)",p->NO,p->expr,p->result_pre,p->result_now);
+        stop = true;
+      }
+    }
+    p = p->next;
+  }
+  return stop;
+}
+

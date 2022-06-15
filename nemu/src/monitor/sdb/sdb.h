@@ -8,5 +8,6 @@ word_t expr(char *e, bool *success);
 
 void new_wp(char *arg);
 void free_NO(int NO);
+bool head_expr();
 
 #endif
