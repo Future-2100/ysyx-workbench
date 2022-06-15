@@ -64,6 +64,7 @@ void free_wp(WP *wp) {
     return ;
   }
   else {
+    printf("???");
     //char *arg = NULL;
     //strcpy(wp->expr, arg);
     wp->result_pre = 0;
