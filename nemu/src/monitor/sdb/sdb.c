@@ -102,6 +102,33 @@ static int cmd_p(char *args){
   return 0;
 }
 
+static int cmd_w(char *args){
+  char *arg = strtok(NULL, " ");
+  if(arg == NULL) {
+    printf("Error: failed to apply for a watchpoint, missing the expression EXPR !\n");
+    return 0;
+  }
+  else {
+    WP *wp = new_wp(arg);
+    printf("watchpoint NO.%d : %s \n",wp->NO,wp->expr);
+    return 0;
+  }
+}
+
+static int cmd_d(char *args){
+  char *arg = strtok(NULL," ");
+  if(arg == NULL) {
+    printf("Error: missing the sequence number N !\n");
+    return 0;
+  }
+  else {
+    int N;
+    sscanf(arg,"%d", &N);
+    free_wp(wp_pool+N-1);
+    return 0;
+  }
+}
+
 static struct {
   const char *name;
   const char *description;
@@ -117,6 +144,8 @@ static struct {
        w : Print watch point information", cmd_info},
   { "x" , "Solve the expression EXPR, take the result as the first memory address, and output N consecutive 4 bytes in hex form", cmd_x},
   { "p" , "Solve the expression EXPR", cmd_p},
+  { "w" , "Pauses the execution of program when the value of expression EXPR changes", cmd_w},
+  { "d" , "Delete the watchpoint with sequence number N", cmd_d},
 };
 
 #define NR_CMD ARRLEN(cmd_table)
