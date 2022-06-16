@@ -70,7 +70,7 @@ static int decode_exec(Decode *s) {
   INSTPAT("??????? ????? ????? 111 ????? 11000 11", bgeu   , B, if((unsigned)src1 >=(unsigned)src2)  s->dnpc = dest + s->pc );
   //lb
   //lh
-  //lw--------------
+  INSTPAT("??????? ????? ????? 010 ????? 00000 11", lw     , I,  R(dest) = SEXT(Mr(src1 + src2, 4),32));
   //lbu
   //lhu
   //sb
@@ -105,7 +105,7 @@ static int decode_exec(Decode *s) {
   //slliw
   //srliw
   //sraiw
-  //addw-----------
+  INSTPAT("0000000 ????? ????? 000 ????? 01110 11", addw   , R, R(dest) = SEXT(BITS((BITS(src1,31,0) + BITS(src2,31,0)),31,0), 32) );
   //subw
   //sllw
   //srlw
