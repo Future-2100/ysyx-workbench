@@ -103,13 +103,13 @@ static int cmd_p(char *args){
 }
 
 static int cmd_w(char *args){
-  char *arg = strtok(NULL, " ");
-  if(arg == NULL) {
+  //char *arg = strtok(NULL, " ");
+  if(args == NULL) {
     printf("Error: failed to apply for a watchpoint, missing the expression EXPR !\n");
     return 0;
   }
   else {
-    new_wp(arg);
+    new_wp(args);
     return 0;
   }
 }
