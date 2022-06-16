@@ -125,7 +125,10 @@ bool head_expr() {
       p->result_pre = p->result_now;
       p->result_now = result;
       if (p->result_pre != p->result_now) {
-        printf("watchpoint NO.%d : %s = (%ld->%ld)\n",p->NO,p->expr,p->result_pre,p->result_now);
+        printf("watchpoint NO.%d : %s \n",p->NO,p->expr); 
+        printf("\n");
+        printf("Old value = %ld\n",p->result_pre);
+        printf("New value = %ld\n",p->result_now);
         stop = true;
       }
     }
