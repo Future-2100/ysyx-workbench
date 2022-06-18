@@ -17,16 +17,18 @@ size_t strlen(const char *s) {
 
 char *strcpy(char *dst, const char *src) {
 
-  size_t i = 0;
+  if(dst == NULL || src == NULL) {
+    return NULL;
+  }
 
-  while ( src[i] != '\0' ){
-    dst[i] = src[i];
+  size_t i=0;
+  while ( *(src+i) != '\0' ) {
+    *(dst+i) = *(src+i);
     i++;
   }
 
-  dst[i] = src[i];
   return dst;
-  
+
   //panic("Not implemented");
 }
 
@@ -45,6 +47,9 @@ char *strcat(char *dst, const char *src) {
   size_t i = strlen(dst);
   size_t j = strlen(src);
   size_t n ;
+  
+  if( dst == NULL || src == NULL )
+    return NULL;
   
   for( n = 0; n < j; n++ ) {
     dst[i+n] = src[n] ;
