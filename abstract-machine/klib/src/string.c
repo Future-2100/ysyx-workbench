@@ -67,8 +67,10 @@ int strcmp(const char *s1, const char *s2) {
     if((unsigned char)s1[i] < (unsigned char)s2[i]) return -1;
     if((unsigned char)s1[i] > (unsigned char)s2[i]) return  1;
     if(s1[i] == s2[i]) return 0;
+
+    return 0;
   
-    panic("Not implemented");
+    //panic("Not implemented");
 }
 
 int strncmp(const char *s1, const char *s2, size_t n) {
@@ -84,32 +86,37 @@ int strncmp(const char *s1, const char *s2, size_t n) {
     if((unsigned char)s1[i] > (unsigned char)s2[i]) return  1;
     if(s1[i] == s2[i]) return 0;
 
-   panic("Not implemented");
+    return 0;
+
 }
 
 void *memset(void *s, int c, size_t n) {
-/*
-  size_t i;
-  for( i=0; i<n; i++) {
-    *(s+i) = c ;
+  
+  if( s == NULL || n < 0) {
+    return NULL;
   }
-  */
-   panic("Not implemented");
+  char *pdest = (char *)s;
+  while( n-- > 0) {
+    *pdest++ = c;
+  }
+  return s;
+
 }
 
 void *memmove(void *dst, const void *src, size_t n) {
-/*
+  
   size_t i;
-  char buf[n];
+  size_t m = strlen((char *)src);
+  char buf[m] ;
   for( i=0; i<n; i++) {
-    *(buf+i) = *(src+i);
+    *(buf+i) = *(char *)(src+i);
   }
 
   for( i=0; i<n; i++) {
-    *(dst+i) = *(buf+i);
+    *(char *)(dst+i) = *(buf+i);
   }
-  */
-  panic("Not implemented");
+  return 0;
+ // panic("Not implemented");
 }
 
 void *memcpy(void *out, const void *in, size_t n) {
