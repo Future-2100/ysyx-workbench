@@ -149,7 +149,8 @@ int memcmp(const void *s1, const void *s2, size_t n) {
   for(i=0; i<n; i++) {
     if ( *(unsigned char *)(s1+i) < *(unsigned char *)(s2+i) ) return -1;
     if ( *(unsigned char *)(s1+i) > *(unsigned char *)(s2+i) ) return  1;
-    printf("i = %d\n", i);
+    return 0;
+    
   }
   
 
