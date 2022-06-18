@@ -63,7 +63,7 @@ char *strcat(char *dst, const char *src) {
 }
 
 int strcmp(const char *s1, const char *s2) {
-/*
+
     size_t i=0;
 
     if( (s1==NULL) || (s2==NULL) ) return 0;
@@ -79,7 +79,7 @@ int strcmp(const char *s1, const char *s2) {
     if( *(s1+i) > *(s2+i) ) return  1;
 
     return 100;
-*/
+
   return 0;
 }
 
@@ -104,6 +104,8 @@ int strncmp(const char *s1, const char *s2, size_t n) {
 }
 
 void *memset(void *s, int c, size_t n) {
+
+  if(n == 0) return 0;
   
   size_t i ;
   for(i=0; i<n; i++) {
@@ -140,12 +142,17 @@ void *memcpy(void *out, const void *in, size_t n) {
 }
 
 int memcmp(const void *s1, const void *s2, size_t n) {
-  if(!n) return 0;
-  while (--n && *(char *)s1 == *(char *)s2) {
-    s1 = (char *) s1 + 1;
-    s2 = (char *) s2 + 1;
+
+  size_t i;
+
+  for(i=0; i<n; i++) {
+    if ( *(unsigned char *)(s1+i) < *(unsigned char *)(s2+i) ) return -1;
+    if ( *(unsigned char *)(s1+i) > *(unsigned char *)(s2+i) ) return  1;
+    i++;
   }
-  return (* (unsigned char *)s1) - (* (unsigned char *)s2);
+
+  return 0;
+
 
 }
 
