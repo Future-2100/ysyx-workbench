@@ -147,8 +147,8 @@ int memcmp(const void *s1, const void *s2, size_t n) {
   size_t i;
 
   for(i=0; i<n; i++) {
-    if ( *(unsigned char *)(s1) < *(unsigned char *)(s2) ) return -1;
-    if ( *(unsigned char *)(s1) > *(unsigned char *)(s2) ) return  1;
+    if ( *(char *)(s1) < *(char *)(s2) ) return -1;
+    if ( *(char *)(s1) > *(char *)(s2) ) return  1;
     
   }
   
