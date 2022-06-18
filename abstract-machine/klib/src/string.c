@@ -108,8 +108,9 @@ void *memset(void *s, int c, size_t n) {
   if(n == 0) return 0;
   
   size_t i ;
+
   for(i=0; i<n; i++) {
-    *(char *)(s+i) = (char)c;
+    *(char *)(s+i) = c;
   }
   return 0;
 
@@ -142,7 +143,7 @@ void *memcpy(void *out, const void *in, size_t n) {
 }
 
 int memcmp(const void *s1, const void *s2, size_t n) {
-
+/*
   size_t i;
 
   for(i=0; i<n; i++) {
@@ -150,6 +151,7 @@ int memcmp(const void *s1, const void *s2, size_t n) {
     if ( *(unsigned char *)(s1+i) > *(unsigned char *)(s2+i) ) return  1;
     i++;
   }
+  */
 
   return 0;
 
