@@ -142,18 +142,17 @@ void *memcpy(void *out, const void *in, size_t n) {
   //panic("Not implemented");
 }
 
+
 int memcmp(const void *s1, const void *s2, size_t n) {
 
-  //size_t i;
+  size_t i;
 
-  while(n--) {
+  for(i=0; i<n; i++) {
     if ( *(unsigned char *)(s1+n) < *(unsigned char *)(s2+n) ) return -1;
     if ( *(unsigned char *)(s1+n) > *(unsigned char *)(s2+n) ) return  1;
   }
-  
 
   return 0;
-
 
 }
 
