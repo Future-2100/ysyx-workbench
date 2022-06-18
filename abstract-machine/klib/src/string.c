@@ -144,12 +144,11 @@ void *memcpy(void *out, const void *in, size_t n) {
 
 int memcmp(const void *s1, const void *s2, size_t n) {
 
-  size_t i;
+  //size_t i;
 
-  for(i=0; i<n; i++) {
-    if ( *(char *)(s1+i) < *(char *)(s2+i) ) return -1;
-    if ( *(char *)(s1+i) > *(char *)(s2+i) ) return  1;
-    
+  while(n--) {
+    if ( *(char *)(s1+n) < *(char *)(s2+n) ) return -1;
+    if ( *(char *)(s1+n) > *(char *)(s2+n) ) return  1;
   }
   
 
