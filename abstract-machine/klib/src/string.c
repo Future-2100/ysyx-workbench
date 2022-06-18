@@ -103,8 +103,7 @@ void *memset(void *s, int c, size_t n) {
 void *memmove(void *dst, const void *src, size_t n) {
   
   size_t i;
-  size_t m = strlen((char *)src);
-  char buf[m] ;
+  char buf[n] ;
   for( i=0; i<n; i++) {
     *(buf+i) = *(char *)(src+i);
   }
