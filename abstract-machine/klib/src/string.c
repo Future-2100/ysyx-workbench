@@ -105,14 +105,14 @@ int strncmp(const char *s1, const char *s2, size_t n) {
 
 void *memset(void *s, int c, size_t n) {
 
-  if(n == 0) return 0;
+  if(n == 0)  return NULL;
   
   size_t i ;
 
   for(i=0; i<n; i++) {
     *(char *)(s+i) = (char)c;
   }
-  return 0;
+  return s;
 
 }
 
