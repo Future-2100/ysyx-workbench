@@ -92,14 +92,11 @@ int strncmp(const char *s1, const char *s2, size_t n) {
 
 void *memset(void *s, int c, size_t n) {
   
-  if( s == NULL || n < 0) {
-    return NULL;
+  size_t i ;
+  for(i=0; i<n; i++) {
+    *(char *)(s+i) = c;
   }
-  char *pdest = (char *)s;
-  while( n-- > 0) {
-    *pdest++ = c;
-  }
-  return s;
+  return 0;
 
 }
 
