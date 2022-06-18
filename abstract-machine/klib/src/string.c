@@ -116,11 +116,24 @@ void *memmove(void *dst, const void *src, size_t n) {
 }
 
 void *memcpy(void *out, const void *in, size_t n) {
-  panic("Not implemented");
+  if( out == NULL || in == NULL || out <= in+n ) {
+    return NULL;
+  }
+  char *tmp_dest = out;
+  const char *tmp_src = in;
+  while(n--) *tmp_dest++ = *tmp_src++;
+  return out;
+  //panic("Not implemented");
 }
 
 int memcmp(const void *s1, const void *s2, size_t n) {
-  panic("Not implemented");
+  if(!n) return 0;
+  while (--n && *(char *)s1 == *(char *)s2) {
+    s1 = (char *) s1 + 1;
+    s2 = (char *) s2 + 1;
+  }
+  return (* (unsigned char *)s1) - (* (unsigned char *)s2);
+
 }
 
 #endif
