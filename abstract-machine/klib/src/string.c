@@ -63,7 +63,7 @@ char *strcat(char *dst, const char *src) {
 }
 
 int strcmp(const char *s1, const char *s2) {
-
+/*
     size_t i=0;
 
     if( (s1==NULL) || (s2==NULL) ) return 0;
@@ -79,7 +79,8 @@ int strcmp(const char *s1, const char *s2) {
     if( *(s1+i) > *(s2+i) ) return  1;
 
     return 100;
-
+*/
+  return 0;
 }
 
 int strncmp(const char *s1, const char *s2, size_t n) {
