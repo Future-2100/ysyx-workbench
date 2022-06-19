@@ -14,7 +14,7 @@ LDFLAGS   += --gc-sections -e _start
 NEMUFLAGS += -l $(shell dirname $(IMAGE).elf)/nemu-log.txt
 
 ifeq ($(AUTO),en)
-	NEMUFALGS += -b
+NEMUFALGS += -b
 endif
 
 CFLAGS += -DMAINARGS=\"$(mainargs)\"
