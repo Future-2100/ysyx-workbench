@@ -56,13 +56,10 @@ int printf(const char *fmt, ...) {
     i++;
   }
 
-
-  
-
   va_end(valist);
   
-  
-  panic("Not implemented");
+  return 0;
+ // panic("Not implemented");
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
@@ -70,7 +67,60 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 }
 
 int sprintf(char *out, const char *fmt, ...) {
-  panic("Not implemented");
+
+  va_list valist;
+  va_start(valist, fmt);
+
+  size_t cnt_fmt  = 0;
+  size_t cnt_str = 0;
+  size_t cnt_out  = 0;
+
+  while( *(fmt+cnt_fmt) != '\0' ) {
+
+    if( *(fmt+cnt_fmt) == '%' && *(fmt+cnt_fmt+1) == 'd' ) {
+      int bits=0;
+      int k;
+      int tens= 1;
+
+      int integer = va_arg(valist, int); //352
+        while( integer / (tens) != 0 ) {
+          bits++;
+          tens = tens * 10 ;
+        }
+
+        tens = tens / 10;
+
+        for( k=0; k<bits; k++ ) {
+          *(out+cnt_out) = (char)(integer / tens + 48 ); 
+          integer = integer % tens ;
+          tens = tens / 10;
+          cnt_out++;
+        }
+    }
+
+    else if( *(fmt+cnt_fmt) == '%' && *(fmt+cnt_fmt+1) == 's' ) {
+      char *str = va_arg(valist, char * ) ;
+        while( *(str+cnt_str) != '\0' ) {
+          *(out+cnt_out) = (*(str+cnt_str));
+          cnt_out++;
+          cnt_str++;
+        }
+    }
+
+
+    else {
+      *(out+cnt_out) = (*(fmt+cnt_fmt));
+      cnt_out++;
+    }
+
+      cnt_fmt++;
+
+  }
+  
+  va_end(valist);
+
+  return 0;
+
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
