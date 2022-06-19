@@ -96,6 +96,7 @@ int sprintf(char *out, const char *fmt, ...) {
           tens = tens / 10;
           cnt_out++;
         }
+        cnt_fmt++;
     }
 
     else if( *(fmt+cnt_fmt) == '%' && *(fmt+cnt_fmt+1) == 's' ) {
