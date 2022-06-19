@@ -105,6 +105,7 @@ int sprintf(char *out, const char *fmt, ...) {
           cnt_out++;
           cnt_str++;
         }
+        cnt_fmt++;
     }
 
 
@@ -116,6 +117,7 @@ int sprintf(char *out, const char *fmt, ...) {
       cnt_fmt++;
 
   }
+  *(out+cnt_out) = '\0' ;
   
   va_end(valist);
 
