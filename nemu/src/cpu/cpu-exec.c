@@ -38,18 +38,23 @@ static void exec_once(Decode *s, vaddr_t pc) {
   isa_exec_once(s);
   cpu.pc = s->dnpc;
 #ifdef CONFIG_ITRACE
+  /* update the s->logbuf */
+
   char *p = s->logbuf;
+
+  //record the pc
   p += snprintf(p, sizeof(s->logbuf), "0x%08lx" ":", s->pc);
   //p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
-  //FMT_WORD = "0x%016lx"
-  //snprintf:
-  //将s->pc按照FMT_WORD的格式写入s->logbuf中，最多写入sizeof(s->logbuf)个字节(包括'\0')
   int ilen = s->snpc - s->pc;
   int i;
+
+  //record the infomation of the instruction in s->logbuf
   uint8_t *inst = (uint8_t *)&s->isa.inst.val;
   for (i = ilen - 1; i >= 0; i --) {
     p += snprintf(p, 4, " %02x", inst[i]);
   }
+
+  //add some number of space in s->logbuf
   int ilen_max = MUXDEF(CONFIG_ISA_x86, 8, 4);
   int space_len = ilen_max - ilen;
   if (space_len < 0) space_len = 0;
@@ -57,6 +62,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   memset(p, ' ', space_len);
   p += space_len;
 
+  //record the disassemble information in s->logbuf
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
