@@ -39,12 +39,11 @@ static void exec_once(Decode *s, vaddr_t pc) {
   cpu.pc = s->dnpc;
 #ifdef CONFIG_ITRACE
   char *p = s->logbuf;
-  p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
+  p += snprintf(p, sizeof(s->logbuf), "0x%08lx" ":", s->pc);
+  //p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
   //FMT_WORD = "0x%016lx"
+  //snprintf:
   //将s->pc按照FMT_WORD的格式写入s->logbuf中，最多写入sizeof(s->logbuf)个字节(包括'\0')
-
-
-
   int ilen = s->snpc - s->pc;
   int i;
   uint8_t *inst = (uint8_t *)&s->isa.inst.val;
