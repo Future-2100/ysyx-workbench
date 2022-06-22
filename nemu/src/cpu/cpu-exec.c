@@ -13,20 +13,22 @@
 #define NR_IRING 20
 
 typedef struct iring {
-  char logbuf[128] ;
+  char iringbuf[128] ;
   struct iring *next;
 } IRING ;
 
 static IRING iring_pool[NR_IRING] = {};
 
 static IRING *iring_head;
+static IRING *iring_end ;
 
 void init_iring_pool() {
   int i;
   for( i=0; i<NR_IRING; i++) {
-    iring_pool[i].next = ( i==NR_IRING-1 ? NULL : &iring_pool[i+1] );
+    iring_pool[i].next = ( i==NR_IRING-1 ? iring_pool : &iring_pool[i+1] );
   }
   iring_head = iring_pool;
+  iring_end  = iring_pool + NR_IRING-1 ;
   
 }
 
@@ -86,6 +88,11 @@ static void exec_once(Decode *s, vaddr_t pc) {
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
+  
+  strcpy( iring_head->iringbuf, s->logbuf );
+  iring_end = iring_head;
+  iring_head = iring_head->next;
+  
 #endif
 }
 
@@ -100,6 +107,17 @@ static void execute(uint64_t n) {
   }
 }
 
+void itrace_display(){
+  IRING *p = iring_head; 
+
+  for( int i=0; i<NR_IRING-1; i++  ) {
+    printf("    %s\n",p->iringbuf);
+    p = p->next;
+  }
+  printf("--> %s\n",p->iringbuf);
+
+}
+
 static void statistic() {
   IFNDEF(CONFIG_TARGET_AM, setlocale(LC_NUMERIC, ""));
 #define NUMBERIC_FMT MUXDEF(CONFIG_TARGET_AM, "%ld", "%'ld")
@@ -107,10 +125,12 @@ static void statistic() {
   Log("total guest instructions = " NUMBERIC_FMT, g_nr_guest_inst);
   if (g_timer > 0) Log("simulation frequency = " NUMBERIC_FMT " inst/s", g_nr_guest_inst * 1000000 / g_timer);
   else Log("Finish running in less than 1 us and can not calculate the simulation frequency");
+
 }
 
 void assert_fail_msg() {
   isa_reg_display();
+  itrace_display();
   statistic();
 }
 
