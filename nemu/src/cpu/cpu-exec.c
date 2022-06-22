@@ -116,8 +116,8 @@ void itrace_display(){
   for( int i=0; i<NR_IRING-1; i++  ) {
     if( p->used == true ) {
       printf("    %s\n",p->iringbuf);
-      p = p->next;
     }
+      p = p->next;
   }
   printf("--> %s\n",p->iringbuf);
 
