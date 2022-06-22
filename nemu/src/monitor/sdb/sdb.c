@@ -226,4 +226,7 @@ void init_sdb() {
 
   /* Initialize the watchpoint pool. */
   init_wp_pool();
+  
+  /* Initiallize the itrace ring pool */
+  init_iring_pool();
 }
