@@ -15,6 +15,7 @@
 typedef struct iring {
   char iringbuf[128] ;
   struct iring *next;
+  bool used;
 } IRING ;
 
 static IRING iring_pool[NR_IRING] = {};
@@ -26,6 +27,7 @@ void init_iring_pool() {
   int i;
   for( i=0; i<NR_IRING; i++) {
     iring_pool[i].next = ( i==NR_IRING-1 ? iring_pool : &iring_pool[i+1] );
+    iring_pool[i].used = false;
   }
   iring_head = iring_pool;
   iring_end  = iring_pool + NR_IRING-1 ;
@@ -90,6 +92,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
   
   strcpy( iring_head->iringbuf, s->logbuf );
+  iring_head->used = true;
   iring_end = iring_head;
   iring_head = iring_head->next;
   
@@ -111,8 +114,10 @@ void itrace_display(){
   IRING *p = iring_head; 
 
   for( int i=0; i<NR_IRING-1; i++  ) {
-    printf("    %s\n",p->iringbuf);
-    p = p->next;
+    if( p->used == true ) {
+      printf("    %s\n",p->iringbuf);
+      p = p->next;
+    }
   }
   printf("--> %s\n",p->iringbuf);
 
