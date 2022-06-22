@@ -4,6 +4,10 @@ config WATCHPOINT
   bool "Enable watchpoint"
   default n
 
+config MTRACE
+  bool "Enable mtrace"
+  default n
+
 choice
   prompt "Base ISA"
   default ISA_riscv32
