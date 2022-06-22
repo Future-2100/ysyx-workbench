@@ -10,6 +10,26 @@
  * You can modify this value as you want.
  */
 #define MAX_INST_TO_PRINT 10
+#define NR_IRING 20
+
+typedef struct iring {
+  char logbuf[128] ;
+  struct iring *next;
+} IRING ;
+
+static IRING iring_pool[NR_IRING] = {};
+
+static IRING *iring_head;
+
+void init_iring_pool() {
+  int i;
+  for( i=0; i<NR_IRING; i++) {
+    iring_pool[i].next = ( i==NR_IRING-1 ? NULL : &iring_pool[i+1] );
+  }
+  iring_head = iring_pool;
+  
+}
+
 
 CPU_state cpu = {};
 uint64_t g_nr_guest_inst = 0;
