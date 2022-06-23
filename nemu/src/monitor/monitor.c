@@ -118,7 +118,6 @@ void read_elf(char *elf_file){
     }
 
     /* obtain the number of section headers */
-    //fseek(elf_fp, 60, SEEK_SET);
     uint16_t e_shnum;
     if( fread(&e_shnum, 1, sizeof(e_shnum), elf_fp) == sizeof(e_shnum) ) {
       Log("number oof section headers : %d", e_shnum);
@@ -135,6 +134,29 @@ void read_elf(char *elf_file){
     }
     else {
       assert(0);
+    }
+
+    fseek(elf_fp, e_shoff, SEEK_SET);
+    Elf64_Shdr elf_shd[e_shnum];
+    char *sh_name[e_shnum];
+    int i;
+    for(i=0; i<e_shnum; i++) {
+      if (fread(&elf_shd[i].sh_name     , 4, 1, elf_fp) );
+      if (fread(&elf_shd[i].sh_type     , 4, 1, elf_fp) );
+      if (fread(&elf_shd[i].sh_flags    , 8, 1, elf_fp) );
+      if (fread(&elf_shd[i].sh_addr     , 8, 1, elf_fp) );
+      if (fread(&elf_shd[i].sh_offset   , 8, 1, elf_fp) );
+      if (fread(&elf_shd[i].sh_size     , 8, 1, elf_fp) );
+      if (fread(&elf_shd[i].sh_link     , 4, 1, elf_fp) );
+      if (fread(&elf_shd[i].sh_info     , 4, 1, elf_fp) );
+      if (fread(&elf_shd[i].sh_addralign, 8, 1, elf_fp) );
+      if (fread(&elf_shd[i].sh_entsize  , 8, 1, elf_fp) );
+    }
+    Elf64_Off shstrtab_off = elf_shd[e_shstrndx].sh_offset;
+    for(i=0; i<e_shnum; i++) {
+      fseek(elf_fp, elf_shd[i].sh_name,shstrtab_off);
+      if( fscanf(elf_fp, "%s", sh_name[i]) ) ;
+      Log("[%d] : %s",i,sh_name[i]);
     }
     
 
