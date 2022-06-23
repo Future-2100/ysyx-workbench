@@ -156,9 +156,11 @@ void read_elf(char *elf_file){
    // Log("e_strtab.sh_offset = %lx", elf_shd[e_shstrndx-1].sh_offset);
    
     fseek(elf_fp, shstrtab_off, SEEK_SET);
+    char buf;
     for(i=0; i<0x4e; i++) {
-      if( fgetc(elf_fp) == '\0' )  printf(" ");
-      else  printf("%c", fgetc(elf_fp));
+      buf = fgetc(elf_fp);
+      if( buf == '\0' )  printf(" ");
+      else  printf("%c", buf );
     }
     printf("\n");
       
