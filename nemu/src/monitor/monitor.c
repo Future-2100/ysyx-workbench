@@ -88,7 +88,7 @@ static int parse_args(int argc, char *argv[]) {
 }
 
 void read_elf(char *elf_file){
-  ;
+  Log("Here is read_elf function");
   return;
 
 }
