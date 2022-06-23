@@ -151,10 +151,13 @@ void read_elf(char *elf_file){
       if (fread(&elf_shd[i].sh_addralign, 8, 1, elf_fp) );
       if (fread(&elf_shd[i].sh_entsize  , 8, 1, elf_fp) );
     }
-    Elf64_Off shstrtab_off = elf_shd[e_shstrndx].sh_offset + 1;
+    Elf64_Off shstrtab_off = elf_shd[e_shstrndx].sh_offset ;
    // Log("e_shstrndx.sh_offset = %lx", shstrtab_off);
    // Log("e_strtab.sh_offset = %lx", elf_shd[e_shstrndx-1].sh_offset);
    
+    for(i=0; i<e_shnum; i++) {
+      printf("[%d].sh_name = %d\n", i, elf_shd[i].sh_name);
+    }
 
     i = 0;
     int j = 0;
