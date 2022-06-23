@@ -152,8 +152,8 @@ void read_elf(char *elf_file){
       if (fread(&elf_shd[i].sh_entsize  , 8, 1, elf_fp) );
     }
     Elf64_Off shstrtab_off = elf_shd[e_shstrndx].sh_offset;
+    fseek(elf_fp, shstrtab_off, SEEK_SET);
     for(i=0; i<e_shnum; i++) {
-      fseek(elf_fp, shstrtab_off, SEEK_SET);
       if( fscanf(elf_fp, "%s", sh_name[i]) ) ;
       Log("[%d] : %s",i,sh_name[i]);
     }
