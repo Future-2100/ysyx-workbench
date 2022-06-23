@@ -176,6 +176,7 @@ void read_elf(char *elf_file){
       j=0;
       while( buf != '\0' ) {
         buf = (char)fgetc(elf_fp);
+        printf("%c\n",buf);
         sh_name[i][j] = buf;
         j++;
       }
