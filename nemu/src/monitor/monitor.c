@@ -118,7 +118,7 @@ void read_elf(char *elf_file){
     }
 
     /* obtain the number of section headers */
-    fseek(elf_fp, 60, SEEK_SET);
+    //fseek(elf_fp, 60, SEEK_SET);
     uint16_t e_shnum;
     if( fread(&e_shnum, 1, sizeof(e_shnum), elf_fp) == sizeof(e_shnum) ) {
       Log("number oof section headers : %d", e_shnum);
@@ -128,7 +128,7 @@ void read_elf(char *elf_file){
     }
 
     /* obtain the section header string table index */
-    fseek(elf_fp, 62, SEEK_SET);
+    //fseek(elf_fp, 62, SEEK_SET);
     uint16_t e_shstrndx;
     if( fread(&e_shstrndx, 1, sizeof(e_shstrndx), elf_fp) == sizeof(e_shstrndx) ) {
       Log( "Section header string table index : %d", e_shstrndx );
