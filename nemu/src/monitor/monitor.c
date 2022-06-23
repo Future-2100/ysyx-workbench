@@ -164,7 +164,7 @@ void read_elf(char *elf_file){
 
     char buf = '0';
     for(i=0; i<e_shnum; i++) {
-      fseek(elf_fp, shstrtab_off+elf_shd[i].sh_name+1, SEEK_SET);
+      fseek(elf_fp, shstrtab_off+elf_shd[i].sh_name, SEEK_SET);
       while( buf != '\0' ) {
         buf = (char)fgetc(elf_fp);
         sh_name[i][j] = buf;
