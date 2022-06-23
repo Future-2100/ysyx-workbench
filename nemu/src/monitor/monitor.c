@@ -155,7 +155,7 @@ void read_elf(char *elf_file){
    // Log("e_shstrndx.sh_offset = %lx", shstrtab_off);
    // Log("e_strtab.sh_offset = %lx", elf_shd[e_shstrndx-1].sh_offset);
    fseek(elf_fp, strtab_off, SEEK_SET);
-   char str[30];
+   char str[128];
    if (fscanf( elf_fp,"%s", str) ) ;
    Log("%s",str);
 
