@@ -137,8 +137,8 @@ void read_elf(char *elf_file){
 
     fseek(elf_fp, e_shoff, SEEK_SET);
     Elf64_Shdr elf_shd[e_shnum];
-    int i;
-    for(i=0; i<e_shnum; i++) {
+    
+    for(int i=0; i<e_shnum; i++) {
       if (fread(&elf_shd[i].sh_name     , 4, 1, elf_fp) );
       if (fread(&elf_shd[i].sh_type     , 4, 1, elf_fp) );
       if (fread(&elf_shd[i].sh_flags    , 8, 1, elf_fp) );
@@ -151,36 +151,21 @@ void read_elf(char *elf_file){
       if (fread(&elf_shd[i].sh_entsize  , 8, 1, elf_fp) );
     }
     Elf64_Off shstrtab_off = elf_shd[e_shstrndx].sh_offset ;
-   // Log("e_shstrndx.sh_offset = %lx", shstrtab_off);
-   // Log("e_strtab.sh_offset = %lx", elf_shd[e_shstrndx-1].sh_offset);
-   
-    fseek(elf_fp, shstrtab_off, SEEK_SET);
-    char buf = '0';
-    for(i=0; i<0x4e; i++) {
-      buf = fgetc(elf_fp);
-      if( buf == '\0' )  printf(" ");
-      else  printf("%c", buf );
-    }
-    printf("---end\n");
-/*
-   
-    for(i=0; i<e_shnum; i++) {
-      printf("[%d].sh_name = %d\n", i, elf_shd[i].sh_name);
-    }
- */   
-    i = 0;
+
+    int i = 0;
     int j = 0;
-    char sh_name[e_shnum][20];
+    char buf;
+    char sh_name_str[e_shnum][20];
     for(i=0; i<e_shnum; i++) {
       fseek(elf_fp, shstrtab_off + elf_shd[i].sh_name, SEEK_SET);
       j=0;
       buf = '0';
       while( buf != '\0' ) {
         buf = (char)fgetc(elf_fp);
-        sh_name[i][j] = buf;
+        sh_name_str[i][j] = buf;
         j++;
       }
-      printf("[%d] = %s\n",i, sh_name[i]);
+      printf("[%d] = %s\n",i, sh_name_str[i]);
     }
 
   }
