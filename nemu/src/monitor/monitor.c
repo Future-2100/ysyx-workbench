@@ -158,11 +158,11 @@ void read_elf(char *elf_file){
       if( fscanf(elf_fp, "%s", sh_name[i]) ) ;
       Log("[%d] : %s",i,sh_name[i]);
     }
-    
 
   }
 
   Log("Elf is read from %s", elf_file ? elf_file : "none");
+  fclose(elf_fp);
 
   return;
 }
