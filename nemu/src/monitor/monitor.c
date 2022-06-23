@@ -137,7 +137,7 @@ void read_elf(char *elf_file){
 
     fseek(elf_fp, e_shoff, SEEK_SET);
     Elf64_Shdr elf_shd[e_shnum];
-    char sh_name[e_shnum][128];
+    //char sh_name[e_shnum][128];
     int i;
     for(i=0; i<e_shnum; i++) {
       if (fread(&elf_shd[i].sh_name     , 4, 1, elf_fp) );
@@ -152,20 +152,8 @@ void read_elf(char *elf_file){
       if (fread(&elf_shd[i].sh_entsize  , 8, 1, elf_fp) );
     }
     Elf64_Off shstrtab_off = elf_shd[e_shstrndx].sh_offset;
-    fseek(elf_fp, shstrtab_off, SEEK_SET);
+    Log("e_shstrndx.sh_offset = %lx", shstrtab_off);
 
-    i=0 ;
-    do {
-
-      if( fread(sh_name[0], 1,1, elf_fp) ) ;
-      i++;
-
-    } while( sh_name[0][i] != '\0' ) ;
-
-    Log("sh_name = %s", sh_name[0]);
-
-
-    
   }
   Log("Elf is read from %s", elf_file ? elf_file : "none");
   return;
