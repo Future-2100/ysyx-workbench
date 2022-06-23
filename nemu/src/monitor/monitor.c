@@ -95,10 +95,17 @@ void read_elf(char *elf_file){
     FILE *fp = fopen(elf_file, "r");
     Assert(fp, "Can not open '%s'", elf_file);
     elf_fp = fp;
-  }
-  Log("Elf is read from %s", elf_file ? elf_file : "none");
-  return;
 
+    char *str;
+    if( fread(str, 1, 4, elf_fp) != 0 ) {
+      Log("Elf : %s", str);
+    }
+
+  }
+
+  Log("Elf is read from %s", elf_file ? elf_file : "none");
+
+  return;
 }
 
 
