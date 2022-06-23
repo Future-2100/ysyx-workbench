@@ -160,6 +160,7 @@ void read_elf(char *elf_file){
       if( fgetc(elf_fp) == '\0' )  printf(" ");
       else  printf("%c", fgetc(elf_fp));
     }
+    printf("\n");
       
 
 
