@@ -1,4 +1,5 @@
 #include <isa.h>
+#include <elf.h>
 #include <memory/paddr.h>
 
 void init_rand();
@@ -96,10 +97,11 @@ void read_elf(char *elf_file){
     Assert(fp, "Can not open '%s'", elf_file);
     elf_fp = fp;
 
-    fseek(elf_fp, 1, SEEK_SET);
-    char str[3];
-    if( fread(str, 1, 3, elf_fp) != 0 ) {
-      Log("Elf : %s", str);
+    fseek(elf_fp, 40, SEEK_SET);
+
+    Elf64_Off e_shoff;
+    if( fread(&e_shoff, 1, 8, elf_fp) != 0 ) {
+      Log("Elf : %ld", e_shoff);
     }
 
   }
