@@ -100,7 +100,7 @@ void read_elf(char *elf_file){
     /* obtain the start of section headers */
     fseek(elf_fp, 40, SEEK_SET);
     Elf64_Off e_shoff;
-    if( fread(&e_shoff, 1, 8, elf_fp) == 8 ) {
+    if( fread(&e_shoff, 1, sizeof(e_shoff), elf_fp) == sizeof(e_shoff) ) {
       Log("start of section headers : %ld", e_shoff);
     }
     else {
@@ -118,6 +118,14 @@ void read_elf(char *elf_file){
     }
 
     /* obtain the number of section headers */
+    fseek(elf_fp, 60, SEEK_SET);
+    uint16_t e_shnum;
+    if( fread(&e_shnum, 1, sizeof(e_shnum), elf_fp) == sizeof(e_shnum) ) {
+      Log("number oof section headers : %d", e_shnum);
+    }
+    else {
+      assert(0);
+    }
     
 
   }
