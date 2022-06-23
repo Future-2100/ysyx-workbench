@@ -175,7 +175,7 @@ void read_elf(char *elf_file){
       fseek(elf_fp, shstrtab_off + elf_shd[i].sh_name, SEEK_SET);
       while( buf != '\0' ) {
         buf = (char)fgetc(elf_fp);
-        printf("%c\n",buf);
+        printf("11111:%c\n",buf);
         sh_name[i][j] = buf;
         j++;
       }
