@@ -96,7 +96,7 @@ void read_elf(char *elf_file){
     Assert(fp, "Can not open '%s'", elf_file);
     elf_fp = fp;
 
-    char *str;
+    char str[4];
     if( fread(str, 1, 4, elf_fp) != 0 ) {
       Log("Elf : %s", str);
     }
