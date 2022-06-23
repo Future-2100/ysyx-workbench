@@ -154,7 +154,7 @@ void read_elf(char *elf_file){
     Elf64_Off strtab_off = elf_shd[e_shstrndx].sh_offset;
    // Log("e_shstrndx.sh_offset = %lx", shstrtab_off);
    // Log("e_strtab.sh_offset = %lx", elf_shd[e_shstrndx-1].sh_offset);
-   fseek(elf_fp, 0, strtab_off);
+   fseek(elf_fp, 1, strtab_off);
    for(i=0; i<0x4e; i++)  {
      printf("%c",(char)fgetc(elf_fp));
   }
