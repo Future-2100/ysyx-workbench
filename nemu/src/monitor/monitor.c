@@ -87,8 +87,16 @@ static int parse_args(int argc, char *argv[]) {
   return 0;
 }
 
+
+FILE *elf_fp = NULL;
+
 void read_elf(char *elf_file){
-  Log("Here is read_elf function");
+  if(elf_file != NULL) {
+    FILE *fp = fopen(elf_file, "r");
+    Assert(fp, "Can not open '%s'", elf_file);
+    elf_fp = fp;
+  }
+  Log("Elf is read from %s", elf_file ? elf_file : "none");
   return;
 
 }
