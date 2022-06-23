@@ -170,6 +170,7 @@ void read_elf(char *elf_file){
         sh_name[i][j] = buf;
         j++;
       }
+      j=0;
       printf("[%d] = %s\n",i, sh_name[i]);
     }
     
