@@ -97,12 +97,28 @@ void read_elf(char *elf_file){
     Assert(fp, "Can not open '%s'", elf_file);
     elf_fp = fp;
 
+    /* obtain the start of section headers */
     fseek(elf_fp, 40, SEEK_SET);
-
     Elf64_Off e_shoff;
-    if( fread(&e_shoff, 1, 8, elf_fp) != 0 ) {
-      Log("Elf : %ld", e_shoff);
+    if( fread(&e_shoff, 1, 8, elf_fp) == 8 ) {
+      Log("start of section headers : %ld", e_shoff);
     }
+    else {
+      assert(0);
+    }
+
+    /* obtain the size of section headers */
+    fseek(elf_fp, 58, SEEK_SET);
+    uint16_t e_shentsize;
+    if( fread(&e_shentsize, 1, 2, elf_fp) == 2 ) {
+      Log("size of section headers : %d", e_shentsize);
+    }
+    else {
+      assert(0);
+    }
+
+    /* obtain the number of section headers */
+    
 
   }
 
