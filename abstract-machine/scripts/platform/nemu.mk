@@ -17,6 +17,8 @@ ifeq ($(AUTO),en)
 NEMUFLAGS += -b
 endif
 
+NEMUFLAGS += -e $(IMAGE).elf
+
 CFLAGS += -DMAINARGS=\"$(mainargs)\"
 CFLAGS += -I$(AM_HOME)/am/src/platform/nemu/include
 .PHONY: $(AM_HOME)/am/src/platform/nemu/trm.c
