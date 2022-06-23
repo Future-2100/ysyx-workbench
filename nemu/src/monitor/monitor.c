@@ -138,7 +138,7 @@ void read_elf(char *elf_file){
 
     fseek(elf_fp, e_shoff, SEEK_SET);
     Elf64_Shdr elf_shd[e_shnum];
-    char sh_name[e_shnum][30];
+    char sh_name[e_shnum][128];
     int i;
     for(i=0; i<e_shnum; i++) {
       if (fread(&elf_shd[i].sh_name     , 4, 1, elf_fp) );
