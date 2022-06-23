@@ -162,7 +162,7 @@ void read_elf(char *elf_file){
       if( buf == '\0' )  printf(" ");
       else  printf("%c", buf );
     }
-    printf("\n");
+    printf("---end\n");
       
 
 
