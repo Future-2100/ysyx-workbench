@@ -127,7 +127,6 @@ void read_elf(char *elf_file){
     }
 
     /* obtain the section header string table index */
-    //fseek(elf_fp, 62, SEEK_SET);
     uint16_t e_shstrndx;
     if( fread(&e_shstrndx, sizeof(e_shstrndx), 1, elf_fp) ) {
       Log( "Section header string table index : %d", e_shstrndx );
@@ -136,7 +135,7 @@ void read_elf(char *elf_file){
       assert(0);
     }
 
-    fseek(elf_fp, e_shoff, SEEK_SET);
+    fseek(elf_fp, e_shoff-1, SEEK_SET);
     Elf64_Shdr elf_shd[e_shnum];
     char sh_name[e_shnum][30];
     int i;
@@ -159,11 +158,9 @@ void read_elf(char *elf_file){
       Log("[%d] : %s",i,sh_name[i]);
     }
 
+    
   }
-
   Log("Elf is read from %s", elf_file ? elf_file : "none");
-  fclose(elf_fp);
-
   return;
 }
 
