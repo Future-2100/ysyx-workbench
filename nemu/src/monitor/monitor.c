@@ -110,7 +110,7 @@ void read_elf(char *elf_file){
     /* obtain the size of section headers */
     fseek(elf_fp, 58, SEEK_SET);
     uint16_t e_shentsize;
-    if( fread(&e_shentsize, 1, 2, elf_fp) == 2 ) {
+    if( fread(&e_shentsize, 1, sizeof(e_shentsize), elf_fp) == sizeof(e_shentsize) ) {
       Log("size of section headers : %d", e_shentsize);
     }
     else {
