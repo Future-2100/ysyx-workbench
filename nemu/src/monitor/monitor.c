@@ -135,6 +135,7 @@ void read_elf(char *elf_file){
       assert(0);
     }
 
+    /* obtain all the datas of section headersj */
     fseek(elf_fp, e_shoff, SEEK_SET);
     Elf64_Shdr elf_shd[e_shnum];
     
@@ -151,7 +152,6 @@ void read_elf(char *elf_file){
       if (fread(&elf_shd[i].sh_entsize  , 8, 1, elf_fp) );
     }
     Elf64_Off shstrtab_off = elf_shd[e_shstrndx].sh_offset ;
-
     int i = 0;
     int j = 0;
     char buf;
