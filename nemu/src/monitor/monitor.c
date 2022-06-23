@@ -100,7 +100,7 @@ void read_elf(char *elf_file){
     /* obtain the start of section headers */
     fseek(elf_fp, 40, SEEK_SET);
     Elf64_Off e_shoff;
-    if( fread(&e_shoff, 1, sizeof(e_shoff), elf_fp) == sizeof(e_shoff) ) {
+    if( fread(&e_shoff, sizeof(e_shoff), 1,elf_fp) ) {
       Log("start of section headers : %ld", e_shoff);
     }
     else {
@@ -110,7 +110,7 @@ void read_elf(char *elf_file){
     /* obtain the size of section headers */
     fseek(elf_fp, 58, SEEK_SET);
     uint16_t e_shentsize;
-    if( fread(&e_shentsize, 1, sizeof(e_shentsize), elf_fp) == sizeof(e_shentsize) ) {
+    if( fread(&e_shentsize, sizeof(e_shentsize), 1, elf_fp) ) {
       Log("size of section headers : %d", e_shentsize);
     }
     else {
@@ -119,7 +119,7 @@ void read_elf(char *elf_file){
 
     /* obtain the number of section headers */
     uint16_t e_shnum;
-    if( fread(&e_shnum, 1, sizeof(e_shnum), elf_fp) == sizeof(e_shnum) ) {
+    if( fread(&e_shnum, sizeof(e_shnum), 1, elf_fp) ) {
       Log("number oof section headers : %d", e_shnum);
     }
     else {
@@ -129,7 +129,7 @@ void read_elf(char *elf_file){
     /* obtain the section header string table index */
     //fseek(elf_fp, 62, SEEK_SET);
     uint16_t e_shstrndx;
-    if( fread(&e_shstrndx, 1, sizeof(e_shstrndx), elf_fp) == sizeof(e_shstrndx) ) {
+    if( fread(&e_shstrndx, sizeof(e_shstrndx), 1, elf_fp) ) {
       Log( "Section header string table index : %d", e_shstrndx );
     }
     else {
