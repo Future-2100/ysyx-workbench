@@ -165,12 +165,12 @@ void read_elf(char *elf_file){
     char buf = '0';
     for(i=0; i<e_shnum; i++) {
       fseek(elf_fp, shstrtab_off+elf_shd[i].sh_name, SEEK_SET);
+      j=0;
       while( buf != '\0' ) {
         buf = (char)fgetc(elf_fp);
         sh_name[i][j] = buf;
         j++;
       }
-      j=0;
       printf("[%d] = %s\n",i, sh_name[i]);
     }
     
