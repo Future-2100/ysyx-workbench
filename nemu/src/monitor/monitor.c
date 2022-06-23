@@ -151,9 +151,15 @@ void read_elf(char *elf_file){
       if (fread(&elf_shd[i].sh_addralign, 8, 1, elf_fp) );
       if (fread(&elf_shd[i].sh_entsize  , 8, 1, elf_fp) );
     }
-    Elf64_Off shstrtab_off = elf_shd[e_shstrndx].sh_offset;
-    Log("e_shstrndx.sh_offset = %lx", shstrtab_off);
-    Log("e_strtab.sh_offset = %lx", elf_shd[e_shstrndx-1].sh_offset);
+    Elf64_Off strtab_off = elf_shd[e_shstrndx-1].sh_offset;
+   // Log("e_shstrndx.sh_offset = %lx", shstrtab_off);
+   // Log("e_strtab.sh_offset = %lx", elf_shd[e_shstrndx-1].sh_offset);
+   fseek(elf_fp, strtab_off, SEEK_SET);
+   char str[30];
+   if (fscanf( elf_fp,"%s", str) ) ;
+   Log("%s",str);
+
+    
 
   }
   Log("Elf is read from %s", elf_file ? elf_file : "none");
