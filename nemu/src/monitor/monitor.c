@@ -126,6 +126,16 @@ void read_elf(char *elf_file){
     else {
       assert(0);
     }
+
+    /* obtain the section header string table index */
+    fseek(elf_fp, 62, SEEK_SET);
+    uint16_t e_shstrndx;
+    if( fread(&e_shstrndx, 1, sizeof(e_shstrndx), elf_fp) == sizeof(e_shstrndx) ) {
+      Log( "Section header string table index : %d", e_shstrndx );
+    }
+    else {
+      assert(0);
+    }
     
 
   }
