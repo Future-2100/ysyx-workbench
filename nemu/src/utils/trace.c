@@ -3,10 +3,6 @@
 
 FILE *elf_fp = NULL;
 
-//SH means section headers
-static Elf64_Off SH_start;
-static uint16_t SH_num;
-static uint16_t SH_stindex; //section header string table index
 
 typedef struct {
   char name[40];
@@ -25,6 +21,7 @@ void init_elf(char *elf_file){
     elf_fp = fp;
 
     /* obtain the start of section headers */
+    static Elf64_Off SH_start;
     fseek(elf_fp, 40, SEEK_SET);
     if( fread(&SH_start, sizeof(SH_start), 1,elf_fp) ) ; 
     else {
@@ -32,6 +29,7 @@ void init_elf(char *elf_file){
     }
 
     /* obtain the number of section headers */
+    static uint16_t SH_num;
     fseek(elf_fp, 60, SEEK_SET);
     if( fread(&SH_num, sizeof(SH_num), 1, elf_fp) ); 
     else {
@@ -39,6 +37,7 @@ void init_elf(char *elf_file){
     }
 
     /* obtain the section header string table index */
+    static uint16_t SH_stindex; //section header string table index
     if( fread(&SH_stindex, sizeof(SH_stindex), 1, elf_fp) )  ;
     else {
       assert(0);
@@ -91,9 +90,9 @@ void init_elf(char *elf_file){
     
     /* obtain all the data of symbol table */
     uint64_t  symtab_size= elf_shd[symtab_index].sh_size   ;
-    uint16_t  symtab_num = symtab_size / sizeof(Elf64_Sym);
+    uint16_t  symtab_num = symtab_size / sizeof(Elf64_Sym) ;
     Elf64_Off symtab_off = elf_shd[symtab_index].sh_offset ;
-    Elf64_Sym symtab[symtab_num];
+    Elf64_Sym symtab[symtab_num]    ;
     char symtab_name[symtab_num][40];
 
     fseek(elf_fp, symtab_off, SEEK_SET);
