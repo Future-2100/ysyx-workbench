@@ -3,6 +3,9 @@
 
 FILE *elf_fp = NULL;
 
+//SH means section headers
+Elf64_Off SH_start;
+
 void init_elf(char *elf_file){
   if(elf_file == NULL) {
     return ;
@@ -14,9 +17,8 @@ void init_elf(char *elf_file){
 
     /* obtain the start of section headers */
     fseek(elf_fp, 40, SEEK_SET);
-    Elf64_Off e_shoff;
-    if( fread(&e_shoff, sizeof(e_shoff), 1,elf_fp) ) {
-      Log("start of section headers : %ld", e_shoff);
+    if( fread(&SH_start, sizeof(SH_start), 1,elf_fp) ) {
+      Log("start of section headers : %ld", SH_start);
     }
     else {
       assert(0);
@@ -51,7 +53,7 @@ void init_elf(char *elf_file){
     }
 
     /* obtain all the datas of section headersj */
-    fseek(elf_fp, e_shoff, SEEK_SET);
+    fseek(elf_fp, SH_start, SEEK_SET);
     Elf64_Shdr elf_shd[e_shnum];
     
     for(int i=0; i<e_shnum; i++) {
