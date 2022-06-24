@@ -24,17 +24,8 @@ void init_elf(char *elf_file){
       assert(0);
     }
 
-    /* obtain the size of section headers */
-    fseek(elf_fp, 58, SEEK_SET);
-    uint16_t e_shentsize;
-    if( fread(&e_shentsize, sizeof(e_shentsize), 1, elf_fp) ) {
-      Log("size of section headers : %d", e_shentsize);
-    }
-    else {
-      assert(0);
-    }
-
     /* obtain the number of section headers */
+    fseek(elf_fp, 60, SEEK_SET);
     uint16_t e_shnum;
     if( fread(&e_shnum, sizeof(e_shnum), 1, elf_fp) ) {
       Log("number oof section headers : %d", e_shnum);
