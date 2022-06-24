@@ -75,12 +75,15 @@ void init_elf(char *elf_file){
       }
       printf("%s\n",sh_name_str[i]);
     }
-/*
-    uint16_t strtab_index;
-    for( i=0; i<SH_num; i++) {
 
+    uint16_t strtab_index = 0;
+    for( i=0; i<SH_num; i++) {
+      if ( strcmp( sh_name_str[i], ".strtab" ) == 0 ) {
+        strtab_index = i;
+        break;
+      }
     }
-*/
+    printf("[%d]=.strtab\n", strtab_index);
 
 
   Log("Elf is read from %s", elf_file ? elf_file : "none");
