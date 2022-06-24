@@ -102,7 +102,6 @@ void init_elf(char *elf_file){
       if ( fread(&symtab[i].st_size  , 8, 1, elf_fp) );
     }
 
-    printf("STT_FUNC = %d\n",STT_FUNC);
     Elf64_Off strtab_off = elf_shd[strtab_index].sh_offset ;
     for(i=0; i<symtab_num; i++) {
       fseek(elf_fp, strtab_off + symtab[i].st_name , SEEK_SET);
@@ -119,7 +118,7 @@ void init_elf(char *elf_file){
 
     int func_num = 0;
     for(i=0; i<symtab_num; i++) {
-      if( symtab[i].st_info == STT_FUNC ) 
+      if( symtab[i].st_info == 18 ) 
         func_num ++;
     }
     printf("func_num = %d\n", func_num);
