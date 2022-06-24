@@ -43,9 +43,10 @@ void init_elf(char *elf_file){
       assert(0);
     }
 
-    /* obtain all the datas of section headersj */
+    /* obtain all the datas of section headers */
     fseek(elf_fp, SH_start, SEEK_SET);
     Elf64_Shdr elf_shd[SH_num];
+    char sh_name_str[SH_num][20];
     
     for(int i=0; i<SH_num; i++) {
       if (fread(&elf_shd[i].sh_name     , 4, 1, elf_fp) );
@@ -63,7 +64,6 @@ void init_elf(char *elf_file){
     int i = 0;
     int j = 0;
     char buf;
-    char sh_name_str[SH_num][20];
     for(i=0; i<SH_num; i++) {
       fseek(elf_fp, shstrtab_off + elf_shd[i].sh_name, SEEK_SET);
       j=0;
@@ -73,8 +73,15 @@ void init_elf(char *elf_file){
         sh_name_str[i][j] = buf;
         j++;
       }
-      printf("[%d] = %s\n",i, sh_name_str[i]);
+      printf("%s\n",sh_name_str[i]);
     }
+/*
+    uint16_t strtab_index;
+    for( i=0; i<SH_num; i++) {
+
+    }
+*/
+
 
   Log("Elf is read from %s", elf_file ? elf_file : "none");
   
