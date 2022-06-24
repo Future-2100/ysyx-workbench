@@ -96,7 +96,10 @@ void init_elf(char *elf_file){
 
     fseek(elf_fp, symtab_off, SEEK_SET);
     for(i=0; i<symtab_num; i++) {
-      if ( fread(&symtab[i].st_name  , 4, 1, elf_fp) );
+      if ( fread(&symtab[i].st_name  , 4, 1, elf_fp) == 1 )
+        printf( "[%d]=%d\n", i, symtab[i].st_name );
+      else
+        printf( "[%d]:false\n", i);
       if ( fread(&symtab[i].st_info  , 1, 1, elf_fp) );
       if ( fread(&symtab[i].st_other , 1, 1, elf_fp) );
       if ( fread(&symtab[i].st_shndx , 2, 1, elf_fp) );
