@@ -74,6 +74,7 @@ void init_elf(char *elf_file){
         sh_name_str[i][j] = buf;
         j++;
       }
+      printf("sh_name[%d]=%s\n", i, sh_name_str[i] );
     }
 
     /* obtain the index of .strtab  and the index of .symtab */
