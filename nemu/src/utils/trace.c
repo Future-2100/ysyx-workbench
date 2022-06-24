@@ -91,7 +91,6 @@ void init_elf(char *elf_file){
     /* obtain all the data of symbol table */
     uint64_t  symtab_size= elf_shd[symtab_index].sh_size   ;
     uint16_t  symtab_num = symtab_size / sizeof(Elf64_Sym) ;
-    printf( "symtab_num = %d\n", symtab_num );
     Elf64_Off symtab_off = elf_shd[symtab_index].sh_offset ;
     Elf64_Sym symtab[symtab_num]    ;
     char symtab_name[symtab_num][40];
@@ -109,6 +108,7 @@ void init_elf(char *elf_file){
     Elf64_Off strtab_off = elf_shd[strtab_index].sh_offset ;
     for(i=0; i<symtab_num; i++) {
       fseek(elf_fp, strtab_off + symtab[i].st_name , SEEK_SET);
+      printf("st_name[%d]=%d\n", i,symtab[i].st_name );
       buf = '0' ;
       j = 0;
       while( buf != '\0' ) {
