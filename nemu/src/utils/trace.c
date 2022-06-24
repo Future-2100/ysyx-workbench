@@ -3,13 +3,11 @@
 
 FILE *elf_fp = NULL;
 
-
 typedef struct {
   char name[40];
   Elf64_Addr addr_sta;
   Elf64_Addr addr_end;
 } FUNCT;
-
 
 void init_elf(char *elf_file){
   if(elf_file == NULL) {
@@ -96,16 +94,12 @@ void init_elf(char *elf_file){
 
     fseek(elf_fp, symtab_off, SEEK_SET);
     for(i=0; i<symtab_num; i++) {
-      if ( fread(&symtab[i].st_name  , 4, 1, elf_fp) == 1 )
-        printf( "[%d]=%d\n", i, symtab[i].st_name );
-      else
-        printf( "[%d]:false\n", i);
+      if ( fread(&symtab[i].st_name  , 4, 1, elf_fp) );
       if ( fread(&symtab[i].st_info  , 1, 1, elf_fp) );
       if ( fread(&symtab[i].st_other , 1, 1, elf_fp) );
       if ( fread(&symtab[i].st_shndx , 2, 1, elf_fp) );
       if ( fread(&symtab[i].st_value , 8, 1, elf_fp) );
       if ( fread(&symtab[i].st_size  , 8, 1, elf_fp) );
-      printf("st_name[%d]=%d\n", i, symtab[i].st_name );
     }
 
     Elf64_Off strtab_off = elf_shd[strtab_index].sh_offset ;
@@ -121,11 +115,22 @@ void init_elf(char *elf_file){
       printf("symtab_name[%d]=%s\n", i, symtab_name[i]);
     }
 
-/*
+
+    int func_num = 0;
     for(i=0; i<symtab_num; i++) {
-      if( symtab[i].st_info == STT_FUNC ) ;
+      if( symtab[i].st_info == STT_FUNC ) 
+        func_num ++;
     }
-    */
+    printf("func_num = %d\n", func_num);
+/*
+    typedef struct {
+      char name[40];
+      Elf64_Addr addr_sta;
+      Elf64_Addr addr_end;
+    } FUNCT;
+
+    FUNCT func[func_num];
+ */   
 
   Log("Elf is read from %s", elf_file ? elf_file : "none");
   
