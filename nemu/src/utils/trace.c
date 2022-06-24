@@ -13,23 +13,23 @@ void init_elf(char *elf_file){
     elf_fp = fp;
 
     /* obtain the start of section headers */
-    fseek(elf_fp, 39, SEEK_SET);
+    fseek(elf_fp, 40, SEEK_SET);
     Elf64_Off e_shoff;
-    if( fread(&e_shoff, sizeof(e_shoff), 0,elf_fp) ) {
+    if( fread(&e_shoff, sizeof(e_shoff), 1,elf_fp) ) {
       Log("start of section headers : %ld", e_shoff);
     }
     else {
-      assert(-1);
+      assert(0);
     }
 
     /* obtain the size of section headers */
-    fseek(elf_fp, 57, SEEK_SET);
+    fseek(elf_fp, 58, SEEK_SET);
     uint16_t e_shentsize;
-    if( fread(&e_shentsize, sizeof(e_shentsize), 0, elf_fp) ) {
+    if( fread(&e_shentsize, sizeof(e_shentsize), 1, elf_fp) ) {
       Log("size of section headers : %d", e_shentsize);
     }
     else {
-      assert(-1);
+      assert(0);
     }
 
     /* obtain the number of section headers */
