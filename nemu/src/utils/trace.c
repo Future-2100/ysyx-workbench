@@ -76,14 +76,20 @@ void init_elf(char *elf_file){
       printf("%s\n",sh_name_str[i]);
     }
 
+    /* obtain the index of .strtab  and the index of .symtab */
     uint16_t strtab_index = 0;
+    uint16_t symtab_index = 0;
     for( i=0; i<SH_num; i++) {
       if ( strcmp( sh_name_str[i], ".strtab" ) == 0 ) {
         strtab_index = i;
-        break;
       }
+      if ( strcmp( sh_name_str[i], ".symtab" ) == 0 ) {
+        symtab_index = i;
+      }
+
     }
     printf("[%d]=.strtab\n", strtab_index);
+    printf("[%d]=.symtab\n", symtab_index);
 
 
   Log("Elf is read from %s", elf_file ? elf_file : "none");
