@@ -121,8 +121,7 @@ void init_elf(char *elf_file){
       if( symtab[i].st_info == 18 ) 
         func_num ++;
     }
-    printf("func_num = %d\n", func_num);
-/*
+
     typedef struct {
       char name[40];
       Elf64_Addr addr_sta;
@@ -130,7 +129,17 @@ void init_elf(char *elf_file){
     } FUNCT;
 
     FUNCT func[func_num];
- */   
+
+    j = 0 ;
+    for(i=0; i<symtab_num; i++) {
+      if( symtab[i].st_info == 18 )  {
+        strcpy( func[j].name, symtab_name[i] );
+        func[j].addr_sta = symtab[i].st_value;
+        func[j].addr_end = symtab[i].st_value + symtab[i].st_size ;
+        printf( "func[%d] : %s  %lx - %lx", j, func[j].name, func[j].addr_sta, func[j].addr_end );
+        j++;
+      }
+    }
 
   Log("Elf is read from %s", elf_file ? elf_file : "none");
   
