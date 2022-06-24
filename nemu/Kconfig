@@ -4,9 +4,6 @@ config WATCHPOINT
   bool "Enable watchpoint"
   default n
 
-config MTRACE
-  bool "Enable mtrace"
-  default n
 
 choice
   prompt "Base ISA"
@@ -128,10 +125,13 @@ endmenu
 
 menu "Testing and Debugging"
 
-
 config TRACE
   bool "Enable tracer"
   default y
+
+config MTRACE
+  bool "Enable mtrace"
+  default n
 
 config TRACE_START
   depends on TRACE
