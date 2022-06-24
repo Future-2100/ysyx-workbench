@@ -96,8 +96,8 @@ void init_elf(char *elf_file){
     //Elf64_Off symtab_off = elf_shd[symtab_index].sh_offset ;
     uint64_t  symtab_size= elf_shd[symtab_index].sh_size   ;
     
-    Elf64_Sym symtab;
-    uint16_t  symtab_num = symtab_size / sizeof(symtab);
+    //Elf64_Sym symtab;
+    uint16_t  symtab_num = symtab_size / sizeof(Elf64_Sym);
     printf("symtab_num = %d\n", symtab_num);
     
 
