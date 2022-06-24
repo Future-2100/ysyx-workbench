@@ -4,7 +4,10 @@
 FILE *elf_fp = NULL;
 
 void init_elf(char *elf_file){
-  if(elf_file != NULL) {
+  if(elf_file == NULL) {
+    return ;
+  }
+  
     FILE *fp = fopen(elf_file, "r");
     Assert(fp, "Can not open '%s'", elf_file);
     elf_fp = fp;
@@ -80,7 +83,6 @@ void init_elf(char *elf_file){
       printf("[%d] = %s\n",i, sh_name_str[i]);
     }
 
-  }
   Log("Elf is read from %s", elf_file ? elf_file : "none");
-  return;
+  
 }
