@@ -9,7 +9,7 @@
  * This is useful when you use the `si' command.
  * You can modify this value as you want.
  */
-#define MAX_INST_TO_PRINT 31
+#define MAX_INST_TO_PRINT 30
 #define NR_IRING 20
 
 typedef struct iring {
