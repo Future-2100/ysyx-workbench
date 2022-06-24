@@ -5,6 +5,7 @@ FILE *elf_fp = NULL;
 
 //SH means section headers
 Elf64_Off SH_start;
+uint16_t SH_num;
 
 void init_elf(char *elf_file){
   if(elf_file == NULL) {
@@ -26,9 +27,8 @@ void init_elf(char *elf_file){
 
     /* obtain the number of section headers */
     fseek(elf_fp, 60, SEEK_SET);
-    uint16_t e_shnum;
-    if( fread(&e_shnum, sizeof(e_shnum), 1, elf_fp) ) {
-      Log("number oof section headers : %d", e_shnum);
+    if( fread(&SH_num, sizeof(SH_num), 1, elf_fp) ) {
+      Log("number oof section headers : %d", SH_num);
     }
     else {
       assert(0);
@@ -45,9 +45,9 @@ void init_elf(char *elf_file){
 
     /* obtain all the datas of section headersj */
     fseek(elf_fp, SH_start, SEEK_SET);
-    Elf64_Shdr elf_shd[e_shnum];
+    Elf64_Shdr elf_shd[SH_num];
     
-    for(int i=0; i<e_shnum; i++) {
+    for(int i=0; i<SH_num; i++) {
       if (fread(&elf_shd[i].sh_name     , 4, 1, elf_fp) );
       if (fread(&elf_shd[i].sh_type     , 4, 1, elf_fp) );
       if (fread(&elf_shd[i].sh_flags    , 8, 1, elf_fp) );
@@ -63,8 +63,8 @@ void init_elf(char *elf_file){
     int i = 0;
     int j = 0;
     char buf;
-    char sh_name_str[e_shnum][20];
-    for(i=0; i<e_shnum; i++) {
+    char sh_name_str[SH_num][20];
+    for(i=0; i<SH_num; i++) {
       fseek(elf_fp, shstrtab_off + elf_shd[i].sh_name, SEEK_SET);
       j=0;
       buf = '0';
