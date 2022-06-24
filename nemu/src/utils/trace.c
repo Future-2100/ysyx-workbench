@@ -90,17 +90,36 @@ void init_elf(char *elf_file){
     printf("[%d]=.strtab\n", strtab_index);
     printf("[%d]=.symtab\n", symtab_index);
 
-
-    //Elf64_Off strtab_off = elf_shd[strtab_index].sh_offset ;
-
-    //Elf64_Off symtab_off = elf_shd[symtab_index].sh_offset ;
+    
+    /* obtain all the data of symbol table */
     uint64_t  symtab_size= elf_shd[symtab_index].sh_size   ;
-    
-    //Elf64_Sym symtab;
     uint16_t  symtab_num = symtab_size / sizeof(Elf64_Sym);
-    printf("symtab_num = %d\n", symtab_num);
-    
+    Elf64_Off symtab_off = elf_shd[symtab_index].sh_offset ;
+    Elf64_Sym symtab[symtab_num];
+    char symtab_name[symtab_num][40];
 
+    fseek(elf_fp, symtab_off, SEEK_SET);
+    for(i=0; i<symtab_num; i++) {
+      if ( fread(&symtab[i].st_name  , 4, 1, elf_fp) );
+      if ( fread(&symtab[i].st_info  , 1, 1, elf_fp) );
+      if ( fread(&symtab[i].st_other , 1, 1, elf_fp) );
+      if ( fread(&symtab[i].st_shndx , 2, 1, elf_fp) );
+      if ( fread(&symtab[i].st_value , 8, 1, elf_fp) );
+      if ( fread(&symtab[i].st_size  , 8, 1, elf_fp) );
+    }
+
+    Elf64_Off strtab_off = elf_shd[strtab_index].sh_offset ;
+    for(i=0; i<symtab_num; i++) {
+      fseek(elf_fp, strtab_off + symtab[i].st_name , SEEK_SET);
+      buf = '0' ;
+      j = 0;
+      while( buf != '\0' ) {
+        buf = (char)fgetc(elf_fp);
+        symtab_name[i][j] = buf;
+        j++;
+      }
+      printf("%s\n",symtab_name[i]);
+    }
 
   Log("Elf is read from %s", elf_file ? elf_file : "none");
   
