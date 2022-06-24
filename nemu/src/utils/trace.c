@@ -86,10 +86,20 @@ void init_elf(char *elf_file){
       if ( strcmp( sh_name_str[i], ".symtab" ) == 0 ) {
         symtab_index = i;
       }
-
     }
     printf("[%d]=.strtab\n", strtab_index);
     printf("[%d]=.symtab\n", symtab_index);
+
+
+    //Elf64_Off strtab_off = elf_shd[strtab_index].sh_offset ;
+
+    //Elf64_Off symtab_off = elf_shd[symtab_index].sh_offset ;
+    uint64_t  symtab_size= elf_shd[symtab_index].sh_size   ;
+    
+    Elf64_Sym symtab;
+    uint16_t  symtab_num = symtab_size / sizeof(symtab);
+    printf("symtab_num = %d\n", symtab_num);
+    
 
 
   Log("Elf is read from %s", elf_file ? elf_file : "none");
