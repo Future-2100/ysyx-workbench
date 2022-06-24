@@ -112,7 +112,7 @@ void init_elf(char *elf_file){
         symtab_name[i][j] = buf;
         j++;
       }
-      printf("symtab_name[%d]=%s\n", i, symtab_name[i]);
+      printf("symtab[%d]:name %s,  info %d\n", i, symtab_name[i],symtab[i].st_info);
     }
 
 
