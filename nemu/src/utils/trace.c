@@ -4,9 +4,16 @@
 FILE *elf_fp = NULL;
 
 //SH means section headers
-Elf64_Off SH_start;
-uint16_t SH_num;
-uint16_t SH_stindex; //section header string table index
+static Elf64_Off SH_start;
+static uint16_t SH_num;
+static uint16_t SH_stindex; //section header string table index
+
+typedef struct {
+  char name[40];
+  Elf64_Addr addr_sta;
+  Elf64_Addr addr_end;
+} FUNCT;
+
 
 void init_elf(char *elf_file){
   if(elf_file == NULL) {
@@ -19,26 +26,20 @@ void init_elf(char *elf_file){
 
     /* obtain the start of section headers */
     fseek(elf_fp, 40, SEEK_SET);
-    if( fread(&SH_start, sizeof(SH_start), 1,elf_fp) ) {
-      Log("start of section headers : %ld", SH_start);
-    }
+    if( fread(&SH_start, sizeof(SH_start), 1,elf_fp) ) ; 
     else {
       assert(0);
     }
 
     /* obtain the number of section headers */
     fseek(elf_fp, 60, SEEK_SET);
-    if( fread(&SH_num, sizeof(SH_num), 1, elf_fp) ) {
-      Log("number oof section headers : %d", SH_num);
-    }
+    if( fread(&SH_num, sizeof(SH_num), 1, elf_fp) ); 
     else {
       assert(0);
     }
 
     /* obtain the section header string table index */
-    if( fread(&SH_stindex, sizeof(SH_stindex), 1, elf_fp) ) {
-      Log( "Section header string table index : %d", SH_stindex );
-    }
+    if( fread(&SH_stindex, sizeof(SH_stindex), 1, elf_fp) )  ;
     else {
       assert(0);
     }
@@ -73,7 +74,6 @@ void init_elf(char *elf_file){
         sh_name_str[i][j] = buf;
         j++;
       }
-      printf("%s\n",sh_name_str[i]);
     }
 
     /* obtain the index of .strtab  and the index of .symtab */
@@ -87,9 +87,6 @@ void init_elf(char *elf_file){
         symtab_index = i;
       }
     }
-    printf("[%d]=.strtab\n", strtab_index);
-    printf("[%d]=.symtab\n", symtab_index);
-
     
     /* obtain all the data of symbol table */
     uint64_t  symtab_size= elf_shd[symtab_index].sh_size   ;
@@ -118,9 +115,17 @@ void init_elf(char *elf_file){
         symtab_name[i][j] = buf;
         j++;
       }
-      printf("%s\n",symtab_name[i]);
+      printf("symtab_name[%d]=%s\n", i, symtab_name[i]);
     }
+
+/*
+    for(i=0; i<symtab_num; i++) {
+      if( symtab[i].st_info == STT_FUNC ) ;
+    }
+    */
 
   Log("Elf is read from %s", elf_file ? elf_file : "none");
   
 }
+
+
