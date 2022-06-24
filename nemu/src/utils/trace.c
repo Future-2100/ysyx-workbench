@@ -6,6 +6,7 @@ FILE *elf_fp = NULL;
 //SH means section headers
 Elf64_Off SH_start;
 uint16_t SH_num;
+uint16_t SH_stindex; //section header string table index
 
 void init_elf(char *elf_file){
   if(elf_file == NULL) {
@@ -35,9 +36,8 @@ void init_elf(char *elf_file){
     }
 
     /* obtain the section header string table index */
-    uint16_t e_shstrndx;
-    if( fread(&e_shstrndx, sizeof(e_shstrndx), 1, elf_fp) ) {
-      Log( "Section header string table index : %d", e_shstrndx );
+    if( fread(&SH_stindex, sizeof(SH_stindex), 1, elf_fp) ) {
+      Log( "Section header string table index : %d", SH_stindex );
     }
     else {
       assert(0);
@@ -59,7 +59,7 @@ void init_elf(char *elf_file){
       if (fread(&elf_shd[i].sh_addralign, 8, 1, elf_fp) );
       if (fread(&elf_shd[i].sh_entsize  , 8, 1, elf_fp) );
     }
-    Elf64_Off shstrtab_off = elf_shd[e_shstrndx].sh_offset ;
+    Elf64_Off shstrtab_off = elf_shd[SH_stindex].sh_offset ;
     int i = 0;
     int j = 0;
     char buf;
