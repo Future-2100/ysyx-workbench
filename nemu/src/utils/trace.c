@@ -103,12 +103,12 @@ void init_elf(char *elf_file){
       if ( fread(&symtab[i].st_shndx , 2, 1, elf_fp) );
       if ( fread(&symtab[i].st_value , 8, 1, elf_fp) );
       if ( fread(&symtab[i].st_size  , 8, 1, elf_fp) );
+      printf("st_name[%d]=%d\n", i, symtab[i].st_name );
     }
 
     Elf64_Off strtab_off = elf_shd[strtab_index].sh_offset ;
     for(i=0; i<symtab_num; i++) {
       fseek(elf_fp, strtab_off + symtab[i].st_name , SEEK_SET);
-      printf("st_name[%d]=%d\n", i,symtab[i].st_name );
       buf = '0' ;
       j = 0;
       while( buf != '\0' ) {
