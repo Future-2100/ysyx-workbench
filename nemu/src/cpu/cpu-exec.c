@@ -96,6 +96,9 @@ static void exec_once(Decode *s, vaddr_t pc) {
   iring_head->used = true;
   iring_end = iring_head;
   iring_head = iring_head->next;
+
+  //record the information of function call and ret
+  
   
 #endif
 }
