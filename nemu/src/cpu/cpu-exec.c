@@ -74,7 +74,6 @@ static void exec_once(Decode *s, vaddr_t pc) {
 
   //record the infomation of the instruction in s->logbuf
   uint8_t *inst = (uint8_t *)&s->isa.inst.val;
-  printf("test: inst.val = %08x\n", s->isa.inst.val);
   for (i = ilen - 1; i >= 0; i --) {
     p += snprintf(p, 4, " %02x", inst[i]);
   }
