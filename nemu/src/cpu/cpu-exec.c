@@ -98,6 +98,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   iring_head = iring_head->next;
 
   //record the information of function call and ret
+  //if(s->isa.inst.val = 0x)
   
   
   
