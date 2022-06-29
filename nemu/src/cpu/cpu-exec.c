@@ -103,7 +103,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
 
   //record the information of function call and ret
   //printf("func_num = %d\n", func_num);
-  int func_num = sizeof(function);
+  int func_num = sizeof(function[1]);
   printf("func_num = %d\n", func_num);
   if( s->isa.inst.val == 0x8067 ) {
     word_t ret_addr = cpu.gpr[1];
