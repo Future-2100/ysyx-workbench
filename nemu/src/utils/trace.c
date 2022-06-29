@@ -104,7 +104,6 @@ void init_elf(char *elf_file){
         symtab_name[i][j] = buf;
         j++;
       }
-     // printf("symtab[%d]:name %s,  info %d\n", i, symtab_name[i],symtab[i].st_info);
     }
 
     int func_num = 0;
@@ -117,6 +116,7 @@ void init_elf(char *elf_file){
     FUNCT func[func_num];
 
     j = 0 ;
+
     for(i=0; i<symtab_num; i++) {
       if( symtab[i].st_info == 18 )  {
         strcpy( func[j].name, symtab_name[i] );

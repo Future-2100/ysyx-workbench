@@ -10,6 +10,7 @@ void init_sdb();
 void init_disasm(const char *triple);
 void init_elf(char *elf_file);
 
+
 static void welcome() {
   Log("Trace: %s", MUXDEF(CONFIG_TRACE, ANSI_FMT("ON", ANSI_FG_GREEN), ANSI_FMT("OFF", ANSI_FG_RED)));
   IFDEF(CONFIG_TRACE, Log("If trace is enabled, a log file will be generated "

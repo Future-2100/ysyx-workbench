@@ -6,13 +6,17 @@
 FILE *elf_fp = NULL;
 
 typedef struct {
-  char name[40];
-  //char *name;
+ // char name[40];
+  char *name;
   Elf64_Addr addr_sta;
   Elf64_Addr addr_end;
 } FUNCT;
 
+//FUNCT function;
+
 void init_elf(char *elf_file); 
+
+
 
 #endif
 
