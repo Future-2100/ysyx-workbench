@@ -1,5 +1,11 @@
 #include <common.h>
-#include <../src/utils/trace.h>
+#include <trace.h>
+
+FILE *elf_fp = NULL;
+
+int func_num;
+
+FUNCT function[0];
 
 void init_elf(char *elf_file){
   if(elf_file == NULL) {
