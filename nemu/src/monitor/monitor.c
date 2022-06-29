@@ -1,5 +1,4 @@
 #include <isa.h>
-#include <trace.h>
 #include <memory/paddr.h>
 
 void init_rand();
