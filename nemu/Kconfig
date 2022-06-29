@@ -133,6 +133,14 @@ config MTRACE
   bool "Enable mtrace"
   default n
 
+config FTRACE
+  bool "Enable ftrace"
+  default n
+
+config IRINGTRACE
+  bool "Enable iringtrace"
+  default n
+
 config TRACE_START
   depends on TRACE
   int "When tracing is enabled (unit: number of instructions)"
