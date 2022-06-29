@@ -14,8 +14,5 @@ typedef struct {
 
 void init_elf(char *elf_file); 
 
-void elf_read();
-
-
 #endif
 
