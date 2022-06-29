@@ -132,13 +132,13 @@ static void exec_once(Decode *s, vaddr_t pc) {
     bool match = false;
     for(i = 0; i < func_num; i++) {
       if( (jal_addr >= function[i].addr_sta) && (jal_addr < function[i].addr_end) ) {
-        printf("%lx : call [%s]\n", s->pc, function[i].name);
+        printf("%lx : call [%s @%lx]\n", s->pc, function[i].name, jal_addr);
         match = true;
         break;
       }
     }
     if ( match == false )
-      printf("%lx : call [???]\n", s->pc);
+      printf("%lx : call [??? @%lx]\n", s->pc, jal_addr);
   }
  
 #define JALR_JUDGE (s->isa.inst.val&0x7fff)==0xe7
@@ -147,13 +147,13 @@ static void exec_once(Decode *s, vaddr_t pc) {
     bool match = false;
     for(i = 0; i < func_num; i++) {
       if( (jalr_addr >= function[i].addr_sta) && (jalr_addr < function[i].addr_end) ) {
-        printf("%lx : call [%s]\n", s->pc, function[i].name);
+        printf("%lx : call [%s @%lx]\n", s->pc, function[i].name, jalr_addr);
         match = true;
         break;
       }
   }
     if ( match == false )
-      printf("%lx : call [???]\n", s->pc);
+      printf("%lx : call [??? @%lx]\n", s->pc, jalr_addr);
   }
   
 #endif
