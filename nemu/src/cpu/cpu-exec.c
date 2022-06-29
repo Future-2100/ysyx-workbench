@@ -113,6 +113,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
     }
   }
 
+  /*
   int rs1 = BITS(s->isa.inst.val, 19, 15);
   //int rd  = BITS(s->isa.inst.val, 11, 7 );
 
@@ -120,7 +121,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   word_t jal_offset = (SEXT ( BITS(ins,31,31),1) << 20) | (BITS(ins,19,12) << 12) | (BITS(ins,20,20) << 11) | (BITS(ins,30,25) << 5) | (BITS(ins,24,21) << 1);
 
   word_t jalr_offset =  SEXT(BITS(ins, 31, 20), 12);
-
+  
 
 #define JAL_JUDGE (s->isa.inst.val&0xfff)==0xef
   if( JAL_JUDGE ) {
@@ -143,6 +144,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
         printf("call [???]\n");
     }
   }
+  */
   
 #endif
 }
