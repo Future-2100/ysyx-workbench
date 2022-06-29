@@ -1,4 +1,5 @@
 #include <isa.h>
+#include <trace.h>
 #include <memory/paddr.h>
 
 void init_rand();
@@ -102,6 +103,7 @@ void init_monitor(int argc, char *argv[]) {
 
   /* Read the elf file. */
   init_elf(elf_file);
+  elf_read();
 
   /* Initialize memory. */
   init_mem();
