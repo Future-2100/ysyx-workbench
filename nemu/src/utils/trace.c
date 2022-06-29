@@ -105,12 +105,13 @@ void init_elf(char *elf_file){
         j++;
       }
     }
-
+/*
     int func_num = 0;
     for(i=0; i<symtab_num; i++) {
       if( symtab[i].st_info == 18 ) 
         func_num ++;
     }
+    */
 
     FUNCT *func = function;
 
