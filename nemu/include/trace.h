@@ -3,8 +3,6 @@
 
 #include <elf.h>
 
-extern FILE *elf_fp;
-
 typedef struct {
   char name[40];
   //char *name;
@@ -12,9 +10,7 @@ typedef struct {
   Elf64_Addr addr_end;
 } FUNCT;
 
-extern int func_num;
-
-extern FUNCT function[0];
+void init_elf(char *elf_file);
 
 #endif
 

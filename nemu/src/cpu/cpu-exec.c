@@ -13,6 +13,9 @@
 #define MAX_INST_TO_PRINT 30
 #define NR_IRING 20
 
+extern int func_num;
+extern FUNCT function[0];
+
 typedef struct iring {
   char iringbuf[128] ;
   struct iring *next;
