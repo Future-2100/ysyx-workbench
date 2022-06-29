@@ -117,6 +117,8 @@ void init_elf(char *elf_file){
         func_num ++;
     }
 
+    printf("func_num = %d\n", func_num);
+
     FUNCT *func = function;
 
     j = 0 ;
