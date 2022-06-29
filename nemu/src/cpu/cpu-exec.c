@@ -1,5 +1,5 @@
 #include <cpu/cpu.h>
-//#include <trace.h>
+#include <trace.h>
 #include <cpu/decode.h>
 #include <cpu/difftest.h>
 #include <locale.h>
