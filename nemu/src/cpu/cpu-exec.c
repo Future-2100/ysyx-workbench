@@ -167,10 +167,10 @@ void elf_read() {
     j = 0 ;
     for(i=0; i<symtab_num; i++) {
       if( symtab[i].st_info == 18 )  {
-        strcpy( (func+j)->name, symtab_name[i] );
-        (func+j)->addr_sta = symtab[i].st_value;
-        (func+j)->addr_end = symtab[i].st_value + symtab[i].st_size ;
-        printf( "func[%d] : %s  %lx - %lx\n", j, (func+j)->name, (func+j)->addr_sta, (func+j)->addr_end );
+        strcpy( func[j].name, symtab_name[i] );
+        func[j].addr_sta = symtab[i].st_value;
+        func[j].addr_end = symtab[i].st_value + symtab[i].st_size ;
+        printf( "func[%d] : %s  %lx - %lx\n", j, func[j].name, func[j].addr_sta, func[j].addr_end );
         j++;
       }
     }
