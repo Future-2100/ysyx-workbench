@@ -13,7 +13,6 @@
 #define MAX_INST_TO_PRINT 30
 #define NR_IRING 20
 
-extern int func_num;
 extern FUNCT function[0];
 
 typedef struct iring {
@@ -103,6 +102,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
 
   //record the information of function call and ret
   //func_num = 9;
+    extern int func_num;
     printf("func_num = %d\n", func_num);
   if( s->isa.inst.val == 0x8067 ) {
     word_t ret_addr = cpu.gpr[1];
