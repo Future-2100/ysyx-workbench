@@ -105,11 +105,13 @@ static void exec_once(Decode *s, vaddr_t pc) {
   if( s->isa.inst.val==0x8067 ) {
     word_t ret_addr = cpu.gpr[1];
     for(i = 0; i < func_num; i++) {
-      if( (ret_addr >= function[i].addr_sta) && (ret_addr < function[i].addr_end) )
+      if( (ret_addr >= function[i].addr_sta) && (ret_addr < function[i].addr_end) ) {
         printf("ret [%s]\n", function[i].name);
-      else
-        printf("ret [???]\n");
+        break;
+      }
     }
+    printf("ret [???]\n");
+
   }
 
   /*
