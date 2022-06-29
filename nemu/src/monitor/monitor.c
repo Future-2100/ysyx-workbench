@@ -1,5 +1,5 @@
 #include <isa.h>
-//#include <trace.h>
+#include <trace.h>
 #include <memory/paddr.h>
 
 void init_rand();
@@ -9,7 +9,7 @@ void init_difftest(char *ref_so_file, long img_size, int port);
 void init_device();
 void init_sdb();
 void init_disasm(const char *triple);
-void init_elf(char *elf_file);
+//void init_elf(char *elf_file);
 
 
 static void welcome() {
@@ -151,3 +151,4 @@ void am_init_monitor() {
   welcome();
 }
 #endif
+
