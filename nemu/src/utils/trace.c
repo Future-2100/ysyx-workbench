@@ -1,5 +1,6 @@
 #include <common.h>
 #include <trace.h>
+#include <elf.h>
 
 void init_elf(char *elf_file){
   if(elf_file == NULL) {
