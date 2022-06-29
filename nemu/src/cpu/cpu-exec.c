@@ -102,7 +102,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   iring_head = iring_head->next;
 
   //record the information of function call and ret
-#define RET_JUDGE s->isa.inst.val==0x8076
+#define RET_JUDGE (s->isa.inst.val==0x8076)
   if( RET_JUDGE ) {
     word_t ret_addr = cpu.gpr[1];
     for(i = 0; i < func_num; i++) {
