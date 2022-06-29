@@ -104,6 +104,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
     for(i = 0; i < func_num; i++) {
       if( (ret_addr >= function[i].addr_sta) && (ret_addr < function[i].addr_end) )
         printf("ret [%s]\n", function[i].name);
+      printf( "i = %d\n ", i);
     }
   }
  
