@@ -12,8 +12,6 @@ typedef struct {
   Elf64_Addr addr_end;
 } FUNCT;
 
-FUNCT function[0];
-
 void init_elf(char *elf_file); 
 
 void elf_read();

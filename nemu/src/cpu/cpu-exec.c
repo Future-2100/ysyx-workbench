@@ -162,7 +162,7 @@ void elf_read() {
         func_num ++;
     }
 
-    FUNCT *func = function;
+    FUNCT func[func_num];
 
     j = 0 ;
     for(i=0; i<symtab_num; i++) {
