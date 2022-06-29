@@ -3,7 +3,6 @@
 #include <cpu/difftest.h>
 #include <locale.h>
 #include <../src/monitor/sdb/sdb.h>
-#include <trace.h>
 
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
@@ -99,13 +98,14 @@ static void exec_once(Decode *s, vaddr_t pc) {
   iring_head = iring_head->next;
 
   //record the information of function call and ret
-  if( s->isa.inst.val == 0x8067 ) {
+  /*if( s->isa.inst.val == 0x8067 ) {
     word_t ret_addr = cpu.gpr[1];
     for(i = 0; i < func_num; i++) {
       if( (ret_addr >= function[i].addr_sta) && (ret_addr < function[i].addr_end) )
         printf("ret [%s]\n", function[i].name);
     }
   }
+  */
   
 #endif
 }
