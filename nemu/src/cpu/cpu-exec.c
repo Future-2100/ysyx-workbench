@@ -161,6 +161,7 @@ void elf_read() {
       if( symtab[i].st_info == 18 ) 
         func_num ++;
     }
+    printf("func_num = %d\n", func_num);
 
     FUNCT func[func_num];
 
