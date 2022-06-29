@@ -102,16 +102,44 @@ static void exec_once(Decode *s, vaddr_t pc) {
   iring_head = iring_head->next;
 
   //record the information of function call and ret
-  //func_num = 9;
-  //  printf("func_num = %d\n", func_num);
-  if( s->isa.inst.val == 0x8067 ) {
+#define RET_JUDGE s->isa.inst.val==0x8076
+  if( RET_JUDGE ) {
     word_t ret_addr = cpu.gpr[1];
     for(i = 0; i < func_num; i++) {
       if( (ret_addr >= function[i].addr_sta) && (ret_addr < function[i].addr_end) )
         printf("ret [%s]\n", function[i].name);
     }
   }
+
+  int rs1 = BITS(s->isa.inst.val, 19, 15);
+  //int rd  = BITS(s->isa.inst.val, 11, 7 );
+
+  uint32_t ins = s->isa.inst.val;
+  word_t jal_offset = (SEXT ( BITS(ins,31,31),1) << 20) | (BITS(ins,19,12) << 12) | (BITS(ins,20,20) << 11) | (BITS(ins,30,25) << 5) | (BITS(ins,24,21) << 1);
+
+  word_t jalr_offset =  SEXT(BITS(ins, 31, 20), 12);
+
+
+#define JAL_JUDGE (s->isa.inst.val&0xfff)==0xef
+  if( JAL_JUDGE ) {
+    word_t  jal_addr =  jal_offset + s->pc;
+    for(i = 0; i < func_num; i++) {
+      if( (jal_addr >= function[i].addr_sta) && (jal_addr < function[i].addr_end) )
+        printf("call [%s]\n", function[i].name);
+    }
+
+  }
  
+#define JALR_JUDGE (s->isa.inst.val&0x7fff)==0xe7
+  if( JALR_JUDGE ) {
+    word_t jalr_addr = jalr_offset + cpu.gpr[rs1]; 
+    for(i = 0; i < func_num; i++) {
+      if( (jalr_addr >= function[i].addr_sta) && (jalr_addr < function[i].addr_end) )
+        printf("call [%s]\n", function[i].name);
+    }
+
+
+  }
   
 #endif
 }
