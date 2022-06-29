@@ -1,6 +1,5 @@
 #include <cpu/cpu.h>
-#include <elf.h>
-//#include <trace.h>
+#include <../src/utils/trace.h>
 #include <cpu/decode.h>
 #include <cpu/difftest.h>
 #include <locale.h>
@@ -100,14 +99,6 @@ static void exec_once(Decode *s, vaddr_t pc) {
   iring_head = iring_head->next;
 
   //record the information of function call and ret
-  typedef struct {
-    char name[40];
-    Elf64_Addr addr_sta;
-    Elf64_Addr addr_end;
-  } FUNCT;
-  
-  extern int func_num;
-  extern FUNCT function[0];
   if( s->isa.inst.val == 0x8067 ) {
     word_t ret_addr = cpu.gpr[1];
     for(i = 0; i < func_num; i++) {
