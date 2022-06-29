@@ -111,7 +111,6 @@ void init_elf(char *elf_file){
       if( symtab[i].st_info == 18 ) 
         func_num ++;
     }
-    printf("func_num = %d\n", func_num);
 
     FUNCT *func = function;
 
