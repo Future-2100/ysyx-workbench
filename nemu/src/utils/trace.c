@@ -3,7 +3,7 @@
 
 FILE *elf_fp = NULL;
 
-int func_num;
+static int func_num;
 
 FUNCT function[0];
 
