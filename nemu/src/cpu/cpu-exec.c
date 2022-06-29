@@ -95,12 +95,15 @@ static void exec_once(Decode *s, vaddr_t pc) {
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
   
+#ifdef CONFIG_IRINGTRACE
   //record the information in iringbuf
   strcpy( iring_head->iringbuf, s->logbuf );
   iring_head->used = true;
   iring_end = iring_head;
   iring_head = iring_head->next;
+#endif
 
+#ifdef CONFIG_FTRACE
   //record the information of function call and ret
   if( s->isa.inst.val==0x8067 ) {
     word_t ret_addr = cpu.gpr[1];
@@ -155,6 +158,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
     if ( match == false )
       printf("%lx : call [??? @%lx]\n", s->pc, jalr_addr);
   }
+#endif
   
 #endif
 }
