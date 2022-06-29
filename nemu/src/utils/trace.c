@@ -117,8 +117,6 @@ void init_elf(char *elf_file){
         func_num ++;
     }
 
-    printf("initial func_num = %d\n", func_num);
-
     FUNCT *func = function;
 
     j = 0 ;
@@ -128,7 +126,7 @@ void init_elf(char *elf_file){
         strcpy( (func+j)->name, symtab_name[i] );
         (func+j)->addr_sta = symtab[i].st_value;
         (func+j)->addr_end = symtab[i].st_value + symtab[i].st_size ;
-        printf( "func[%d] : %s  %lx - %lx\n", j, (func+j)->name, (func+j)->addr_sta, (func+j)->addr_end );
+//        printf( "func[%d] : %s  %lx - %lx\n", j, (func+j)->name, (func+j)->addr_sta, (func+j)->addr_end );
         j++;
       }
     }
