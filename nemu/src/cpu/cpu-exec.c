@@ -14,6 +14,7 @@
 #define NR_IRING 20
 
 extern FUNCT function[0];
+extern int func_num;
 
 typedef struct iring {
   char iringbuf[128] ;
@@ -102,8 +103,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
 
   //record the information of function call and ret
   //func_num = 9;
-    extern int func_num;
-    printf("func_num = %d\n", func_num);
+  //  printf("func_num = %d\n", func_num);
   if( s->isa.inst.val == 0x8067 ) {
     word_t ret_addr = cpu.gpr[1];
     for(i = 0; i < func_num; i++) {
@@ -117,6 +117,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
 }
 
 static void execute(uint64_t n) {
+  printf("func_num = %d\n", func_num);
   Decode s;
   for (;n > 0; n --) {
     exec_once(&s, cpu.pc);
