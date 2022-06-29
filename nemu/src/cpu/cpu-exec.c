@@ -163,17 +163,6 @@ static void exec_once(Decode *s, vaddr_t pc) {
 #endif
 }
 
-static void execute(uint64_t n) {
-  Decode s;
-  for (;n > 0; n --) {
-    exec_once(&s, cpu.pc);
-    g_nr_guest_inst ++;
-    trace_and_difftest(&s, cpu.pc);
-    if (nemu_state.state != NEMU_RUNNING) break;
-    IFDEF(CONFIG_DEVICE, device_update());
-  }
-}
-
 void itrace_display(){
   IRING *p = iring_head; 
 
@@ -186,6 +175,22 @@ void itrace_display(){
   printf("--> %s\n",p->iringbuf);
 
 }
+
+
+static void execute(uint64_t n) {
+  Decode s;
+  for (;n > 0; n --) {
+    exec_once(&s, cpu.pc);
+    g_nr_guest_inst ++;
+    trace_and_difftest(&s, cpu.pc);
+    if (nemu_state.state != NEMU_RUNNING) {
+      itrace_display();
+      break;
+    }
+    IFDEF(CONFIG_DEVICE, device_update());
+  }
+}
+
 
 static void statistic() {
   IFNDEF(CONFIG_TARGET_AM, setlocale(LC_NUMERIC, ""));
