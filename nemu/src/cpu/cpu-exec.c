@@ -107,14 +107,14 @@ static void exec_once(Decode *s, vaddr_t pc) {
     bool match = false;
     for(i = 0; i < func_num; i++) {
       if( (ret_addr >= function[i].addr_sta) && (ret_addr < function[i].addr_end) ) {
-        printf("ret: [%s]\n", function[i].name);
+        printf("%lx : ret: [%s]\n", s->pc,function[i].name);
         match = true;
         break;
       }
     }
 
     if (match == false)
-      printf("ret [???]\n");
+      printf("%lx : ret [???]\n", s->pc);
   }
 
   int rs1 = BITS(s->isa.inst.val, 19, 15);
@@ -132,13 +132,13 @@ static void exec_once(Decode *s, vaddr_t pc) {
     bool match = false;
     for(i = 0; i < func_num; i++) {
       if( (jal_addr >= function[i].addr_sta) && (jal_addr < function[i].addr_end) ) {
-        printf("call [%s]\n", function[i].name);
+        printf("%lx : call [%s]\n", s->pc, function[i].name);
         match = true;
         break;
       }
     }
     if ( match == false )
-      printf("call [???]\n");
+      printf("%lx : call [???]\n", s->pc);
   }
  
 #define JALR_JUDGE (s->isa.inst.val&0x7fff)==0xe7
@@ -147,13 +147,13 @@ static void exec_once(Decode *s, vaddr_t pc) {
     bool match = false;
     for(i = 0; i < func_num; i++) {
       if( (jalr_addr >= function[i].addr_sta) && (jalr_addr < function[i].addr_end) ) {
-        printf("call [%s]\n", function[i].name);
+        printf("%lx : call [%s]\n", s->pc, function[i].name);
         match = true;
         break;
       }
   }
     if ( match == false )
-      printf("call [???]\n");
+      printf("%lx : call [???]\n", s->pc);
   }
   
 #endif
