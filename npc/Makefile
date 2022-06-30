@@ -1,12 +1,12 @@
 BUILD_DIR = ./build
 
 test:
-	mill -i __.test
+	./mill -i __.test
 
 verilog:
 	$(call git_commit, "generate verilog")
 	mkdir -p $(BUILD_DIR)
-	mill -i __.test.runMain Elaborate -td $(BUILD_DIR)
+	./mill -i __.test.runMain Elaborate -td $(BUILD_DIR)
 
 help:
 	mill -i __.test.runMain Elaborate --help
