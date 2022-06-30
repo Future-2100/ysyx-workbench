@@ -8,6 +8,7 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
     if( difftest_check_reg( reg_name(i, 64), pc, ref_r->gpr[check_reg_idx(i)], gpr(i) ) == false )
       return false;
   }
+  printf("------------------check success!--------------\n");
   return true ;
 }
 
