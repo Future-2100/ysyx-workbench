@@ -83,7 +83,7 @@ sim: $(BIN)
 	@echo "-- Verilator hello-world simple example"
 	@echo "-- VERILATE & BUILD --------"
 	@echo "-- RUN ---------------------"
-	@$(BIN)
+	@$(BIN) +trace
 	@echo "-- DONE --------------------"
 	@echo "Note: Once this example is understood, see examples/make_tracing_c."
 	@echo "Note: Also see the EXAMPLE section in the verilator manpage/document."
