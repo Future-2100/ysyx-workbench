@@ -61,7 +61,7 @@ VERILATOR_FLAGS += --assert
 VERILATOR_FLAGS += --build
 
 # Name of output object directory
-VERILATOR_FLAGS += --Mdir $(BUILD_DIR)
+VERILATOR_FLAGS += --Mdir $(OBJ_DIR)
 
 # along with sim_amin.cpp wrapper file, so the build will crete an executable instead of only a library
 VERILATOR_FLAGS += --exe
@@ -93,6 +93,6 @@ wave :
 
 maintainer-copy::
 clean mostlyclean distclean maintainer-clean::
-	-rm -rf $(DST_DIR)
+	-rm -rf $(BUILD_DIR)
 	
 include ../Makefile
