@@ -88,7 +88,7 @@ sim: $(BIN)
 	@echo "Note: Once this example is understood, see examples/make_tracing_c."
 	@echo "Note: Also see the EXAMPLE section in the verilator manpage/document."
 
-wave :
+wave: sim
 	@gtkwave $(BUILD_DIR)/logs/$(TOPNAME).vcd
 
 maintainer-copy::
