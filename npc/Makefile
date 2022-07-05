@@ -14,13 +14,13 @@ default: $(BIN)
 
 $(shell mkdir -p $(BUILD_DIR))
 
-#Compilation targets
-VSRCS = $(shell find $(WORK_DIR)/vsrc -name "*.v")
-CSRCS = $(shell find $(WORK_DIR)/csrc -name "*.c" -or -name "*.cc" -or -name "*.cpp")
-
 ifeq ($(PLATFORM),nvboard)
 include $(NPC_HOME)/script/nvboard.mk
 endif
+
+#Compilation targets
+VSRCS = $(shell find $(WORK_DIR)/vsrc -name "*.v")
+CSRCS = $(shell find $(WORK_DIR)/csrc -name "*.c" -or -name "*.cc" -or -name "*.cpp")
 
 
 ######################################################################
