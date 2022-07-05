@@ -49,13 +49,13 @@ VERILATOR_FLAGS += --cc
 VERILATOR_FLAGS += --MMD
 
 # Optimize
-VERILATOR_FLAGS += -Os -x-assign 0
+#VERILATOR_FLAGS += -Os -x-assign 0
 
 # Make waveforms
 VERILATOR_FLAGS += --trace 
 
 # Check SystemVerilog assertions
-VERILATOR_FLAGS += --assert
+#VERILATOR_FLAGS += --assert
 
 # Build model executable/library after Verilation
 VERILATOR_FLAGS += --build
@@ -94,5 +94,12 @@ wave: sim
 maintainer-copy::
 clean mostlyclean distclean maintainer-clean::
 	-rm -rf $(BUILD_DIR)
+
+
+
+
+
+
+
 	
 include ../Makefile
