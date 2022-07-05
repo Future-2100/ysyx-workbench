@@ -20,4 +20,3 @@ LDFLAGS += -lSDL2 -lSDL2_image
 
 NVBOARD_FLAGS = $(addprefix -CFLAGS, $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS))
 
-
