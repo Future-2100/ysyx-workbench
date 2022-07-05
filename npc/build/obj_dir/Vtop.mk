@@ -35,14 +35,9 @@ VM_PREFIX = Vtop
 VM_MODPREFIX = Vtop
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
-	-I/home/grand/ysyx-workbench/nvboard/include \
-	-DTOP_NAMEd"Vtop" \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
-	/home/grand/ysyx-workbench/nvboard/build/nvboard.a \
-	-lSDL2 \
-	-lSDL2_image \
 
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \
