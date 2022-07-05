@@ -26,8 +26,10 @@ CSRCS = $(shell find $(WORK_DIR)/csrc -name "*.c" -or -name "*.cc" -or -name "*.
 ######################################################################
 
 $(BIN) : $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
-	$(VERILATOR) $(VERILATOR_FLAGS) --top-module $(TOPNAME) $^ \
-		$(NVBOARD_FLAGS)
+	$(VERILATOR) $(VERILATOR_FLAGS) \
+		--top-module $(TOPNAME) $^ \
+		$(NVBOARD_FLAGS) \
+		$(VERILATOR_OUT)
 
 all : default
 

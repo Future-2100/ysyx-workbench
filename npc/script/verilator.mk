@@ -42,12 +42,13 @@ VERILATOR_FLAGS += --trace
 # Build model executable/library after Verilation
 VERILATOR_FLAGS += --build
 
+
 # Name of output object directory
-VERILATOR_FLAGS += --Mdir $(OBJ_DIR)
+VERILATOR_OUT += --Mdir $(OBJ_DIR)
 
 # along with sim_amin.cpp wrapper file, so the build will crete an executable instead of only a library
-VERILATOR_FLAGS += --exe
+VERILATOR_OUT += --exe
 
 #specify the name for the executable built if using --exe. Default to the --prefix if not specified.
-VERILATOR_FLAGS += -o $(BIN)
+VERILATOR_OUT += -o $(abspath $(BIN))
 
