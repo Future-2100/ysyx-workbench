@@ -1,5 +1,5 @@
 
-NXDC_FILE = constr/top.nxdc
+NXDC_FILE = $(NPC_HOME)/constr/top.nxdc
 INC_PATH ?= 
 
 # constraint file

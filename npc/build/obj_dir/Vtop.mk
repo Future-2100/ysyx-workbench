@@ -35,17 +35,22 @@ VM_PREFIX = Vtop
 VM_MODPREFIX = Vtop
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
+	-I/home/grand/ysyx-workbench/nvboard/include \
+	-DTOP_NAMEd"Vtop" \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
+	/home/grand/ysyx-workbench/nvboard/build/nvboard.a \
+	-lSDL2 \
+	-lSDL2_image \
 
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \
-	sim_main \
+	main \
 
 # User .cpp directories (from .cpp's on Verilator command line)
 VM_USER_DIR = \
-	/home/grand/ysyx-workbench/npc/csrc/verilator \
+	/home/grand/ysyx-workbench/npc/csrc/nvboard \
 
 
 ### Default rules...
@@ -57,7 +62,7 @@ include $(VERILATOR_ROOT)/include/verilated.mk
 ### Executable rules... (from --exe)
 VPATH += $(VM_USER_DIR)
 
-sim_main.o: /home/grand/ysyx-workbench/npc/csrc/verilator/sim_main.cpp
+main.o: /home/grand/ysyx-workbench/npc/csrc/nvboard/main.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 
 ### Link rules... (from --exe)
