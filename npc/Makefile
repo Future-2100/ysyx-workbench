@@ -1,5 +1,62 @@
 TOPNAME = top
 
+ifeq ($(PLATFORM),nvboard)
+NXDC_FILES = constr/top.nxdc
+INC_PATH ?=
+endif
+
+############################## Verilator Check #####################################
+
+# Check for sanity to avoid later confusion
+ifneq ($(words $(CURDIR)),1)
+	$(error Unsupported: GNU Make cannot build in directories containing spaces, build elsewhere: '$(CURDIR)')
+endif
+
+# If $VERILATOR_ROOT isn't in the environment, we assume it is part of a
+# package install, and verilator is in your path. Otherwise find the binary
+# relative to $VERIALTOR_ROOT (such as when inside the git source).
+ifeq ($(VERILATOR_ROOT),)
+VERILATOR = verilator
+else
+export VERILATOR_ROOT
+VERILATOR = $(VERILATOR_ROOT)/bin/verilator
+endif
+
+####################################################################################
+
+
+
+############################### Verilator Flags ####################################
+
+# For best performance
+VERILATOR_FLAGS += -O3 --x-assign fast --x-initial fast --noassert
+
+#Stronger lint warning enabled
+VERILATOR_FLAGS += -Wall
+
+# Get C++ output(versus e.g. SystemC or only linting).
+VERILATOR_FLAGS += --cc 
+
+# Enable creation of .d dependency files, used for make dependency detection, 
+# similar to gcc -MMD option. By default this option os enabled for --cc or 
+# --sc models.
+VERILATOR_FLAGS += --MMD
+
+# Optimize
+# VERILATOR_FLAGS += -Os -x-assign 0
+
+#Make waveforms
+VERILATOR_FLAGS += --trace
+
+# Check SystemVerilog assertions
+# VERILATOR_FLAGS += --assert
+
+# Build model executable/library after Verilation
+VERILATOR_FLAGS += --build
+
+####################################################################################
+
+
 #Create the destination directory
 
 WORK_DIR = $(shell pwd)
@@ -11,34 +68,56 @@ default: $(BIN)
 
 $(shell mkdir -p $(BUILD_DIR))
 
-include $(NPC_HOME)/script/verilator.mk
-
-
-###2. General Compilation Targets
-
+# constraint file
 ifeq ($(PLATFORM),nvboard)
-include $(NPC_HOME)/script/nvboard.mk
+SRC_AUTO_BIND = $(abspath $(BUILD_DIR)/auto_bind.cpp)
+$(SRC_AUTO_BIND): $(NXDC_FILES)
+	python3 $(NVBOARD_HOME)/scripts/auto_pin_bind.py $^ $@
 endif
 
-#Compilation targets
-VSRCS = $(shell find $(WORK_DIR)/vsrc -name "*.v")
 
+# project source
+VSRCS = $(shell find $(abspath ./vsrc) -name "*.v")
 ifeq ($(PLATFORM),nvboard)
-CSRCS = $(shell find $(WORK_DIR)/csrc/nvboard -name "*.c" -or -name "*.cc" -or -name "*.cpp")
+CSRCS = $(shell find $(abspath ./csrc/nvboard) -name "*.c" -or -name "*.cc" -or -name "*.cpp")
+CSRCS += $(SRC_AUTO_BIND)
 else
-CSRCS = $(shell find $(WORK_DIR)/csrc/verilator -name "*.c" -or -name "*.cc" -or -name "*.cpp")
+CSRCS = $(shell find $(abspath ./csrc/verilator) -name "*.c" -or -name "*.cc" -or -name "*.cpp")
 endif
 
 
-######################################################################
+#rules for NVBoard
+ifeq ($(PLATFORM),nvboard)
+include $(NVBOARD_HOME)/scripts/nvboard.mk
+INCFLAGS = $(addprefix -I, $(INC_PATH))
+CFLAGS += $(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
+LDFLAGS += -lSDL2 -lSDL2_image
+NVBOARD_FLAGS += $(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS))
+endif
 
-$(BIN) : $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
+#rules for verilator output
+
+# Name of output object directory
+VERILATOR_OUTFLAGS += --Mdir $(OBJ_DIR) 
+
+# Along with sim_main.cpp wrapper file, so the build will create an executable instead of only a library
+VERILATOR_OUTFLAGS += --exe
+
+# Specify the name for the executable built if using --exe. Default to the --prefix if not specified
+VERILATOR_OUTFLAGS += -o $(abspath $(BIN))
+
+
+$(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
+	@rm -rf $(OBJ_DIR)
 	$(VERILATOR) $(VERILATOR_FLAGS) \
 		--top-module $(TOPNAME) $^ \
 		$(NVBOARD_FLAGS) \
-		$(VERILATOR_OUT)
+		$(VERILATOR_OUTFLAGS)
 
 all : default
+
+run : $(BIN)
+	@$^
 
 sim: $(BIN)
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
@@ -52,9 +131,6 @@ sim: $(BIN)
 
 wave: sim
 	@gtkwave $(BUILD_DIR)/logs/$(TOPNAME).vcd
-
-run : $(BIN)
-	$^
 
 maintainer-copy::
 clean mostlyclean distclean maintainer-clean::
