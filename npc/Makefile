@@ -51,6 +51,9 @@ sim: $(BIN)
 wave: sim
 	@gtkwave $(BUILD_DIR)/logs/$(TOPNAME).vcd
 
+run : $(BIN)
+	@$^
+
 maintainer-copy::
 clean mostlyclean distclean maintainer-clean::
 	-rm -rf $(BUILD_DIR)
