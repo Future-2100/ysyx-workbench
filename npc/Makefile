@@ -1,7 +1,7 @@
 TOPNAME = top
 
-ifeq ($(PLATFORM),nvboard)
-NXDC_FILES = constr/top.nxdc
+ifeq ($(NVBOARD),en)
+NXDC_FILES = $(NPC_HOME)/constr/top.nxdc
 INC_PATH ?=
 endif
 
@@ -69,7 +69,7 @@ default: $(BIN)
 $(shell mkdir -p $(BUILD_DIR))
 
 # constraint file
-ifeq ($(PLATFORM),nvboard)
+ifeq ($(NVBOARD),en)
 SRC_AUTO_BIND = $(abspath $(BUILD_DIR)/auto_bind.cpp)
 $(SRC_AUTO_BIND): $(NXDC_FILES)
 	python3 $(NVBOARD_HOME)/scripts/auto_pin_bind.py $^ $@
@@ -78,7 +78,7 @@ endif
 
 # project source
 VSRCS = $(shell find $(abspath ./vsrc) -name "*.v")
-ifeq ($(PLATFORM),nvboard)
+ifeq ($(NVBOARD),en)
 CSRCS = $(shell find $(abspath ./csrc/nvboard) -name "*.c" -or -name "*.cc" -or -name "*.cpp")
 CSRCS += $(SRC_AUTO_BIND)
 else
@@ -87,7 +87,7 @@ endif
 
 
 #rules for NVBoard
-ifeq ($(PLATFORM),nvboard)
+ifeq ($(NVBOARD),en)
 include $(NVBOARD_HOME)/scripts/nvboard.mk
 INCFLAGS = $(addprefix -I, $(INC_PATH))
 CFLAGS += $(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
@@ -117,20 +117,24 @@ $(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 all : default
 
 run : $(BIN)
-	@$^
+	@$^ 
+	@make clean
 
 sim: $(BIN)
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	@echo "-- Verilator hello-world simple example"
 	@echo "-- VERILATE & BUILD --------"
 	@echo "-- RUN ---------------------"
-	@$(BIN) +trace
+	@$(BIN) 
 	@echo "-- DONE --------------------"
 	@echo "Note: Once this example is understood, see examples/make_tracing_c."
 	@echo "Note: Also see the EXAMPLE section in the verilator manpage/document."
+	@make clean
 
 wave: sim
 	@gtkwave $(BUILD_DIR)/logs/$(TOPNAME).vcd
+	@make clean
+
 
 maintainer-copy::
 clean mostlyclean distclean maintainer-clean::

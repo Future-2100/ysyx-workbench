@@ -32,17 +32,15 @@ void Vtop___024root___initial__TOP__1(Vtop___024root* vlSelf) {
     // Variables
     VlWide<5>/*159:0*/ __Vtemp1;
     // Body
-    if (VL_UNLIKELY((0U != VL_TESTPLUSARGS_I("trace")))) {
-        __Vtemp1[0U] = 0x2e766364U;
-        __Vtemp1[1U] = 0x2f746f70U;
-        __Vtemp1[2U] = 0x6c6f6773U;
-        __Vtemp1[3U] = 0x696c642fU;
-        __Vtemp1[4U] = 0x6275U;
-        vlSymsp->_vm_contextp__->dumpfile(VL_CVT_PACK_STR_NW(5, __Vtemp1));
-        vlSymsp->_traceDumpOpen();
-        VL_WRITEF("[%0t] Tracing to build/logs/top.vcd...\n\n",
-                  64,VL_TIME_UNITED_Q(1),-12);
-    }
+    VL_WRITEF("[%0t] Tracing to build/logs/top.vcd...\n\n",
+              64,VL_TIME_UNITED_Q(1),-12);
+    __Vtemp1[0U] = 0x2e766364U;
+    __Vtemp1[1U] = 0x2f746f70U;
+    __Vtemp1[2U] = 0x6c6f6773U;
+    __Vtemp1[3U] = 0x696c642fU;
+    __Vtemp1[4U] = 0x6275U;
+    vlSymsp->_vm_contextp__->dumpfile(VL_CVT_PACK_STR_NW(5, __Vtemp1));
+    vlSymsp->_traceDumpOpen();
     VL_WRITEF("[%0t] Model running...\n\n",64,VL_TIME_UNITED_Q(1),
               -12);
 }
