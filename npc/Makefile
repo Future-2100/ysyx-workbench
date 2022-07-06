@@ -20,7 +20,12 @@ endif
 
 #Compilation targets
 VSRCS = $(shell find $(WORK_DIR)/vsrc -name "*.v")
-CSRCS = $(shell find $(WORK_DIR)/csrc -name "*.c" -or -name "*.cc" -or -name "*.cpp")
+
+ifeq ($(PLATFORM),nvboard)
+CSRCS = $(shell find $(WORK_DIR)/csrc/nvboard -name "*.c" -or -name "*.cc" -or -name "*.cpp")
+else
+CSRCS = $(shell find $(WORK_DIR)/csrc/verilator -name "*.c" -or -name "*.cc" -or -name "*.cpp")
+endif
 
 
 ######################################################################
