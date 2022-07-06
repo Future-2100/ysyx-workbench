@@ -22,12 +22,13 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
     if (false && tracep && c) {}  // Prevent unused
     // Body
     {
-        tracep->declBit(c+1,"a", false,-1);
-        tracep->declBit(c+2,"b", false,-1);
-        tracep->declBit(c+3,"f", false,-1);
-        tracep->declBit(c+1,"top a", false,-1);
-        tracep->declBit(c+2,"top b", false,-1);
-        tracep->declBit(c+3,"top f", false,-1);
+        tracep->declBit(c+1,"clk", false,-1);
+        tracep->declBit(c+2,"rst", false,-1);
+        tracep->declBus(c+3,"led", false,-1, 15,0);
+        tracep->declBit(c+1,"top clk", false,-1);
+        tracep->declBit(c+2,"top rst", false,-1);
+        tracep->declBus(c+3,"top led", false,-1, 15,0);
+        tracep->declBus(c+4,"top count", false,-1, 31,0);
     }
 }
 
@@ -64,8 +65,9 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
     if (false && oldp) {}  // Prevent unused
     // Body
     {
-        tracep->fullBit(oldp+1,(vlSelf->a));
-        tracep->fullBit(oldp+2,(vlSelf->b));
-        tracep->fullBit(oldp+3,(vlSelf->f));
+        tracep->fullBit(oldp+1,(vlSelf->clk));
+        tracep->fullBit(oldp+2,(vlSelf->rst));
+        tracep->fullSData(oldp+3,(vlSelf->led),16);
+        tracep->fullIData(oldp+4,(vlSelf->top__DOT__count),32);
     }
 }

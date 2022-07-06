@@ -23,9 +23,10 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
     if (false && oldp) {}  // Prevent unused
     // Body
     {
-        tracep->chgBit(oldp+0,(vlSelf->a));
-        tracep->chgBit(oldp+1,(vlSelf->b));
-        tracep->chgBit(oldp+2,(vlSelf->f));
+        tracep->chgBit(oldp+0,(vlSelf->clk));
+        tracep->chgBit(oldp+1,(vlSelf->rst));
+        tracep->chgSData(oldp+2,(vlSelf->led),16);
+        tracep->chgIData(oldp+3,(vlSelf->top__DOT__count),32);
     }
 }
 
