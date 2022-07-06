@@ -1,10 +1,14 @@
 TOPNAME = top
 
 #Create the destination directory
+
 WORK_DIR = $(shell pwd)
 BUILD_DIR = $(WORK_DIR)/build
 OBJ_DIR = $(BUILD_DIR)/obj_dir
 BIN = $(BUILD_DIR)/$(TOPNAME)
+
+default: $(BIN)
+
 $(shell mkdir -p $(BUILD_DIR))
 
 include $(NPC_HOME)/script/verilator.mk
@@ -15,8 +19,6 @@ include $(NPC_HOME)/script/verilator.mk
 ifeq ($(PLATFORM),nvboard)
 include $(NPC_HOME)/script/nvboard.mk
 endif
-
-default: $(BIN)
 
 #Compilation targets
 VSRCS = $(shell find $(WORK_DIR)/vsrc -name "*.v")
@@ -52,7 +54,7 @@ wave: sim
 	@gtkwave $(BUILD_DIR)/logs/$(TOPNAME).vcd
 
 run : $(BIN)
-	@$^
+	$^
 
 maintainer-copy::
 clean mostlyclean distclean maintainer-clean::
