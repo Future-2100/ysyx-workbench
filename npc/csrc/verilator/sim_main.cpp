@@ -8,6 +8,7 @@
 // Inculde model header, generated from Verilating "top.v"
 #include <Vtop.h>
 
+
 int main(int argc, char** argv, char** env) {
 
   // Prevent unused variable warnings
@@ -35,24 +36,14 @@ int main(int argc, char** argv, char** env) {
 //const std::unique_ptr<Vtop> top{new Vtop{contextp.get(), "TOP"}};
 
   // Simulated until $finish
-//  while( !Verilated::gotFinish() ) {
-  int i = 30;
-  while ( i-- ) {
+  while( !Verilated::gotFinish() ) {
 
     contextp->timeInc(1); // 1 timeprecision period passes...
 
-    int a = rand() & 1;
-    int b = rand() & 1;
-
-    top->a = a;
-    top->b = b;
+//    top->inst = pmem_read(top->pc);
 
     // Evaluate model
     top->eval();
-
-    printf("a = %d, b = %d, f = %d\n", a, b, top->f);
-
-    assert(top->f == a ^ b);
 
 
   }
@@ -68,3 +59,4 @@ int main(int argc, char** argv, char** env) {
   // Return good completion status
   return 0;
 }
+

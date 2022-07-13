@@ -1,6 +1,6 @@
 TOPNAME = top
 
-ifeq ($(NVBOARD),en)
+ifeq ($(NV),en)
 NXDC_FILES = $(NPC_HOME)/constr/top.nxdc
 INC_PATH ?=
 endif
@@ -69,16 +69,16 @@ default: $(BIN)
 $(shell mkdir -p $(BUILD_DIR))
 
 # constraint file
-ifeq ($(NVBOARD),en)
+ifeq ($(NV),en)
 SRC_AUTO_BIND = $(abspath $(BUILD_DIR)/auto_bind.cpp)
 $(SRC_AUTO_BIND): $(NXDC_FILES)
-	python3 $(NVBOARD_HOME)/scripts/auto_pin_bind.py $^ $@
+	@python3 $(NVBOARD_HOME)/scripts/auto_pin_bind.py $^ $@
 endif
 
 
 # project source
 VSRCS = $(shell find $(abspath ./vsrc) -name "*.v")
-ifeq ($(NVBOARD),en)
+ifeq ($(NV),en)
 CSRCS = $(shell find $(abspath ./csrc/nvboard) -name "*.c" -or -name "*.cc" -or -name "*.cpp")
 CSRCS += $(SRC_AUTO_BIND)
 else
@@ -87,7 +87,7 @@ endif
 
 
 #rules for NVBoard
-ifeq ($(NVBOARD),en)
+ifeq ($(NV),en)
 include $(NVBOARD_HOME)/scripts/nvboard.mk
 INCFLAGS = $(addprefix -I, $(INC_PATH))
 CFLAGS += $(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
@@ -109,7 +109,7 @@ VERILATOR_OUTFLAGS += -o $(abspath $(BIN))
 
 $(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 	@rm -rf $(OBJ_DIR)
-	$(VERILATOR) $(VERILATOR_FLAGS) \
+	@$(VERILATOR) $(VERILATOR_FLAGS) \
 		--top-module $(TOPNAME) $^ \
 		$(NVBOARD_FLAGS) \
 		$(VERILATOR_OUTFLAGS)
@@ -138,6 +138,6 @@ wave: sim
 
 maintainer-copy::
 clean mostlyclean distclean maintainer-clean::
-	-rm -rf $(BUILD_DIR)
+	@rm -rf $(BUILD_DIR)
 	
 include ../Makefile
