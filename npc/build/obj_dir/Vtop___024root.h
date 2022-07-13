@@ -23,20 +23,42 @@ VL_MODULE(Vtop___024root) {
     VL_IN8(rstn,0,0);
     VL_OUT8(ebreak,0,0);
     VL_IN(inst,31,0);
-    VL_OUT64(pc,63,0);
+    VL_OUT64(dnxt_pc,63,0);
     VL_OUT64(gpr1,63,0);
 
     // LOCAL SIGNALS
+    CData/*3:0*/ top__DOT__rglr_op;
+    CData/*4:0*/ top__DOT__wrglr_op;
+    CData/*0:0*/ top__DOT__sb;
+    CData/*0:0*/ top__DOT__sh;
+    CData/*0:0*/ top__DOT__sw;
+    CData/*0:0*/ top__DOT__sd;
+    CData/*0:0*/ top__DOT__memory_inst__DOT__wr_en;
+    CData/*7:0*/ top__DOT__memory_inst__DOT__ram_inst__DOT__rdata1;
+    CData/*7:0*/ top__DOT__memory_inst__DOT__ram_inst__DOT__rdata2;
+    SData/*15:0*/ top__DOT__memory_inst__DOT__ram_inst__DOT__rdata3;
     IData/*31:0*/ top__DOT__regfile_inst__DOT__i;
-    QData/*63:0*/ top__DOT__rdata1;
+    IData/*31:0*/ top__DOT__alu_inst__DOT__wrglr_rslt;
+    IData/*31:0*/ top__DOT__memory_inst__DOT__ram_inst__DOT__rdata4;
+    QData/*63:0*/ top__DOT__imm;
+    QData/*63:0*/ top__DOT__result;
+    QData/*63:0*/ top__DOT__pc;
+    QData/*63:0*/ top__DOT__rdata2;
+    QData/*63:0*/ top__DOT__alu_inst__DOT__opdata1;
     QData/*63:0*/ top__DOT__alu_inst__DOT__opdata2;
+    QData/*63:0*/ top__DOT__alu_inst__DOT__rglr_rslt;
+    QData/*63:0*/ top__DOT__memory_inst__DOT__rdata;
     VlUnpacked<QData/*63:0*/, 31> top__DOT__regfile_inst__DOT__gpr;
+    VlUnpacked<CData/*7:0*/, 8192> top__DOT__memory_inst__DOT__ram_inst__DOT__ram1;
+    VlUnpacked<CData/*7:0*/, 8192> top__DOT__memory_inst__DOT__ram_inst__DOT__ram2;
+    VlUnpacked<SData/*15:0*/, 8192> top__DOT__memory_inst__DOT__ram_inst__DOT__ram3;
+    VlUnpacked<IData/*31:0*/, 8192> top__DOT__memory_inst__DOT__ram_inst__DOT__ram4;
 
     // LOCAL VARIABLES
     CData/*0:0*/ __Vclklast__TOP__clk;
     CData/*0:0*/ __Vclklast__TOP__rstn;
     QData/*63:0*/ top__DOT__regfile_inst__DOT____Vlvbound1;
-    VlUnpacked<CData/*0:0*/, 2> __Vm_traceActivity;
+    VlUnpacked<CData/*0:0*/, 5> __Vm_traceActivity;
 
     // INTERNAL VARIABLES
     Vtop__Syms* vlSymsp;  // Symbol table

@@ -13,10 +13,10 @@ Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     : vlSymsp{new Vtop__Syms(_vcontextp__, _vcname__, this)}
     , clk{vlSymsp->TOP.clk}
     , rstn{vlSymsp->TOP.rstn}
-    , pc{vlSymsp->TOP.pc}
-    , inst{vlSymsp->TOP.inst}
-    , gpr1{vlSymsp->TOP.gpr1}
     , ebreak{vlSymsp->TOP.ebreak}
+    , dnxt_pc{vlSymsp->TOP.dnxt_pc}
+    , gpr1{vlSymsp->TOP.gpr1}
+    , inst{vlSymsp->TOP.inst}
     , rootp{&(vlSymsp->TOP)}
 {
 }
