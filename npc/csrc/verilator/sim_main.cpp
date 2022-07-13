@@ -8,6 +8,15 @@
 // Inculde model header, generated from Verilating "top.v"
 #include <Vtop.h>
 
+#include "svdpi.h"
+#include "Vtop__Dpi.h"
+
+uint32_t pmem_read(uint64_t pc) {
+  if( pc == 0x80000080 )
+    return 0x100073;
+  else
+    return 0x108093;
+}
 
 int main(int argc, char** argv, char** env) {
 
@@ -19,7 +28,7 @@ int main(int argc, char** argv, char** env) {
 
   //Construct a VerilatedContext to hold simulation time, etc.
   VerilatedContext* contextp = new VerilatedContext; // must delete it at end
-//const std::unique_ptr<VerilatedContext> contextp{new VerilatedContext};
+ //const std::unique_ptr<VerilatedContext> contextp{new VerilatedContext};
 
   // Set debug level, 0 is off, 9 is highest presently used
   contextp->debug(0);
@@ -35,17 +44,40 @@ int main(int argc, char** argv, char** env) {
   Vtop* top = new Vtop;  // must delete it at end
 //const std::unique_ptr<Vtop> top{new Vtop{contextp.get(), "TOP"}};
 
+  const svScope scope = svGetScopeFromName("TOP.top");
+  assert(scope);
+  svSetScope(scope);
+
+  top->rstn = 0;
+  top->clk  = 0;
+  top->inst = 0x00000000;
+
+  // reset
+  for ( int i=0; i<10; i++ ) {
+    contextp->timeInc(1);
+    top->clk = !top->clk;
+    top->rstn = 0 ;
+    top->eval();
+  }
+
+  top->rstn = 1;
+
   // Simulated until $finish
   while( !Verilated::gotFinish() ) {
 
     contextp->timeInc(1); // 1 timeprecision period passes...
+    top->clk = !top->clk ;
 
-//    top->inst = pmem_read(top->pc);
+    top->inst = pmem_read(top->pc);
+
+    if(top->ebreak) end_sim();
 
     // Evaluate model
     top->eval();
 
-
+    if( !top->clk ) {
+      printf("pc = %lx, gpr[1] = %lx \n", top->pc, top->gpr1);
+    }
   }
 
   // Final model cleanup
