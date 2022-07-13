@@ -107,6 +107,11 @@ VERILATOR_OUTFLAGS += --exe
 VERILATOR_OUTFLAGS += -o $(abspath $(BIN))
 
 
+#image file
+IMG = 
+
+SIMFLAGS += $(IMG)
+
 $(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 	@rm -rf $(OBJ_DIR)
 	@$(VERILATOR) $(VERILATOR_FLAGS) \
@@ -125,7 +130,7 @@ sim: $(BIN)
 	@echo "-- Verilator hello-world simple example"
 	@echo "-- VERILATE & BUILD --------"
 	@echo "-- RUN ---------------------"
-	@$(BIN) 
+	@$(BIN) $(SIMFLAGS)
 	@echo "-- DONE --------------------"
 	@echo "Note: Once this example is understood, see examples/make_tracing_c."
 	@echo "Note: Also see the EXAMPLE section in the verilator manpage/document."
