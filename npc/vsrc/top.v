@@ -8,9 +8,9 @@ module top
   input   wire  rstn ,
 
   output  wire            ebreak ,
-  output  wire  [DW-1:0] dnxt_pc ,
-  output  wire  [DW-1:0] gpr1    ,
-  input   wire  [IW-1:0]   inst 
+  output  wire  [DW-1:0]      pc ,
+  output  wire  [DW-1:0]    gpr1 ,
+  input   wire  [IW-1:0]    inst 
 );
 
 wire    [DW-1:0]    imm      ; 
@@ -19,7 +19,6 @@ wire                brch_asrt;
 wire                jalr_en  ;
 wire                jal_en   ;
 wire    [DW-1:0]    snxt_pc  ;
-wire    [DW-1:0]    pc       ;
 
   pc_gen pc_gen_inst(
     .clk      (clk) ,
@@ -30,7 +29,6 @@ wire    [DW-1:0]    pc       ;
     .brch_asrt( brch_asrt  ),
     .jalr_en  ( jalr_en    ),
     .jal_en   ( jal_en     ),
-    .dnxt_pc  ( dnxt_pc    ),
     .snxt_pc  ( snxt_pc    ),
     .pc       ( pc         )
   );

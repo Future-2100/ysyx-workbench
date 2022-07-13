@@ -118,7 +118,7 @@ all : default
 
 run : $(BIN)
 	@$^ 
-	#@make clean
+	@make clean
 
 sim: $(BIN)
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
@@ -129,9 +129,10 @@ sim: $(BIN)
 	@echo "-- DONE --------------------"
 	@echo "Note: Once this example is understood, see examples/make_tracing_c."
 	@echo "Note: Also see the EXAMPLE section in the verilator manpage/document."
-	#@make clean
+	@make clean
 
-wave: sim
+wave: $(BIN)
+	@$^
 	@gtkwave $(BUILD_DIR)/logs/$(TOPNAME).vcd
 	@make clean
 

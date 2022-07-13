@@ -23,7 +23,7 @@ VL_MODULE(Vtop___024root) {
     VL_IN8(rstn,0,0);
     VL_OUT8(ebreak,0,0);
     VL_IN(inst,31,0);
-    VL_OUT64(dnxt_pc,63,0);
+    VL_OUT64(pc,63,0);
     VL_OUT64(gpr1,63,0);
 
     // LOCAL SIGNALS
@@ -42,8 +42,8 @@ VL_MODULE(Vtop___024root) {
     IData/*31:0*/ top__DOT__memory_inst__DOT__ram_inst__DOT__rdata4;
     QData/*63:0*/ top__DOT__imm;
     QData/*63:0*/ top__DOT__result;
-    QData/*63:0*/ top__DOT__pc;
     QData/*63:0*/ top__DOT__rdata2;
+    QData/*63:0*/ top__DOT__pc_gen_inst__DOT__dnxt_pc;
     QData/*63:0*/ top__DOT__alu_inst__DOT__opdata1;
     QData/*63:0*/ top__DOT__alu_inst__DOT__opdata2;
     QData/*63:0*/ top__DOT__alu_inst__DOT__rglr_rslt;

@@ -148,14 +148,14 @@ int main(int argc, char** argv, char** env) {
     top->clk = !top->clk ;
 
     if( top->clk ) {
-      top->inst = pmem_read(top->dnxt_pc);
+      top->inst = pmem_read(top->pc);
       if(top->ebreak)  end_sim(); 
     }
     // Evaluate model
     top->eval();
 
     if( !top->clk ) {
-      printf("pc = %lx, inst = %x \n", top->dnxt_pc, top->inst);
+      printf("pc = %lx, inst = %x \n", top->pc, top->inst);
     }
 
   }
