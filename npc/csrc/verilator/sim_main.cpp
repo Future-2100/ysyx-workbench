@@ -58,6 +58,7 @@ static long load_img() {
     return 4096;
   }
 
+  printf(" imag_file = %s\n ", img_file);
   FILE *fp = fopen(img_file, "rb");
   assert(fp);
 
@@ -140,7 +141,9 @@ int main(int argc, char** argv, char** env) {
     top->rstn = 1;
 
   // Simulated until $finish
-  while( !Verilated::gotFinish() ) {
+  //while( !Verilated::gotFinish() ) {
+  int j = 30;
+  while( j-- ) {
 
     contextp->timeInc(1); // 1 timeprecision period passes...
 
