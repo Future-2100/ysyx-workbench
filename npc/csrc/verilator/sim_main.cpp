@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <getopt.h>
 
 // Include common routines
 #include <verilated.h>
@@ -14,13 +15,15 @@
 static char *img_file = NULL ;
 static char *log_file = NULL ;
 
+static uint8_t pmem[0x8000000] __attribute((aligned(4096))) = {};
+
 static int parse_args(int argc, char** argv) {
   const struct option table[] = {
     {"log "  ,  required_argument, NULL, 'l'},
     {0       , 0                 , NULL,  0 },
   };
   int o;
-  while( (o = getopt_long(argc, argv, "-i:", table, NULL)) != -1 ) {
+  while( (o = getopt_long(argc, argv, "-l:", table, NULL)) != -1 ) {
     switch (o) {
       case 'l' : log_file = optarg; break;
       case  1  : img_file = optarg; return 0;
@@ -33,15 +36,22 @@ static int parse_args(int argc, char** argv) {
   return 0;
 }
 
-void init_monitor(int argc, char** argv) {
+static const uint32_t img [] = {
+  0x00000297,
+  0x0002b823,
+  0x0102b503,
+  0x00100073,
+  0xdeadbeef,
+};
 
-  parse_args(argc, argv);
+void init_isa() {
+  memcpy( pmem, img, sizeof(img) );
 
 }
 
 static long load_img() {
   if (img_file == NULL) {
-    printf("Use the default build-in image.");
+    printf("Use the default build-in image.\n");
     return 4096;
   }
 
@@ -51,16 +61,36 @@ static long load_img() {
   fseek(fp, 0, SEEK_END);
   long size = ftell(fp);
 
-  printf("The image is %s, size = %d", img_file, size);
+  printf("The image is %s, size = %ld", img_file, size);
 
   fseek(fp, 0, SEEK_SET);
-  int ret = fread( , size, 1, fp);
+  int ret = fread( pmem , size, 1, fp);
   assert( ret == 1 );
 
   fclose(fp);
   return size;
 }
 
+
+void init_memory(int argc, char** argv) {
+
+  parse_args(argc, argv);
+
+  init_isa();
+
+  long img_size = load_img();
+
+}
+
+
+uint32_t pmem_read(uint64_t pc) {
+
+  printf("pmem_read : pc = %lx\n",pc);
+
+  uint32_t inst = *(uint32_t *)( pc - 0x80000000 + pmem);
+
+  return inst;
+}
 
 int main(int argc, char** argv, char** env) {
 
@@ -95,6 +125,7 @@ int main(int argc, char** argv, char** env) {
   svSetScope(scope);
 
   //begin 
+  printf("-------------------simulation begin--------------------\n");
 
   top->rstn = 0;
   top->clk  = 0;
@@ -116,19 +147,21 @@ int main(int argc, char** argv, char** env) {
 
     top->clk = !top->clk ;
 
-    top->inst = pmem_read(top->dnxt_pc);
-
-    if(top->ebreak) end_sim();
+    if( top->clk ) {
+      top->inst = pmem_read(top->dnxt_pc);
+      if(top->ebreak)  end_sim(); 
+    }
     // Evaluate model
     top->eval();
 
     if( !top->clk ) {
-      printf("pc = %lx, gpr[1] = %lx \n", top->dnxt_pc, top__DOT__regfile_inst__DOT__gpr);
+      printf("pc = %lx, inst = %x \n", top->dnxt_pc, top->inst);
     }
 
   }
 
   // Final model cleanup
+  printf("----------------------simulation end-----------------\n");
   top->final();
 
   // Destory model
