@@ -20,15 +20,18 @@ static uint8_t pmem[0x8000000] __attribute((aligned(4096))) = {};
 static int parse_args(int argc, char** argv) {
   const struct option table[] = {
     {"log "  ,  required_argument, NULL, 'l'},
+    {"img "  ,  required_argument, NULL, 'i'},
     {0       , 0                 , NULL,  0 },
   };
   int o;
-  while( (o = getopt_long(argc, argv, "-l:", table, NULL)) != -1 ) {
+  while( (o = getopt_long(argc, argv, "-l:i:", table, NULL)) != -1 ) {
     switch (o) {
       case 'l' : log_file = optarg; break;
-      case  1  : img_file = optarg; return 0;
+      case 'i' : img_file = optarg; break;
+      case  1  :                 return 0;
       default  :
                  printf("-l,--log=FILE      output log to FILE\n");
+                 printf("-i,--img=FILE      load img to FILE\n");
                  printf("\n");
                  exit(0);
     }

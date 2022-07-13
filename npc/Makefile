@@ -110,7 +110,7 @@ VERILATOR_OUTFLAGS += -o $(abspath $(BIN))
 #image file
 IMG = 
 
-SIMFLAGS += $(IMG)
+SIMFLAGS += -i $(IMG)
 
 $(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 	@rm -rf $(OBJ_DIR)
