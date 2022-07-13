@@ -11,14 +11,60 @@
 #include "svdpi.h"
 #include "Vtop__Dpi.h"
 
-uint32_t pmem_read(uint64_t pc) {
-  if ( pc == 0x80000080 )
-    return 0x100073;
-  else
-    return 0x108093;
+static char *img_file = NULL ;
+static char *log_file = NULL ;
+
+static int parse_args(int argc, char** argv) {
+  const struct option table[] = {
+    {"log "  ,  required_argument, NULL, 'l'},
+    {0       , 0                 , NULL,  0 },
+  };
+  int o;
+  while( (o = getopt_long(argc, argv, "-i:", table, NULL)) != -1 ) {
+    switch (o) {
+      case 'l' : log_file = optarg; break;
+      case  1  : img_file = optarg; return 0;
+      default  :
+                 printf("-l,--log=FILE      output log to FILE\n");
+                 printf("\n");
+                 exit(0);
+    }
+  }
+  return 0;
 }
 
+void init_monitor(int argc, char** argv) {
+
+  parse_args(argc, argv);
+
+}
+
+static long load_img() {
+  if (img_file == NULL) {
+    printf("Use the default build-in image.");
+    return 4096;
+  }
+
+  FILE *fp = fopen(img_file, "rb");
+  assert(fp);
+
+  fseek(fp, 0, SEEK_END);
+  long size = ftell(fp);
+
+  printf("The image is %s, size = %d", img_file, size);
+
+  fseek(fp, 0, SEEK_SET);
+  int ret = fread( , size, 1, fp);
+  assert( ret == 1 );
+
+  fclose(fp);
+  return size;
+}
+
+
 int main(int argc, char** argv, char** env) {
+
+  init_memory(argc, argv);
 
   // Prevent unused variable warnings
   if( false && argc && argv && env) {}
@@ -47,6 +93,8 @@ int main(int argc, char** argv, char** env) {
   const svScope scope = svGetScopeFromName("TOP.top");
   assert(scope);
   svSetScope(scope);
+
+  //begin 
 
   top->rstn = 0;
   top->clk  = 0;

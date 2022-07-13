@@ -34,10 +34,12 @@ static void out_of_bound(paddr_t addr) {
 
 void init_mem() {
 #if   defined(CONFIG_PMEM_MALLOC)
+  printf("CONFIG_PMEM_MALLOC defined\n");
   pmem = malloc(CONFIG_MSIZE);
   assert(pmem);
 #endif
 #ifdef CONFIG_MEM_RANDOM
+  printf("CONFIG_MEM_RANDOM defined\n");
   uint32_t *p = (uint32_t *)pmem;
   int i;
   for (i = 0; i < (int) (CONFIG_MSIZE / sizeof(p[0])); i ++) {
