@@ -17,7 +17,7 @@
 #ifndef VL_DPIDECL_end_sim_
 #define VL_DPIDECL_end_sim_
 void end_sim() {
-    // DPI export at /home/grand/ysyx-workbench/npc/vsrc/top.v:196:8
+    // DPI export at /home/grand/ysyx-workbench/npc/vsrc/top.v:198:8
     return Vtop::end_sim();
 }
 #endif

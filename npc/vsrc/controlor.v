@@ -82,9 +82,10 @@ module controlor
 
   assign  imm_en = immop_en | immopw_en | auipc_en ;
 
+  wire  rglr_en = !auipc_en & !lui_en ;
   assign  rglr_op =  ( {4{auipc_en}} & ( 4'b0000) ) | 
-                         ( {4{ lui_en }} & ( 4'b1111) ) |
-                         ( { inst[30],funct3 } ) ;
+                     ( {4{ lui_en }} & ( 4'b1111) ) |
+                     ( {4{rglr_en }} & { inst[30],funct3 } ) ;
 
   assign  wrglr_op = { (immopw_en | rsopw_en), inst[30], funct3 } ;
 

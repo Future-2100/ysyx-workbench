@@ -32,9 +32,10 @@ module regfile
 
   wire    [DW-1:0]  wdata  ; 
 
+  wire  alu_en = !load_en & !(jal_en|jalr_en);
   assign  wdata = ( {DW{load_en}} & load_data ) | 
                   ( {DW{jal_en | jalr_en}} & snxt_pc ) | 
-                  alu_data;
+                  ( {DW{alu_en }} &  alu_data) ;
 
   reg   [DW-1:0]    gpr   [31:1]  ;
 

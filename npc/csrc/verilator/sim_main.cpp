@@ -65,7 +65,7 @@ static long load_img() {
   fseek(fp, 0, SEEK_END);
   long size = ftell(fp);
 
-  printf("The image is %s, size = %ld", img_file, size);
+  printf("The image is %s, size = %ld\n", img_file, size);
 
   fseek(fp, 0, SEEK_SET);
   int ret = fread( pmem , size, 1, fp);
@@ -136,6 +136,10 @@ int main(int argc, char** argv, char** env) {
       top->clk = !top->clk;
       top->rstn = 0 ;
       top->eval();
+      if ( top->clk ) {
+        printf("top->dnxt_pc = %lx\n", top->dnxt_pc);
+        top->inst = pmem_read(top->dnxt_pc);
+      }
     }
 
     top->rstn = 1;
@@ -150,7 +154,7 @@ int main(int argc, char** argv, char** env) {
     top->clk = !top->clk ;
 
     if( top->clk ) {
-      top->inst = pmem_read(top->pc);
+      top->inst = pmem_read(top->dnxt_pc);
       if(top->ebreak)  end_sim(); 
     }
     // Evaluate model

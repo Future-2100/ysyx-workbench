@@ -137,7 +137,7 @@ sim: $(BIN)
 	@make clean
 
 wave: $(BIN)
-	@$^
+	@$(BIN) $(SIMFLAGS)
 	@gtkwave $(BUILD_DIR)/logs/$(TOPNAME).vcd
 	@make clean
 

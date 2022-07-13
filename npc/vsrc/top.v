@@ -7,9 +7,10 @@ module top
   input   wire  clk ,
   input   wire  rstn ,
 
-  output  wire            ebreak ,
-  output  wire  [DW-1:0]      pc ,
-  output  wire  [DW-1:0]    gpr1 ,
+  output  wire            ebreak  ,
+  output  wire  [DW-1:0]  dnxt_pc ,
+  output  wire  [DW-1:0]       pc ,
+  output  wire  [DW-1:0]    gpr1  ,
   input   wire  [IW-1:0]    inst 
 );
 
@@ -29,6 +30,7 @@ wire    [DW-1:0]    snxt_pc  ;
     .brch_asrt( brch_asrt  ),
     .jalr_en  ( jalr_en    ),
     .jal_en   ( jal_en     ),
+    .dnxt_pc  ( dnxt_pc    ),
     .snxt_pc  ( snxt_pc    ),
     .pc       ( pc         )
   );
