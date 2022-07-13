@@ -85,8 +85,6 @@ void init_memory(int argc, char** argv) {
 
 uint32_t pmem_read(uint64_t pc) {
 
-  printf("pmem_read : pc = %lx\n",pc);
-
   uint32_t inst = *(uint32_t *)( pc - 0x80000000 + pmem);
 
   return inst;
@@ -125,8 +123,6 @@ int main(int argc, char** argv, char** env) {
   svSetScope(scope);
 
   //begin 
-  printf("-------------------simulation begin--------------------\n");
-
   top->rstn = 0;
   top->clk  = 0;
   top->inst = 0x00;
@@ -161,7 +157,6 @@ int main(int argc, char** argv, char** env) {
   }
 
   // Final model cleanup
-  printf("----------------------simulation end-----------------\n");
   top->final();
 
   // Destory model
