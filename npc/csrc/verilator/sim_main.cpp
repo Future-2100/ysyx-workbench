@@ -89,6 +89,13 @@ void init_memory(int argc, char** argv) {
 
 uint32_t pmem_read(uint64_t pc) {
 
+  /*
+  if( pc< 0x80000000 || pc >= 0x88000000) {
+    end_sim;
+    return 0;
+  }
+  */
+
   uint32_t inst = *(uint32_t *)( pc - 0x80000000 + pmem);
 
   return inst;
@@ -136,18 +143,12 @@ int main(int argc, char** argv, char** env) {
       top->clk = !top->clk;
       top->rstn = 0 ;
       top->eval();
-      if ( top->clk ) {
-        printf("top->dnxt_pc = %lx\n", top->dnxt_pc);
-        top->inst = pmem_read(top->dnxt_pc);
-      }
     }
 
     top->rstn = 1;
 
   // Simulated until $finish
-  //while( !Verilated::gotFinish() ) {
-  int j = 30;
-  while( j-- ) {
+  while( !Verilated::gotFinish() ) {
 
     contextp->timeInc(1); // 1 timeprecision period passes...
 
@@ -161,7 +162,7 @@ int main(int argc, char** argv, char** env) {
     top->eval();
 
     if( !top->clk ) {
-      printf("pc = %lx, inst = %x \n", top->pc, top->inst);
+      printf("pc = %lx, inst = %x , gpr1 = %lx\n", top->pc, top->inst, top->gpr1);
     }
 
   }

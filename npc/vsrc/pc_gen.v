@@ -30,15 +30,13 @@ module pc_gen
   assign  snxt_pc = pc + 4 ;
 
 
-  wire [DW-1:0]  pre_dnxt_pc = ( {DW{jalr_en  }} & jalr_pc ) |
+  assign  dnxt_pc = ( {DW{jalr_en  }} & jalr_pc ) |
                     ( {DW{jalbr_en }} & jalbr_pc) |
                     ( {DW{snxt_en  }} & snxt_pc ) ;
 
-  assign dnxt_pc = rstn ? pre_dnxt_pc : 64'h80000000 ;
-
   always@(posedge clk or negedge rstn) begin
     if(!rstn) begin
-      pc <= 64'h80000000;
+      pc <= 64'h80000000 - 4 ;
     end else begin
       pc <= dnxt_pc  ;
     end

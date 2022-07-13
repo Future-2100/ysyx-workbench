@@ -584,27 +584,22 @@ void Vtop___024root___settle__TOP__3(Vtop___024root* vlSelf) {
                                                                                 & (vlSelf->inst 
                                                                                 >> 2U))))))))) 
                                                      & vlSelf->top__DOT__result));
-    vlSelf->dnxt_pc = ((IData)(vlSelf->rstn) ? (((0xfffffffffffffffeULL 
-                                                  & ((- (QData)((IData)(
-                                                                        (0x19U 
-                                                                         == 
-                                                                         (0x1fU 
-                                                                          & (vlSelf->inst 
-                                                                             >> 2U)))))) 
-                                                     & vlSelf->top__DOT__result)) 
-                                                 | ((- (QData)((IData)(vlSelf->top__DOT__pc_gen_inst__DOT__jalbr_en))) 
-                                                    & (vlSelf->pc 
-                                                       + vlSelf->top__DOT__imm))) 
-                                                | ((- (QData)((IData)(
-                                                                      ((~ (IData)(vlSelf->top__DOT__pc_gen_inst__DOT__jalbr_en)) 
-                                                                       & (0x19U 
-                                                                          != 
-                                                                          (0x1fU 
-                                                                           & (vlSelf->inst 
-                                                                              >> 2U))))))) 
-                                                   & (4ULL 
-                                                      + vlSelf->pc)))
-                        : 0x80000000ULL);
+    vlSelf->dnxt_pc = (((0xfffffffffffffffeULL & ((- (QData)((IData)(
+                                                                     (0x19U 
+                                                                      == 
+                                                                      (0x1fU 
+                                                                       & (vlSelf->inst 
+                                                                          >> 2U)))))) 
+                                                  & vlSelf->top__DOT__result)) 
+                        | ((- (QData)((IData)(vlSelf->top__DOT__pc_gen_inst__DOT__jalbr_en))) 
+                           & (vlSelf->pc + vlSelf->top__DOT__imm))) 
+                       | ((- (QData)((IData)(((~ (IData)(vlSelf->top__DOT__pc_gen_inst__DOT__jalbr_en)) 
+                                              & (0x19U 
+                                                 != 
+                                                 (0x1fU 
+                                                  & (vlSelf->inst 
+                                                     >> 2U))))))) 
+                          & (4ULL + vlSelf->pc)));
 }
 
 void Vtop___024root___eval_initial(Vtop___024root* vlSelf) {
