@@ -4,6 +4,7 @@ module memory
 ) (
 
   input wire  clk   ,
+  input wire  rstn  ,
 
   input wire  lb  ,
   input wire  lh  ,
@@ -35,7 +36,7 @@ module memory
   wire  ram3_en = sw | sd ; 
   wire  ram4_en = sd ; 
 
-  wire  wr_en = sb | sh | sw | sd ;
+  wire  wr_en =  ( sb | sh | sw | sd ) & rstn ;
 
   wire  [DW-1:0] rdata;
 

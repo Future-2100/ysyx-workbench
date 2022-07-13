@@ -1,7 +1,6 @@
 module regfile
 #(
   parameter DW = 64 , // data width
-  parameter IW = 32 , // instruction width
   parameter AW = 5
 ) (
   input   wire    clk               ,
@@ -15,20 +14,16 @@ module regfile
   input   wire    [DW-1:0]   alu_data   , //result from alu
   input   wire    [DW-1:0]    snxt_pc   , //result of the pc added 4
 
-  input   wire    [IW-1:0]  inst    ,
+  input   wire    [AW-1:0]  waddr   ,
+
+  input   wire    [AW-1:0]  raddr1  ,
+  input   wire    [AW-1:0]  raddr2  ,
   output  wire    [DW-1:0]  rdata1  ,
   output  wire    [DW-1:0]  rdata2  ,
 
   output  wire    [DW-1:0]  gpr1
 
 );
-  initial begin
-    if ( inst==inst );
-  end
-
-  wire    [AW-1:0]  raddr1   = inst[19:15] ;
-  wire    [AW-1:0]  raddr2   = inst[24:20] ;
-  wire    [AW-1:0]  waddr    = inst[11: 7] ;
 
   wire    [DW-1:0]  wdata  ; 
 
@@ -43,20 +38,21 @@ module regfile
 
   integer i;
 
+  wire  wen = wb_en && (waddr != {AW{1'b0}}) ;
   always@(posedge clk or negedge rstn) begin
     if(!rstn) begin
       for(i=1; i<32; i=i+1) begin
         gpr[i] <= {DW{1'b0}} ;
       end
     end
-    else if (wb_en && (waddr != {AW{1'b0}}) ) begin
-      gpr[waddr] <= wdata ;
+    else if (wen) begin
+      gpr[waddr-1] <= wdata ;
     end
   end
 
 
-  assign  rdata1 = (raddr1 == {AW{1'b0}}) ? {DW{1'b0}} : gpr[raddr1] ;
-  assign  rdata2 = (raddr2 == {AW{1'b0}}) ? {DW{1'b0}} : gpr[raddr2] ;
+  assign  rdata1 = (raddr1 == {AW{1'b0}}) ? {DW{1'b0}} : gpr[raddr1-1] ;
+  assign  rdata2 = (raddr2 == {AW{1'b0}}) ? {DW{1'b0}} : gpr[raddr2-1] ;
   
 
 endmodule

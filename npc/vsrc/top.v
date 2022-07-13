@@ -46,6 +46,7 @@ regfile regfile_inst
 (
   .clk       ( clk       )   ,
   .rstn      ( rstn      )   ,
+  .waddr     ( inst[11:7])   ,
   .wb_en     ( wb_en     )   ,
   .load_en   ( load_en   )   ,
   .jal_en    ( jal_en    )   ,
@@ -53,7 +54,8 @@ regfile regfile_inst
   .load_data ( load_data )   , //data read from memory
   .alu_data  ( alu_data  )   , //result from alu
   .snxt_pc   ( snxt_pc   )   , //result of the pc added 4
-  .inst      ( inst      )   ,
+  .raddr1    (inst[19:15])   ,
+  .raddr2    (inst[24:20])   ,
   .rdata1    ( rdata1    )   ,
   .rdata2    ( rdata2    )   ,
   .gpr1      ( gpr1      )
@@ -130,6 +132,7 @@ alu alu_inst
 memory memory_inst
 (
     .clk      ( clk        ) ,
+    .rstn     ( rstn       ) ,
     .lb       ( lb         ) ,
     .lh       ( lh         ) ,
     .lw       ( lw         ) ,

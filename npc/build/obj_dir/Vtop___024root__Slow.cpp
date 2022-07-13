@@ -248,10 +248,12 @@ void Vtop___024root___settle__TOP__3(Vtop___024root* vlSelf) {
                                                  >> 0x14U) 
                                                 - (IData)(1U)))]
                                             : 0ULL));
-    vlSelf->top__DOT__memory_inst__DOT__wr_en = ((((IData)(vlSelf->top__DOT__sb) 
-                                                   | (IData)(vlSelf->top__DOT__sh)) 
-                                                  | (IData)(vlSelf->top__DOT__sw)) 
-                                                 | (IData)(vlSelf->top__DOT__sd));
+    vlSelf->top__DOT__memory_inst__DOT__wr_en = (((
+                                                   ((IData)(vlSelf->top__DOT__sb) 
+                                                    | (IData)(vlSelf->top__DOT__sh)) 
+                                                   | (IData)(vlSelf->top__DOT__sw)) 
+                                                  | (IData)(vlSelf->top__DOT__sd)) 
+                                                 & (IData)(vlSelf->rstn));
     vlSelf->top__DOT__alu_inst__DOT__opdata2 = ((((4U 
                                                    == 
                                                    (0x1fU 
