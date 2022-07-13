@@ -14,7 +14,7 @@ module controlor (
   wire  [2:0] funct3 = inst[2:0] ;
   wire  [6:0] funct7 = inst[31:25];
 
-  assign  I_type = ( funct7==7'b0010011 );
+  assign  I_type = ( opcode == 7'b0010011 );
   assign  alu_op = ( {4{I_type}} & {1'b0,funct3} ) | 
                    ( 4'b0 ) ;
   assign wen = I_type ;
@@ -23,6 +23,7 @@ module controlor (
 
   initial begin
     if( inst == inst) ;
+    if( funct7 == funct7 ) ;
   end
 
 endmodule

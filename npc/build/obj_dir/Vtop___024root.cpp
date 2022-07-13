@@ -43,18 +43,18 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__4(Vtop___024root* vlSelf) {
     vlSelf->pc = ((IData)(vlSelf->rstn) ? (4ULL + vlSelf->pc)
                    : 0x80000000ULL);
     if (vlSelf->rstn) {
-        if (((0x13U == (vlSelf->inst >> 0x19U)) & (0U 
-                                                   != 
-                                                   (0x1fU 
-                                                    & (vlSelf->inst 
-                                                       >> 7U))))) {
+        if (((0x13U == (0x7fU & vlSelf->inst)) & (0U 
+                                                  != 
+                                                  (0x1fU 
+                                                   & (vlSelf->inst 
+                                                      >> 7U))))) {
             vlSelf->top__DOT__regfile_inst__DOT____Vlvbound1 
                 = ((- (QData)((IData)((0U == (7U & 
                                               ((- (IData)(
                                                           (0x13U 
                                                            == 
-                                                           (vlSelf->inst 
-                                                            >> 0x19U)))) 
+                                                           (0x7fU 
+                                                            & vlSelf->inst)))) 
                                                & vlSelf->inst)))))) 
                    & (vlSelf->top__DOT__rdata1 + vlSelf->top__DOT__alu_inst__DOT__opdata2));
             if ((0x1eU >= (0x1fU & ((vlSelf->inst >> 7U) 
@@ -131,14 +131,14 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__5(Vtop___024root* vlSelf) {
                                             : 0ULL));
     vlSelf->top__DOT__alu_inst__DOT__opdata2 = ((0x13U 
                                                  == 
-                                                 (vlSelf->inst 
-                                                  >> 0x19U))
+                                                 (0x7fU 
+                                                  & vlSelf->inst))
                                                  ? 
                                                 ((- (QData)((IData)(
                                                                     (0x13U 
                                                                      == 
-                                                                     (vlSelf->inst 
-                                                                      >> 0x19U))))) 
+                                                                     (0x7fU 
+                                                                      & vlSelf->inst))))) 
                                                  & (((QData)((IData)(
                                                                      (- (IData)(
                                                                                 (vlSelf->inst 

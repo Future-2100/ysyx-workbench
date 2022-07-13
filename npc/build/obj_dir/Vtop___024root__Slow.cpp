@@ -71,14 +71,14 @@ void Vtop___024root___settle__TOP__3(Vtop___024root* vlSelf) {
                                             : 0ULL));
     vlSelf->top__DOT__alu_inst__DOT__opdata2 = ((0x13U 
                                                  == 
-                                                 (vlSelf->inst 
-                                                  >> 0x19U))
+                                                 (0x7fU 
+                                                  & vlSelf->inst))
                                                  ? 
                                                 ((- (QData)((IData)(
                                                                     (0x13U 
                                                                      == 
-                                                                     (vlSelf->inst 
-                                                                      >> 0x19U))))) 
+                                                                     (0x7fU 
+                                                                      & vlSelf->inst))))) 
                                                  & (((QData)((IData)(
                                                                      (- (IData)(
                                                                                 (vlSelf->inst 
