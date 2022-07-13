@@ -129,7 +129,7 @@ sim: $(BIN)
 	@echo "-- DONE --------------------"
 	@echo "Note: Once this example is understood, see examples/make_tracing_c."
 	@echo "Note: Also see the EXAMPLE section in the verilator manpage/document."
-	@make clean
+	#@make clean
 
 wave: sim
 	@gtkwave $(BUILD_DIR)/logs/$(TOPNAME).vcd
