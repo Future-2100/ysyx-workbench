@@ -55,7 +55,8 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__4(Vtop___024root* vlSelf) {
                                                            == 
                                                            (0x7fU 
                                                             & vlSelf->inst)))) 
-                                               & vlSelf->inst)))))) 
+                                               & (vlSelf->inst 
+                                                  >> 0xcU))))))) 
                    & (vlSelf->top__DOT__rdata1 + vlSelf->top__DOT__alu_inst__DOT__opdata2));
             if ((0x1eU >= (0x1fU & ((vlSelf->inst >> 7U) 
                                     - (IData)(1U))))) {
