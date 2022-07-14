@@ -505,7 +505,7 @@ void Vtop___024root___settle__TOP__3(Vtop___024root* vlSelf) {
                                                 (0x1fU 
                                                  & (vlSelf->inst 
                                                     >> 2U))) 
-                                               & (0x19U 
+                                               & (0x1bU 
                                                   != 
                                                   (0x1fU 
                                                    & (vlSelf->inst 
