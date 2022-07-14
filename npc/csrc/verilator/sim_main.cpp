@@ -149,11 +149,9 @@ int main(int argc, char** argv, char** env) {
     top->eval();
   // Simulated until $finish
  // int k = 0;
-  while( !Verilated::gotFinish() ) {
-/*
+//  while( !Verilated::gotFinish() ) {
   int j = 22;
   while( j-- ) {
-*/
 
     //contextp->timeInc(10); // 10 timeprecision period passes...
                            
