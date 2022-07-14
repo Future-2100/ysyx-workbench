@@ -32,8 +32,7 @@ int main(int argc, char** argv, char** env) {
   while( !Verilated::gotFinish() ) {
 
     // Evaluate model
-
-    if(  !top->clk ) {
+    if(  top->clk ) {
       if(top->ebreak)  end_sim(); 
       //contextp->timeInc(1); // 10 timeprecision period passes...
       top->inst = pmem_read(top->pc);
