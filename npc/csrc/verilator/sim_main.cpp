@@ -32,6 +32,7 @@ int main(int argc, char** argv, char** env) {
   while( !Verilated::gotFinish() ) {
 
     // Evaluate model
+    top->eval();
 
     if(  top->clk ) {
       if(top->ebreak)  end_sim(); 
@@ -43,7 +44,6 @@ int main(int argc, char** argv, char** env) {
       printf("pc = %lx, inst = %x \n", top->pc, top->inst);
     }
 
-    top->eval();
     contextp->timeInc(10);
     top->clk = !top->clk ;
 
