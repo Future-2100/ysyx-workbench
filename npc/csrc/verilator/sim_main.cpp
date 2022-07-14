@@ -19,28 +19,17 @@ VerilatedContext* contextp = new VerilatedContext; // must delete it at end
   Vtop* top = new Vtop;  // must delete it at end
 //const std::unique_ptr<Vtop> top{new Vtop{contextp.get(), "TOP"}};
 
+void reset(int n);
+
 
 int main(int argc, char** argv, char** env) {
 
   init_memory(argc, argv);
-
   init_sim(argc, argv, env);
 
-  //begin 
-  top->rstn = 0;
-  top->clk  = 1;
-  
-    for ( int i=0; i<10; i++ ) {
-      top->eval();
-      contextp->timeInc(10);
-      top->clk = !top->clk;
-    }
+  reset(10); // reset 10 periods 
 
-    top->rstn = 1;
-
-    top->eval();
   // Simulated until $finish
-  // int k = 0;
   while( !Verilated::gotFinish() ) {
 
     if(  top->clk ) {
@@ -64,7 +53,7 @@ int main(int argc, char** argv, char** env) {
 
   uint64_t a = top->a ;
 
-  printf("a = %x\n", a);
+  printf("a = %lx\n", a);
   // Final model cleanup
   top->final();
 

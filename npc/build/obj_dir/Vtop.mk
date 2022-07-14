@@ -43,6 +43,7 @@ VM_USER_LDLIBS = \
 VM_USER_CLASSES = \
 	sim_main \
 	initial \
+	operate \
 
 # User .cpp directories (from .cpp's on Verilator command line)
 VM_USER_DIR = \
@@ -62,6 +63,8 @@ VPATH += $(VM_USER_DIR)
 sim_main.o: /home/grand/ysyx-workbench/npc/csrc/verilator/sim_main.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 initial.o: /home/grand/ysyx-workbench/npc/csrc/verilator/src/initial.cpp
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+operate.o: /home/grand/ysyx-workbench/npc/csrc/verilator/src/operate.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 
 ### Link rules... (from --exe)
