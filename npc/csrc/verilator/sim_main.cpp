@@ -17,6 +17,14 @@ static char *log_file = NULL ;
 
 static uint8_t pmem[0x8000000] __attribute((aligned(4096))) = {};
 
+//Construct a VerilatedContext to hold simulation time, etc.
+VerilatedContext* contextp = new VerilatedContext; // must delete it at end
+//const std::unique_ptr<VerilatedContext> contextp{new VerilatedContext};
+
+// Construct the Verilated model, from Vtop.h generated froom Verilating "top.v"
+  Vtop* top = new Vtop;  // must delete it at end
+//const std::unique_ptr<Vtop> top{new Vtop{contextp.get(), "TOP"}};
+
 static int parse_args(int argc, char** argv) {
   const struct option table[] = {
     {"log "  ,  required_argument, NULL, 'l'},
@@ -89,21 +97,13 @@ void init_memory(int argc, char** argv) {
 
 uint32_t pmem_read(uint64_t pc) {
 
-  /*
-  if( pc< 0x80000000 || pc >= 0x88000000) {
-    end_sim;
-    return 0;
-  }
-  */
-
   uint32_t inst = *(uint32_t *)( pc - 0x80000000 + pmem);
 
   return inst;
 }
 
-int main(int argc, char** argv, char** env) {
 
-  init_memory(argc, argv);
+void init_sim(int argc, char** argv, char** env) {
 
   // Prevent unused variable warnings
   if( false && argc && argv && env) {}
@@ -111,13 +111,9 @@ int main(int argc, char** argv, char** env) {
   //Create logs/ directory in case we have traces to put under it
   Verilated::mkdir("build/logs");
 
-  //Construct a VerilatedContext to hold simulation time, etc.
-  VerilatedContext* contextp = new VerilatedContext; // must delete it at end
-//const std::unique_ptr<VerilatedContext> contextp{new VerilatedContext};
-
   // Set debug level, 0 is off, 9 is highest presently used
   contextp->debug(0);
-
+  
   //Verilator must compute traced signals
   contextp->traceEverOn(true);
 
@@ -125,46 +121,59 @@ int main(int argc, char** argv, char** env) {
   // This needs to be called before you create any model
   contextp->commandArgs(argc, argv);
 
-  // Construct the Verilated model, from Vtop.h generated froom Verilating "top.v"
-  Vtop* top = new Vtop;  // must delete it at end
-//const std::unique_ptr<Vtop> top{new Vtop{contextp.get(), "TOP"}};
-
   const svScope scope = svGetScopeFromName("TOP.top");
   assert(scope);
   svSetScope(scope);
+  
+}
+
+
+int main(int argc, char** argv, char** env) {
+
+  init_memory(argc, argv);
+
+  init_sim(argc, argv, env);
 
   //begin 
   top->rstn = 0;
-  top->clk  = 0;
+  top->clk  = 1;
   
     for ( int i=0; i<10; i++ ) {
-      contextp->timeInc(1);
-      top->clk = !top->clk;
       top->eval();
+      contextp->timeInc(10);
+      top->clk = !top->clk;
     }
 
     top->rstn = 1;
+    printf("clk = %d, rstn = %d\n", top->clk, top->rstn);
 
+    top->eval();
   // Simulated until $finish
-  //while( !Verilated::gotFinish() ) {
+  while( !Verilated::gotFinish() ) {
+/*
   int j = 18;
   while( j-- ) {
+  */
 
+    //contextp->timeInc(10); // 10 timeprecision period passes...
+                           
+    if(  top->clk ) {
+      if(top->ebreak)  end_sim(); 
+      contextp->timeInc(1); // 10 timeprecision period passes...
+      top->inst = pmem_read(top->pc);
+      top->eval();
+      contextp->timeInc(9);
+    }
 
-    contextp->timeInc(1); // 1 timeprecision period passes...
+    else {
+      printf("pc = %lx, inst = %x , gpr1 = %ld\n", top->pc, top->inst, top->gpr1);
+      contextp->timeInc(10);
+    }
 
     top->clk = !top->clk ;
 
-    if( top->clk ) {
-      top->inst = pmem_read(top->dnxt_pc);
-      if(top->ebreak)  end_sim(); 
-    }
     // Evaluate model
     top->eval();
-
-    if( !top->clk ) {
-      printf("pc = %lx, inst = %x , gpr1 = %ld\n", top->pc, top->inst, top->gpr1);
-    }
 
   }
 
@@ -178,5 +187,6 @@ int main(int argc, char** argv, char** env) {
 
   // Return good completion status
   return 0;
+
 }
 

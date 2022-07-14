@@ -198,7 +198,7 @@ void Vtop___024root___settle__TOP__3(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__sd = (IData)((0x3020U == (0x707cU 
                                                 & vlSelf->inst)));
     vlSelf->gpr1 = vlSelf->top__DOT__regfile_inst__DOT__gpr
-        [0U];
+        [1U];
     vlSelf->top__DOT__memory_inst__DOT__rdata = (((QData)((IData)(vlSelf->top__DOT__memory_inst__DOT__ram_inst__DOT__rdata4)) 
                                                   << 0x20U) 
                                                  | (QData)((IData)(
@@ -221,33 +221,15 @@ void Vtop___024root___settle__TOP__3(Vtop___024root* vlSelf) {
                                                       >> 0xfU)))
                                                   ? 0ULL
                                                   : 
-                                                 ((0x1eU 
-                                                   >= 
-                                                   (0x1fU 
-                                                    & ((vlSelf->inst 
-                                                        >> 0xfU) 
-                                                       - (IData)(1U))))
-                                                   ? 
-                                                  vlSelf->top__DOT__regfile_inst__DOT__gpr
-                                                  [
-                                                  (0x1fU 
-                                                   & ((vlSelf->inst 
-                                                       >> 0xfU) 
-                                                      - (IData)(1U)))]
-                                                   : 0ULL)));
+                                                 vlSelf->top__DOT__regfile_inst__DOT__gpr
+                                                 [(0x1fU 
+                                                   & (vlSelf->inst 
+                                                      >> 0xfU))]));
     vlSelf->top__DOT__rdata2 = ((0U == (0x1fU & (vlSelf->inst 
                                                  >> 0x14U)))
-                                 ? 0ULL : ((0x1eU >= 
-                                            (0x1fU 
-                                             & ((vlSelf->inst 
-                                                 >> 0x14U) 
-                                                - (IData)(1U))))
-                                            ? vlSelf->top__DOT__regfile_inst__DOT__gpr
-                                           [(0x1fU 
-                                             & ((vlSelf->inst 
-                                                 >> 0x14U) 
-                                                - (IData)(1U)))]
-                                            : 0ULL));
+                                 ? 0ULL : vlSelf->top__DOT__regfile_inst__DOT__gpr
+                                [(0x1fU & (vlSelf->inst 
+                                           >> 0x14U))]);
     vlSelf->top__DOT__memory_inst__DOT__wr_en = (((
                                                    ((IData)(vlSelf->top__DOT__sb) 
                                                     | (IData)(vlSelf->top__DOT__sh)) 
@@ -655,11 +637,10 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__sd = 0;
     vlSelf->top__DOT__pc_gen_inst__DOT__jalbr_en = 0;
     vlSelf->top__DOT__regfile_inst__DOT__wdata = 0;
-    for (int __Vi0=0; __Vi0<31; ++__Vi0) {
+    for (int __Vi0=0; __Vi0<32; ++__Vi0) {
         vlSelf->top__DOT__regfile_inst__DOT__gpr[__Vi0] = 0;
     }
     vlSelf->top__DOT__regfile_inst__DOT__i = 0;
-    vlSelf->top__DOT__regfile_inst__DOT____Vlvbound1 = 0;
     vlSelf->top__DOT__alu_inst__DOT__opdata1 = 0;
     vlSelf->top__DOT__alu_inst__DOT__opdata2 = 0;
     vlSelf->top__DOT__alu_inst__DOT__rglr_rslt = 0;

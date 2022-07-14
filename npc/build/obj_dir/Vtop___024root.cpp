@@ -305,17 +305,11 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__6(Vtop___024root* vlSelf) {
                | (6U == (0x1fU & (vlSelf->inst >> 2U)))) 
               | (0xeU == (0x1fU & (vlSelf->inst >> 2U)))) 
              & (0U != (0x1fU & (vlSelf->inst >> 7U))))) {
-            vlSelf->top__DOT__regfile_inst__DOT____Vlvbound1 
+            __Vdlyvval__top__DOT__regfile_inst__DOT__gpr__v0 
                 = vlSelf->top__DOT__regfile_inst__DOT__wdata;
-            if ((0x1eU >= (0x1fU & ((vlSelf->inst >> 7U) 
-                                    - (IData)(1U))))) {
-                __Vdlyvval__top__DOT__regfile_inst__DOT__gpr__v0 
-                    = vlSelf->top__DOT__regfile_inst__DOT____Vlvbound1;
-                __Vdlyvset__top__DOT__regfile_inst__DOT__gpr__v0 = 1U;
-                __Vdlyvdim0__top__DOT__regfile_inst__DOT__gpr__v0 
-                    = (0x1fU & ((vlSelf->inst >> 7U) 
-                                - (IData)(1U)));
-            }
+            __Vdlyvset__top__DOT__regfile_inst__DOT__gpr__v0 = 1U;
+            __Vdlyvdim0__top__DOT__regfile_inst__DOT__gpr__v0 
+                = (0x1fU & (vlSelf->inst >> 7U));
         }
     } else {
         __Vdlyvset__top__DOT__regfile_inst__DOT__gpr__v1 = 1U;
@@ -356,9 +350,10 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__6(Vtop___024root* vlSelf) {
         vlSelf->top__DOT__regfile_inst__DOT__gpr[0x1cU] = 0ULL;
         vlSelf->top__DOT__regfile_inst__DOT__gpr[0x1dU] = 0ULL;
         vlSelf->top__DOT__regfile_inst__DOT__gpr[0x1eU] = 0ULL;
+        vlSelf->top__DOT__regfile_inst__DOT__gpr[0x1fU] = 0ULL;
     }
     vlSelf->gpr1 = vlSelf->top__DOT__regfile_inst__DOT__gpr
-        [0U];
+        [1U];
 }
 
 VL_INLINE_OPT void Vtop___024root___combo__TOP__7(Vtop___024root* vlSelf) {
@@ -388,33 +383,15 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__7(Vtop___024root* vlSelf) {
                                                       >> 0xfU)))
                                                   ? 0ULL
                                                   : 
-                                                 ((0x1eU 
-                                                   >= 
-                                                   (0x1fU 
-                                                    & ((vlSelf->inst 
-                                                        >> 0xfU) 
-                                                       - (IData)(1U))))
-                                                   ? 
-                                                  vlSelf->top__DOT__regfile_inst__DOT__gpr
-                                                  [
-                                                  (0x1fU 
-                                                   & ((vlSelf->inst 
-                                                       >> 0xfU) 
-                                                      - (IData)(1U)))]
-                                                   : 0ULL)));
+                                                 vlSelf->top__DOT__regfile_inst__DOT__gpr
+                                                 [(0x1fU 
+                                                   & (vlSelf->inst 
+                                                      >> 0xfU))]));
     vlSelf->top__DOT__rdata2 = ((0U == (0x1fU & (vlSelf->inst 
                                                  >> 0x14U)))
-                                 ? 0ULL : ((0x1eU >= 
-                                            (0x1fU 
-                                             & ((vlSelf->inst 
-                                                 >> 0x14U) 
-                                                - (IData)(1U))))
-                                            ? vlSelf->top__DOT__regfile_inst__DOT__gpr
-                                           [(0x1fU 
-                                             & ((vlSelf->inst 
-                                                 >> 0x14U) 
-                                                - (IData)(1U)))]
-                                            : 0ULL));
+                                 ? 0ULL : vlSelf->top__DOT__regfile_inst__DOT__gpr
+                                [(0x1fU & (vlSelf->inst 
+                                           >> 0x14U))]);
     vlSelf->top__DOT__memory_inst__DOT__wr_en = (((
                                                    ((IData)(vlSelf->top__DOT__sb) 
                                                     | (IData)(vlSelf->top__DOT__sh)) 

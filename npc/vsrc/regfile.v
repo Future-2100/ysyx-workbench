@@ -32,7 +32,7 @@ module regfile
                   ( {DW{jal_en | jalr_en}} & snxt_pc ) | 
                   ( {DW{alu_en }} &  alu_data) ;
 
-  reg   [DW-1:0]    gpr   [31:1]  ;
+  reg   [DW-1:0]    gpr   [31:0]  ;
 
   assign gpr1 = gpr[1];
 
@@ -41,18 +41,18 @@ module regfile
   wire  wen = wb_en && (waddr != {AW{1'b0}}) ;
   always@(posedge clk or negedge rstn) begin
     if(!rstn) begin
-      for(i=1; i<32; i=i+1) begin
+      for(i=0; i<32; i=i+1) begin
         gpr[i] <= {DW{1'b0}} ;
       end
     end
     else if (wen) begin
-      gpr[waddr-1] <= wdata ;
+      gpr[waddr] <= wdata ;
     end
   end
 
 
-  assign  rdata1 = (raddr1 == {AW{1'b0}}) ? {DW{1'b0}} : gpr[raddr1-1] ;
-  assign  rdata2 = (raddr2 == {AW{1'b0}}) ? {DW{1'b0}} : gpr[raddr2-1] ;
+  assign  rdata1 = (raddr1 == {AW{1'b0}}) ? {DW{1'b0}} : gpr[raddr1] ;
+  assign  rdata2 = (raddr2 == {AW{1'b0}}) ? {DW{1'b0}} : gpr[raddr2] ;
   
 
 endmodule
