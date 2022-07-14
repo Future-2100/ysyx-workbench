@@ -1,13 +1,17 @@
 #include <assert.h>
 #include <getopt.h>
 #include <verilated.h>
+#include "svdpi.h"
+#include "Vtop__Dpi.h"
+#include <Vtop.h>
+
 
  char *img_file = NULL ;
  char *log_file = NULL ;
 
 static uint8_t pmem[0x8000000] __attribute((aligned(4096))) = {};
 
-int parse_args(int argc, char** argv) {
+static int parse_args(int argc, char** argv) {
   const struct option table[] = {
     {"log "  ,  required_argument, NULL, 'l'},
     {0       , 0                 , NULL,  0 },
@@ -34,7 +38,7 @@ const uint32_t img [] = {
   0xdeadbeef,
 };
 
-void init_isa() {
+static void init_isa() {
   memcpy( pmem, img, sizeof(img) );
 }
 
@@ -71,5 +75,32 @@ void init_memory(int argc, char** argv) {
 uint32_t pmem_read(uint64_t pc) {
   uint32_t inst = *(uint32_t *)( pc - 0x80000000 + pmem);
   return inst;
+}
+
+extern VerilatedContext* contextp ;
+extern Vtop* top ; 
+
+void init_sim(int argc, char** argv, char** env) {
+
+  // Prevent unused variable warnings
+  if( false && argc && argv && env) {}
+
+  //Create logs/ directory in case we have traces to put under it
+  Verilated::mkdir("build/logs");
+
+  // Set debug level, 0 is off, 9 is highest presently used
+  contextp->debug(0);
+  
+  //Verilator must compute traced signals
+  contextp->traceEverOn(true);
+
+  // Pass arguments so Verilated code can see them, e.g. $value$plusargs
+  // This needs to be called before you create any model
+  contextp->commandArgs(argc, argv);
+
+  const svScope scope = svGetScopeFromName("TOP.top");
+  assert(scope);
+  svSetScope(scope);
+
 }
 
