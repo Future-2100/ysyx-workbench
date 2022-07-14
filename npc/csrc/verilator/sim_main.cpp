@@ -33,7 +33,7 @@ int main(int argc, char** argv, char** env) {
 
     if(  top->clk ) {
       if(top->ebreak)  end_sim(); 
-      //contextp->timeInc(1); // 10 timeprecision period passes...
+      contextp->timeInc(1); // 10 timeprecision period passes...
       top->inst = pmem_read(top->pc);
       top->eval();
       contextp->timeInc(9);
