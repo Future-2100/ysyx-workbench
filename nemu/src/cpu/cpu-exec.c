@@ -161,6 +161,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
 #endif
   
 #endif
+
 }
 
 void itrace_display(){
