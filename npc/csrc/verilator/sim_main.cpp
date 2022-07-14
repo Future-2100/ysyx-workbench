@@ -42,11 +42,12 @@ int main(int argc, char** argv, char** env) {
     else {
       printf("pc = %lx, inst = %x \n", top->pc, top->inst);
     }
+
+    top->eval();
     contextp->timeInc(10);
     top->clk = !top->clk ;
 
     // Evaluate model
-      top->eval();
   }
 
   uint64_t a = top->a ;
