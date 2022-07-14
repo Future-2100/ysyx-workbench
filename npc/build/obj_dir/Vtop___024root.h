@@ -38,6 +38,7 @@ VL_MODULE(Vtop___024root) {
     CData/*0:0*/ top__DOT__memory_inst__DOT__wr_en;
     CData/*7:0*/ top__DOT__memory_inst__DOT__ram_inst__DOT__rdata1;
     CData/*7:0*/ top__DOT__memory_inst__DOT__ram_inst__DOT__rdata2;
+    CData/*0:0*/ top__DOT__controlor_inst__DOT__immop_en;
     SData/*15:0*/ top__DOT__memory_inst__DOT__ram_inst__DOT__rdata3;
     IData/*31:0*/ top__DOT__regfile_inst__DOT__i;
     IData/*31:0*/ top__DOT__alu_inst__DOT__wrglr_rslt;

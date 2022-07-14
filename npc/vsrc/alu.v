@@ -56,7 +56,6 @@ module alu
   wire  signed [DW/2-1:0] wopdata1 = opdata1[DW/2-1:0] ;
   wire  signed [DW/2-1:0] wopdata2 = opdata2[DW/2-1:0] ;
 
-
   assign  zero = ( result == 0 ) ? 1'b1 : 1'b0;
 
   reg   [DW-1:0]  rglr_rslt;

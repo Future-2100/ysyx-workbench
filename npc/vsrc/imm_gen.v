@@ -23,7 +23,7 @@ module imm_gen
   wire    [DW-1:0]    immU_num ;
   wire    [DW-1:0]    immJ_num ;
 
-  assign    immI_num = { {53{inst[IW-1]}}, inst[30:25], inst[24:20] };
+  assign    immI_num = { {53{inst[IW-1]}}, inst[30:20] };
   assign    immS_num = { {53{inst[IW-1]}}, inst[30:25], inst[11:7] };
   assign    immB_num = { {52{inst[IW-1]}}, inst[7], inst[30:25], inst[11:8], 1'b0 };
   assign    immU_num = { {33{inst[IW-1]}}, inst[30:12], 12'b0 };

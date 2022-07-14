@@ -66,7 +66,8 @@ module controlor
   assign    load_en = ( opcode == 5'b00000 ) ;
   wire     store_en = ( opcode == 5'b01000 ) ;
 
-  wire     immop_en = ( opcode == 5'b00100 ) ;
+  wire     immop_en = ( opcode == 5'b00100 ) & ( funct3[1:0] != 2'b01 ) ;
+  wire     immmv_en = ( opcode == 5'b00100 ) & ( funct3[1:0] == 2'b01 ) ;
   wire      rsop_en = ( opcode == 5'b01100 ) ;
   wire    immopw_en = ( opcode == 5'b00110 ) ;
   wire     rsopw_en = ( opcode == 5'b01110 ) ;
@@ -82,10 +83,11 @@ module controlor
 
   assign  imm_en = immop_en | immopw_en | auipc_en ;
 
-  wire  rglr_en = !auipc_en & !lui_en ;
   assign  rglr_op =  ( {4{auipc_en}} & ( 4'b0000) ) | 
                      ( {4{ lui_en }} & ( 4'b1111) ) |
-                     ( {4{rglr_en }} & { inst[30],funct3 } ) ;
+                     ( {4{rsop_en }} & { inst[30],funct3 } ) |
+                     ( {4{immop_en}} & { 1'b0, funct3 }) | 
+                     ( {4{immmv_en}} & { inst[30],funct3 } ) ;
 
   assign  wrglr_op = { (immopw_en | rsopw_en), inst[30], funct3 } ;
 
