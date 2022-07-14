@@ -189,7 +189,7 @@ int main(int argc, char** argv, char** env) {
   delete contextp;
 
   // Return good completion status
-  return a;
+  return !a;
 
 }
 
