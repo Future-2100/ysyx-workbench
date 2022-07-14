@@ -10,13 +10,12 @@ module top
   output  wire            ebreak  ,
   output  wire  [DW-1:0]  dnxt_pc ,
   output  wire  [DW-1:0]       pc ,
-  output  wire  [DW-1:0]    gpr1  ,
   input   wire  [IW-1:0]    inst 
 );
 
 wire    [DW-1:0]    imm      ; 
 wire    [DW-1:0]    result   ;
-wire                brch_asrt;
+wire                br_asrt  ;
 wire                jalr_en  ;
 wire                jal_en   ;
 wire    [DW-1:0]    snxt_pc  ;
@@ -27,7 +26,7 @@ wire    [DW-1:0]    snxt_pc  ;
 
     .imm      ( imm        ),
     .result   ( result     ),  
-    .brch_asrt( brch_asrt  ),
+    .br_en    ( br_asrt    ),
     .jalr_en  ( jalr_en    ),
     .jal_en   ( jal_en     ),
     .dnxt_pc  ( dnxt_pc    ),
@@ -36,29 +35,30 @@ wire    [DW-1:0]    snxt_pc  ;
   );
 
   wire              wb_en      ; 
-  wire              load_en    ; 
+  wire              wb_load    ; 
+  wire              wb_pc      ;
+  wire              wb_alu     ;
   wire    [DW-1:0]  load_data  ;  
-  wire    [DW-1:0]   alu_data  = result ;
-  wire    [DW-1:0]  rdata1     ; 
-  wire    [DW-1:0]  rdata2     ;  
+  wire    [DW-1:0]  rd_data1   ; 
+  wire    [DW-1:0]  rd_data2   ;  
   
 regfile regfile_inst
 (
   .clk       ( clk       )   ,
   .rstn      ( rstn      )   ,
-  .waddr     ( inst[11:7])   ,
   .wb_en     ( wb_en     )   ,
-  .load_en   ( load_en   )   ,
-  .jal_en    ( jal_en    )   ,
-  .jalr_en   ( jalr_en   )   ,
-  .load_data ( load_data )   , //data read from memory
-  .alu_data  ( alu_data  )   , //result from alu
-  .snxt_pc   ( snxt_pc   )   , //result of the pc added 4
-  .raddr1    (inst[19:15])   ,
-  .raddr2    (inst[24:20])   ,
-  .rdata1    ( rdata1    )   ,
-  .rdata2    ( rdata2    )   ,
-  .gpr1      ( gpr1      )
+  .wb_load   ( wb_load   )   ,
+  .wb_pc     ( wb_pc     )   ,
+  .wb_alu    ( wb_alu    )   ,
+  .wb_addr   ( inst[11:7])   ,
+  .load_data ( load_data )   , // data read from memory
+  .pc_data   ( snxt_pc   )   , // next pc
+  .alu_data  ( result    )   , // result from alu
+  
+  .rd_addr1  (inst[19:15])   ,
+  .rd_addr2  (inst[24:20])   ,
+  .rd_data1  ( rd_data1  )   ,
+  .rd_data2  ( rd_data2  )   
 );
 
 
@@ -79,17 +79,19 @@ imm_gen imm_gen_inst
   .imm    (    imm )
 );
 
-  wire  [DW-1:0]  rs1     = rdata1 ;
-  wire  [DW-1:0]  rs2     = rdata2 ;
+  wire            rs1_en    ;
+  wire             pc_en    ;
+  wire            rs2_en    ;
   wire            imm_en    ;
-  wire            auipc_en  ; 
-  wire  [3:0]     rglr_op   ; //regular option
-  wire  [4:0]     wrglr_op  ;
-  wire  [2:0]     branch_op ; //branch  option
-  wire            wop_en    ;
-  wire            op_en     ;
+
+  wire            lgc_en    ; 
+  wire    [3:0]   lgc_op    ;
+  wire            wlgc_en   ;
+  wire    [4:0]   wlgc_op   ;
+  wire            br_en     ;
+  wire    [2:0]   br_op     ;
   wire            zero      ;
-  wire            branch_en ;
+  wire            br_asrt ;
 
   initial begin
     if( zero == zero ) ;
@@ -97,21 +99,23 @@ imm_gen imm_gen_inst
 
 alu alu_inst
 (
-  .rs1       ( rs1        ) , 
-  .pc        ( pc         ) , 
-  .rs2       ( rs2        ) , 
-  .imm       ( imm        ) , 
+  .rs1_en    ( rs1_en     ) ,
+  . pc_en    ( pc_en      ) ,
+  .rs1_data  ( rd_data1   ) , 
+  . pc_data  (  pc        ) ,
+  .rs2_en    ( rs2_en     ) , 
   .imm_en    ( imm_en     ) , 
-  .auipc_en  ( auipc_en   ) , 
-  .rglr_op   ( rglr_op    ) , 
-  .wrglr_op  ( wrglr_op   ) , 
-  .branch_op ( branch_op  ) , 
-  .branch_en ( branch_en  ) ,
-  .wop_en    ( wop_en     ) , 
-  .op_en     ( op_en      ) , 
+  .rs2_data  ( rd_data2   ) ,
+  .imm_data  ( imm        ) , 
+  .lgc_en    (  lgc_en    ) , 
+  .lgc_op    (  lgc_op    ) , 
+  .wlgc_en   ( wlgc_en    ) , 
+  .wlgc_op   ( wlgc_op    ) , 
+  .br_en     ( br_en      ) ,
+  .br_op     ( br_op      ) , 
   .result    ( result     ) , 
   .zero      ( zero       ) , 
-  .brch_asrt ( brch_asrt  ) 
+  .br_asrt   ( br_asrt    ) 
 );
 
   wire              lb        ;
@@ -125,8 +129,8 @@ alu alu_inst
   wire              sh        ;
   wire              sw        ;
   wire              sd        ;
-  wire  [DW-1:0]    wdata     = rdata2 ;
-  wire  [DW-1:0]    addr      = result ;
+  wire  [DW-1:0]    wdata     = rd_data2 ;
+  wire  [DW-1:0]    addr      = result   ;
 
 
 memory memory_inst
@@ -149,27 +153,31 @@ memory memory_inst
     .load_data( load_data  ) 
 );
 
-
 controlor controlor_inst 
 (
     .inst        ( inst       ) , 
-    .jal_en      ( jal_en     ) , 
-    .jalr_en     ( jalr_en    ) , 
-    .branch_en   ( branch_en  ) , 
-    .load_en     ( load_en    ) , 
-    .wb_en       ( wb_en      ) , 
+
+    .wb_en       ( wb_en    ) ,     
+    .wb_load     ( wb_load  ) ,
+    .wb_pc       ( wb_pc    ) ,
+    .wb_alu      ( wb_alu   ) ,
     .I_type      ( I_type     ) , 
     .S_type      ( S_type     ) , 
     .B_type      ( B_type     ) , 
     .U_type      ( U_type     ) , 
     .J_type      ( J_type     ) , 
-    .auipc_en    ( auipc_en   ) , 
-    .imm_en      ( imm_en     ) , 
-    .rglr_op     ( rglr_op    ) , 
-    .wrglr_op    ( wrglr_op   ) , 
-    .branch_op   ( branch_op  ) , 
-    .op_en       ( op_en      ) , 
-    .wop_en      ( wop_en     ) , 
+    .rs1_en      (  rs1_en  ) ,
+    . pc_en      (   pc_en  ) ,  
+    .rs2_en      (  rs2_en  ) ,
+    .imm_en      (  imm_en  ) ,
+    .lgc_en      ( lgc_en     ) , 
+    .lgc_op      ( lgc_op     ) , 
+    .wlgc_en     ( wlgc_en    ) , 
+    .wlgc_op     ( wlgc_op    ) , 
+    .br_en       ( br_en      ) ,
+    .br_op       ( br_op      ) , 
+    .jal_en      ( jal_en     ) , 
+    .jalr_en     ( jalr_en    ) , 
     .lb          ( lb         ) , 
     .lh          ( lh         ) , 
     .lw          ( lw         ) , 
@@ -181,6 +189,7 @@ controlor controlor_inst
     .sh          ( sh         ) , 
     .sw          ( sw         ) , 
     .sd          ( sd         ) ,
+
     .ebreak      ( ebreak     )
 
 );

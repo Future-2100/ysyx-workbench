@@ -33,7 +33,6 @@ class Vtop VL_NOT_FINAL {
     VL_OUT8(&ebreak,0,0);
     VL_OUT64(&dnxt_pc,63,0);
     VL_OUT64(&pc,63,0);
-    VL_OUT64(&gpr1,63,0);
     VL_IN(&inst,31,0);
 
     // CELLS

@@ -9,7 +9,7 @@ module pc_gen
   input   wire    [DW-1:0]    imm       ,
   input   wire    [DW-1:0]    result    ,
 
-  input   wire                brch_asrt , //branch assert
+  input   wire                  br_en   , //branch assert
   input   wire                jalr_en   ,
   input   wire                jal_en    ,
 
@@ -20,19 +20,17 @@ module pc_gen
 );
 
 
-  wire  jalbr_en =  jal_en | brch_asrt  ;
-  wire  [DW-1:0]  jalbr_pc = pc + imm    ;
-
+  wire  [DW-1:0]     br_pc = pc + imm    ;
+  wire  [DW-1:0]    jal_pc = result      ;
   wire  [DW-1:0]   jalr_pc = result & { {(DW-1){1'b1}} , 1'b0} ;
 
-  wire    snxt_en = !jalbr_en & !jalr_en ;
-
+  wire    snxt_en = !jalr_en & !jalr_en & !br_en ;
   assign  snxt_pc = pc + 4 ;
 
-
-  assign  dnxt_pc = ( {DW{jalr_en  }} & jalr_pc ) |
-                    ( {DW{jalbr_en }} & jalbr_pc) |
-                    ( {DW{snxt_en  }} & snxt_pc ) ;
+  assign  dnxt_pc = ( {DW{jalr_en }} & jalr_pc ) |
+                    ( {DW{ jal_en }} &  jal_pc ) |
+                    ( {DW{  br_en }} &   br_pc ) |
+                    ( {DW{snxt_en }} & snxt_pc ) ;
 
   always@(posedge clk or negedge rstn) begin
     if(!rstn) begin
