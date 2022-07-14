@@ -34,7 +34,7 @@ int main(int argc, char** argv, char** env) {
     // Evaluate model
     top->eval();
 
-    if(  top->clk ) {
+    if(  !top->clk ) {
       if(top->ebreak)  end_sim(); 
       //contextp->timeInc(1); // 10 timeprecision period passes...
       top->inst = pmem_read(top->pc);
