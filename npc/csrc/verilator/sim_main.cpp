@@ -62,8 +62,9 @@ int main(int argc, char** argv, char** env) {
     top->eval();
   }
 
-  int a = top->a ;
+  uint64_t a = top->a ;
 
+  printf("a = %x\n", a);
   // Final model cleanup
   top->final();
 
