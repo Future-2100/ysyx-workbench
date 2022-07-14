@@ -167,7 +167,7 @@ int main(int argc, char** argv, char** env) {
 
     
     else {
-      printf("pc = %lx, inst = %x , gpr1 = %ld\n", top->pc, top->inst, top->gpr1);
+      printf("pc = %lx, inst = %x \n", top->pc, top->inst);
       //if(top->inst == 0x6f) k++;
       //if( k>=15 ) end_sim();
       contextp->timeInc(10);
