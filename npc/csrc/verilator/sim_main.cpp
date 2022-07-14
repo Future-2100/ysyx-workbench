@@ -31,20 +31,23 @@ int main(int argc, char** argv, char** env) {
   // Simulated until $finish
   while( !Verilated::gotFinish() ) {
 
-    // Evaluate model
     if(  top->clk ) {
       if(top->ebreak)  end_sim(); 
-      //contextp->timeInc(1); // 10 timeprecision period passes...
+      contextp->timeInc(1); // 10 timeprecision period passes...
       top->inst = pmem_read(top->pc);
+      top->eval();
+      contextp->timeInc(9);
     }
     
     else {
       printf("pc = %lx, inst = %x \n", top->pc, top->inst);
+      contextp->timeInc(10);
     }
 
-    top->eval();
-    contextp->timeInc(10);
     top->clk = !top->clk ;
+
+    // Evaluate model
+    top->eval();
 
   }
 
