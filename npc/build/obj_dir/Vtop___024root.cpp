@@ -13,7 +13,7 @@ void Vtop___024root____Vdpiexp_top__DOT__end_sim_TOP(Vtop__Syms* __restrict vlSy
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root____Vdpiexp_top__DOT__end_sim_TOP\n"); );
     // Variables
     // Body
-    VL_FINISH_MT("/home/grand/ysyx-workbench/npc/vsrc/top.v", 211, "");
+    VL_FINISH_MT("/home/grand/ysyx-workbench/npc/vsrc/top.v", 213, "");
 }
 
 VL_INLINE_OPT void Vtop___024root___combo__TOP__2(Vtop___024root* vlSelf) {
@@ -225,6 +225,8 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__6(Vtop___024root* vlSelf) {
         vlSelf->top__DOT__regfile_inst__DOT__gpr[0x1eU] = 0ULL;
         vlSelf->top__DOT__regfile_inst__DOT__gpr[0x1fU] = 0ULL;
     }
+    vlSelf->a = vlSelf->top__DOT__regfile_inst__DOT__gpr
+        [0xaU];
 }
 
 VL_INLINE_OPT void Vtop___024root___combo__TOP__7(Vtop___024root* vlSelf) {

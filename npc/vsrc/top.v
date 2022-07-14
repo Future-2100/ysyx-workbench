@@ -7,6 +7,7 @@ module top
   input   wire  clk ,
   input   wire  rstn ,
 
+  output  wire  [DW-1:0]       a  ,
   output  wire            ebreak  ,
   output  wire  [DW-1:0]  dnxt_pc ,
   output  wire  [DW-1:0]       pc ,
@@ -58,7 +59,8 @@ regfile regfile_inst
   .rd_addr1  (inst[19:15])   ,
   .rd_addr2  (inst[24:20])   ,
   .rd_data1  ( rd_data1  )   ,
-  .rd_data2  ( rd_data2  )   
+  .rd_data2  ( rd_data2  )   ,
+  .a         (      a    )
 );
 
 

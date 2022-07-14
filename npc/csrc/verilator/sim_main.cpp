@@ -178,6 +178,8 @@ int main(int argc, char** argv, char** env) {
 
   }
 
+  int a = top->a ;
+
   // Final model cleanup
   top->final();
 
@@ -187,7 +189,7 @@ int main(int argc, char** argv, char** env) {
   delete contextp;
 
   // Return good completion status
-  return 0;
+  return a;
 
 }
 

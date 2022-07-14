@@ -15,6 +15,7 @@ module regfile
   input   wire    [DW-1:0]    pc_data   , //result of the pc added 4
   input   wire    [DW-1:0]   alu_data   , //result from alu
 
+  output  wire    [DW-1:0]        a   ,  
   input   wire    [AW-1:0]  rd_addr1  ,
   input   wire    [AW-1:0]  rd_addr2  ,
   output  wire    [DW-1:0]  rd_data1  ,
@@ -30,6 +31,7 @@ module regfile
 
   reg   [DW-1:0]    gpr   [31:0]  ;
 
+  assign  a = gpr[10];
   integer i;
 
   always@(posedge clk or negedge rstn) begin

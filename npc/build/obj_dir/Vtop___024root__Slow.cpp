@@ -81,6 +81,8 @@ void Vtop___024root___settle__TOP__3(Vtop___024root* vlSelf) {
            (1U != (3U & (vlSelf->inst >> 0xcU))));
     vlSelf->top__DOT__controlor_inst__DOT__wimmsf_en 
         = (IData)((0x1018U == (0x307cU & vlSelf->inst)));
+    vlSelf->a = vlSelf->top__DOT__regfile_inst__DOT__gpr
+        [0xaU];
     vlSelf->top__DOT__memory_inst__DOT__rdata = (((QData)((IData)(vlSelf->top__DOT__memory_inst__DOT__ram_inst__DOT__rdata4)) 
                                                   << 0x20U) 
                                                  | (QData)((IData)(
@@ -620,6 +622,7 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     // Body
     vlSelf->clk = 0;
     vlSelf->rstn = 0;
+    vlSelf->a = 0;
     vlSelf->ebreak = 0;
     vlSelf->dnxt_pc = 0;
     vlSelf->pc = 0;
