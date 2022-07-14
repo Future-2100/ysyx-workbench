@@ -145,13 +145,15 @@ int main(int argc, char** argv, char** env) {
     }
 
     top->rstn = 1;
-    printf("clk = %d, rstn = %d\n", top->clk, top->rstn);
 
     top->eval();
   // Simulated until $finish
-//  while( !Verilated::gotFinish() ) {
-  int j = 24;
+ // int k = 0;
+  while( !Verilated::gotFinish() ) {
+/*
+  int j = 22;
   while( j-- ) {
+*/
 
     //contextp->timeInc(10); // 10 timeprecision period passes...
                            
@@ -163,9 +165,13 @@ int main(int argc, char** argv, char** env) {
       contextp->timeInc(9);
     }
 
+    
     else {
       printf("pc = %lx, inst = %x , gpr1 = %ld\n", top->pc, top->inst, top->gpr1);
+      //if(top->inst == 0x6f) k++;
+      //if( k>=15 ) end_sim();
       contextp->timeInc(10);
+
     }
 
     top->clk = !top->clk ;

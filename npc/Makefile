@@ -112,6 +112,10 @@ IMG =
 
 SIMFLAGS += -i $(IMG)
 
+ifeq ($(WAVE),en)
+WAVEFLAGS = gtkwave $(BUILD_DIR)/logs/$(TOPNAME).vcd
+endif
+
 $(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 	@rm -rf $(OBJ_DIR)
 	@$(VERILATOR) $(VERILATOR_FLAGS) \
@@ -121,26 +125,14 @@ $(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 
 all : default
 
-run : $(BIN)
-	@$^ 
-	@make clean
+run : sim
 
 sim: $(BIN)
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
-	@echo "-- Verilator hello-world simple example"
-	@echo "-- VERILATE & BUILD --------"
-	@echo "-- RUN ---------------------"
+	@echo "----------------------------------------- RUN -----------------------------------------------"
 	@$(BIN) $(SIMFLAGS)
-	@echo "-- DONE --------------------"
-	@echo "Note: Once this example is understood, see examples/make_tracing_c."
-	@echo "Note: Also see the EXAMPLE section in the verilator manpage/document."
-	@make clean
-
-wave: $(BIN)
-	@$(BIN) $(SIMFLAGS)
-	@gtkwave $(BUILD_DIR)/logs/$(TOPNAME).vcd
-	@make clean
-
+	@echo "---------------------------------------- DONE  ----------------------------------------------"
+	$(WAVEFLAGS)
 
 maintainer-copy::
 clean mostlyclean distclean maintainer-clean::

@@ -309,16 +309,19 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
                                   | (0xeU == (0x1fU 
                                               & (vlSelf->inst 
                                                  >> 2U))))));
-        tracep->chgBit(oldp+145,(((((IData)(vlSelf->top__DOT__controlor_inst__DOT__immop_en) 
-                                    | (0xcU == (0x1fU 
-                                                & (vlSelf->inst 
-                                                   >> 2U)))) 
-                                   | (5U == (0x1fU 
-                                             & (vlSelf->inst 
-                                                >> 2U)))) 
-                                  | (0xdU == (0x1fU 
+        tracep->chgBit(oldp+145,((((((IData)(vlSelf->top__DOT__controlor_inst__DOT__immop_en) 
+                                     | (0xcU == (0x1fU 
+                                                 & (vlSelf->inst 
+                                                    >> 2U)))) 
+                                    | (5U == (0x1fU 
                                               & (vlSelf->inst 
-                                                 >> 2U))))));
+                                                 >> 2U)))) 
+                                   | (0xdU == (0x1fU 
+                                               & (vlSelf->inst 
+                                                  >> 2U)))) 
+                                  | (0x19U == (0x1fU 
+                                               & (vlSelf->inst 
+                                                  >> 2U))))));
         tracep->chgBit(oldp+146,((IData)((0U == (0x707cU 
                                                  & vlSelf->inst)))));
         tracep->chgBit(oldp+147,((IData)((0x1000U == 

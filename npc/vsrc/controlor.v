@@ -94,7 +94,7 @@ module controlor
   assign  branch_op = funct3 ;
 
   assign  wop_en = immopw_en | rsopw_en ;
-  assign   op_en =  immop_en | rsop_en | auipc_en | lui_en ;
+  assign   op_en =  immop_en | rsop_en | auipc_en | lui_en | jalr_en ;
 
   assign  lb  = load_en & ( funct3 == 3'b000 ) ;
   assign  lh  = load_en & ( funct3 == 3'b001 ) ;

@@ -25,6 +25,6 @@ image: $(IMAGE).elf
 
 
 run: image
-	$(MAKE) -C $(NPC_HOME) wave IMG=$(IMAGE).bin
+	$(MAKE) -C $(NPC_HOME) run IMG=$(IMAGE).bin
 
 

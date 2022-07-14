@@ -591,18 +591,23 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__7(Vtop___024root* vlSelf) {
                                                         + (IData)(vlSelf->top__DOT__alu_inst__DOT__opdata2))))))
                                                     : 0U);
     vlSelf->top__DOT__result = (((- (QData)((IData)(
-                                                    ((((IData)(vlSelf->top__DOT__controlor_inst__DOT__immop_en) 
-                                                       | (0xcU 
+                                                    (((((IData)(vlSelf->top__DOT__controlor_inst__DOT__immop_en) 
+                                                        | (0xcU 
+                                                           == 
+                                                           (0x1fU 
+                                                            & (vlSelf->inst 
+                                                               >> 2U)))) 
+                                                       | (5U 
                                                           == 
                                                           (0x1fU 
                                                            & (vlSelf->inst 
                                                               >> 2U)))) 
-                                                      | (5U 
+                                                      | (0xdU 
                                                          == 
                                                          (0x1fU 
                                                           & (vlSelf->inst 
                                                              >> 2U)))) 
-                                                     | (0xdU 
+                                                     | (0x19U 
                                                         == 
                                                         (0x1fU 
                                                          & (vlSelf->inst 
