@@ -83,6 +83,7 @@ CSRCS = $(shell find $(abspath ./csrc/nvboard) -name "*.c" -or -name "*.cc" -or 
 CSRCS += $(SRC_AUTO_BIND)
 else
 CSRCS = $(shell find $(abspath ./csrc/verilator) -name "*.c" -or -name "*.cc" -or -name "*.cpp")
+CSRCS += $(shell find $(abspath ./csrc/verilator/src) -name "*.c" -or -name "*.cc" -or -name "*.cpp")
 endif
 
 
@@ -110,7 +111,7 @@ VERILATOR_OUTFLAGS += -o $(abspath $(BIN))
 #image file
 IMG = 
 
-SIMFLAGS += -i $(IMG)
+SIMFLAGS += $(IMG)
 
 ifeq ($(WAVE),en)
 WAVEFLAGS = gtkwave $(BUILD_DIR)/logs/$(TOPNAME).vcd

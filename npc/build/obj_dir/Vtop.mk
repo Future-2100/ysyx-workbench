@@ -42,10 +42,12 @@ VM_USER_LDLIBS = \
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \
 	sim_main \
+	initial \
 
 # User .cpp directories (from .cpp's on Verilator command line)
 VM_USER_DIR = \
 	/home/grand/ysyx-workbench/npc/csrc/verilator \
+	/home/grand/ysyx-workbench/npc/csrc/verilator/src \
 
 
 ### Default rules...
@@ -58,6 +60,8 @@ include $(VERILATOR_ROOT)/include/verilated.mk
 VPATH += $(VM_USER_DIR)
 
 sim_main.o: /home/grand/ysyx-workbench/npc/csrc/verilator/sim_main.cpp
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+initial.o: /home/grand/ysyx-workbench/npc/csrc/verilator/src/initial.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 
 ### Link rules... (from --exe)
