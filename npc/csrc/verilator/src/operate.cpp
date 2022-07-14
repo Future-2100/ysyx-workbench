@@ -23,3 +23,6 @@ void reset(int n) {
     top->rstn = 1;
     top->eval();
 }
+
+
+

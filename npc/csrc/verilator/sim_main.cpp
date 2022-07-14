@@ -10,6 +10,7 @@
 void init_memory(int argc, char** argv);
 void init_sim(int argc, char** argv, char** env);
 uint32_t pmem_read(uint64_t pc);
+void reset(int n);
 
 //Construct a VerilatedContext to hold simulation time, etc.
 VerilatedContext* contextp = new VerilatedContext; // must delete it at end
@@ -18,8 +19,6 @@ VerilatedContext* contextp = new VerilatedContext; // must delete it at end
 // Construct the Verilated model, from Vtop.h generated froom Verilating "top.v"
   Vtop* top = new Vtop;  // must delete it at end
 //const std::unique_ptr<Vtop> top{new Vtop{contextp.get(), "TOP"}};
-
-void reset(int n);
 
 
 int main(int argc, char** argv, char** env) {
@@ -34,10 +33,10 @@ int main(int argc, char** argv, char** env) {
 
     if(  top->clk ) {
       if(top->ebreak)  end_sim(); 
-      contextp->timeInc(1); // 10 timeprecision period passes...
+      //contextp->timeInc(1); // 10 timeprecision period passes...
       top->inst = pmem_read(top->pc);
       top->eval();
-      contextp->timeInc(9);
+      contextp->timeInc(10);
     }
     
     else {
