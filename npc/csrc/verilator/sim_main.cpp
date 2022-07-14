@@ -36,7 +36,7 @@ int main(int argc, char** argv, char** env) {
       //contextp->timeInc(1); // 10 timeprecision period passes...
       top->inst = pmem_read(top->pc);
       top->eval();
-      contextp->timeInc(10);
+      contextp->timeInc(9);
     }
     
     else {
