@@ -24,7 +24,7 @@ module pc_gen
   wire  [DW-1:0]    jal_pc = result      ;
   wire  [DW-1:0]   jalr_pc = result & { {(DW-1){1'b1}} , 1'b0} ;
 
-  wire    snxt_en = !jalr_en & !jalr_en & !br_en ;
+  wire    snxt_en = (!jalr_en) & (!jalr_en) & (!br_en) ;
   assign  snxt_pc = pc + 4 ;
 
   assign  dnxt_pc = ( {DW{jalr_en }} & jalr_pc ) |
