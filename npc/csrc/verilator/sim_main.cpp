@@ -9,8 +9,6 @@
 
 void init_memory(int argc, char** argv);
 void init_sim(int argc, char** argv, char** env);
-
-
 uint32_t pmem_read(uint64_t pc);
 
 //Construct a VerilatedContext to hold simulation time, etc.
@@ -42,15 +40,9 @@ int main(int argc, char** argv, char** env) {
 
     top->eval();
   // Simulated until $finish
- // int k = 0;
+  // int k = 0;
   while( !Verilated::gotFinish() ) {
-    /*
-  int j = 22;
-  while( j-- ) {
-  */
 
-    //contextp->timeInc(10); // 10 timeprecision period passes...
-                           
     if(  top->clk ) {
       if(top->ebreak)  end_sim(); 
       contextp->timeInc(1); // 10 timeprecision period passes...
@@ -58,7 +50,6 @@ int main(int argc, char** argv, char** env) {
       top->eval();
       contextp->timeInc(9);
     }
-
     
     else {
       printf("pc = %lx, inst = %x \n", top->pc, top->inst);
@@ -69,7 +60,6 @@ int main(int argc, char** argv, char** env) {
 
     // Evaluate model
     top->eval();
-
   }
 
   int a = top->a ;
