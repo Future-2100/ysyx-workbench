@@ -75,6 +75,7 @@ void run_all() {
     if(  top->clk ) {
       if(top->ebreak)  { 
         end_sim(); 
+        printf("m = %d\n", Verilated::gotFinish() );
         printf("---------- finish  ----------\n");
       }
       contextp->timeInc(1); // 10 timeprecision period passes...
