@@ -29,10 +29,6 @@ int main(int argc, char** argv, char** env) {
 
   engine_start();
 
-
-  // Simulated until $finish
-
-
   // Return good completion status
   return 0;
 
