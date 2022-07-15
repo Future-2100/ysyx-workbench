@@ -37,7 +37,9 @@ void init_module() {
 
 void run_step(uint64_t n) {
 
-  while( n-- ) {
+  uint64_t m = 2*n;
+  while( m-- ) {
+
     if(  top->clk ) {
       if(top->ebreak)  { 
         end_sim(); 
