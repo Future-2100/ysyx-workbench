@@ -33,16 +33,13 @@ int main(int argc, char** argv, char** env) {
 
   reset(10); // reset 10 periods 
 
-  printf("end reset\n");
   // Simulated until $finish
   while( !Verilated::gotFinish() ) {
 
     if(  top->clk ) {
       if(top->ebreak)  end_sim(); 
       contextp->timeInc(1); // 10 timeprecision period passes...
-      printf("start to load instruction\n");
       top->inst = pmem_read(top->pc);
-      printf("load instruction end\n");
       top->eval();
       contextp->timeInc(9);
     }
