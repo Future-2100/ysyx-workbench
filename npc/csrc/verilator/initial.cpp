@@ -1,4 +1,3 @@
-#include <assert.h>
 #include <getopt.h>
 #include <verilated.h>
 #include "svdpi.h"

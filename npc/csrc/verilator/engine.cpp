@@ -1,11 +1,4 @@
-#include <stddef.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdint.h>
-#include <stdlib.h>
-//#include <istream>
-//#include <iostream>
+#include <common.h>
 #include <readline/history.h>
 #include <readline/readline.h>
 

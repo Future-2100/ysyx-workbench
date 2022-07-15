@@ -4,8 +4,9 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
+#include <stdio.h>
 
-//#include <macro.h>
+#include <macro.h>
 
 #include <assert.h>
 #include <stdlib.h>

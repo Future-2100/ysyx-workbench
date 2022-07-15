@@ -1,19 +1,5 @@
 #include <getopt.h>
-#include <stddef.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <string.h>
-#include <assert.h>
-#include <stdlib.h>
-#include <stdbool.h>
-
-#define FONT_BLUE "\33[1;34m"
-#define FONT_NONE "\33[0m"
-
-#define Log(format, ...) \
-    do { \
-          printf(FONT_BLUE "[%s:%d %s]" format FONT_NONE"\n",__FILE__, __LINE__, __func__, ## __VA_ARGS__);\
-        } while(0)
+#include <common.h>
 
 static char *img_file = NULL;
 

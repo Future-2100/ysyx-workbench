@@ -3,9 +3,6 @@
 // Inculde model header, generated from Verilating "top.v"
 #include <Vtop.h>
 
-#include "svdpi.h"
-#include "Vtop__Dpi.h"
-
 void init_monitor(int, char *[]);
 void init_sim(int argc, char** argv, char** env);
 void init_module();

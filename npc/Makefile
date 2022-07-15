@@ -92,6 +92,12 @@ INCFLAGS = $(addprefix -I, $(INC_PATH))
 CFLAGS += $(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
 LDFLAGS += -lSDL2 -lSDL2_image
 NVBOARD_FLAGS += $(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS))
+else
+INC_PATH = $(abspath ./csrc/verilator/include)
+INCFLAGS = $(addprefix -I, $(INC_PATH))
+CFLAGS += $(INCFLAGS)
+LDFLAGS += -lreadline
+VERILATOR_FLAGS += $(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS))
 endif
 
 #rules for verilator output
@@ -119,7 +125,7 @@ $(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 	@$(VERILATOR) $(VERILATOR_FLAGS) \
 		--top-module $(TOPNAME) $^ \
 		$(NVBOARD_FLAGS) \
-		$(VERILATOR_OUTFLAGS) -LDFLAGS -lreadline
+		$(VERILATOR_OUTFLAGS) 
 
 all : default
 
