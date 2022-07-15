@@ -69,6 +69,7 @@ void run_all() {
 
   // Simulated untill $finish
   printf("---------- run all ----------\n");
+  printf("m = %d\n", Verilated::gotFinish() );
   while( !Verilated::gotFinish() ) {
 
     if(  top->clk ) {
