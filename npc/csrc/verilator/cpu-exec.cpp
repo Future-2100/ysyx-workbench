@@ -65,7 +65,6 @@ void cpu_exec(uint64_t n) {
 
 
 int is_exit_status_bad() {
-  printf("NPC_END = %d\n", NPC_END);
   int good = (npc_state.state == NPC_END && npc_state.halt_ret == 0) ||
      (npc_state.state == NPC_QUIT);
   return !good;

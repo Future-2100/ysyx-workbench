@@ -3,7 +3,7 @@
 
 static char *img_file = NULL;
 
-extern bool batch_mode ;
+extern bool is_batch_mode ;
 
 uint8_t pmem[0x8000000] __attribute((aligned(4096))) = {};
 
@@ -21,7 +21,7 @@ static int parse_args(int argc, char *argv[]) {
   int o;
   while ( (o = getopt_long(argc, argv, "-bh", table, NULL)) != -1) {
     switch (o) {
-      case 'b': batch_mode = true; break;
+      case 'b': is_batch_mode = true; break;
       case  1 : img_file = optarg; return 0;
       default:
         printf("Usage: %s [OPTION...] IMAGE [args]\n\n", argv[0]);

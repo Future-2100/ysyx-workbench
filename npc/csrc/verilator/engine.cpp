@@ -7,7 +7,7 @@ void cpu_exec(uint64_t n);
 
 #define ARRLEN(arr) (int)(sizeof(arr)) / sizeof(arr[0])
 
-bool batch_mode = false ;
+bool is_batch_mode = false ;
 
 static int cmd_c(char *args) {
   cpu_exec(-1);
@@ -93,7 +93,7 @@ static char* rl_gets() {
 }
 
 void sdb_mainloop() {
-  if(batch_mode) {
+  if(is_batch_mode) {
     cmd_c(NULL);
     return;
   }
