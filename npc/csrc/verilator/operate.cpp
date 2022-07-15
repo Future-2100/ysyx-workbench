@@ -10,7 +10,7 @@
 extern Vtop* top;
 extern VerilatedContext* contextp ;
 
-
+uint32_t pmem_read(uint64_t pc);
 
 void reset(int n) {
   top->rstn = 0 ;
@@ -33,4 +33,42 @@ void init_module() {
   printf("----------module reset successful----------\n");
   
 }
+
+void run_all() {
+
+  // Simulated untill $finish
+  while( !Verilated::gotFinish() ) {
+
+    if(  top->clk ) {
+      if(top->ebreak)  end_sim(); 
+      contextp->timeInc(1); // 10 timeprecision period passes...
+      top->inst = pmem_read(top->pc);
+      top->eval();
+      contextp->timeInc(9);
+    }
+    
+    else {
+      printf("pc = %lx, inst = %x \n", top->pc, top->inst);
+      contextp->timeInc(10);
+    }
+
+    top->clk = !top->clk ;
+
+    // Evaluate model
+    top->eval();
+  }
+
+  uint64_t a = top->a ;
+
+  printf("a = %lx\n", a);
+  // Final model cleanup
+  top->final();
+
+  // Destory model
+  delete top;
+
+  delete contextp;
+
+}
+
 

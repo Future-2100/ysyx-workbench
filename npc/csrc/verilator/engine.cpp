@@ -10,14 +10,14 @@
 #include <readline/readline.h>
 
 void cpu_exec(uint64_t n);
-
+void run_all();
 
 #define ARRLEN(arr) (int)(sizeof(arr)) / sizeof(arr[0])
 
 bool batch_mode = false ;
 
 static int cmd_c(char *args) {
-  cpu_exec(-1);
+  run_all();
   return 0;
 }
 
