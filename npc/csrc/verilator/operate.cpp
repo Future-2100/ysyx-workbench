@@ -66,7 +66,31 @@ void run_step(uint64_t n) {
 
 void run_all() {
 
-  run_step(-1/2);
+  // Simulated untill $finish
+  printf("---------- run all ----------\n");
+  while( !Verilated::gotFinish() ) {
+
+    if(  top->clk ) {
+      if(top->ebreak)  { 
+        end_sim(); 
+        printf("---------- finish  ----------\n");
+      }
+      contextp->timeInc(1); // 10 timeprecision period passes...
+      top->inst = pmem_read(top->pc);
+      top->eval();
+      contextp->timeInc(9);
+    }
+    
+    else {
+      printf("pc = %lx, inst = %x \n", top->pc, top->inst);
+      contextp->timeInc(10);
+    }
+
+    top->clk = !top->clk ;
+
+    // Evaluate model
+    top->eval();
+  }
 
   uint64_t a = top->a ;
 
