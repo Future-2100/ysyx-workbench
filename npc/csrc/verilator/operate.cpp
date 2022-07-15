@@ -1,3 +1,4 @@
+#include <common.h>
 // Include common routines
 #include <verilated.h>
 // Inculde model header, generated from Verilating "top.v"
@@ -11,6 +12,7 @@ extern Vtop* top;
 extern VerilatedContext* contextp ;
 
 uint32_t pmem_read(uint64_t pc);
+void npc_trap(int state, vaddr_t pc, int halt_ret);
 
 void reset(int n) {
   top->rstn = 0 ;
@@ -41,10 +43,9 @@ void run_step(uint64_t n) {
 
     if(  top->clk ) {
       if(top->ebreak)  { 
+        npc_trap(2 , top->pc, top->a);
         end_sim(); 
         printf("---------- program end  ----------\n");
-        uint64_t a = top->a ;
-        printf("a = %lx\n", a);
         return ;
       }
       contextp->timeInc(1); // 10 timeprecision period passes...
@@ -64,10 +65,9 @@ void run_step(uint64_t n) {
 
     if(  top->clk ) {
       if(top->ebreak)  { 
+        npc_trap(2 , top->pc, top->a);
         end_sim(); 
         printf("---------- program end  ----------\n");
-        uint64_t a = top->a ;
-        printf("a = %lx\n", a);
         return ;
       }
       contextp->timeInc(1); // 10 timeprecision period passes...

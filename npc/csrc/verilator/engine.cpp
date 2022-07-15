@@ -2,15 +2,15 @@
 #include <readline/history.h>
 #include <readline/readline.h>
 
-void run_step( uint64_t n);
 void delete_module();
+void cpu_exec(uint64_t n);
 
 #define ARRLEN(arr) (int)(sizeof(arr)) / sizeof(arr[0])
 
 bool batch_mode = false ;
 
 static int cmd_c(char *args) {
-  run_step(-1);
+  cpu_exec(-1);
   return 0;
 }
 
@@ -21,14 +21,14 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_si(char *args) {
-  int N;
+  int n;
   char *arg = strtok(NULL, " ");
   if( arg == NULL )
-    N = 1;
+    n = 1;
   else
-    sscanf(arg, "%d", &N);
+    sscanf(arg, "%d", &n);
 
-  run_step(N);
+  cpu_exec(n);
 
   return 0;
 }

@@ -19,6 +19,8 @@
 #define ANSI_BG_WHITE   "\33[1;47m"
 #define FONT_NONE       "\33[0m"
 
+#define ANSI_FMT(str, fmt) fmt str FONT_NONE
+
 #define Log(format, ...) \
   do { \
     printf(FONT_BLUE "[%s:%d %s]" format FONT_NONE"\n",__FILE__, __LINE__, __func__, ## __VA_ARGS__);\
