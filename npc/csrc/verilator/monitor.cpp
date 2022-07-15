@@ -69,7 +69,11 @@ static long load_img() {
 }
 
 static void welcome() {
-  printf(FONT_GREEN "Welcome to riscv64" ANSI_BG_RED FONT_GREEN "-NPC" FONT_NONE " ~~~\n");
+  printf("\n");
+  printf("\n");
+  printf(FONT_GREEN "Welcome to riscv64 " ANSI_BG_RED FONT_YELLOW "NPC" FONT_NONE " !\n");
+  printf("\n");
+  printf("\n");
 }
 
 void init_monitor(int argc, char *argv[]) {
