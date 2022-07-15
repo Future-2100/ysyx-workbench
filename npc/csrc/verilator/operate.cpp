@@ -38,7 +38,6 @@ void init_module() {
 void run_step(uint64_t n) {
 
   uint64_t m = 2*n;
-  printf("m = %ld finish = %d\n", m, Verilated::gotFinish() );
   while( (m--) && ( !Verilated::gotFinish() )  ) {
 
     if(  top->clk ) {
@@ -67,15 +66,15 @@ void run_step(uint64_t n) {
 
 void run_all() {
 
+  run_step(-1);
+  /*
   // Simulated untill $finish
   printf("---------- run all ----------\n");
-  printf("m = %d\n", Verilated::gotFinish() );
   while( !Verilated::gotFinish() ) {
 
     if(  top->clk ) {
       if(top->ebreak)  { 
         end_sim(); 
-        printf("m = %d\n", Verilated::gotFinish() );
         printf("---------- finish  ----------\n");
       }
       contextp->timeInc(1); // 10 timeprecision period passes...
@@ -94,6 +93,7 @@ void run_all() {
     // Evaluate model
     top->eval();
   }
+  */
 
   uint64_t a = top->a ;
 
