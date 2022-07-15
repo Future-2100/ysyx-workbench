@@ -37,8 +37,29 @@ void init_module() {
 
 void run_step(uint64_t n) {
 
-  uint64_t m = 2*n;
-  while( (m--) && ( !Verilated::gotFinish() )  ) {
+  while( (n--) && ( !Verilated::gotFinish() )  ) {
+
+    if(  top->clk ) {
+      if(top->ebreak)  { 
+        end_sim(); 
+        printf("---------- program end  ----------\n");
+        uint64_t a = top->a ;
+        printf("a = %lx\n", a);
+      }
+      contextp->timeInc(1); // 10 timeprecision period passes...
+      top->inst = pmem_read(top->pc);
+      top->eval();
+      contextp->timeInc(9);
+    }
+    
+    else {
+      printf("pc = %lx, inst = %x \n", top->pc, top->inst);
+      contextp->timeInc(10);
+    }
+
+    top->clk = !top->clk ;
+    // Evaluate model
+    top->eval();
 
     if(  top->clk ) {
       if(top->ebreak)  { 
