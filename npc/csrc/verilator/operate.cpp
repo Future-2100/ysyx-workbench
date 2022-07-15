@@ -66,7 +66,7 @@ void run_step(uint64_t n) {
 
 void run_all() {
 
-  run_step(-1);
+  run_step(-1/2);
 
   uint64_t a = top->a ;
 
