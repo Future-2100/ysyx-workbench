@@ -7,6 +7,14 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+#define FONT_BLUE "\33[1;34m"
+#define FONT_NONE "\33[0m"
+
+#define Log(format, ...) \
+    do { \
+          printf(FONT_BLUE "[%s:%d %s]" format FONT_NONE"\n",__FILE__, __LINE__, __func__, ## __VA_ARGS__);\
+        } while(0)
+
 static char *img_file = NULL;
 
 extern bool batch_mode ;
@@ -55,19 +63,21 @@ void init_isa() {
 
 static long load_img() {
   if (img_file == NULL) {
-    printf("No image is given. Use the default build-in image.\n");
+    Log("No image is given. Use the default build-in image.\n");
     return 4096;  //built-in image size
   }
 
   FILE *fp = fopen(img_file, "rb");
+  //Assert(fp, "Can not open '%s'", img_file);
   fseek(fp, 0, SEEK_END);
 
   long size = ftell(fp);
-  printf("The image is %s, size = %ld\n", img_file, size);
+  Log("The image is %s, size = %ld\n", img_file, size);
 
   fseek(fp, 0, SEEK_SET);
   int ret = fread( pmem, size, 1, fp);
   assert(ret == 1);
+
   fclose(fp);
   return size;
 }
