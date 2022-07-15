@@ -39,7 +39,7 @@ void run_step(uint64_t n) {
 
   uint64_t m = 2*n;
   printf("m = %d\n", Verilated::gotFinish() );
-  while( m-- & ( !Verilated::gotFinish() )  ) {
+  while( (m--) & ( !Verilated::gotFinish() )  ) {
 
     if(  top->clk ) {
       if(top->ebreak)  { 
