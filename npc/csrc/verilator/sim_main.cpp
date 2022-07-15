@@ -5,9 +5,11 @@
 
 #include "svdpi.h"
 #include "Vtop__Dpi.h"
-#include <Vtop.h>
 
-void init_memory(int argc, char** argv);
+void init_monitor(int, char *[]);
+void engine_start();
+int is_exit_status_bad();
+
 void init_sim(int argc, char** argv, char** env);
 uint32_t pmem_read(uint64_t pc);
 void reset(int n);
@@ -23,7 +25,10 @@ VerilatedContext* contextp = new VerilatedContext; // must delete it at end
 
 int main(int argc, char** argv, char** env) {
 
-  init_memory(argc, argv);
+  init_monitor(argc, argv);
+
+  engine_start();
+
   init_sim(argc, argv, env);
 
   reset(10); // reset 10 periods 
@@ -48,7 +53,6 @@ int main(int argc, char** argv, char** env) {
 
     // Evaluate model
     top->eval();
-
   }
 
   uint64_t a = top->a ;

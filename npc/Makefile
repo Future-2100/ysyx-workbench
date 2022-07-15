@@ -83,9 +83,7 @@ CSRCS = $(shell find $(abspath ./csrc/nvboard) -name "*.c" -or -name "*.cc" -or 
 CSRCS += $(SRC_AUTO_BIND)
 else
 CSRCS = $(shell find $(abspath ./csrc/verilator) -name "*.c" -or -name "*.cc" -or -name "*.cpp")
-CSRCS += $(shell find $(abspath ./csrc/verilator/src) -name "*.c" -or -name "*.cc" -or -name "*.cpp")
 endif
-
 
 #rules for NVBoard
 ifeq ($(NV),en)
@@ -140,3 +138,4 @@ clean mostlyclean distclean maintainer-clean::
 	@rm -rf $(BUILD_DIR)
 	
 include ../Makefile
+
