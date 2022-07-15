@@ -5,15 +5,6 @@
 #include "Vtop__Dpi.h"
 #include <Vtop.h>
 
-extern uint8_t pmem ;
-
-uint32_t pmem_read(uint64_t pc) {
-  printf("pc = %lx\n", pc);
-  uint32_t inst = *(uint32_t *)( pc - 0x80000000 + pmem);
-  printf("end read instruction\n");
-  return inst;
-}
-
 extern VerilatedContext* contextp ;
 
 extern Vtop* top ; 

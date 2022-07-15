@@ -13,6 +13,13 @@ extern bool batch_mode ;
 
 uint8_t pmem[0x8000000] __attribute((aligned(4096))) = {};
 
+uint32_t pmem_read(uint64_t pc) {
+  printf("pc = %lx\n", pc);
+  uint32_t inst = *(uint32_t *)( pc - 0x80000000 + pmem);
+  printf("end read instruction\n");
+  return inst;
+}
+
 static int parse_args(int argc, char *argv[]) {
   const struct option table[] = {
     {"batch"    , no_argument      , NULL, 'b'},
