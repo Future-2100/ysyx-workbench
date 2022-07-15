@@ -11,6 +11,7 @@ extern Vtop* top;
 extern VerilatedContext* contextp ;
 
 
+
 void reset(int n) {
   top->rstn = 0 ;
   top->clk  = 1 ;
@@ -25,4 +26,11 @@ void reset(int n) {
 }
 
 
+void init_module() {
+
+  reset(10);
+  printf("pc = %lx\n",top->pc);
+  printf("----------module reset successful----------\n");
+  
+}
 

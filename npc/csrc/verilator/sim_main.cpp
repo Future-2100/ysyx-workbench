@@ -7,6 +7,7 @@
 #include "Vtop__Dpi.h"
 
 void init_monitor(int, char *[]);
+void init_module();
 void engine_start();
 int is_exit_status_bad();
 
@@ -29,9 +30,11 @@ int main(int argc, char** argv, char** env) {
 
   init_sim(argc, argv, env);
 
+  init_module();  //reset 10 periods
+
+
   engine_start();
 
-  reset(10); // reset 10 periods 
 
   // Simulated until $finish
   while( !Verilated::gotFinish() ) {
