@@ -114,6 +114,7 @@ VERILATOR_OUTFLAGS += -o $(abspath $(BIN))
 #image file
 IMG = 
 
+
 NPCFLAG += $(ARGS)
 
 NPCFLAG += $(IMG)
@@ -136,7 +137,7 @@ run : sim
 sim: $(BIN)
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	@echo "----------------------------------------- RUN -----------------------------------------------"
-	@$(BIN) -b $(NPCFLAG)
+	@$(BIN) $(NPCFLAG)
 	@echo "---------------------------------------- DONE  ----------------------------------------------"
 	$(WAVEFLAGS)
 

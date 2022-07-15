@@ -3,7 +3,7 @@
 
 static char *img_file = NULL;
 
-bool is_batch_mode = false ;
+extern bool is_batch_mode ;
 
 uint8_t pmem[0x8000000] __attribute((aligned(4096))) = {};
 
