@@ -38,9 +38,10 @@ void init_module() {
 void run_step(uint64_t n) {
 
   uint64_t m = 2*n;
-  printf("m = %d\n", Verilated::gotFinish() );
+  printf("m = %ld finish = %d\n", m, Verilated::gotFinish() );
   while( (m--) & ( !Verilated::gotFinish() )  ) {
 
+    printf("m = %ld finish = %d\n", m, Verilated::gotFinish() );
     if(  top->clk ) {
       if(top->ebreak)  { 
         end_sim(); 
