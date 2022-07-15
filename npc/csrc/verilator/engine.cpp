@@ -5,7 +5,9 @@
 #include <stdint.h>
 #include <stdlib.h>
 //#include <istream>
-#include <iostream>
+//#include <iostream>
+#include <readline/history.h>
+#include <readline/readline.h>
 
 void cpu_exec(uint64_t n);
 
@@ -81,20 +83,17 @@ static struct {
 #define NR_CMD ARRLEN(cmd_table)
 
 static char* rl_gets() {
-  static char line_read[256] = {};
+  static char* line_read = NULL ;
 
-  /*
   if (line_read) {
     free(line_read);
     line_read = NULL;
   }
-  */
 
-  std::cout << "(npc) ";
-  std::cin.getline(line_read,256);
+  line_read = readline("(npc) ");
 
   if (line_read && *line_read) {
-    //add_history(line_read);
+    add_history(line_read);
   }
   return line_read;
 }
