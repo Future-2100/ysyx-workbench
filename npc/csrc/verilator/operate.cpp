@@ -37,10 +37,14 @@ void init_module() {
 void run_all() {
 
   // Simulated untill $finish
+  printf("---------- run all ----------\n");
   while( !Verilated::gotFinish() ) {
 
     if(  top->clk ) {
-      if(top->ebreak)  end_sim(); 
+      if(top->ebreak)  { 
+        end_sim(); 
+        printf("---------- finish  ----------\n");
+      }
       contextp->timeInc(1); // 10 timeprecision period passes...
       top->inst = pmem_read(top->pc);
       top->eval();
