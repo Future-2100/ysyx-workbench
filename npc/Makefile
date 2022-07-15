@@ -105,7 +105,6 @@ VERILATOR_OUTFLAGS += --exe
 # Specify the name for the executable built if using --exe. Default to the --prefix if not specified
 VERILATOR_OUTFLAGS += -o $(abspath $(BIN))
 
-
 #image file
 IMG = 
 

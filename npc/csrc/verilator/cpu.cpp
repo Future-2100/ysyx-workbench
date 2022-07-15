@@ -1,3 +1,5 @@
+#include <stdint.h>
+#include <stdio.h>
 
 enum { NPC_RUNNING, NPC_STOP, NPC_END, NPC_ABORT, NPC_QUIT };
 
@@ -7,13 +9,14 @@ typedef struct {
 
 NPCState npc_state = { .state = NPC_STOP };
 
-void exe_step();
+//void exe_step();
 
 void execute(uint64_t n) {
-
+/*
   for(uint64_t i=0; i<n; i++) {
     exe_step();
   }
+  */
 }
 
 

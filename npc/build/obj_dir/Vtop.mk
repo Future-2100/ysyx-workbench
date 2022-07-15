@@ -41,6 +41,7 @@ VM_USER_LDLIBS = \
 
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \
+	cpu \
 	engine \
 	initial \
 	monitor \
@@ -61,11 +62,13 @@ include $(VERILATOR_ROOT)/include/verilated.mk
 ### Executable rules... (from --exe)
 VPATH += $(VM_USER_DIR)
 
-engine.o: /home/grand/ysyx-workbench/npc/csrc/verilator/engine.c
+cpu.o: /home/grand/ysyx-workbench/npc/csrc/verilator/cpu.cpp
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+engine.o: /home/grand/ysyx-workbench/npc/csrc/verilator/engine.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 initial.o: /home/grand/ysyx-workbench/npc/csrc/verilator/initial.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-monitor.o: /home/grand/ysyx-workbench/npc/csrc/verilator/monitor.c
+monitor.o: /home/grand/ysyx-workbench/npc/csrc/verilator/monitor.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 operate.o: /home/grand/ysyx-workbench/npc/csrc/verilator/operate.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<

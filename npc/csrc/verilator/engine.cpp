@@ -2,9 +2,10 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdint.h>
 #include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+//#include <istream>
+#include <iostream>
 
 void cpu_exec(uint64_t n);
 
@@ -87,10 +88,11 @@ static char* rl_gets() {
     line_read = NULL;
   }
 
-  line_read = readline("(npc) ");
+  std::cout << "(npc) ";
+  std::cin.getline(line_read,256);
 
   if (line_read && *line_read) {
-    add_history(line_read);
+    //add_history(line_read);
   }
   return line_read;
 }

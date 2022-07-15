@@ -27,9 +27,9 @@ int main(int argc, char** argv, char** env) {
 
   init_monitor(argc, argv);
 
-  engine_start();
-
   init_sim(argc, argv, env);
+
+  engine_start();
 
   reset(10); // reset 10 periods 
 
