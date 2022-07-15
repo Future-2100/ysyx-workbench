@@ -34,6 +34,36 @@ void init_module() {
   
 }
 
+
+void run_step(uint64_t n) {
+
+  while( n-- ) {
+    if(  top->clk ) {
+      if(top->ebreak)  { 
+        end_sim(); 
+        printf("---------- finish  ----------\n");
+        uint64_t a = top->a ;
+        printf("a = %lx\n", a);
+        break;
+      }
+      contextp->timeInc(1); // 10 timeprecision period passes...
+      top->inst = pmem_read(top->pc);
+      top->eval();
+      contextp->timeInc(9);
+    }
+    
+    else {
+      printf("pc = %lx, inst = %x \n", top->pc, top->inst);
+      contextp->timeInc(10);
+    }
+
+    top->clk = !top->clk ;
+
+    // Evaluate model
+    top->eval();
+  }
+}
+
 void run_all() {
 
   // Simulated untill $finish

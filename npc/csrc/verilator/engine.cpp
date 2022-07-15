@@ -9,8 +9,8 @@
 #include <readline/history.h>
 #include <readline/readline.h>
 
-void cpu_exec(uint64_t n);
 void run_all();
+void run_step( uint64_t n);
 void delete_module();
 
 #define ARRLEN(arr) (int)(sizeof(arr)) / sizeof(arr[0])
@@ -36,7 +36,7 @@ static int cmd_si(char *args) {
   else
     sscanf(arg, "%d", &N);
 
-  cpu_exec(N);
+  run_step(N);
 
   return 0;
 }
