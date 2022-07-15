@@ -38,6 +38,7 @@ void init_module() {
 void run_step(uint64_t n) {
 
   uint64_t m = 2*n;
+  printf("m = %ld\n",m );
   while( m-- & ( !Verilated::gotFinish() )  ) {
 
     if(  top->clk ) {
