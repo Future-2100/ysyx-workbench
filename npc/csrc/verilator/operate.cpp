@@ -45,6 +45,7 @@ void run_step(uint64_t n) {
         printf("---------- program end  ----------\n");
         uint64_t a = top->a ;
         printf("a = %lx\n", a);
+        return ;
       }
       contextp->timeInc(1); // 10 timeprecision period passes...
       top->inst = pmem_read(top->pc);
@@ -67,6 +68,7 @@ void run_step(uint64_t n) {
         printf("---------- program end  ----------\n");
         uint64_t a = top->a ;
         printf("a = %lx\n", a);
+        return ;
       }
       contextp->timeInc(1); // 10 timeprecision period passes...
       top->inst = pmem_read(top->pc);
