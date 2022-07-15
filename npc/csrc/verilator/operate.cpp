@@ -12,6 +12,7 @@ extern VerilatedContext* contextp ;
 
 
 void reset(int n) {
+  printf("start reset\n");
   top->rstn = 0 ;
   top->clk  = 1 ;
 
