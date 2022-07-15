@@ -24,7 +24,7 @@ image: $(IMAGE).elf
 	@$(OBJCOPY) -S --set-section-flags .bss=alloc,contents -O binary $(IMAGE).elf $(IMAGE).bin
 
 ifeq ($(AUTO),en)
-NCPFLAGS = -b
+NPCFLAGS = -b
 endif
 
 run: image
