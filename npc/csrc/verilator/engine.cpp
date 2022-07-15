@@ -7,7 +7,8 @@ void cpu_exec(uint64_t n);
 
 #define ARRLEN(arr) (int)(sizeof(arr)) / sizeof(arr[0])
 
-bool is_batch_mode = false ;
+extern bool is_batch_mode ;
+//bool is_batch_mode = false ;
 
 static int cmd_c(char *args) {
   cpu_exec(-1);
