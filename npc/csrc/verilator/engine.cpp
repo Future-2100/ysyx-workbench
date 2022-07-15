@@ -81,12 +81,14 @@ static struct {
 #define NR_CMD ARRLEN(cmd_table)
 
 static char* rl_gets() {
-  static char *line_read = NULL;
+  static char line_read[256] = {};
 
+  /*
   if (line_read) {
     free(line_read);
     line_read = NULL;
   }
+  */
 
   std::cout << "(npc) ";
   std::cin.getline(line_read,256);
