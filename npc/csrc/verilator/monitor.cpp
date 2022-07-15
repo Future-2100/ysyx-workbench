@@ -69,7 +69,7 @@ static long load_img() {
 }
 
 static void welcome() {
-  printf(FONT_BLUE "Welcome to " FONT_YELLOW ANSI_BG_RED "riscv64" FONT_BLUE "-NPC!" FONT_NONE "\n");
+  printf(FONT_GREEN "Welcome to " FONT_YELLOW ANSI_BG_RED "riscv64" FONT_NONE FONT_GREEN "-NPC!" FONT_NONE "\n");
 }
 
 void init_monitor(int argc, char *argv[]) {
