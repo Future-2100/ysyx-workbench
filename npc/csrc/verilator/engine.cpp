@@ -2,7 +2,6 @@
 #include <readline/history.h>
 #include <readline/readline.h>
 
-void run_all();
 void run_step( uint64_t n);
 void delete_module();
 
@@ -11,7 +10,7 @@ void delete_module();
 bool batch_mode = false ;
 
 static int cmd_c(char *args) {
-  run_all();
+  run_step(-1);
   return 0;
 }
 
