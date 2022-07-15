@@ -7,6 +7,7 @@ void init_monitor(int, char *[]);
 void init_sim(int argc, char** argv, char** env);
 void init_module();
 void engine_start();
+int is_exit_status_bad();
 //int is_exit_status_bad();
 
 
@@ -30,7 +31,7 @@ int main(int argc, char** argv, char** env) {
   engine_start();
 
   // Return good completion status
-  return 0;
+  return is_exit_status_bad();
 
 }
 
