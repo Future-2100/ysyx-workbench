@@ -112,12 +112,11 @@ VERILATOR_OUTFLAGS += --exe
 VERILATOR_OUTFLAGS += -o $(abspath $(BIN))
 
 #image file
-IMG = 
+IMG =
 
+NPCFLAGS += $(ARGS)
 
-NPCFLAG += $(ARGS)
-
-NPCFLAG += $(IMG)
+NPCFLAGS += $(IMG)
 
 ifeq ($(WAVE),en)
 WAVEFLAGS = gtkwave $(BUILD_DIR)/logs/$(TOPNAME).vcd
@@ -137,7 +136,7 @@ run : sim
 sim: $(BIN)
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	@echo "----------------------------------------- RUN -----------------------------------------------"
-	@$(BIN) -b $(NPCFLAG)
+	@$(BIN) $(NPCFLAGS)
 	@echo "---------------------------------------- DONE  ----------------------------------------------"
 	$(WAVEFLAGS)
 
