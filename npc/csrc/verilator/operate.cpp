@@ -65,6 +65,11 @@ void run_all() {
   uint64_t a = top->a ;
 
   printf("a = %lx\n", a);
+
+}
+
+void delete_module() {
+
   // Final model cleanup
   top->final();
 

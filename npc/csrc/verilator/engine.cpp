@@ -11,6 +11,7 @@
 
 void cpu_exec(uint64_t n);
 void run_all();
+void delete_module();
 
 #define ARRLEN(arr) (int)(sizeof(arr)) / sizeof(arr[0])
 
@@ -23,6 +24,7 @@ static int cmd_c(char *args) {
 
 static int cmd_q(char *args) {
 //  nemu_state.state = NEMU_QUIT;
+  void delete_module();
   return -1;
 }
 
