@@ -196,7 +196,6 @@ controlor controlor_inst
 
 );
 
-
   
   initial begin
 //    if($test$plusargs("trace") != 0) begin
