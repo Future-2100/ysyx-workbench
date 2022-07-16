@@ -74,8 +74,8 @@ void run_step(uint64_t n) {
         end_sim(); 
         for(int i=0; i<30; i++) printf(FONT_BLUE "-");
         printf(" program end ");
-        for(int i=0; i<30; i++) printf("-" FONT_NONE);
-        printf("\n");
+        for(int i=0; i<30; i++) printf("-");
+        printf(FONT_NONE "\n");
         return ;
       }
       contextp->timeInc(1); // 10 timeprecision period passes...
