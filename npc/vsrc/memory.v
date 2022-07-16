@@ -40,7 +40,7 @@ module memory
                  ( {3{sd}} & 3'd4 )  ;
 
   assign  wdata = wdata_in;
-  assign  addr = addr_in;
+  assign  addr  =  addr_in;
 
   assign  wen =  ( sb | sh | sw | sd ) & rstn ;
   assign  ren =  ( lb | lh | lw | ld | lbu | lhu | lwu ) ;

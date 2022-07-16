@@ -7,9 +7,23 @@ extern bool is_batch_mode ;
 
 uint8_t pmem[0x8000000] __attribute((aligned(4096))) = {};
 
-uint32_t pmem_read(uint64_t pc) {
+uint32_t inst_read(uint64_t pc) {
   uint32_t inst = *(uint32_t *)( pc - 0x80000000 + pmem);
   return inst;
+}
+
+uint64_t mem_read(uint64_t addr) {
+    uint64_t data = *(uint64_t *)( addr - 0x80000000 + pmem);
+    return data;
+}
+
+void mem_write(uint64_t addr, int len, word_t data) {
+    switch ( len ) {
+      case 1 : *(uint8_t  *)( addr - 0x80000000 + pmem ) = data; return;
+      case 2 : *(uint16_t *)( addr - 0x80000000 + pmem ) = data; return;
+      case 3 : *(uint32_t *)( addr - 0x80000000 + pmem ) = data; return;
+      case 4 : *(uint64_t *)( addr - 0x80000000 + pmem ) = data; return;
+    }
 }
 
 static int parse_args(int argc, char *argv[]) {

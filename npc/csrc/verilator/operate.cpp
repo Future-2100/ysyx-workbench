@@ -12,7 +12,9 @@ static Vtop* top = new Vtop;
 
 
 //-----  extern function ------//
-uint32_t pmem_read(uint64_t pc);
+uint32_t inst_read(uint64_t pc);
+uint64_t mem_read(uint64_t addr);
+void     mem_write(uint64_t addr, int len, word_t data);
 void npc_trap(int state, vaddr_t pc, int halt_ret);
 
 
@@ -90,13 +92,21 @@ void run_step(uint64_t n) {
         printf(FONT_NONE "\n");
         return ;
       }
+      if( top->wen ) {
+        mem_write(top->addr, top->wlen, top->wdata);
+        top->eval();
+      }
       contextp->timeInc(1); // 10 timeprecision period passes...
-      top->inst = pmem_read(top->pc);
+      top->inst = inst_read(top->pc);
       top->eval();
       contextp->timeInc(9);
     }
     
     else {
+      if( top->ren ) {
+        top->rdata = mem_read(top->addr);
+        top->eval();
+      }
       printf("pc = %lx, inst = %x \n", top->pc, top->inst);
       contextp->timeInc(10);
     }
@@ -115,13 +125,21 @@ void run_step(uint64_t n) {
         printf(FONT_NONE "\n");
         return ;
       }
+      if( top->wen ) {
+        mem_write(top->addr, top->wlen, top->wdata);
+        top->eval();
+      }
       contextp->timeInc(1); // 10 timeprecision period passes...
-      top->inst = pmem_read(top->pc);
+      top->inst = inst_read(top->pc);
       top->eval();
       contextp->timeInc(9);
     }
     
     else {
+      if( top->ren ) {
+        top->rdata = mem_read(top->addr);
+        top->eval();
+      }
       printf("pc = %lx, inst = %x \n", top->pc, top->inst);
       contextp->timeInc(10);
     }
