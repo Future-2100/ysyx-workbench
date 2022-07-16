@@ -61,10 +61,6 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__2(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__controlor_inst__DOT__R_type = 
         ((0xcU == (0x1fU & (vlSelf->inst >> 2U))) | 
          (0xeU == (0x1fU & (vlSelf->inst >> 2U))));
-    vlSelf->top__DOT__imm_gen_inst__DOT__immS_num = 
-        (((QData)((IData)((vlSelf->inst >> 0x19U))) 
-          << 5U) | (QData)((IData)((0x1fU & (vlSelf->inst 
-                                             >> 7U)))));
     vlSelf->top__DOT__U_type = ((0xdU == (0x1fU & (vlSelf->inst 
                                                    >> 2U))) 
                                 | (5U == (0x1fU & (vlSelf->inst 
@@ -303,7 +299,13 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__5(Vtop___024root* vlSelf) {
                                                        (0x1fU 
                                                         & (vlSelf->inst 
                                                            >> 2U)))))) 
-                                   & vlSelf->top__DOT__imm_gen_inst__DOT__immS_num)) 
+                                   & (((QData)((IData)(
+                                                       (vlSelf->inst 
+                                                        >> 0x19U))) 
+                                       << 5U) | (QData)((IData)(
+                                                                (0x1fU 
+                                                                 & (vlSelf->inst 
+                                                                    >> 7U))))))) 
                                | ((- (QData)((IData)(
                                                      (0x18U 
                                                       == 
