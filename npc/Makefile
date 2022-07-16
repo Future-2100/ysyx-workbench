@@ -47,6 +47,7 @@ VERILATOR_FLAGS += --MMD
 
 #Make waveforms
 VERILATOR_FLAGS += --trace
+VERILATOR_FLAGS += --coverage
 
 # Check SystemVerilog assertions
 # VERILATOR_FLAGS += --assert
