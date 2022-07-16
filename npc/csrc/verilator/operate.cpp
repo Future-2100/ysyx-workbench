@@ -9,18 +9,20 @@
 static VerilatedContext* contextp = new VerilatedContext;
 static Vtop* top = new Vtop;
 
-uint32_t pmem_read(uint64_t pc);
 
+//-----  extern function ------//
+uint32_t pmem_read(uint64_t pc);
 void npc_trap(int state, vaddr_t pc, int halt_ret);
 
-void init_sim(int argc, char** argv, char** env) {
+
+
+void init_verilator(int argc, char** argv, char** env) {
 
   // Prevent unused variable warnings
   if( false && argc && argv && env) {}
 
   //Create logs/ directory in case we have traces to put under it
   Verilated::mkdir("build/logs");
-
 
   // Set debug level, 0 is off, 9 is highest presently used
   contextp->debug(0);
@@ -35,7 +37,9 @@ void init_sim(int argc, char** argv, char** env) {
   const svScope scope = svGetScopeFromName("TOP.top");
   assert(scope);
   svSetScope(scope);
+
 }
+
 
 void reset(int n) {
   top->rstn = 0 ;
@@ -52,9 +56,11 @@ void reset(int n) {
 
 
 void init_module() {
+
   reset(10);
   printf("pc = %lx\n",top->pc);
-  printf("----------module reset successful----------\n");
+  printf(FONT_GREEN "---------- module reset ----------\n" FONT_NONE );
+
 }
 
 
@@ -66,7 +72,7 @@ void run_step(uint64_t n) {
       if(top->ebreak)  { 
         npc_trap(2 , top->pc, top->a);
         end_sim(); 
-        printf("---------- program end  ----------\n");
+        printf( FONT_BLUE "---------- program end  ----------\n" FONT_NONE);
         return ;
       }
       contextp->timeInc(1); // 10 timeprecision period passes...
