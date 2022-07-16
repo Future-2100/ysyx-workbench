@@ -56,8 +56,8 @@ static int clk = 0 ;
 static int rstn  = 0 ;
 
 static void single_cycle() {
-  top->clk = 0; top->eval();
   top->clk = 1; top->eval();
+  top->clk = 0; top->eval();
 }
 
 void reset(int n) {
