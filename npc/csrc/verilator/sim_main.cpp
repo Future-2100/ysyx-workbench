@@ -1,3 +1,4 @@
+#include <common.h>
 // Include common routines
 #include <verilated.h>
 // Inculde model header, generated from Verilating "top.v"
@@ -18,14 +19,35 @@ VerilatedContext* contextp = new VerilatedContext; // must delete it at end
 
 int main(int argc, char** argv) {
 
-  init_monitor(argc, argv);
+  if( false && argc && argv) {}
 
-  init_module();  //reset 10 periods
+  //Create logs/ directory in case we have traces to put under it
+  Verilated::mkdir("build/logs");
 
-  engine_start();
+  // Set debug level, 0 is off, 9 is highest presently used
+  contextp->debug(0);
+  
+  //Verilator must compute traced signals
+  contextp->traceEverOn(true);
+
+  // Pass arguments so Verilated code can see them, e.g. $value$plusargs
+  // This needs to be called before you create any model
+  contextp->commandArgs(argc, argv);
+
+  const svScope scope = svGetScopeFromName("TOP.top");
+  assert(scope);
+  svSetScope(scope);
+
+
+
+//  init_monitor(argc, argv);
+
+//  init_module();  //reset 10 periods
+
+ // engine_start();
 
   // Return good completion status
-  return is_exit_status_bad();
+  return 0;//is_exit_status_bad();
 
 }
 
