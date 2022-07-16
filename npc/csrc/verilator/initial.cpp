@@ -4,16 +4,9 @@
 #include "Vtop__Dpi.h"
 #include <Vtop.h>
 
+extern Vtop* top ; 
+
 extern VerilatedContext* contextp ;
-
-// Construct the Verilated model, from Vtop.h generated froom Verilating "top.v"
- Vtop* top = new Vtop;  // must delete it at end
-//const std::unique_ptr<Vtop> top{new Vtop{contextp.get(), "TOP"}};
-
-//Construct a VerilatedContext to hold simulation time, etc.
-VerilatedContext* contextp = new VerilatedContext; // must delete it at end
-//const std::unique_ptr<VerilatedContext> contextp{new VerilatedContext};
-
 
 void init_sim(int argc, char** argv, char** env) {
 
