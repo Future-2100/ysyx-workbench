@@ -28,7 +28,7 @@ void init_sim(int argc, char** argv) {
   contextp->commandArgs(argc, argv);
 
   const svScope scope = svGetScopeFromName("TOP.top");
-  assert(scope);
+  //assert(scope);
   svSetScope(scope);
 
 }
