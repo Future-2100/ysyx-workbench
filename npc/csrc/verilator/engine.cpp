@@ -16,9 +16,10 @@ static int cmd_c(char *args) {
   return 0;
 }
 
+void npc_quit();
 static int cmd_q(char *args) {
-//  nemu_state.state = NEMU_QUIT;
-  void delete_module();
+  npc_quit();
+  delete_module();
   return -1;
 }
 

@@ -36,6 +36,10 @@ void npc_trap(int state, vaddr_t pc, int halt_ret) {
   npc_state.halt_ret = halt_ret;
 }
 
+void npc_quit() {
+  npc_state.state = NPC_QUIT;
+}
+
 
 void cpu_exec(uint64_t n) {
 
