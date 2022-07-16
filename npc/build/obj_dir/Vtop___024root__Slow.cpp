@@ -84,6 +84,10 @@ void Vtop___024root___settle__TOP__3(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__controlor_inst__DOT__R_type = 
         ((0xcU == (0x1fU & (vlSelf->inst >> 2U))) | 
          (0xeU == (0x1fU & (vlSelf->inst >> 2U))));
+    vlSelf->top__DOT__imm_gen_inst__DOT__immS_num = 
+        (((QData)((IData)((vlSelf->inst >> 0x19U))) 
+          << 5U) | (QData)((IData)((0x1fU & (vlSelf->inst 
+                                             >> 7U)))));
     vlSelf->top__DOT__U_type = ((0xdU == (0x1fU & (vlSelf->inst 
                                                    >> 2U))) 
                                 | (5U == (0x1fU & (vlSelf->inst 
@@ -233,16 +237,7 @@ void Vtop___024root___settle__TOP__3(Vtop___024root* vlSelf) {
                                                        (0x1fU 
                                                         & (vlSelf->inst 
                                                            >> 2U)))))) 
-                                   & (((- (QData)((IData)(
-                                                          (vlSelf->inst 
-                                                           >> 0x1fU)))) 
-                                       << 0xbU) | (QData)((IData)(
-                                                                  ((0x7e0U 
-                                                                    & (vlSelf->inst 
-                                                                       >> 0x14U)) 
-                                                                   | (0x1fU 
-                                                                      & (vlSelf->inst 
-                                                                         >> 7U)))))))) 
+                                   & vlSelf->top__DOT__imm_gen_inst__DOT__immS_num)) 
                                | ((- (QData)((IData)(
                                                      (0x18U 
                                                       == 
@@ -670,6 +665,7 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
         vlSelf->top__DOT__regfile_inst__DOT__gpr[__Vi0] = 0;
     }
     vlSelf->top__DOT__regfile_inst__DOT__i = 0;
+    vlSelf->top__DOT__imm_gen_inst__DOT__immS_num = 0;
     vlSelf->top__DOT__alu_inst__DOT__opdata1 = 0;
     vlSelf->top__DOT__alu_inst__DOT__opdata2 = 0;
     vlSelf->top__DOT__alu_inst__DOT__lgc_result = 0;

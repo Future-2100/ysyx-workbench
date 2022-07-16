@@ -25,6 +25,7 @@ module imm_gen
 
   assign    immI_num = { {53{inst[IW-1]}}, inst[30:20] };
   assign    immS_num = { {53{inst[IW-1]}}, inst[30:25], inst[11:7] };
+  assign    immS_num = { {52{1'b0}}, inst[31:25], inst[11:7] };
   assign    immB_num = { {52{inst[IW-1]}}, inst[7], inst[30:25], inst[11:8], 1'b0 };
   assign    immU_num = { {33{inst[IW-1]}}, inst[30:12], 12'b0 };
   assign    immJ_num = { {44{inst[IW-1]}}, inst[19:12], inst[20], inst[30:21], 1'b0 };
