@@ -35,6 +35,9 @@ class Vtop__Syms final : public VerilatedSyms {
     // MODULE INSTANCE STATE
     Vtop___024root                 TOP;
 
+    // COVERAGE
+    uint32_t __Vcoverage[2022];
+
     // SCOPE NAMES
     VerilatedScope __Vscope_top;
 

@@ -128,6 +128,11 @@ alu alu_inst
   .br_asrt   ( br_asrt    ) 
 );
 
+  always@(posedge clk) begin
+    $display("opdata1 = %d, opdata2 = %d, result = %lx\n",alu_inst.opdata1, alu_inst.opdata2, result);
+
+  end
+
   wire              lb        ;
   wire              lh        ;
   wire              lw        ;
@@ -219,6 +224,7 @@ controlor controlor_inst
 //    end
     $display("[%0t] Model running...\n", $time);
   end
+
 
   import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
   initial set_gpr_ptr(regfile_inst.gpr);
