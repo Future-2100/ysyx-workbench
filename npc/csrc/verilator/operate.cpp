@@ -54,18 +54,22 @@ void init_verilator(int argc, char** argv, char** env) {
 
 }
 
+static int clk = 1 ;
+static int rstn  = 0 ;
 
 void reset(int n) {
-  top->rstn = 0 ;
-  top->clk  = 1 ;
+
+  top->rstn = rstn  ;
+  top->clk  = clk ;
 
   for ( int i=0; i<(n*2); i++ ) {
       top->eval();
       contextp->timeInc(10);
-      top->clk = !top->clk;
+      clk = !clk;
+      top->clk = clk;
   }
-    top->rstn = 1;
-    top->eval();
+    rstn = 1 ;
+    top->rstn = rstn;
 }
 
 
@@ -82,7 +86,7 @@ void run_step(uint64_t n) {
 
   while( (n--) && ( !Verilated::gotFinish() )  ) {
 
-    if(  top->clk ) {
+    if(  clk ) {
       if(top->ebreak)  { 
         npc_trap(2 , top->pc, top->a);
         end_sim(); 
@@ -94,8 +98,8 @@ void run_step(uint64_t n) {
       }
       if( top->wen ) {
         mem_write(top->addr, top->wlen, top->wdata);
-        //top->eval();
       }
+      top->eval();
       contextp->timeInc(1); // 10 timeprecision period passes...
       top->inst = inst_read(top->pc);
       top->eval();
@@ -111,9 +115,8 @@ void run_step(uint64_t n) {
       contextp->timeInc(10);
     }
 
-    top->clk = !top->clk ;
-    // Evaluate model
-    top->eval();
+    clk = !clk ;
+    top->clk = clk ;
 
     if(  top->clk ) {
       if(top->ebreak)  { 
@@ -127,8 +130,8 @@ void run_step(uint64_t n) {
       }
       if( top->wen ) {
         mem_write(top->addr, top->wlen, top->wdata);
-        //top->eval();
       }
+      top->eval();
       contextp->timeInc(1); // 10 timeprecision period passes...
       top->inst = inst_read(top->pc);
       top->eval();
@@ -138,15 +141,15 @@ void run_step(uint64_t n) {
     else {
       if( top->ren ) {
         top->rdata = mem_read(top->addr);
-        top->eval();
       }
       printf("pc = %lx, inst = %x \n", top->pc, top->inst);
+      top->eval();
       contextp->timeInc(10);
     }
 
+    clk = !clk ;
     top->clk = !top->clk ;
-    // Evaluate model
-    top->eval();
+
   }
 }
 
