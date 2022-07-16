@@ -87,12 +87,12 @@ void run_step(uint64_t n) {
       if( top->wen ) {
         mem_write(top->addr, top->wlen, top->wdata);
       }
-      //top->eval();
-      //contextp->timeInc(1); // 10 timeprecision period passes...
+      top->eval();
+      contextp->timeInc(1); // 10 timeprecision period passes...
       top->inst = inst_read(top->dnxt_pc);
       top->clk = !top->clk;
       top->eval();
-      contextp->timeInc(10);
+      contextp->timeInc(9);
 
     
       if( top->ren ) {
