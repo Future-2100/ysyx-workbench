@@ -3,7 +3,7 @@
 // Inculde model header, generated from Verilating "top.v"
 #include <Vtop.h>
 
-void init_monitor(int, char *[], char**);
+void init_monitor(int argc, char** argv);
 void init_module();
 void engine_start();
 int is_exit_status_bad();
@@ -16,9 +16,9 @@ int is_exit_status_bad();
 //VerilatedContext* contextp = new VerilatedContext; // must delete it at end
 //const std::unique_ptr<VerilatedContext> contextp{new VerilatedContext};
 
-int main(int argc, char** argv, char** env) {
+int main(int argc, char** argv) {
 
-  init_monitor(argc, argv, env);
+  init_monitor(argc, argv);
 
   init_module();  //reset 10 periods
 

@@ -9,10 +9,10 @@ Vtop* top = new Vtop;
 
 VerilatedContext* contextp = new VerilatedContext;
 
-void init_sim(int argc, char** argv, char** env) {
+void init_sim(int argc, char** argv) {
 
   // Prevent unused variable warnings
-  if( false && argc && argv && env) {}
+  if( false && argc && argv) {}
 
   //Create logs/ directory in case we have traces to put under it
   Verilated::mkdir("build/logs");

@@ -1,7 +1,7 @@
 #include <getopt.h>
 #include <common.h>
 
-void init_sim(int argc, char** argv, char** env);
+void init_sim(int argc, char** argv);
 
 static char *img_file = NULL;
 
@@ -79,7 +79,7 @@ static void welcome() {
   printf("\n");
 }
 
-void init_monitor(int argc, char *argv[], char** env) {
+void init_monitor(int argc, char** argv) {
   /* Perform some global initialization. */
 
   /* Parse arguments. */
@@ -91,7 +91,7 @@ void init_monitor(int argc, char *argv[], char** env) {
   /* Load the image to memory. This will overwrite the built-in image. */
   long img_size = load_img();
 
-  init_sim(argc, argv, env);
+  init_sim(argc, argv);
 
   /* Display welcome message. */
   welcome();
