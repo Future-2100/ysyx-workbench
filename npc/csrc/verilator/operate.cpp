@@ -6,8 +6,6 @@
 
 #include "svdpi.h"
 #include "Vtop__Dpi.h"
-#include <Vtop.h>
-
 
 extern Vtop* top ; 
 

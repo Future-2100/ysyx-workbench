@@ -4,9 +4,9 @@
 #include "Vtop__Dpi.h"
 #include <Vtop.h>
 
-extern Vtop* top ; 
+Vtop* top = new Vtop; 
 
-extern VerilatedContext* contextp ;
+VerilatedContext* contextp = new VerilatedContext;
 
 void init_sim(int argc, char** argv, char** env) {
 
