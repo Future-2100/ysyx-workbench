@@ -52,12 +52,9 @@ void init_verilator(int argc, char** argv, char** env) {
   svSetScope(scope);
 }
 
-static int clk = 1 ;
-static int rstn  = 0 ;
-
 static void single_cycle() {
-  top->clk = 1; top->eval();
-  top->clk = 0; top->eval();
+  top->clk = 0; top->eval(); contextp->timeInc(10);
+  top->clk = 1; top->eval(); contextp->timeInc(10);
 }
 
 void reset(int n) {
@@ -78,7 +75,6 @@ void run_step(uint64_t n) {
 
   while( (n--) && ( !Verilated::gotFinish() )  ) {
 
-    if(  clk ) {
       if(top->ebreak)  { 
         npc_trap(2 , top->pc, top->a);
         end_sim(); 
@@ -93,56 +89,21 @@ void run_step(uint64_t n) {
       }
       top->eval();
       contextp->timeInc(1); // 10 timeprecision period passes...
-      top->inst = inst_read(top->dnxt_pc);
+      top->inst = inst_read(top->pc);
       top->eval();
       contextp->timeInc(9);
-    }
+
+      top->clk = !top->clk;
     
-    else {
       if( top->ren ) {
         top->rdata = mem_read(top->addr);
       }
       printf("pc = %lx, inst = %x \n", top->pc, top->inst);
       top->eval();
       contextp->timeInc(10);
+      top->clk = !top->clk;
+
     }
-
-    clk = !clk ;
-    top->clk = clk ;
-
-    if(  top->clk ) {
-      if(top->ebreak)  { 
-        npc_trap(2 , top->pc, top->a);
-        end_sim(); 
-        for(int i=0; i<30; i++) printf(FONT_BLUE "-");
-        printf(" program end ");
-        for(int i=0; i<30; i++) printf("-");
-        printf(FONT_NONE "\n");
-        return ;
-      }
-      if( top->wen ) {
-        mem_write(top->addr, top->wlen, top->wdata);
-      }
-      top->eval();
-      contextp->timeInc(1); // 10 timeprecision period passes...
-      top->inst = inst_read(top->dnxt_pc);
-      top->eval();
-      contextp->timeInc(9);
-    }
-    
-    else {
-      if( top->ren ) {
-        top->rdata = mem_read(top->addr);
-      }
-      printf("pc = %lx, inst = %x \n", top->pc, top->inst);
-      top->eval();
-      contextp->timeInc(10);
-    }
-
-    clk = !clk ;
-    top->clk = !top->clk ;
-
-  }
 }
 
 
