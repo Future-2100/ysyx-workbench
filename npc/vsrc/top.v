@@ -196,7 +196,6 @@ controlor controlor_inst
 
 );
 
-  
   initial begin
 //    if($test$plusargs("trace") != 0) begin
       $display("[%0t] Tracing to build/logs/top.vcd...\n",$time);
@@ -207,7 +206,6 @@ controlor controlor_inst
   end
 
   export "DPI-C" task end_sim;
-
   task end_sim;
     $finish;
   endtask

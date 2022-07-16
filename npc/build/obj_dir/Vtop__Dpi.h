@@ -13,7 +13,7 @@ extern "C" {
 
 
     // DPI EXPORTS
-    // DPI export at /home/grand/ysyx-workbench/npc/vsrc/top.v:211:8
+    // DPI export at /home/grand/ysyx-workbench/npc/vsrc/top.v:209:8
     extern void end_sim();
 
 #ifdef __cplusplus
