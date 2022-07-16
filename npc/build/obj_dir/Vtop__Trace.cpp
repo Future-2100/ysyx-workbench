@@ -300,13 +300,16 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
                                                                 (0x7ffU 
                                                                  & (vlSelf->inst 
                                                                     >> 0x14U)))))),64);
-        tracep->chgQData(oldp+154,((((QData)((IData)(
-                                                     (vlSelf->inst 
-                                                      >> 0x19U))) 
-                                     << 5U) | (QData)((IData)(
-                                                              (0x1fU 
-                                                               & (vlSelf->inst 
-                                                                  >> 7U)))))),64);
+        tracep->chgQData(oldp+154,((((- (QData)((IData)(
+                                                        (vlSelf->inst 
+                                                         >> 0x1fU)))) 
+                                     << 0xbU) | (QData)((IData)(
+                                                                ((0x7e0U 
+                                                                  & (vlSelf->inst 
+                                                                     >> 0x14U)) 
+                                                                 | (0x1fU 
+                                                                    & (vlSelf->inst 
+                                                                       >> 7U))))))),64);
         tracep->chgQData(oldp+156,((((- (QData)((IData)(
                                                         (vlSelf->inst 
                                                          >> 0x1fU)))) 

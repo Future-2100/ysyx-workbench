@@ -299,13 +299,16 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__5(Vtop___024root* vlSelf) {
                                                        (0x1fU 
                                                         & (vlSelf->inst 
                                                            >> 2U)))))) 
-                                   & (((QData)((IData)(
-                                                       (vlSelf->inst 
-                                                        >> 0x19U))) 
-                                       << 5U) | (QData)((IData)(
-                                                                (0x1fU 
-                                                                 & (vlSelf->inst 
-                                                                    >> 7U))))))) 
+                                   & (((- (QData)((IData)(
+                                                          (vlSelf->inst 
+                                                           >> 0x1fU)))) 
+                                       << 0xbU) | (QData)((IData)(
+                                                                  ((0x7e0U 
+                                                                    & (vlSelf->inst 
+                                                                       >> 0x14U)) 
+                                                                   | (0x1fU 
+                                                                      & (vlSelf->inst 
+                                                                         >> 7U)))))))) 
                                | ((- (QData)((IData)(
                                                      (0x18U 
                                                       == 
