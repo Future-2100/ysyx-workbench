@@ -9,16 +9,14 @@
 #include <Vtop.h>
 
 
-// Construct the Verilated model, from Vtop.h generated froom Verilating "top.v"
- Vtop* top = new Vtop;  // must delete it at end
-//const std::unique_ptr<Vtop> top{new Vtop{contextp.get(), "TOP"}};
+extern Vtop* top ; 
 
-//Construct a VerilatedContext to hold simulation time, etc.
-VerilatedContext* contextp = new VerilatedContext; // must delete it at end
-//const std::unique_ptr<VerilatedContext> contextp{new VerilatedContext};
+extern VerilatedContext* contextp ;
 
 uint32_t pmem_read(uint64_t pc);
+
 void npc_trap(int state, vaddr_t pc, int halt_ret);
+
 
 void reset(int n) {
   top->rstn = 0 ;
