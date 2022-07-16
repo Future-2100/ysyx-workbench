@@ -75,6 +75,7 @@ void run_step(uint64_t n) {
 
   while( (n--) && ( !Verilated::gotFinish() )  ) {
 
+    if( top->clk = !0 ) {
       if(top->ebreak)  { 
         npc_trap(2 , top->pc, top->a);
         end_sim(); 
@@ -94,8 +95,9 @@ void run_step(uint64_t n) {
       top->inst = inst_read(top->pc);
       top->eval();
       contextp->timeInc(9);
+    }
 
-    
+    else { 
       if( top->ren ) {
         top->rdata = mem_read(top->addr);
       }
@@ -103,8 +105,8 @@ void run_step(uint64_t n) {
       top->clk = !top->clk;
       top->eval();
       contextp->timeInc(10);
-
     }
+  }
 }
 
 
