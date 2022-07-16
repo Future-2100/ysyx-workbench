@@ -25,7 +25,9 @@ void run_step(Decode *s);
 
 static void exec_once(Decode *s){
 
+  printf("at the begining of run_step\n");
   run_step(s);
+  printf("at the end of run_step\n");
 
   char *p = s->logbuf;
 
