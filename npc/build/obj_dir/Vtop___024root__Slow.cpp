@@ -27,6 +27,8 @@ void Vtop___024root::__Vconfigure(Vtop__Syms* _vlSymsp, bool first) {
 Vtop___024root::~Vtop___024root() {
 }
 
+void Vtop___024root____Vdpiimwrap_top__DOT__set_gpr_ptr__Vdpioc2_TOP(const VlUnpacked<QData/*63:0*/, 32> &a);
+
 void Vtop___024root___initial__TOP__1(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
@@ -45,6 +47,7 @@ void Vtop___024root___initial__TOP__1(Vtop___024root* vlSelf) {
     vlSymsp->_traceDumpOpen();
     VL_WRITEF("[%0t] Model running...\n\n",64,VL_TIME_UNITED_Q(1),
               -12);
+    Vtop___024root____Vdpiimwrap_top__DOT__set_gpr_ptr__Vdpioc2_TOP(vlSelf->top__DOT__regfile_inst__DOT__gpr);
 }
 
 void Vtop___024root___settle__TOP__3(Vtop___024root* vlSelf) {

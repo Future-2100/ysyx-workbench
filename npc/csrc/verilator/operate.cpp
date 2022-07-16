@@ -1,6 +1,7 @@
 #include <common.h>
 // Include common routines
 #include <verilated.h>
+#include <verilated_dpi.h>
 // Inculde model header, generated from Verilating "top.v"
 #include <Vtop.h>
 #include "svdpi.h"
@@ -15,6 +16,17 @@ uint32_t pmem_read(uint64_t pc);
 void npc_trap(int state, vaddr_t pc, int halt_ret);
 
 
+uint64_t *cpu_gpr = NULL;
+extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
+  cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+}
+
+void dump_gpr() {
+  int i;
+  for (i = 0; i<32; i++) {
+    printf("gpr[%d] = 0x%lx\n", i, cpu_gpr[i]);
+  }
+}
 
 void init_verilator(int argc, char** argv, char** env) {
 
@@ -97,7 +109,10 @@ void run_step(uint64_t n) {
       if(top->ebreak)  { 
         npc_trap(2 , top->pc, top->a);
         end_sim(); 
-        printf("---------- program end  ----------\n");
+        for(int i=0; i<30; i++) printf(FONT_BLUE "-");
+        printf(" program end ");
+        for(int i=0; i<30; i++) printf("-");
+        printf(FONT_NONE "\n");
         return ;
       }
       contextp->timeInc(1); // 10 timeprecision period passes...

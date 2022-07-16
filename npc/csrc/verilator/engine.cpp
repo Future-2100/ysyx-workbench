@@ -4,6 +4,7 @@
 
 void delete_module();
 void cpu_exec(uint64_t n);
+void dump_gpr();
 
 #define ARRLEN(arr) (int)(sizeof(arr)) / sizeof(arr[0])
 
@@ -35,6 +36,11 @@ static int cmd_si(char *args) {
 }
 
 static int cmd_info(char *args) {
+  if(strcmp(args,"r") == 0)
+    dump_gpr();
+  else
+    printf(FONT_RED "Parameter error!\n" FONT_NONE);
+
   return 0;
 }
 
