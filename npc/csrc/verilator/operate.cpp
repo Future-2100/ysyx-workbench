@@ -91,7 +91,7 @@ void run_step(uint64_t n) {
       top->clk = !top->clk;
       top->eval();
       contextp->timeInc(1); // 10 timeprecision period passes...
-      top->inst = inst_read(top->dnxt_pc);
+      top->inst = inst_read(top->pc);
       top->eval();
       contextp->timeInc(9);
 
