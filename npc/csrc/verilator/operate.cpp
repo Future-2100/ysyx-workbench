@@ -6,6 +6,7 @@
 #include <Vtop.h>
 #include "svdpi.h"
 #include "Vtop__Dpi.h"
+#include "cpu.h"
 
 static VerilatedContext* contextp = new VerilatedContext;
 static Vtop* top = new Vtop;
@@ -72,10 +73,9 @@ void init_module() {
 
 extern bool g_print_step;
 
-void run_step(uint64_t n) {
+void run_step(Decode *s) {
 
-  while( (n--) && ( !Verilated::gotFinish() )  ) {
-    for (int j = 0; j<2; j++) {
+  for (int j = 0; j<2; j++) {
     if( top->clk == 0 ) {
       if(top->ebreak)  { 
         npc_trap(2 , top->pc, top->a);
@@ -102,15 +102,15 @@ void run_step(uint64_t n) {
       if( top->ren ) {
         top->rdata = mem_read(top->addr);
       }
-      if( g_print_step == true ) {
-        printf("pc = %lx, inst = %x \n", top->pc, top->inst);
-      }
+      s->snpc = top->snxt_pc;
+      s->dnpc = top->dnxt_pc;
+      s->pc   = top->pc;
+      s->isa.inst.val = top->inst;
       top->clk = !top->clk;
       top->eval();
       contextp->timeInc(10);
     }
-    } 
-  }
+  } 
 }
 
 

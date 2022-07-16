@@ -10,6 +10,7 @@ module top
   output  wire  [DW-1:0]       a  ,
   output  wire            ebreak  ,
   output  wire  [DW-1:0]  dnxt_pc ,
+  output  wire  [DW-1:0]  snxt_pc ,
   output  wire  [DW-1:0]       pc ,
   input   wire  [IW-1:0]    inst  ,
 
@@ -27,7 +28,6 @@ wire    [DW-1:0]    result   ;
 wire                br_asrt  ;
 wire                jalr_en  ;
 wire                jal_en   ;
-wire    [DW-1:0]    snxt_pc  ;
 
   pc_gen pc_gen_inst(
     .clk      (clk) ,

@@ -1,29 +1,68 @@
-#include <common.h>
-
+#include <cpu.h>
 
 #define MAX_INST_TO_PRINT 30
 
-void run_step(uint64_t n);
 
 bool g_print_step = false;
 
 uint64_t g_nr_guest_inst = 0;
 
-enum { NPC_RUNNING, NPC_STOP, NPC_END, NPC_ABORT, NPC_QUIT };
-
-typedef struct {
-  int state;
-  vaddr_t halt_pc;
-  uint32_t halt_ret;
-} NPCState ;
 
 NPCState npc_state = { .state = NPC_STOP };
 
-static void execute(uint64_t n) {
+CPU_state cpu = {};
 
+/*
+static void trace_and_difftest(Decode *_this, vaddr_t dnpc){
+  if( g_print_step ) { puts(_this->logbuf); }
+#ifdef CONFIG_DIFFTEST
+  difftest_step(_this->pc, dnpc);
+#endif
+}
+*/
+
+void run_step(Decode *s);
+
+static void exec_once(Decode *s){
+
+  run_step(s);
+
+  char *p = s->logbuf;
+
+  //record the pc
+  p += snprintf(p, sizeof(s->logbuf), "0x%08lx" ":", s->pc);
+  //p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
+  int ilen = s->snpc - s->pc;
+  int i;
+
+  //record the infomation of the instruction in s->logbuf
+  uint8_t *inst = (uint8_t *)&s->isa.inst.val;
+  for (i = ilen - 1; i >= 0; i --) {
+    p += snprintf(p, 4, " %02x", inst[i]);
+  }
+
+  //add some number of space in s->logbuf
+  int ilen_max = 4;
+  int space_len = ilen_max - ilen;
+  if (space_len < 0) space_len = 0;
+  space_len = space_len * 3 + 1;
+  memset(p, ' ', space_len);
+  p += space_len;
+
+  //record the disassemble information in s->logbuf
+  void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
+  disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
+      s->pc, (uint8_t *)&s->isa.inst.val, ilen);
+
+}
+
+static void execute(uint64_t n) {
+  Decode s;
   for(; n>0; n--) {
-    run_step(1);
+    exec_once(&s);
+   // run_step(1);
     g_nr_guest_inst ++;
+  //  trace_and_difftest(&s, cpu.pc);
     if(npc_state.state != NPC_RUNNING) {
       break;
     }
@@ -42,7 +81,6 @@ void npc_quit() {
 
 
 void cpu_exec(uint64_t n) {
-
   g_print_step = ( n < MAX_INST_TO_PRINT ) ;
   switch (npc_state.state) {
     case NPC_END : case NPC_ABORT:

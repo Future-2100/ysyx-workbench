@@ -8,6 +8,8 @@
 // It will be expanded as "x86" or "mips32" ...
 typedef concat(__GUEST_ISA__, _CPU_state) CPU_state;
 typedef concat(__GUEST_ISA__, _ISADecodeInfo) ISADecodeInfo;
+//riscv64_CPU_state
+
 
 // monitor
 extern char isa_logo[];

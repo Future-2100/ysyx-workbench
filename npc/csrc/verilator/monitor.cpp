@@ -1,7 +1,22 @@
+#include <dlfcn.h>
+
 #include <getopt.h>
 #include <common.h>
 
 static char *img_file = NULL;
+static char *diff_so_file = NULL;
+
+/*
+static char *diff_so_file = NULL;
+static int difftest_port = 1234;
+
+void (*ref_difftest_memcpy)(paddr_t addr, void *buf, size_t n, bool direction) = NULL;
+void (*ref_difftest_regcpy)(void *dut, bool direction) = NULL;
+void (*ref_difftest_exec)(uint64_t n) = NULL;
+void (*ref_difftest_raise_intr)(uint64_t NO) = NULL;
+
+enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
+*/
 
 extern bool is_batch_mode ;
 
@@ -35,16 +50,19 @@ static int parse_args(int argc, char *argv[]) {
   const struct option table[] = {
     {"batch"    , no_argument      , NULL, 'b'},
     {"help"     , no_argument      , NULL, 'h'},
+    {"diff"     , required_argument, NULL, 'd'},
     {0          , 0                , NULL,  0 },
   };
   int o;
-  while ( (o = getopt_long(argc, argv, "-bh", table, NULL)) != -1) {
+  while ( (o = getopt_long(argc, argv, "-bhd:", table, NULL)) != -1) {
     switch (o) {
       case 'b': is_batch_mode = true; break;
+      case 'd': diff_so_file = optarg; break;
       case  1 : img_file = optarg; return 0;
       default:
         printf("Usage: %s [OPTION...] IMAGE [args]\n\n", argv[0]);
         printf("\t-b,--batch              run with batch mode\n");
+        printf("\t-d,---diff=REF_SO       run DiffTest with reference REF_SO\n");
         printf("\n");
         exit(0);
     }
@@ -87,6 +105,47 @@ static long load_img() {
   return size;
 }
 
+/*
+void init_difftest(char *ref_so_file, long img_size, int port){
+  assert(ref_so_file != NULL);
+
+  //open the dynamic library file ref_so_file
+  void *handle;
+  handle = dlopen(ref_so_file, RTLD_LAZY);
+  assert(handle);
+
+  //parse and relocate the API symbols in the dynamic library through dynamic links and then return their address
+  ref_difftest_memcpy = dlsym(handle, "difftest_memcpy");
+  assert(ref_difftest_memcpy);
+
+  ref_difftest_regcpy = dlsym(handle, "difftest_regcpy");
+  assert(ref_difftest_regcpy);
+
+  ref_difftest_exec = dlsym(handle, "difftest_exec");
+  assert(ref_difftest_exec);
+
+  ref_difftest_raise_intr = dlsym(handle, "difftest_raise_intr");
+  assert(ref_difftest_raise_intr);
+
+  void (*ref_difftest_init)(int) = dlsym(handle, "difftest_init");
+  assert(ref_difftest_init);
+
+  Log("Differential testing: %s", FONT_GREEN "ON" FONT_NONE);
+  Log("The result of every instruction will be compared with %s. ", ref_so_file);
+
+  //Initial the Difftest of REF
+  ref_difftest_init(port);
+  if(port) {}
+
+  //Copy guest memory of DUT to REF
+  ref_difftest_memcpy(0x80000000, pmem , img_size, DIFFTEST_TO_REF);
+
+  //Copy register states of DUT to REF
+  //ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
+
+}
+*/
+
 static void welcome() {
   printf("\n");
   printf("\n");
@@ -106,6 +165,11 @@ void init_monitor(int argc, char** argv) {
 
   /* Load the image to memory. This will overwrite the built-in image. */
   long img_size = load_img();
+
+#ifdef CONFIG_DIFFTEST
+  /* Initialize differential testing. */
+//  init_difftest(diff_so_file, img_size, difftest_port);
+#endif
 
   /* Display welcome message. */
   welcome();

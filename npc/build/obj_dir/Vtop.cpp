@@ -16,6 +16,7 @@ Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     , a{vlSymsp->TOP.a}
     , ebreak{vlSymsp->TOP.ebreak}
     , dnxt_pc{vlSymsp->TOP.dnxt_pc}
+    , snxt_pc{vlSymsp->TOP.snxt_pc}
     , pc{vlSymsp->TOP.pc}
     , inst{vlSymsp->TOP.inst}
     , wdata{vlSymsp->TOP.wdata}

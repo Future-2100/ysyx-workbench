@@ -97,7 +97,9 @@ else
 INC_PATH = $(abspath ./csrc/verilator/include)
 INCFLAGS = $(addprefix -I, $(INC_PATH))
 CFLAGS += $(INCFLAGS)
-LDFLAGS += -lreadline
+CFLAGS += $(shell llvm-config --cxxflags) -fPIE
+LDFLAGS += $(shell llvm-config --libs)
+LDFLAGS += -lreadline 
 VERILATOR_FLAGS += $(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS))
 endif
 
