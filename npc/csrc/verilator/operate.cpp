@@ -90,18 +90,18 @@ void run_step(uint64_t n) {
       //top->eval();
       //contextp->timeInc(1); // 10 timeprecision period passes...
       top->inst = inst_read(top->dnxt_pc);
+      top->clk = !top->clk;
       top->eval();
       contextp->timeInc(10);
 
-      top->clk = !top->clk;
     
       if( top->ren ) {
         top->rdata = mem_read(top->addr);
       }
       printf("pc = %lx, inst = %x \n", top->pc, top->inst);
+      top->clk = !top->clk;
       top->eval();
       contextp->timeInc(10);
-      top->clk = !top->clk;
 
     }
 }
