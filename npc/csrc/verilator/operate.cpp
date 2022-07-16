@@ -52,7 +52,7 @@ void init_verilator(int argc, char** argv, char** env) {
   svSetScope(scope);
 }
 
-static int clk = 0 ;
+static int clk = 1 ;
 static int rstn  = 0 ;
 
 void reset(int n) {
