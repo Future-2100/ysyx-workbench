@@ -75,7 +75,7 @@ void run_step(uint64_t n) {
 
   while( (n--) && ( !Verilated::gotFinish() )  ) {
 
-    if( top->clk = !0 ) {
+    if( top->clk == !0 ) {
       if(top->ebreak)  { 
         npc_trap(2 , top->pc, top->a);
         end_sim(); 
