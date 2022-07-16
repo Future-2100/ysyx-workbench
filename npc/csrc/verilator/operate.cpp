@@ -52,31 +52,25 @@ void init_verilator(int argc, char** argv, char** env) {
   svSetScope(scope);
 }
 
-static int clk = 1 ;
+static int clk = 0 ;
 static int rstn  = 0 ;
 
-void reset(int n) {
-
-  top->rstn = rstn  ;
-  top->clk  = clk ;
-
-  for ( int i=0; i<(n*2); i++ ) {
-      top->eval();
-      contextp->timeInc(10);
-      clk = !clk;
-      top->clk = clk;
-  }
-    rstn = 1 ;
-    top->rstn = rstn;
+static void single_cycle() {
+  top->clk = 0; top->eval();
+  top->clk = 1; top->eval();
 }
 
+void reset(int n) {
+  top->rstn = 0;
+  while( n-- > 0) single_cycle();
+  top->rstn = 1;
+} 
 
 void init_module() {
 
   reset(10);
   printf("pc = %lx\n",top->pc);
   printf(FONT_GREEN "---------- module reseted ----------\n" FONT_NONE );
-
 }
 
 
