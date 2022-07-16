@@ -70,6 +70,7 @@ void init_module() {
   printf(FONT_GREEN "---------- module reseted ----------\n" FONT_NONE );
 }
 
+extern bool g_print_step;
 
 void run_step(uint64_t n) {
 
@@ -101,7 +102,9 @@ void run_step(uint64_t n) {
       if( top->ren ) {
         top->rdata = mem_read(top->addr);
       }
-      printf("pc = %lx, inst = %x \n", top->pc, top->inst);
+      if( g_print_step == true ) {
+        printf("pc = %lx, inst = %x \n", top->pc, top->inst);
+      }
       top->clk = !top->clk;
       top->eval();
       contextp->timeInc(10);

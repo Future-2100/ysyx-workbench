@@ -5,7 +5,7 @@
 
 void run_step(uint64_t n);
 
-static bool g_print_step = false;
+bool g_print_step = false;
 
 uint64_t g_nr_guest_inst = 0;
 
