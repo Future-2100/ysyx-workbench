@@ -53,8 +53,8 @@ void init_verilator(int argc, char** argv, char** env) {
 }
 
 static void single_cycle() {
-  top->clk = 0; top->eval(); contextp->timeInc(10);
   top->clk = 1; top->eval(); contextp->timeInc(10);
+  top->clk = 0; top->eval(); contextp->timeInc(10);
 }
 
 void reset(int n) {
@@ -87,12 +87,13 @@ void run_step(uint64_t n) {
       if( top->wen ) {
         mem_write(top->addr, top->wlen, top->wdata);
       }
-      //top->eval();
-      //contextp->timeInc(1); // 10 timeprecision period passes...
-      top->inst = inst_read(top->dnxt_pc);
+
       top->clk = !top->clk;
       top->eval();
-      contextp->timeInc(10);
+      contextp->timeInc(1); // 10 timeprecision period passes...
+      top->inst = inst_read(top->dnxt_pc);
+      top->eval();
+      contextp->timeInc(9);
 
     
       if( top->ren ) {
