@@ -18,7 +18,7 @@ uint64_t mem_read(uint64_t addr) {
 }
 
 void mem_write(uint64_t addr, int len, word_t data) {
-      printf("addr = %lx, data = %lx\n", addr, data);
+      printf("addr = %lx, len = %d, data = %lx\n", addr, len, data);
     switch ( len ) {
       case 1 : *(uint8_t  *)( addr - 0x80000000 + pmem ) = data; return;
       case 2 : *(uint16_t *)( addr - 0x80000000 + pmem ) = data; return;
