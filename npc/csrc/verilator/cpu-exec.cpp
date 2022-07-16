@@ -25,9 +25,7 @@ void run_step(Decode *s);
 
 static void exec_once(Decode *s){
 
-  printf("at the begining of run_step\n");
   run_step(s);
-  printf("at the end of run_step\n");
 
   char *p = s->logbuf;
 
@@ -38,7 +36,9 @@ static void exec_once(Decode *s){
   int i;
 
   //record the infomation of the instruction in s->logbuf
+  printf("at the begining of here\n");
   uint8_t *inst = (uint8_t *)&s->isa.inst.val;
+  printf("at the end here\n");
   for (i = ilen - 1; i >= 0; i --) {
     p += snprintf(p, 4, " %02x", inst[i]);
   }
