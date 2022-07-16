@@ -3,7 +3,6 @@
 #include <verilated.h>
 // Inculde model header, generated from Verilating "top.v"
 #include <Vtop.h>
-
 #include "svdpi.h"
 #include "Vtop__Dpi.h"
 
