@@ -59,7 +59,7 @@ void init_module() {
 
   reset(10);
   printf("pc = %lx\n",top->pc);
-  printf(FONT_GREEN "---------- module reset ----------\n" FONT_NONE );
+  printf(FONT_GREEN "---------- module reseted ----------\n" FONT_NONE );
 
 }
 
@@ -72,7 +72,7 @@ void run_step(uint64_t n) {
       if(top->ebreak)  { 
         npc_trap(2 , top->pc, top->a);
         end_sim(); 
-        printf( FONT_BLUE "---------- program end  ----------\n" FONT_NONE);
+        printf( FONT_BLUE "-------------------- program end  --------------------\n" FONT_NONE);
         return ;
       }
       contextp->timeInc(1); // 10 timeprecision period passes...
