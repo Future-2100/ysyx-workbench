@@ -1,8 +1,6 @@
 #include <getopt.h>
 #include <common.h>
 
-void init_sim(int argc, char** argv);
-
 static char *img_file = NULL;
 
 extern bool is_batch_mode ;
@@ -13,7 +11,6 @@ uint32_t pmem_read(uint64_t pc) {
   uint32_t inst = *(uint32_t *)( pc - 0x80000000 + pmem);
   return inst;
 }
-
 
 static int parse_args(int argc, char *argv[]) {
   const struct option table[] = {
@@ -90,8 +87,6 @@ void init_monitor(int argc, char** argv) {
 
   /* Load the image to memory. This will overwrite the built-in image. */
   long img_size = load_img();
-
-  init_sim(argc, argv);
 
   /* Display welcome message. */
   welcome();
