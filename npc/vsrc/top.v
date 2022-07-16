@@ -129,7 +129,7 @@ alu alu_inst
 );
 
   always@(posedge clk) begin
-    $display("opdata1 = %x, opdata2 = %x, result = %b\n",alu_inst.rs1_data, alu_inst.imm_data, alu_inst.lgc_op);
+    $display("opdata1 = %x, opdata2 = %x, result = %b\n",alu_inst.rs1_data, alu_inst.imm_data, alu_inst.lgc_result);
 
   end
 
