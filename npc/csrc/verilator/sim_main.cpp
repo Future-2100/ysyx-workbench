@@ -10,11 +10,11 @@ void engine_start();
 int is_exit_status_bad();
 
 // Construct the Verilated model, from Vtop.h generated froom Verilating "top.v"
-Vtop* top = new Vtop;  // must delete it at end
+//Vtop* top = new Vtop;  // must delete it at end
 //const std::unique_ptr<Vtop> top{new Vtop{contextp.get(), "TOP"}};
 
 //Construct a VerilatedContext to hold simulation time, etc.
-VerilatedContext* contextp = new VerilatedContext; // must delete it at end
+//VerilatedContext* contextp = new VerilatedContext; // must delete it at end
 //const std::unique_ptr<VerilatedContext> contextp{new VerilatedContext};
 
 int main(int argc, char** argv, char** env) {

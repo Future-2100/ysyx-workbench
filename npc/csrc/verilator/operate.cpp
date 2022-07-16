@@ -7,14 +7,36 @@
 #include "svdpi.h"
 #include "Vtop__Dpi.h"
 
-extern Vtop* top ; 
-
-extern VerilatedContext* contextp ;
+static VerilatedContext* contextp = new VerilatedContext;
+static Vtop* top = new Vtop;
 
 uint32_t pmem_read(uint64_t pc);
 
 void npc_trap(int state, vaddr_t pc, int halt_ret);
 
+void init_sim(int argc, char** argv, char** env) {
+
+  // Prevent unused variable warnings
+  if( false && argc && argv && env) {}
+
+  //Create logs/ directory in case we have traces to put under it
+  Verilated::mkdir("build/logs");
+
+
+  // Set debug level, 0 is off, 9 is highest presently used
+  contextp->debug(0);
+  
+  //Verilator must compute traced signals
+  contextp->traceEverOn(true);
+
+  // Pass arguments so Verilated code can see them, e.g. $value$plusargs
+  // This needs to be called before you create any model
+  contextp->commandArgs(argc, argv);
+
+  const svScope scope = svGetScopeFromName("TOP.top");
+  assert(scope);
+  svSetScope(scope);
+}
 
 void reset(int n) {
   top->rstn = 0 ;

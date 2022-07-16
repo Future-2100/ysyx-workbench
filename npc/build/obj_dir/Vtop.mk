@@ -45,7 +45,6 @@ VM_USER_LDLIBS = \
 VM_USER_CLASSES = \
 	cpu-exec \
 	engine \
-	initial \
 	monitor \
 	operate \
 	sim_main \
@@ -67,8 +66,6 @@ VPATH += $(VM_USER_DIR)
 cpu-exec.o: /home/grand/ysyx-workbench/npc/csrc/verilator/cpu-exec.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 engine.o: /home/grand/ysyx-workbench/npc/csrc/verilator/engine.cpp
-	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-initial.o: /home/grand/ysyx-workbench/npc/csrc/verilator/initial.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 monitor.o: /home/grand/ysyx-workbench/npc/csrc/verilator/monitor.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
