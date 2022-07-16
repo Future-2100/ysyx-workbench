@@ -8,8 +8,14 @@
 #include "Vtop__Dpi.h"
 #include <Vtop.h>
 
-extern Vtop* top;
-extern VerilatedContext* contextp ;
+
+// Construct the Verilated model, from Vtop.h generated froom Verilating "top.v"
+ Vtop* top = new Vtop;  // must delete it at end
+//const std::unique_ptr<Vtop> top{new Vtop{contextp.get(), "TOP"}};
+
+//Construct a VerilatedContext to hold simulation time, etc.
+VerilatedContext* contextp = new VerilatedContext; // must delete it at end
+//const std::unique_ptr<VerilatedContext> contextp{new VerilatedContext};
 
 uint32_t pmem_read(uint64_t pc);
 void npc_trap(int state, vaddr_t pc, int halt_ret);
@@ -29,11 +35,9 @@ void reset(int n) {
 
 
 void init_module() {
-
   reset(10);
   printf("pc = %lx\n",top->pc);
   printf("----------module reset successful----------\n");
-  
 }
 
 
