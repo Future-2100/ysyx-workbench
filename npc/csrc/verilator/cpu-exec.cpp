@@ -40,7 +40,6 @@ static void exec_once(Decode *s){
   for (i = ilen - 1; i >= 0; i --) {
     p += snprintf(p, 4, " %02x", inst[i]);
   }
-  printf("1\n");
 
   //add some number of space in s->logbuf
   int ilen_max = 4;
@@ -50,13 +49,10 @@ static void exec_once(Decode *s){
   memset(p, ' ', space_len);
   p += space_len;
 
-  printf("2\n");
   //record the disassemble information in s->logbuf
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       s->pc, (uint8_t *)&s->isa.inst.val, ilen);
-  printf("3\n");
-
 
 }
 
