@@ -139,6 +139,7 @@ sim: $(BIN)
 	@$(BIN) $(NPCFLAGS)
 	@echo "---------------------------------------- DONE  ----------------------------------------------"
 	$(WAVEFLAGS)
+	@make clean
 
 maintainer-copy::
 clean mostlyclean distclean maintainer-clean::
