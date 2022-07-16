@@ -75,7 +75,7 @@ extern bool g_print_step;
 void run_step(uint64_t n) {
 
   while( (n--) && ( !Verilated::gotFinish() )  ) {
-
+    for (int j = 0; j<2; j++) {
     if( top->clk == 0 ) {
       if(top->ebreak)  { 
         npc_trap(2 , top->pc, top->a);
@@ -109,6 +109,7 @@ void run_step(uint64_t n) {
       top->eval();
       contextp->timeInc(10);
     }
+    } 
   }
 }
 
