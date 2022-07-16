@@ -18,7 +18,6 @@ uint64_t mem_read(uint64_t addr) {
 }
 
 void mem_write(uint64_t addr, int len, word_t data) {
-      printf("addr = %lx, len = %d, data = %lx\n", addr, len, data);
       if( addr < 0x80000000 || addr >= 0x88000000 ) {
         printf(FONT_RED "address is out of the boundary!\n" FONT_NONE);
         return ;
