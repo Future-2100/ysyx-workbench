@@ -129,8 +129,7 @@ alu alu_inst
 );
 
   always@(posedge clk) begin
-    $display("opdata1 = %x, opdata2 = %x, opcode = %b, result = %x\n",alu_inst.rs1_data, alu_inst.opdata2, alu_inst.lgc_op, alu_inst.lgc_result);
-
+    $display("imm_en = %d, rs2_en = %d\n",alu_inst.imm_en, alu_inst.rs2_en);
   end
 
   wire              lb        ;
