@@ -2783,10 +2783,7 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__7(Vtop___024root* vlSelf) {
                                    ? 0ULL : vlSelf->top__DOT__regfile_inst__DOT__gpr
                                   [(0x1fU & (vlSelf->inst 
                                              >> 0x14U))]);
-    vlSelf->top__DOT__rs2_en = (((IData)(vlSelf->top__DOT__controlor_inst__DOT__R_type) 
-                                 | (8U == (0x1fU & 
-                                           (vlSelf->inst 
-                                            >> 2U)))) 
+    vlSelf->top__DOT__rs2_en = ((IData)(vlSelf->top__DOT__controlor_inst__DOT__R_type) 
                                 | (0x18U == (0x1fU 
                                              & (vlSelf->inst 
                                                 >> 2U))));

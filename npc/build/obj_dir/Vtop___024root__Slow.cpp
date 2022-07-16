@@ -10416,10 +10416,7 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
         vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__R_type 
             = vlSelf->top__DOT__controlor_inst__DOT__R_type;
     }
-    vlSelf->top__DOT__rs2_en = (((IData)(vlSelf->top__DOT__controlor_inst__DOT__R_type) 
-                                 | (8U == (0x1fU & 
-                                           (vlSelf->inst 
-                                            >> 2U)))) 
+    vlSelf->top__DOT__rs2_en = ((IData)(vlSelf->top__DOT__controlor_inst__DOT__R_type) 
                                 | (0x18U == (0x1fU 
                                              & (vlSelf->inst 
                                                 >> 2U))));

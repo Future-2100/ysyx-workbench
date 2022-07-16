@@ -86,7 +86,7 @@ module controlor
   assign   pc_en = auipc_en | jal_en ;
   assign  imm_en = I_type | S_type | U_type | J_type ;
   assign  rs1_en = I_type | R_type | S_type | B_type ;
-  assign  rs2_en = R_type | S_type | B_type ;
+  assign  rs2_en = R_type | B_type ;
 
   assign  lgc_op  =  ( {4{auipc_en }} & ( 4'b0000) ) | 
                      ( {4{  lui_en }} & ( 4'b1111) ) |
