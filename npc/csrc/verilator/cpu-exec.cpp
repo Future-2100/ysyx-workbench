@@ -19,7 +19,6 @@ typedef struct {
 
 NPCState npc_state = { .state = NPC_STOP };
 
-
 static void execute(uint64_t n) {
 
   for(; n>0; n--) {

@@ -10,7 +10,6 @@
 static VerilatedContext* contextp = new VerilatedContext;
 static Vtop* top = new Vtop;
 
-
 //-----  extern function ------//
 uint32_t inst_read(uint64_t pc);
 uint64_t mem_read(uint64_t addr);
@@ -51,10 +50,9 @@ void init_verilator(int argc, char** argv, char** env) {
   const svScope scope = svGetScopeFromName("TOP.top");
   assert(scope);
   svSetScope(scope);
-
 }
 
-static int clk = 1 ;
+static int clk = 0 ;
 static int rstn  = 0 ;
 
 void reset(int n) {
