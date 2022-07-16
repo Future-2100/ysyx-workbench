@@ -128,10 +128,6 @@ alu alu_inst
   .br_asrt   ( br_asrt    ) 
 );
 
-  always@(posedge clk) begin
-    $display("imm_en = %d, rs2_en = %d\n",alu_inst.imm_en, alu_inst.rs2_en);
-  end
-
   wire              lb        ;
   wire              lh        ;
   wire              lw        ;
