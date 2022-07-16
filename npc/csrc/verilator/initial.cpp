@@ -5,9 +5,9 @@
 #include <Vtop.h>
 
 
-Vtop* top = new Vtop; 
+extern Vtop* top ;
 
-VerilatedContext* contextp = new VerilatedContext;
+extern VerilatedContext* contextp ;
 
 void init_sim(int argc, char** argv) {
 
@@ -25,7 +25,7 @@ void init_sim(int argc, char** argv) {
 
   // Pass arguments so Verilated code can see them, e.g. $value$plusargs
   // This needs to be called before you create any model
-  //contextp->commandArgs(argc, argv);
+  contextp->commandArgs(argc, argv);
 
   const svScope scope = svGetScopeFromName("TOP.top");
   assert(scope);
