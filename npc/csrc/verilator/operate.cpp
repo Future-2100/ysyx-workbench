@@ -72,7 +72,10 @@ void run_step(uint64_t n) {
       if(top->ebreak)  { 
         npc_trap(2 , top->pc, top->a);
         end_sim(); 
-        printf( FONT_BLUE "-------------------- program end  --------------------\n" FONT_NONE);
+        for(int i=0; i<30; i++) printf(FONT_BLUE "-");
+        printf(" program end ");
+        for(int i=0; i<30; i++) printf("-" FONT_NONE);
+        printf("\n");
         return ;
       }
       contextp->timeInc(1); // 10 timeprecision period passes...
