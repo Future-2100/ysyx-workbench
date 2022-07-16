@@ -2736,7 +2736,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__6(Vtop___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___sequent__TOP__6\n"); );
     // Body
     ++(vlSymsp->__Vcoverage[837]);
-    VL_WRITEF("opdata1 = %x, opdata2 = %x, result = %b\n\n",
+    VL_WRITEF("opdata1 = %x, opdata2 = %x, result = %x\n\n",
               64,vlSelf->top__DOT__rd_data1,64,vlSelf->top__DOT__imm,
               64,vlSelf->top__DOT__alu_inst__DOT__lgc_result);
 }
