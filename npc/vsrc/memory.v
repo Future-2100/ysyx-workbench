@@ -3,7 +3,7 @@ module memory
   parameter DW = 64
 ) (
 
-  input wire  clk   ,
+//  input wire  clk   ,
   input wire  rstn  ,
 
   input wire  lb  ,
@@ -20,25 +20,30 @@ module memory
   input wire  sw  ,
   input wire  sd  ,
 
-  input wire  [DW-1:0]    wdata ,
-  input wire  [DW-1:0]    addr  ,
+  input wire  [DW-1:0]    wdata_in ,
+  input wire  [DW-1:0]    addr_in  ,
 
-  output  wire  [DW-1:0]  load_data
+  output  wire  [DW-1:0]  load_data,
+
+  output  wire  [DW-1:0]  wdata ,
+  output  wire  [2:0]     wlen  ,
+  output  wire            wen   ,
+  output  wire            ren   ,
+  input   wire  [DW-1:0]  rdata ,
+  output  wire  [DW-1:0]  addr  
 
 );
 
-  initial begin
-    if ( addr == addr ) ;
-  end
+  assign  wlen = ( {3{sb}} & 3'd1 )  |
+                 ( {3{sh}} & 3'd2 )  |
+                 ( {3{sw}} & 3'd3 )  |
+                 ( {3{sd}} & 3'd4 )  ;
 
-  wire  ram1_en = sb | sh | sw | sd ; 
-  wire  ram2_en = sh | sw | sd ; 
-  wire  ram3_en = sw | sd ; 
-  wire  ram4_en = sd ; 
+  assign  wdata = wdata_in;
+  assign  addr = addr_in;
 
-  wire  wr_en =  ( sb | sh | sw | sd ) & rstn ;
-
-  wire  [DW-1:0] rdata;
+  assign  wen =  ( sb | sh | sw | sd ) & rstn ;
+  assign  ren =  ( lb | lh | lw | ld | lbu | lhu | lwu ) ;
 
   wire  [DW-1:0]  lb_data = { {(DW- 8){rdata[ 7]}} , rdata[ 7:0] };
   wire  [DW-1:0]  lh_data = { {(DW-16){rdata[15]}} , rdata[15:0] };
@@ -48,13 +53,22 @@ module memory
   wire  [DW-1:0]  lhu_data = { {(DW-16){1'b0}} , rdata[15:0] };
   wire  [DW-1:0]  lwu_data = { {(DW-32){1'b0}} , rdata[31:0] };
 
-  assign  load_data = ( {DW{lb}} & lb_data )   |
-                      ( {DW{lh}} & lh_data )   |
-                      ( {DW{lw}} & lw_data )   |
-                      ( {DW{ld}} & ld_data )   |
+  assign  load_data = ( {DW{lb}}  & lb_data )  |
+                      ( {DW{lh}}  & lh_data )  |
+                      ( {DW{lw}}  & lw_data )  |
+                      ( {DW{ld}}  & ld_data )  |
                       ( {DW{lbu}} & lbu_data ) |
                       ( {DW{lhu}} & lhu_data ) |
                       ( {DW{lwu}} & lwu_data ) ;
+
+endmodule
+
+/*
+
+
+  wire  [DW-1:0] rdata;
+
+
 
  ram ram_inst (
    .clk (clk) ,
@@ -72,6 +86,4 @@ module memory
 
  ); 
 
-
-endmodule
-
+*/

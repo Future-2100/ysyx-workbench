@@ -18,6 +18,12 @@ Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     , dnxt_pc{vlSymsp->TOP.dnxt_pc}
     , pc{vlSymsp->TOP.pc}
     , inst{vlSymsp->TOP.inst}
+    , wdata{vlSymsp->TOP.wdata}
+    , wlen{vlSymsp->TOP.wlen}
+    , wen{vlSymsp->TOP.wen}
+    , ren{vlSymsp->TOP.ren}
+    , addr{vlSymsp->TOP.addr}
+    , rdata{vlSymsp->TOP.rdata}
     , rootp{&(vlSymsp->TOP)}
 {
 }

@@ -11,7 +11,15 @@ module top
   output  wire            ebreak  ,
   output  wire  [DW-1:0]  dnxt_pc ,
   output  wire  [DW-1:0]       pc ,
-  input   wire  [IW-1:0]    inst 
+  input   wire  [IW-1:0]    inst  ,
+
+  output  wire  [DW-1:0]  wdata   ,
+  output  wire  [2:0]     wlen    ,
+  output  wire            wen     ,
+  output  wire            ren     ,
+  output  wire  [DW-1:0]  addr    ,
+  input   wire  [DW-1:0]  rdata  
+
 );
 
 wire    [DW-1:0]    imm      ; 
@@ -131,13 +139,13 @@ alu alu_inst
   wire              sh        ;
   wire              sw        ;
   wire              sd        ;
-  wire  [DW-1:0]    wdata     = rd_data2 ;
-  wire  [DW-1:0]    addr      = result   ;
+  wire  [DW-1:0]    wdata_in     = rd_data2 ;
+  wire  [DW-1:0]    addr_in      = result   ;
 
 
 memory memory_inst
 (
-    .clk      ( clk        ) ,
+    //.clk      ( clk        ) ,
     .rstn     ( rstn       ) ,
     .lb       ( lb         ) ,
     .lh       ( lh         ) ,
@@ -150,9 +158,16 @@ memory memory_inst
     .sh       ( sh         ) ,
     .sw       ( sw         ) ,
     .sd       ( sd         ) ,
+    .wdata_in ( wdata_in   ) ,
+    .addr_in  ( addr_in    ) ,
+    .load_data( load_data  ) ,
+
     .wdata    ( wdata      ) ,
-    .addr     ( addr       ) ,
-    .load_data( load_data  ) 
+    .wlen     ( wlen ) ,
+    .wen      ( wen  ) ,
+    .ren      ( ren  ) ,
+    .rdata    ( rdata ) ,
+    .addr     ( addr ) 
 );
 
 controlor controlor_inst 

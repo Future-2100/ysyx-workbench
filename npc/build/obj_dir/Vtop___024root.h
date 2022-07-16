@@ -22,10 +22,16 @@ VL_MODULE(Vtop___024root) {
     VL_IN8(clk,0,0);
     VL_IN8(rstn,0,0);
     VL_OUT8(ebreak,0,0);
+    VL_OUT8(wlen,2,0);
+    VL_OUT8(wen,0,0);
+    VL_OUT8(ren,0,0);
     VL_IN(inst,31,0);
     VL_OUT64(a,63,0);
     VL_OUT64(dnxt_pc,63,0);
     VL_OUT64(pc,63,0);
+    VL_OUT64(wdata,63,0);
+    VL_OUT64(addr,63,0);
+    VL_IN64(rdata,63,0);
 
     // LOCAL SIGNALS
     CData/*0:0*/ top__DOT__br_asrt;
@@ -33,22 +39,24 @@ VL_MODULE(Vtop___024root) {
     CData/*0:0*/ top__DOT__U_type;
     CData/*3:0*/ top__DOT__lgc_op;
     CData/*4:0*/ top__DOT__wlgc_op;
+    CData/*0:0*/ top__DOT__lb;
+    CData/*0:0*/ top__DOT__lh;
+    CData/*0:0*/ top__DOT__lw;
+    CData/*0:0*/ top__DOT__ld;
+    CData/*0:0*/ top__DOT__lbu;
+    CData/*0:0*/ top__DOT__lhu;
+    CData/*0:0*/ top__DOT__lwu;
     CData/*0:0*/ top__DOT__sb;
     CData/*0:0*/ top__DOT__sh;
     CData/*0:0*/ top__DOT__sw;
     CData/*0:0*/ top__DOT__sd;
-    CData/*0:0*/ top__DOT__memory_inst__DOT__wr_en;
-    CData/*7:0*/ top__DOT__memory_inst__DOT__ram_inst__DOT__rdata1;
-    CData/*7:0*/ top__DOT__memory_inst__DOT__ram_inst__DOT__rdata2;
     CData/*0:0*/ top__DOT__controlor_inst__DOT__immop_en;
     CData/*0:0*/ top__DOT__controlor_inst__DOT__immsf_en;
     CData/*0:0*/ top__DOT__controlor_inst__DOT__wimmop_en;
     CData/*0:0*/ top__DOT__controlor_inst__DOT__wimmsf_en;
     CData/*0:0*/ top__DOT__controlor_inst__DOT__R_type;
-    SData/*15:0*/ top__DOT__memory_inst__DOT__ram_inst__DOT__rdata3;
     IData/*31:0*/ top__DOT__regfile_inst__DOT__i;
     IData/*31:0*/ top__DOT__alu_inst__DOT__wlgc_result;
-    IData/*31:0*/ top__DOT__memory_inst__DOT__ram_inst__DOT__rdata4;
     QData/*63:0*/ top__DOT__imm;
     QData/*63:0*/ top__DOT__result;
     QData/*63:0*/ top__DOT__rd_data2;
@@ -56,17 +64,12 @@ VL_MODULE(Vtop___024root) {
     QData/*63:0*/ top__DOT__alu_inst__DOT__opdata1;
     QData/*63:0*/ top__DOT__alu_inst__DOT__opdata2;
     QData/*63:0*/ top__DOT__alu_inst__DOT__lgc_result;
-    QData/*63:0*/ top__DOT__memory_inst__DOT__rdata;
     VlUnpacked<QData/*63:0*/, 32> top__DOT__regfile_inst__DOT__gpr;
-    VlUnpacked<CData/*7:0*/, 134217728> top__DOT__memory_inst__DOT__ram_inst__DOT__ram1;
-    VlUnpacked<CData/*7:0*/, 134217728> top__DOT__memory_inst__DOT__ram_inst__DOT__ram2;
-    VlUnpacked<SData/*15:0*/, 134217728> top__DOT__memory_inst__DOT__ram_inst__DOT__ram3;
-    VlUnpacked<IData/*31:0*/, 134217728> top__DOT__memory_inst__DOT__ram_inst__DOT__ram4;
 
     // LOCAL VARIABLES
     CData/*0:0*/ __Vclklast__TOP__clk;
     CData/*0:0*/ __Vclklast__TOP__rstn;
-    VlUnpacked<CData/*0:0*/, 4> __Vm_traceActivity;
+    VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
 
     // INTERNAL VARIABLES
     Vtop__Syms* vlSymsp;  // Symbol table
