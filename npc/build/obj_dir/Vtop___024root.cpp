@@ -52,20 +52,20 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__4(Vtop___024root* vlSelf) {
     // Body
     vlSelf->top__DOT__memory_inst__DOT__ram_inst__DOT__rdata3 
         = vlSelf->top__DOT__memory_inst__DOT__ram_inst__DOT__ram3
-        [(0x1fffU & (IData)((vlSelf->top__DOT__result 
-                             >> 3U)))];
+        [(0x7ffffffU & (IData)((vlSelf->top__DOT__result 
+                                >> 3U)))];
     vlSelf->top__DOT__memory_inst__DOT__ram_inst__DOT__rdata2 
         = vlSelf->top__DOT__memory_inst__DOT__ram_inst__DOT__ram2
-        [(0x1fffU & (IData)((vlSelf->top__DOT__result 
-                             >> 3U)))];
+        [(0x7ffffffU & (IData)((vlSelf->top__DOT__result 
+                                >> 3U)))];
     vlSelf->top__DOT__memory_inst__DOT__ram_inst__DOT__rdata4 
         = vlSelf->top__DOT__memory_inst__DOT__ram_inst__DOT__ram4
-        [(0x1fffU & (IData)((vlSelf->top__DOT__result 
-                             >> 3U)))];
+        [(0x7ffffffU & (IData)((vlSelf->top__DOT__result 
+                                >> 3U)))];
     vlSelf->top__DOT__memory_inst__DOT__ram_inst__DOT__rdata1 
         = vlSelf->top__DOT__memory_inst__DOT__ram_inst__DOT__ram1
-        [(0x1fffU & (IData)((vlSelf->top__DOT__result 
-                             >> 3U)))];
+        [(0x7ffffffU & (IData)((vlSelf->top__DOT__result 
+                                >> 3U)))];
     vlSelf->top__DOT__memory_inst__DOT__rdata = (((QData)((IData)(vlSelf->top__DOT__memory_inst__DOT__ram_inst__DOT__rdata4)) 
                                                   << 0x20U) 
                                                  | (QData)((IData)(
@@ -87,11 +87,11 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__5(Vtop___024root* vlSelf) {
     CData/*0:0*/ __Vdlyvset__top__DOT__memory_inst__DOT__ram_inst__DOT__ram2__v0;
     CData/*0:0*/ __Vdlyvset__top__DOT__memory_inst__DOT__ram_inst__DOT__ram3__v0;
     CData/*0:0*/ __Vdlyvset__top__DOT__memory_inst__DOT__ram_inst__DOT__ram4__v0;
-    SData/*12:0*/ __Vdlyvdim0__top__DOT__memory_inst__DOT__ram_inst__DOT__ram1__v0;
-    SData/*12:0*/ __Vdlyvdim0__top__DOT__memory_inst__DOT__ram_inst__DOT__ram2__v0;
-    SData/*12:0*/ __Vdlyvdim0__top__DOT__memory_inst__DOT__ram_inst__DOT__ram3__v0;
     SData/*15:0*/ __Vdlyvval__top__DOT__memory_inst__DOT__ram_inst__DOT__ram3__v0;
-    SData/*12:0*/ __Vdlyvdim0__top__DOT__memory_inst__DOT__ram_inst__DOT__ram4__v0;
+    IData/*26:0*/ __Vdlyvdim0__top__DOT__memory_inst__DOT__ram_inst__DOT__ram1__v0;
+    IData/*26:0*/ __Vdlyvdim0__top__DOT__memory_inst__DOT__ram_inst__DOT__ram2__v0;
+    IData/*26:0*/ __Vdlyvdim0__top__DOT__memory_inst__DOT__ram_inst__DOT__ram3__v0;
+    IData/*26:0*/ __Vdlyvdim0__top__DOT__memory_inst__DOT__ram_inst__DOT__ram4__v0;
     IData/*31:0*/ __Vdlyvval__top__DOT__memory_inst__DOT__ram_inst__DOT__ram4__v0;
     // Body
     __Vdlyvset__top__DOT__memory_inst__DOT__ram_inst__DOT__ram4__v0 = 0U;
@@ -104,8 +104,8 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__5(Vtop___024root* vlSelf) {
             = (IData)((vlSelf->top__DOT__rd_data2 >> 0x20U));
         __Vdlyvset__top__DOT__memory_inst__DOT__ram_inst__DOT__ram4__v0 = 1U;
         __Vdlyvdim0__top__DOT__memory_inst__DOT__ram_inst__DOT__ram4__v0 
-            = (0x1fffU & (IData)((vlSelf->top__DOT__result 
-                                  >> 3U)));
+            = (0x7ffffffU & (IData)((vlSelf->top__DOT__result 
+                                     >> 3U)));
     }
     if (((IData)(vlSelf->top__DOT__memory_inst__DOT__wr_en) 
          & ((IData)(vlSelf->top__DOT__sw) | (IData)(vlSelf->top__DOT__sd)))) {
@@ -114,8 +114,8 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__5(Vtop___024root* vlSelf) {
                                   >> 0x10U)));
         __Vdlyvset__top__DOT__memory_inst__DOT__ram_inst__DOT__ram3__v0 = 1U;
         __Vdlyvdim0__top__DOT__memory_inst__DOT__ram_inst__DOT__ram3__v0 
-            = (0x1fffU & (IData)((vlSelf->top__DOT__result 
-                                  >> 3U)));
+            = (0x7ffffffU & (IData)((vlSelf->top__DOT__result 
+                                     >> 3U)));
     }
     if (((IData)(vlSelf->top__DOT__memory_inst__DOT__wr_en) 
          & (((IData)(vlSelf->top__DOT__sh) | (IData)(vlSelf->top__DOT__sw)) 
@@ -125,8 +125,8 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__5(Vtop___024root* vlSelf) {
                                 >> 8U)));
         __Vdlyvset__top__DOT__memory_inst__DOT__ram_inst__DOT__ram2__v0 = 1U;
         __Vdlyvdim0__top__DOT__memory_inst__DOT__ram_inst__DOT__ram2__v0 
-            = (0x1fffU & (IData)((vlSelf->top__DOT__result 
-                                  >> 3U)));
+            = (0x7ffffffU & (IData)((vlSelf->top__DOT__result 
+                                     >> 3U)));
     }
     if (((IData)(vlSelf->top__DOT__memory_inst__DOT__wr_en) 
          & ((((IData)(vlSelf->top__DOT__sb) | (IData)(vlSelf->top__DOT__sh)) 
@@ -135,8 +135,8 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__5(Vtop___024root* vlSelf) {
             = (0xffU & (IData)(vlSelf->top__DOT__rd_data2));
         __Vdlyvset__top__DOT__memory_inst__DOT__ram_inst__DOT__ram1__v0 = 1U;
         __Vdlyvdim0__top__DOT__memory_inst__DOT__ram_inst__DOT__ram1__v0 
-            = (0x1fffU & (IData)((vlSelf->top__DOT__result 
-                                  >> 3U)));
+            = (0x7ffffffU & (IData)((vlSelf->top__DOT__result 
+                                     >> 3U)));
     }
     if (__Vdlyvset__top__DOT__memory_inst__DOT__ram_inst__DOT__ram4__v0) {
         vlSelf->top__DOT__memory_inst__DOT__ram_inst__DOT__ram4[__Vdlyvdim0__top__DOT__memory_inst__DOT__ram_inst__DOT__ram4__v0] 

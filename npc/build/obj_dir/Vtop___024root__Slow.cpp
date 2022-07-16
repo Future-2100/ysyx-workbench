@@ -653,16 +653,16 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__alu_inst__DOT__wlgc_result = 0;
     vlSelf->top__DOT__memory_inst__DOT__wr_en = 0;
     vlSelf->top__DOT__memory_inst__DOT__rdata = 0;
-    for (int __Vi0=0; __Vi0<8192; ++__Vi0) {
+    for (int __Vi0=0; __Vi0<134217728; ++__Vi0) {
         vlSelf->top__DOT__memory_inst__DOT__ram_inst__DOT__ram1[__Vi0] = 0;
     }
-    for (int __Vi0=0; __Vi0<8192; ++__Vi0) {
+    for (int __Vi0=0; __Vi0<134217728; ++__Vi0) {
         vlSelf->top__DOT__memory_inst__DOT__ram_inst__DOT__ram2[__Vi0] = 0;
     }
-    for (int __Vi0=0; __Vi0<8192; ++__Vi0) {
+    for (int __Vi0=0; __Vi0<134217728; ++__Vi0) {
         vlSelf->top__DOT__memory_inst__DOT__ram_inst__DOT__ram3[__Vi0] = 0;
     }
-    for (int __Vi0=0; __Vi0<8192; ++__Vi0) {
+    for (int __Vi0=0; __Vi0<134217728; ++__Vi0) {
         vlSelf->top__DOT__memory_inst__DOT__ram_inst__DOT__ram4[__Vi0] = 0;
     }
     vlSelf->top__DOT__memory_inst__DOT__ram_inst__DOT__rdata1 = 0;

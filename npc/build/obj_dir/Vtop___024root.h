@@ -58,10 +58,10 @@ VL_MODULE(Vtop___024root) {
     QData/*63:0*/ top__DOT__alu_inst__DOT__lgc_result;
     QData/*63:0*/ top__DOT__memory_inst__DOT__rdata;
     VlUnpacked<QData/*63:0*/, 32> top__DOT__regfile_inst__DOT__gpr;
-    VlUnpacked<CData/*7:0*/, 8192> top__DOT__memory_inst__DOT__ram_inst__DOT__ram1;
-    VlUnpacked<CData/*7:0*/, 8192> top__DOT__memory_inst__DOT__ram_inst__DOT__ram2;
-    VlUnpacked<SData/*15:0*/, 8192> top__DOT__memory_inst__DOT__ram_inst__DOT__ram3;
-    VlUnpacked<IData/*31:0*/, 8192> top__DOT__memory_inst__DOT__ram_inst__DOT__ram4;
+    VlUnpacked<CData/*7:0*/, 134217728> top__DOT__memory_inst__DOT__ram_inst__DOT__ram1;
+    VlUnpacked<CData/*7:0*/, 134217728> top__DOT__memory_inst__DOT__ram_inst__DOT__ram2;
+    VlUnpacked<SData/*15:0*/, 134217728> top__DOT__memory_inst__DOT__ram_inst__DOT__ram3;
+    VlUnpacked<IData/*31:0*/, 134217728> top__DOT__memory_inst__DOT__ram_inst__DOT__ram4;
 
     // LOCAL VARIABLES
     CData/*0:0*/ __Vclklast__TOP__clk;

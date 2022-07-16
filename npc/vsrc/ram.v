@@ -1,8 +1,8 @@
 module ram
 #(
   parameter DW = 64 ,
-  parameter AW = 13 ,
-  parameter DP = 8192
+  parameter AW = 27 ,
+  parameter DP = 134217728
 
 ) (
   input   wire            clk     ,

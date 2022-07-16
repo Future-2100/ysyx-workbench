@@ -195,7 +195,7 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declBit(c+31,"top memory_inst ram_inst ram2_en", false,-1);
         tracep->declBit(c+32,"top memory_inst ram_inst ram3_en", false,-1);
         tracep->declBit(c+16,"top memory_inst ram_inst ram4_en", false,-1);
-        tracep->declBus(c+34,"top memory_inst ram_inst addr", false,-1, 12,0);
+        tracep->declBus(c+34,"top memory_inst ram_inst addr", false,-1, 26,0);
         tracep->declBit(c+33,"top memory_inst ram_inst wr_en", false,-1);
         tracep->declQuad(c+6,"top memory_inst ram_inst wdata", false,-1, 63,0);
         tracep->declQuad(c+40,"top memory_inst ram_inst rdata", false,-1, 63,0);
@@ -320,9 +320,9 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->fullBit(oldp+32,(((IData)(vlSelf->top__DOT__sw) 
                                   | (IData)(vlSelf->top__DOT__sd))));
         tracep->fullBit(oldp+33,(vlSelf->top__DOT__memory_inst__DOT__wr_en));
-        tracep->fullSData(oldp+34,((0x1fffU & (IData)(
-                                                      (vlSelf->top__DOT__result 
-                                                       >> 3U)))),13);
+        tracep->fullIData(oldp+34,((0x7ffffffU & (IData)(
+                                                         (vlSelf->top__DOT__result 
+                                                          >> 3U)))),27);
         tracep->fullBit(oldp+35,(vlSelf->top__DOT__controlor_inst__DOT__immop_en));
         tracep->fullBit(oldp+36,(vlSelf->top__DOT__controlor_inst__DOT__immsf_en));
         tracep->fullBit(oldp+37,(vlSelf->top__DOT__controlor_inst__DOT__wimmop_en));
@@ -724,7 +724,7 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->fullIData(oldp+184,(0x40U),32);
         tracep->fullIData(oldp+185,(0x20U),32);
         tracep->fullIData(oldp+186,(5U),32);
-        tracep->fullIData(oldp+187,(0xdU),32);
-        tracep->fullIData(oldp+188,(0x2000U),32);
+        tracep->fullIData(oldp+187,(0x1bU),32);
+        tracep->fullIData(oldp+188,(0x8000000U),32);
     }
 }

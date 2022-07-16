@@ -64,7 +64,7 @@ module memory
    .ram3_en ( ram3_en ) , 
    .ram4_en ( ram4_en ) , 
 
-   .addr (addr[15:3]) ,
+   .addr (addr[29:3]) ,
    .wr_en(wr_en),
    .wdata(wdata),
 
