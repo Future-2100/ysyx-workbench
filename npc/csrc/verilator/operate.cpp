@@ -109,9 +109,9 @@ void run_step(uint64_t n) {
     else {
       if( top->ren ) {
         top->rdata = mem_read(top->addr);
-        top->eval();
       }
       printf("pc = %lx, inst = %x \n", top->pc, top->inst);
+      top->eval();
       contextp->timeInc(10);
     }
 
