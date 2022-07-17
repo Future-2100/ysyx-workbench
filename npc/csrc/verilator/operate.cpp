@@ -79,15 +79,6 @@ void run_step(Decode *s) {
 //  int j = 2 ;
 //  while ( j-- && ( !contextp->gotFinish() ) ) {
 
-      if(top->ebreak)  { 
-        npc_trap(2 , top->pc, top->a);
-        end_sim(); 
-        for(int i=0; i<30; i++) printf(FONT_BLUE "-");
-        printf(" program end ");
-        for(int i=0; i<30; i++) printf("-");
-        printf(FONT_NONE "\n");
-        return ;
-      }
       
       if( top->wen ) {
         mem_write(top->addr, top->wlen, top->wdata);
@@ -110,6 +101,16 @@ void run_step(Decode *s) {
       top->clk = !top->clk;
       top->eval();
       contextp->timeInc(10);
+
+      if(top->ebreak)  { 
+        npc_trap(2 , top->pc, top->a);
+        end_sim(); 
+        for(int i=0; i<30; i++) printf(FONT_BLUE "-");
+        printf(" program end ");
+        for(int i=0; i<30; i++) printf("-");
+        printf(FONT_NONE "\n");
+        return ;
+      }
 
 }
 
