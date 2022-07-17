@@ -13,7 +13,7 @@ NPCState npc_state = { .state = NPC_STOP };
 CPU_state cpu = {};
 
 #define gpr(idx) cpu.gpr[check_reg_idx(idx)]
-
+/*
 static inline int check_reg_idx(int idx) {
   assert(idx >= 0 && idx < 32);
   return idx;
@@ -50,9 +50,10 @@ static void checkregs(CPU_state *ref, vaddr_t pc) {
     isa_reg_display();
 }
 
+
 void difftest_step(vaddr_t pc, vaddr_t npc) {
   CPU_state ref_r;
-/*
+
   if (skip_dut_nr_inst > 0) {
     ref_difftest_regcpy(&ref_r, DIFFTEST_TO_DUT);
     if (ref_r.pc == npc) {
@@ -72,12 +73,13 @@ void difftest_step(vaddr_t pc, vaddr_t npc) {
     is_skip_ref = false;
     return;
   }
-*/
+
   ref_difftest_exec(1);
   ref_difftest_regcpy(&ref_r, DIFFTEST_TO_DUT);
 
   checkregs(&ref_r, pc);
 }
+*/
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc){
   if( g_print_step ) { puts(_this->logbuf); }

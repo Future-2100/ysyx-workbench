@@ -77,7 +77,7 @@ module alu
       `AND    :   lgc_result = opdata1 & opdata2 ; 
       `SLT    :   lgc_result = (opdata1  <  opdata2) ? 64'b1 : 64'b0 ; 
       `SLTU   :   lgc_result = (uopdata1 < uopdata2) ? 64'b1 : 64'b0 ; 
-      `LUI    :   lgc_result = opdata1  ; 
+      `LUI    :   lgc_result = opdata2  ; 
       default :   lgc_result = {DW{1'b0}};
     endcase
   end

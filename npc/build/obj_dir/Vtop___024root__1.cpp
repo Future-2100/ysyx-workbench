@@ -7203,7 +7203,7 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__6(Vtop___024root* vlSelf) {
                                                       ? 
                                                      ((1U 
                                                        & (IData)(vlSelf->top__DOT__lgc_op))
-                                                       ? vlSelf->top__DOT__alu_inst__DOT__opdata1
+                                                       ? vlSelf->top__DOT__alu_inst__DOT__opdata2
                                                        : 0ULL)
                                                       : 
                                                      ((1U 
