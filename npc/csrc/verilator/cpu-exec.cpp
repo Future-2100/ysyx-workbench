@@ -54,9 +54,11 @@ static void exec_once(Decode *s){
   printf("logbuf: %s\n",s->logbuf);
 
   //record the disassemble information in s->logbuf
+  /*
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       s->pc, (uint8_t *)&s->isa.inst.val, ilen);
+      */
 
 }
 
