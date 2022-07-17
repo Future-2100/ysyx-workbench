@@ -81,6 +81,15 @@ void run_step(Decode *s) {
 
     if( top->clk == 0 ) {
 
+      if(top->ebreak)  { 
+        npc_trap(2 , top->pc, top->a);
+        end_sim(); 
+        for(int i=0; i<30; i++) printf(FONT_BLUE "-");
+        printf(" program end ");
+        for(int i=0; i<30; i++) printf("-");
+        printf(FONT_NONE "\n");
+        return ;
+      }
 
       if( top->wen ) {
         mem_write(top->addr, top->wlen, top->wdata);
@@ -95,17 +104,6 @@ void run_step(Decode *s) {
     }
 
     else { 
-
-      if(top->ebreak)  { 
-        npc_trap(2 , top->pc, top->a);
-        end_sim(); 
-        for(int i=0; i<30; i++) printf(FONT_BLUE "-");
-        printf(" program end ");
-        for(int i=0; i<30; i++) printf("-");
-        printf(FONT_NONE "\n");
-        return ;
-      }
-
       if( top->ren ) {
         top->rdata = mem_read(top->addr);
       }
