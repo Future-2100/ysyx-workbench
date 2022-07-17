@@ -106,7 +106,6 @@ void run_step(Decode *s) {
       s->snpc = top->snxt_pc;
       s->dnpc = top->dnxt_pc;
       s->pc   = top->pc;
-      printf("inst = %x\n",top->inst);
       s->isa.inst.val = top->inst;
       top->clk = !top->clk;
       top->eval();

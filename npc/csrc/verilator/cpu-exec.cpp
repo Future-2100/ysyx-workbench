@@ -48,7 +48,7 @@ static void exec_once(Decode *s){
   space_len = space_len * 3 + 1;
   memset(p, ' ', space_len);
   p += space_len;
-  p += snprintf(p, 1, "\n");
+  p += snprintf(p, 1, "\0");
 
   //record the disassemble information in s->logbuf
   /*
