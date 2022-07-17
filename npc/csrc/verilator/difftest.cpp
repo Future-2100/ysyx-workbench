@@ -27,11 +27,11 @@ extern uint8_t *pmem;
 void init_difftest(char *ref_so_file, long img_size, int port) {
   assert(ref_so_file != NULL);
 
-  printf("ref_so_file = %s\n",ref_so_file);
-
   void *handle;
   handle = dlopen(ref_so_file, RTLD_LAZY);
   assert(handle); 
+
+  printf("ref_so_file = %s\n",ref_so_file);
 /*
   ref_difftest_memcpy = dlsym(handle, "difftest_memcpy");
   assert(ref_difftest_memcpy);
