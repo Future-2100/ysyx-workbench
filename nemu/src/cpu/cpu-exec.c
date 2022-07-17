@@ -72,8 +72,8 @@ static void exec_once(Decode *s, vaddr_t pc) {
   printf("logbuf: %s\n",s->logbuf);
 
   //record the pc
-  p += snprintf(p, sizeof(s->logbuf), "0x%08lx" ":", s->pc);
-  //p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
+  //p += snprintf(p, sizeof(s->logbuf), "0x%08lx" ":", s->pc);
+  p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
   int ilen = s->snpc - s->pc;
   int i;
   printf("logbuf: %s\n",s->logbuf);
