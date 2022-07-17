@@ -99,7 +99,7 @@ INCFLAGS = $(addprefix -I, $(INC_PATH))
 CFLAGS += $(INCFLAGS)
 #CFLAGS += $(shell llvm-config --cxxflags) -fPIE
 LDFLAGS += $(shell llvm-config --libs)
-LDFLAGS += -lreadline 
+LDFLAGS += -ldl -pie -lreadline 
 VERILATOR_FLAGS += $(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS))
 endif
 

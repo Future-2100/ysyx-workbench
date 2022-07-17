@@ -27,14 +27,16 @@ extern uint8_t *pmem;
 void init_difftest(char *ref_so_file, long img_size, int port) {
   assert(ref_so_file != NULL);
 
+  printf("ref_so_file = %s\n",ref_so_file);
+
   void *handle;
   handle = dlopen(ref_so_file, RTLD_LAZY);
   assert(handle); 
-
-  ref_difftest_memcpy = dlsym( handle, "difftest_memcpy");
+/*
+  ref_difftest_memcpy = dlsym(handle, "difftest_memcpy");
   assert(ref_difftest_memcpy);
 
-  ref_difftest_regcpy = dlsym( handle, "difftest_regcpy");
+  ref_difftest_regcpy = dlsym(handle, "difftest_regcpy");
   assert(ref_difftest_regcpy);
 
   ref_difftest_exec = dlsym(handle, "difftest_exec");
@@ -48,8 +50,8 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
 
   Log("Differential testing: %s", ANSI_FMT("ON", FONT_GREEN));
   Log("The result of every instruction will be compared with %s. ", ref_so_file);
-
-  ref_difftest_init(port);
+*/
+  //ref_difftest_init(port);
 
   ref_difftest_memcpy(0x80000000, pmem, img_size, DIFFTEST_TO_REF);
 
@@ -73,6 +75,7 @@ static inline int check_reg_idx(int idx) {
   assert(idx >= 0 && idx < 32);
   return idx;                                                                  
 }
+
 
 extern uint64_t *cpu_gpr ;
 #define gpr(idx) (cpu_gpr[check_reg_idx(idx)])

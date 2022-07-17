@@ -40,6 +40,8 @@ VM_USER_CFLAGS = \
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
 	-lLLVM-14 \
+	-ldl \
+	-pie \
 	-lreadline \
 
 # User .cpp files (from .cpp's on Verilator command line)
