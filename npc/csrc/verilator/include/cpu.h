@@ -3,6 +3,7 @@
 
 #include <common.h>
 
+enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
 
 enum { NPC_RUNNING, NPC_STOP, NPC_END, NPC_ABORT, NPC_QUIT };
 

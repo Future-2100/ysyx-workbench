@@ -26,4 +26,16 @@
     printf(FONT_BLUE "[%s:%d %s]" format FONT_NONE"\n",__FILE__, __LINE__, __func__, ## __VA_ARGS__);\
   } while(0)
 
+#define Assert(cond, format, ...) \
+  do { \
+    if (!(cond)) { \
+          (fflush(stdout), fprintf(stderr, ANSI_FMT(format, FONT_RED) "\n", ##  __VA_ARGS__)); \
+      extern void isa_reg_display(); \
+      isa_reg_display(); \
+      assert(cond); \
+    } \
+  } while (0)
+
+#define panic(format, ...) Assert(0, format, ## __VA_ARGS__)
+
 #endif

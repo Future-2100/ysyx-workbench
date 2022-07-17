@@ -5,19 +5,11 @@
 
 static char *img_file = NULL;
 static char *diff_so_file = NULL;
+static int  difftest_port = 1234;
 
+
+void init_difftest(char *ref_so_file, long img_size, int port);
 void init_disasm(const char *triple);
-/*
-static char *diff_so_file = NULL;
-static int difftest_port = 1234;
-
-void (*ref_difftest_memcpy)(paddr_t addr, void *buf, size_t n, bool direction) = NULL;
-void (*ref_difftest_regcpy)(void *dut, bool direction) = NULL;
-void (*ref_difftest_exec)(uint64_t n) = NULL;
-void (*ref_difftest_raise_intr)(uint64_t NO) = NULL;
-
-enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
-*/
 
 extern bool is_batch_mode ;
 
@@ -106,46 +98,6 @@ static long load_img() {
   return size;
 }
 
-/*
-void init_difftest(char *ref_so_file, long img_size, int port){
-  assert(ref_so_file != NULL);
-
-  //open the dynamic library file ref_so_file
-  void *handle;
-  handle = dlopen(ref_so_file, RTLD_LAZY);
-  assert(handle);
-
-  //parse and relocate the API symbols in the dynamic library through dynamic links and then return their address
-  ref_difftest_memcpy = dlsym(handle, "difftest_memcpy");
-  assert(ref_difftest_memcpy);
-
-  ref_difftest_regcpy = dlsym(handle, "difftest_regcpy");
-  assert(ref_difftest_regcpy);
-
-  ref_difftest_exec = dlsym(handle, "difftest_exec");
-  assert(ref_difftest_exec);
-
-  ref_difftest_raise_intr = dlsym(handle, "difftest_raise_intr");
-  assert(ref_difftest_raise_intr);
-
-  void (*ref_difftest_init)(int) = dlsym(handle, "difftest_init");
-  assert(ref_difftest_init);
-
-  Log("Differential testing: %s", FONT_GREEN "ON" FONT_NONE);
-  Log("The result of every instruction will be compared with %s. ", ref_so_file);
-
-  //Initial the Difftest of REF
-  ref_difftest_init(port);
-  if(port) {}
-
-  //Copy guest memory of DUT to REF
-  ref_difftest_memcpy(0x80000000, pmem , img_size, DIFFTEST_TO_REF);
-
-  //Copy register states of DUT to REF
-  //ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
-
-}
-*/
 
 static void welcome() {
   printf("\n");
@@ -169,9 +121,10 @@ void init_monitor(int argc, char** argv) {
 
 #ifdef CONFIG_DIFFTEST
   /* Initialize differential testing. */
-//  init_difftest(diff_so_file, img_size, difftest_port);
+  init_difftest(diff_so_file, img_size, difftest_port);
 #endif
 
+  /* Initialize the llvm */
   init_disasm("riscv64" "-pc-linux-gnu");
 
   /* Display welcome message. */

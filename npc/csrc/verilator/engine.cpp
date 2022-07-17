@@ -2,13 +2,15 @@
 #include <readline/history.h>
 #include <readline/readline.h>
 
-void delete_module();
-void cpu_exec(uint64_t n);
-void dump_gpr();
 
 #define ARRLEN(arr) (int)(sizeof(arr)) / sizeof(arr[0])
 
-//extern bool is_batch_mode ;
+
+void cpu_exec(uint64_t n);
+void npc_quit();
+void delete_module();
+void isa_reg_display();
+
 bool is_batch_mode = false ;
 
 static int cmd_c(char *args) {
@@ -16,7 +18,6 @@ static int cmd_c(char *args) {
   return 0;
 }
 
-void npc_quit();
 static int cmd_q(char *args) {
   npc_quit();
   delete_module();
@@ -38,7 +39,7 @@ static int cmd_si(char *args) {
 
 static int cmd_info(char *args) {
   if(strcmp(args,"r") == 0)
-    dump_gpr();
+    isa_reg_display();
   else
     printf(FONT_RED "Parameter error!\n" FONT_NONE);
 

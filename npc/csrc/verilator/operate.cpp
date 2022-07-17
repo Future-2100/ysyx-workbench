@@ -24,7 +24,7 @@ void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 
-void dump_gpr() {
+void isa_reg_display() {
   int i;
   for (i = 0; i<32; i++) {
     printf("gpr[%d] = 0x%lx\n", i, cpu_gpr[i]);
