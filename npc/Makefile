@@ -97,9 +97,8 @@ else
 INC_PATH = $(abspath ./csrc/verilator/include)
 INCFLAGS = $(addprefix -I, $(INC_PATH))
 CFLAGS += $(INCFLAGS)
-CFLAGS += $(shell llvm-config --cxxflags) -fPIE
+#CFLAGS += $(shell llvm-config --cxxflags) -fPIE
 LDFLAGS += $(shell llvm-config --libs)
-LDFLAGS += $(NEMU_HOME)/build/riscv64-nemu-interpreter-so
 LDFLAGS += -lreadline 
 VERILATOR_FLAGS += $(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS))
 endif
@@ -122,7 +121,7 @@ NPCFLAGS += $(ARGS)
 
 NPCFLAGS += $(IMG)
 
-NPCFLAGS += -d $(NEMU_HOME)/build/riscv64-nemu-interpreter-so
+NPCFLAGS += --diff=$(NEMU_HOME)/build/riscv64-nemu-interpreter-so
 
 ifeq ($(WAVE),en)
 WAVEFLAGS = gtkwave $(BUILD_DIR)/logs/$(TOPNAME).vcd
