@@ -67,8 +67,14 @@ VL_MODULE(Vtop___024root) {
     CData/*0:0*/ top__DOT__controlor_inst__DOT__immsf_en;
     CData/*0:0*/ top__DOT__controlor_inst__DOT__wimmop_en;
     CData/*0:0*/ top__DOT__controlor_inst__DOT__wimmsf_en;
+    CData/*0:0*/ top__DOT__controlor_inst__DOT__rsop_en;
+    CData/*0:0*/ top__DOT__controlor_inst__DOT__wrsop_en;
+    CData/*0:0*/ top__DOT__controlor_inst__DOT__mrsop_en;
+    CData/*0:0*/ top__DOT__controlor_inst__DOT__wmrsop_en;
     CData/*0:0*/ top__DOT__controlor_inst__DOT__R_type;
     IData/*31:0*/ top__DOT__regfile_inst__DOT__i;
+    VlWide<4>/*127:0*/ top__DOT__alu_inst__DOT__multu;
+    IData/*31:0*/ top__DOT__alu_inst__DOT__wmlgc_result;
     IData/*31:0*/ top__DOT__alu_inst__DOT__wlgc_result;
     QData/*63:0*/ top__DOT__imm;
     QData/*63:0*/ top__DOT__result;
@@ -85,6 +91,7 @@ VL_MODULE(Vtop___024root) {
     QData/*63:0*/ top__DOT__alu_inst__DOT__opdata1;
     QData/*63:0*/ top__DOT__alu_inst__DOT__opdata2;
     QData/*63:0*/ top__DOT__alu_inst__DOT__lgc_result;
+    QData/*63:0*/ top__DOT__alu_inst__DOT__mlgc_result;
     QData/*63:0*/ top__DOT__memory_inst__DOT__lb_data;
     QData/*63:0*/ top__DOT__memory_inst__DOT__lh_data;
     QData/*63:0*/ top__DOT__memory_inst__DOT__lw_data;
@@ -118,6 +125,9 @@ VL_MODULE(Vtop___024root) {
         CData/*3:0*/ top__DOT____Vtogcov__lgc_op;
         CData/*0:0*/ top__DOT____Vtogcov__wlgc_en;
         CData/*4:0*/ top__DOT____Vtogcov__wlgc_op;
+        CData/*0:0*/ top__DOT____Vtogcov__mlgc_en;
+        CData/*0:0*/ top__DOT____Vtogcov__wmlgc_en;
+        CData/*3:0*/ top__DOT____Vtogcov__wmlgc_op;
         CData/*0:0*/ top__DOT____Vtogcov__zero;
         CData/*0:0*/ top__DOT____Vtogcov__lb;
         CData/*0:0*/ top__DOT____Vtogcov__lh;
@@ -136,14 +146,16 @@ VL_MODULE(Vtop___024root) {
         CData/*0:0*/ top__DOT__controlor_inst__DOT____Vtogcov__auipc_en;
         CData/*0:0*/ top__DOT__controlor_inst__DOT____Vtogcov__immop_en;
         CData/*0:0*/ top__DOT__controlor_inst__DOT____Vtogcov__immsf_en;
-        CData/*0:0*/ top__DOT__controlor_inst__DOT____Vtogcov__rsop_en;
         CData/*0:0*/ top__DOT__controlor_inst__DOT____Vtogcov__wimmop_en;
         CData/*0:0*/ top__DOT__controlor_inst__DOT____Vtogcov__wimmsf_en;
+        CData/*0:0*/ top__DOT__controlor_inst__DOT____Vtogcov__rsop_en;
         CData/*0:0*/ top__DOT__controlor_inst__DOT____Vtogcov__wrsop_en;
         CData/*0:0*/ top__DOT__controlor_inst__DOT____Vtogcov__R_type;
         CData/*0:0*/ __Vclklast__TOP__clk;
         CData/*0:0*/ __Vclklast__TOP__rstn;
         IData/*31:0*/ top__DOT____Vtogcov__inst;
+        VlWide<4>/*127:0*/ top__DOT__alu_inst__DOT____Vtogcov__multu;
+        IData/*31:0*/ top__DOT__alu_inst__DOT____Vtogcov__wmlgc_result;
         IData/*31:0*/ top__DOT__alu_inst__DOT____Vtogcov__wlgc_result;
         QData/*63:0*/ top__DOT____Vtogcov__a;
         QData/*63:0*/ top__DOT____Vtogcov__dnxt_pc;
@@ -152,13 +164,13 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT____Vtogcov__wdata;
         QData/*63:0*/ top__DOT____Vtogcov__addr;
         QData/*63:0*/ top__DOT____Vtogcov__rdata;
+    };
+    struct {
         QData/*63:0*/ top__DOT____Vtogcov__imm;
         QData/*63:0*/ top__DOT____Vtogcov__result;
         QData/*63:0*/ top__DOT____Vtogcov__load_data;
         QData/*63:0*/ top__DOT____Vtogcov__rd_data1;
         QData/*63:0*/ top__DOT____Vtogcov__rd_data2;
-    };
-    struct {
         QData/*63:0*/ top__DOT__pc_gen_inst__DOT____Vtogcov__br_pc;
         QData/*63:0*/ top__DOT__pc_gen_inst__DOT____Vtogcov__jalr_pc;
         QData/*63:0*/ top__DOT__regfile_inst__DOT____Vtogcov__wb_data;
@@ -170,6 +182,7 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT__alu_inst__DOT____Vtogcov__opdata1;
         QData/*63:0*/ top__DOT__alu_inst__DOT____Vtogcov__opdata2;
         QData/*63:0*/ top__DOT__alu_inst__DOT____Vtogcov__lgc_result;
+        QData/*63:0*/ top__DOT__alu_inst__DOT____Vtogcov__mlgc_result;
         QData/*63:0*/ top__DOT__memory_inst__DOT____Vtogcov__lb_data;
         QData/*63:0*/ top__DOT__memory_inst__DOT____Vtogcov__lh_data;
         QData/*63:0*/ top__DOT__memory_inst__DOT____Vtogcov__lw_data;

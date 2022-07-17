@@ -98,6 +98,10 @@ imm_gen imm_gen_inst
   wire    [3:0]   lgc_op    ;
   wire            wlgc_en   ;
   wire    [4:0]   wlgc_op   ;
+  wire            mlgc_en   ;
+  wire    [2:0]   mlgc_op   ;
+  wire           wmlgc_en   ;
+  wire    [3:0]  wmlgc_op   ;
   wire            br_en     ;
   wire    [2:0]   br_op     ;
   wire            zero      ;
@@ -121,6 +125,10 @@ alu alu_inst
   .lgc_op    (  lgc_op    ) , 
   .wlgc_en   ( wlgc_en    ) , 
   .wlgc_op   ( wlgc_op    ) , 
+  .mlgc_en   ( mlgc_en    ) ,
+  .mlgc_op   ( mlgc_op    ) ,
+  .wmlgc_en  ( wmlgc_en   ) ,
+  .wmlgc_op  ( wmlgc_op   ) ,
   .br_en     ( br_en      ) ,
   .br_op     ( br_op      ) , 
   .result    ( result     ) , 
@@ -191,6 +199,10 @@ controlor controlor_inst
     .lgc_op      ( lgc_op     ) , 
     .wlgc_en     ( wlgc_en    ) , 
     .wlgc_op     ( wlgc_op    ) , 
+    .mlgc_en     ( mlgc_en    ) ,
+    .mlgc_op     ( mlgc_op    ) ,
+    .wmlgc_en    ( wmlgc_en   ) ,
+    .wmlgc_op    ( wmlgc_op   ) ,
     .br_en       ( br_en      ) ,
     .br_op       ( br_op      ) , 
     .jal_en      ( jal_en     ) , 

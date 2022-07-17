@@ -21,12 +21,16 @@ module controlor
   output  wire  rs2_en  ,
   output  wire  imm_en  ,
 
-  output  wire         lgc_en ,
-  output  wire  [3:0]  lgc_op ,
-  output  wire        wlgc_en ,
-  output  wire  [4:0] wlgc_op ,
-  output wire           br_en ,
-  output  wire  [2:0]   br_op ,
+  output  wire          lgc_en ,
+  output  wire  [3:0]   lgc_op ,
+  output  wire         wlgc_en ,
+  output  wire  [4:0]  wlgc_op ,
+  output  wire           br_en ,
+  output  wire  [2:0]    br_op ,
+  output  wire         mlgc_en ,
+  output  wire  [2:0]  mlgc_op ,
+  output  wire        wmlgc_en ,
+  output  wire  [3:0] wmlgc_op ,
   
   output wire     jal_en ,
   output wire    jalr_en ,
@@ -70,18 +74,19 @@ module controlor
 
   wire     immop_en = ( opcode == 5'b00100 ) & ( funct3[1:0] != 2'b01 ) ;
   wire     immsf_en = ( opcode == 5'b00100 ) & ( funct3[1:0] == 2'b01 ) ;
-  wire      rsop_en = ( opcode == 5'b01100 ) ;
-  wire    wimmop_en = ( opcode == 5'b00110 ) & ( funct3[1:0] != 2'b01 );
-  wire    wimmsf_en = ( opcode == 5'b00110 ) & ( funct3[1:0] == 2'b01 );
-  wire     wrsop_en = ( opcode == 5'b01110 ) ;
+  wire    wimmop_en = ( opcode == 5'b00110 ) & ( funct3[1:0] != 2'b01 ) ;
+  wire    wimmsf_en = ( opcode == 5'b00110 ) & ( funct3[1:0] == 2'b01 ) ;
+  wire      rsop_en = ( opcode == 5'b01100 ) & ( funct7[0]   == 1'b0  ) ;
+  wire     wrsop_en = ( opcode == 5'b01110 ) & ( funct7[0]   == 1'b0  ) ;
+  wire     mrsop_en = ( opcode == 5'b01100 ) & ( funct7[0]   == 1'b1  ) ;
+  wire    wmrsop_en = ( opcode == 5'b01110 ) & ( funct7[0]   == 1'b1  ) ;
 
   assign  I_type = jalr_en | load_en | immop_en | immsf_en | wimmop_en | wimmsf_en ;
   assign  S_type = store_en  ;
   assign  B_type = br_en ;
   assign  U_type = lui_en | auipc_en ;
   assign  J_type = jal_en ;
-  wire    R_type = rsop_en | wrsop_en ;
-
+  wire    R_type = rsop_en | wrsop_en | mrsop_en | wmrsop_en ;
 
   assign   pc_en = auipc_en | jal_en ;
   assign  imm_en = I_type | S_type | U_type | J_type ;
@@ -98,11 +103,17 @@ module controlor
                      ( {5{wimmsf_en}} & ( {1'b1, inst[30],funct3} ) ) |
                      ( {5{ wrsop_en}} & ( {1'b1, inst[30],funct3} ) ) ;
 
+  assign  mlgc_op = funct3 ;
+  assign wmlgc_op = {1'b1, funct3 };
+
   assign  br_op = funct3 ;
 
   assign  wlgc_en = wimmop_en | wrsop_en | wimmsf_en ;
   assign   lgc_en =  immop_en |  rsop_en |  immsf_en | auipc_en | lui_en | 
                       jalr_en |   jal_en |   load_en | store_en ;
+
+  assign  mlgc_en =  mrsop_en ;
+  assign wmlgc_en = wmrsop_en ;
 
   assign  lb  = load_en & ( funct3 == 3'b000 ) ;
   assign  lh  = load_en & ( funct3 == 3'b001 ) ;
@@ -122,8 +133,7 @@ module controlor
   assign  wb_alu  = auipc_en |    lui_en |   rsop_en | immop_en |
                     immsf_en | wimmop_en | wimmsf_en | wrsop_en ;
 
-  assign wb_en = lui_en | auipc_en |  jal_en | jalr_en | load_en | 
-               immop_en | immsf_en | rsop_en | wimmop_en | wimmsf_en | wrsop_en ;
+  assign wb_en = wb_load | wb_pc | wb_alu ;
 
 endmodule
 

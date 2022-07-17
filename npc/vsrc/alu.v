@@ -14,6 +14,10 @@ module alu
 
   input   wire             lgc_en   ,
   input   wire  [3:0]      lgc_op   , //regular option
+  input   wire            mlgc_en   ,
+  input   wire  [2:0]     mlgc_op   , //M Standard Extension
+  input   wire           wmlgc_en   ,
+  input   wire  [3:0]    wmlgc_op   , //M Standard Extension
   input   wire            wlgc_en   ,
   input   wire  [4:0]     wlgc_op   ,
   input   wire              br_en   ,
@@ -50,6 +54,21 @@ module alu
 `define BLTU  3'b110
 `define BGEU  3'b111
 
+`define MUL    3'b000
+`define MULH   3'b001
+`define MULHSU 3'b010
+`define MULHU  3'b011
+`define DIV    3'b100
+`define DIVU   3'b101
+`define REM    3'b110
+`define REMU   3'b111
+
+`define MULW    4'b1000
+`define DIVW    4'b1100
+`define DIVUW   4'b1101
+`define REMW    4'b1110
+`define REMUW   4'b1111
+
   wire signed [DW-1:0] opdata1 = ( {DW{rs1_en}} & rs1_data ) | 
                                  ( {DW{ pc_en}} &  pc_data ) ;
 
@@ -61,6 +80,9 @@ module alu
 
   wire  signed [DW/2-1:0] wopdata1 = opdata1[DW/2-1:0] ;
   wire  signed [DW/2-1:0] wopdata2 = opdata2[DW/2-1:0] ;
+
+  wire  unsigned [DW/2-1:0] uwopdata1 = wopdata1;
+  wire  unsigned [DW/2-1:0] uwopdata2 = wopdata2;
 
   assign  zero = ( result == 0 ) ? 1'b1 : 1'b0;
 
@@ -82,6 +104,36 @@ module alu
     endcase
   end
 
+  wire  [2*DW-1:0] multu = uopdata1 * uopdata2;
+  wire  [2*DW-1:0] multsu= opdata1  * uopdata2;
+
+  reg   [DW-1:0] mlgc_result;
+  always@(*) begin
+    case(mlgc_op)
+      `MUL    :   mlgc_result = opdata1 * opdata2 ;
+      `MULH   :   mlgc_result = multu[DW-1:0];
+      `MULHSU :   mlgc_result = multsu[2*DW-1:DW] ;
+      `MULHU  :   mlgc_result = multu[2*DW-1:DW] ;
+      `DIV    :   mlgc_result = opdata1 / opdata2 ;
+      `DIVU   :   mlgc_result = uopdata1 / uopdata2 ;
+      `REM    :   mlgc_result = opdata1 % opdata2 ;
+      `REMU   :   mlgc_result = uopdata1 % uopdata2 ;
+      default :   mlgc_result = {DW{1'b0}};
+    endcase
+  end
+
+  reg  [DW/2-1:0] wmlgc_result ;
+  always@(*) begin
+    case(wmlgc_op)
+      `MULW   :   wmlgc_result = wopdata1  * wopdata2  ;
+      `DIVW   :   wmlgc_result = wopdata1  / wopdata2  ;
+      `DIVUW  :   wmlgc_result = uwopdata1 / uwopdata2 ;
+      `REMW   :   wmlgc_result = wopdata1  % wopdata2  ;
+      `REMUW  :   wmlgc_result = uwopdata1 % uwopdata2 ;
+      default :   wmlgc_result = {(DW/2){1'b0}} ;
+    endcase
+  end
+
   reg [DW/2-1:0] wlgc_result;
   always@(*) begin
     case (wlgc_op) 
@@ -95,7 +147,9 @@ module alu
   end
 
   assign  result =  ( {DW{ lgc_en }} & lgc_result ) | 
-                    ( {DW{wlgc_en }} & { {(DW/2){wlgc_result[DW/2-1]}}, wlgc_result} ) ;
+                    ( {DW{wlgc_en }} & { {(DW/2){wlgc_result[DW/2-1]}}, wlgc_result} ) |
+                    ( {DW{mlgc_en }} & mlgc_result) |
+                    ( {DW{wmlgc_en}} & { {(DW/2){wmlgc_result[DW/2-1]}},wmlgc_result} ) ;
 
   reg br_result;
   always@(*) begin
