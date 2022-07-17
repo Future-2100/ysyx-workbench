@@ -12,14 +12,12 @@ NPCState npc_state = { .state = NPC_STOP };
 
 CPU_state cpu = {};
 
-/*
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc){
   if( g_print_step ) { puts(_this->logbuf); }
 #ifdef CONFIG_DIFFTEST
   difftest_step(_this->pc, dnpc);
 #endif
 }
-*/
 
 void run_step(Decode *s);
 
@@ -41,6 +39,7 @@ static void exec_once(Decode *s){
     p += snprintf(p, 4, " %02x", inst[i]);
   }
 
+  /*
   //add some number of space in s->logbuf
   int ilen_max = 4;
   int space_len = ilen_max - ilen;
@@ -50,7 +49,6 @@ static void exec_once(Decode *s){
   p += space_len;
 
   //record the disassemble information in s->logbuf
-  /*
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       s->pc, (uint8_t *)&s->isa.inst.val, ilen);
@@ -62,9 +60,8 @@ static void execute(uint64_t n) {
   Decode s;
   for(; n>0; n--) {
     exec_once(&s);
-   // run_step(1);
     g_nr_guest_inst ++;
-  //  trace_and_difftest(&s, cpu.pc);
+    trace_and_difftest(&s, cpu.pc);
     if(npc_state.state != NPC_RUNNING) {
       break;
     }
