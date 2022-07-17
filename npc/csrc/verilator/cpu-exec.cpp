@@ -129,9 +129,9 @@ static void execute(uint64_t n) {
   Decode s;
   for(; n>0; n--) {
     exec_once(&s);
-    printf("s->pc : %lx\n", s->pc);
-    printf("s->snpc : %lx\n", s->snpc);
-    printf("s->dnpc : %lx\n", s->dnpc);
+    printf("s->pc : %lx\n", s.pc);
+    printf("s->snpc : %lx\n", s.snpc);
+    printf("s->dnpc : %lx\n", s.dnpc);
     g_nr_guest_inst ++;
     trace_and_difftest(&s, cpu.pc);
     if(npc_state.state != NPC_RUNNING) {
