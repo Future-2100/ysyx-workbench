@@ -77,7 +77,7 @@ extern "C" void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int
   printf("p : %s\n", str);
   printf("size : %d\n", size);
   printf("s->pc : %lx\n", pc);
-  printf("val : %d\n", *code);
+  printf("val : %s\n",  code);
   printf("ilen: %d\n", nbyte);
 
   MCInst inst;
