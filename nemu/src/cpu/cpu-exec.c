@@ -84,9 +84,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
 
   //add some number of space in s->logbuf
   int ilen_max = MUXDEF(CONFIG_ISA_x86, 8, 4);
-  printf("ilen_max = %d\n",ilen_max);
   int space_len = ilen_max - ilen;
-  printf("space_len = %d\n",space_len);
   if (space_len < 0) space_len = 0;
   space_len = space_len * 3 + 1;
   memset(p, ' ', space_len);
