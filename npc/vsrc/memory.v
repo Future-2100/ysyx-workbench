@@ -39,7 +39,11 @@ module memory
                  ( {3{sw}} & 3'd3 )  |
                  ( {3{sd}} & 3'd4 )  ;
 
-  assign  wdata = wdata_in;
+  assign  wdata = ( {DW{sb}} & {56'b0, wdata_in[7 :0] } ) | 
+                  ( {DW{sh}} & {48'b0, wdata_in[15:0]} ) |
+                  ( {DW{sw}} & {32'b0, wdata_in[31:0]} ) |
+                  ( {DW{sd}} & {       wdata_in      } ) ;
+
   assign  addr  =  addr_in;
 
   assign  wen =  ( sb | sh | sw | sd ) & rstn ;

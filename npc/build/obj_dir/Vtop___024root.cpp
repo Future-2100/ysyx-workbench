@@ -3464,6 +3464,11 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__4(Vtop___024root* vlSelf) {
                                                  >> 0x3fU))))) 
                   << 0x3fU));
     }
+    vlSelf->top__DOT__wb_pc = ((0x1bU == (0x1fU & (vlSelf->inst 
+                                                   >> 2U))) 
+                               | (0x19U == (0x1fU & 
+                                            (vlSelf->inst 
+                                             >> 2U))));
     vlSelf->top__DOT__sb = (IData)((0x20U == (0x707cU 
                                               & vlSelf->inst)));
     vlSelf->top__DOT__sh = (IData)((0x1020U == (0x707cU 
@@ -3472,11 +3477,6 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__4(Vtop___024root* vlSelf) {
                                                 & vlSelf->inst)));
     vlSelf->top__DOT__sd = (IData)((0x3020U == (0x707cU 
                                                 & vlSelf->inst)));
-    vlSelf->top__DOT__wb_pc = ((0x1bU == (0x1fU & (vlSelf->inst 
-                                                   >> 2U))) 
-                               | (0x19U == (0x1fU & 
-                                            (vlSelf->inst 
-                                             >> 2U))));
     vlSelf->top__DOT__lb = (IData)((0U == (0x707cU 
                                            & vlSelf->inst)));
     vlSelf->top__DOT__lh = (IData)((0x1000U == (0x707cU 
@@ -3584,6 +3584,10 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__4(Vtop___024root* vlSelf) {
         ++(vlSymsp->__Vcoverage[66]);
         vlSelf->top__DOT____Vtogcov__ebreak = vlSelf->ebreak;
     }
+    if (((IData)(vlSelf->top__DOT__wb_pc) ^ (IData)(vlSelf->top__DOT____Vtogcov__wb_pc))) {
+        ++(vlSymsp->__Vcoverage[621]);
+        vlSelf->top__DOT____Vtogcov__wb_pc = vlSelf->top__DOT__wb_pc;
+    }
     if (((IData)(vlSelf->top__DOT__sb) ^ (IData)(vlSelf->top__DOT____Vtogcov__sb))) {
         ++(vlSymsp->__Vcoverage[848]);
         vlSelf->top__DOT____Vtogcov__sb = vlSelf->top__DOT__sb;
@@ -3609,10 +3613,6 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__4(Vtop___024root* vlSelf) {
                       | (2U & (- (IData)((IData)(vlSelf->top__DOT__sh))))) 
                      | (3U & (- (IData)((IData)(vlSelf->top__DOT__sw))))) 
                     | (4U & (- (IData)((IData)(vlSelf->top__DOT__sd)))));
-    if (((IData)(vlSelf->top__DOT__wb_pc) ^ (IData)(vlSelf->top__DOT____Vtogcov__wb_pc))) {
-        ++(vlSymsp->__Vcoverage[621]);
-        vlSelf->top__DOT____Vtogcov__wb_pc = vlSelf->top__DOT__wb_pc;
-    }
     if (((IData)(vlSelf->top__DOT__lb) ^ (IData)(vlSelf->top__DOT____Vtogcov__lb))) {
         ++(vlSymsp->__Vcoverage[841]);
         vlSelf->top__DOT____Vtogcov__lb = vlSelf->top__DOT__lb;
@@ -10158,20 +10158,20 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__4(Vtop___024root* vlSelf) {
         ++(vlSymsp->__Vcoverage[815]);
         vlSelf->top__DOT____Vtogcov__I_type = vlSelf->top__DOT__I_type;
     }
-    vlSelf->top__DOT__imm_en = ((((IData)(vlSelf->top__DOT__I_type) 
-                                  | (8U == (0x1fU & 
-                                            (vlSelf->inst 
-                                             >> 2U)))) 
-                                 | (IData)(vlSelf->top__DOT__U_type)) 
-                                | (0x1bU == (0x1fU 
-                                             & (vlSelf->inst 
-                                                >> 2U))));
     vlSelf->top__DOT__rs1_en = ((((IData)(vlSelf->top__DOT__I_type) 
                                   | (IData)(vlSelf->top__DOT__controlor_inst__DOT__R_type)) 
                                  | (8U == (0x1fU & 
                                            (vlSelf->inst 
                                             >> 2U)))) 
                                 | (0x18U == (0x1fU 
+                                             & (vlSelf->inst 
+                                                >> 2U))));
+    vlSelf->top__DOT__imm_en = ((((IData)(vlSelf->top__DOT__I_type) 
+                                  | (8U == (0x1fU & 
+                                            (vlSelf->inst 
+                                             >> 2U)))) 
+                                 | (IData)(vlSelf->top__DOT__U_type)) 
+                                | (0x1bU == (0x1fU 
                                              & (vlSelf->inst 
                                                 >> 2U))));
     vlSelf->top__DOT__imm = ((((((- (QData)((IData)(vlSelf->top__DOT__I_type))) 
@@ -10203,13 +10203,13 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__4(Vtop___024root* vlSelf) {
         ++(vlSymsp->__Vcoverage[821]);
         vlSelf->top__DOT____Vtogcov__rs2_en = vlSelf->top__DOT__rs2_en;
     }
-    if (((IData)(vlSelf->top__DOT__imm_en) ^ (IData)(vlSelf->top__DOT____Vtogcov__imm_en))) {
-        ++(vlSymsp->__Vcoverage[822]);
-        vlSelf->top__DOT____Vtogcov__imm_en = vlSelf->top__DOT__imm_en;
-    }
     if (((IData)(vlSelf->top__DOT__rs1_en) ^ (IData)(vlSelf->top__DOT____Vtogcov__rs1_en))) {
         ++(vlSymsp->__Vcoverage[819]);
         vlSelf->top__DOT____Vtogcov__rs1_en = vlSelf->top__DOT__rs1_en;
+    }
+    if (((IData)(vlSelf->top__DOT__imm_en) ^ (IData)(vlSelf->top__DOT____Vtogcov__imm_en))) {
+        ++(vlSymsp->__Vcoverage[822]);
+        vlSelf->top__DOT____Vtogcov__imm_en = vlSelf->top__DOT__imm_en;
     }
     if ((1U & ((IData)(vlSelf->top__DOT__imm) ^ (IData)(vlSelf->top__DOT____Vtogcov__imm)))) {
         ++(vlSymsp->__Vcoverage[488]);

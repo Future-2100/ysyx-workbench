@@ -5002,7 +5002,15 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__6(Vtop___024root* vlSelf) {
                                                                                 >> 0x3fU))))) 
                                                     << 0x3fU));
     }
-    vlSelf->wdata = vlSelf->top__DOT__rd_data2;
+    vlSelf->wdata = (((((- (QData)((IData)(vlSelf->top__DOT__sb))) 
+                        & (QData)((IData)((0xffU & (IData)(vlSelf->top__DOT__rd_data2))))) 
+                       | ((- (QData)((IData)(vlSelf->top__DOT__sh))) 
+                          & (QData)((IData)((0xffffU 
+                                             & (IData)(vlSelf->top__DOT__rd_data2)))))) 
+                      | ((- (QData)((IData)(vlSelf->top__DOT__sw))) 
+                         & (QData)((IData)(vlSelf->top__DOT__rd_data2)))) 
+                     | ((- (QData)((IData)(vlSelf->top__DOT__sd))) 
+                        & vlSelf->top__DOT__rd_data2));
     vlSelf->top__DOT__alu_inst__DOT__opdata2 = (((- (QData)((IData)(vlSelf->top__DOT__rs2_en))) 
                                                  & vlSelf->top__DOT__rd_data2) 
                                                 | ((- (QData)((IData)(vlSelf->top__DOT__imm_en))) 

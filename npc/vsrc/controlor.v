@@ -88,10 +88,11 @@ module controlor
   assign  J_type = jal_en ;
   wire    R_type = rsop_en | wrsop_en | mrsop_en | wmrsop_en ;
 
-  assign   pc_en = auipc_en | jal_en ;
-  assign  imm_en = I_type | S_type | U_type | J_type ;
   assign  rs1_en = I_type | R_type | S_type | B_type ;
+  assign   pc_en = auipc_en | jal_en ;
+
   assign  rs2_en = R_type | B_type ;
+  assign  imm_en = I_type | S_type | U_type | J_type ;
 
   assign  lgc_op  =  ( {4{auipc_en }} & ( 4'b0000) ) | 
                      ( {4{  lui_en }} & ( 4'b1111) ) |
