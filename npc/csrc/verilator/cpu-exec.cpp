@@ -108,7 +108,6 @@ static void exec_once(Decode *s){
     p += snprintf(p, 4, " %02x", inst[i]);
   }
 
-  /*
   //add some number of space in s->logbuf
   int ilen_max = 4;
   int space_len = ilen_max - ilen;
@@ -121,7 +120,6 @@ static void exec_once(Decode *s){
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       s->pc, (uint8_t *)&s->isa.inst.val, ilen);
-      */
 
 }
 
@@ -129,9 +127,6 @@ static void execute(uint64_t n) {
   Decode s;
   for(; n>0; n--) {
     exec_once(&s);
-    printf("s->pc : %lx\n", s.pc);
-    printf("s->snpc : %lx\n", s.snpc);
-    printf("s->dnpc : %lx\n", s.dnpc);
     g_nr_guest_inst ++;
     trace_and_difftest(&s, cpu.pc);
     if(npc_state.state != NPC_RUNNING) {

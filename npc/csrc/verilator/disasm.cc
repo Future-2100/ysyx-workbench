@@ -48,13 +48,13 @@ void init_disasm(const char *triple) {
   MCTargetOptions MCOptions;
   gSTI = target->createMCSubtargetInfo(gTriple, "", "");
   std::string isa = target->getName();
-  //if (isa == "riscv32" || isa == "riscv64") {
+  if (isa == "riscv32" || isa == "riscv64") {
     gSTI->ApplyFeatureFlag("+m");
     gSTI->ApplyFeatureFlag("+a");
     gSTI->ApplyFeatureFlag("+c");
     gSTI->ApplyFeatureFlag("+f");
     gSTI->ApplyFeatureFlag("+d");
-  //}
+  }
   gMII = target->createMCInstrInfo();
   gMRI = target->createMCRegInfo(gTriple);
   auto AsmInfo = target->createMCAsmInfo(*gMRI, gTriple, MCOptions);

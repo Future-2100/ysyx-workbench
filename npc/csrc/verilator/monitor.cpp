@@ -6,6 +6,7 @@
 static char *img_file = NULL;
 static char *diff_so_file = NULL;
 
+void init_disasm(const char *triple);
 /*
 static char *diff_so_file = NULL;
 static int difftest_port = 1234;
@@ -170,6 +171,8 @@ void init_monitor(int argc, char** argv) {
   /* Initialize differential testing. */
 //  init_difftest(diff_so_file, img_size, difftest_port);
 #endif
+
+  init_disasm("riscv64" "-pc-linux-gnu");
 
   /* Display welcome message. */
   welcome();
