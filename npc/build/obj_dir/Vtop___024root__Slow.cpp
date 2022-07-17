@@ -9715,18 +9715,21 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
         vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__immsf_en 
             = vlSelf->top__DOT__controlor_inst__DOT__immsf_en;
     }
-    vlSelf->top__DOT__wb_alu = ((((((((5U == (0x1fU 
-                                              & (vlSelf->inst 
-                                                 >> 2U))) 
-                                      | (0xdU == (0x1fU 
-                                                  & (vlSelf->inst 
-                                                     >> 2U)))) 
-                                     | (IData)(vlSelf->top__DOT__controlor_inst__DOT__rsop_en)) 
-                                    | (IData)(vlSelf->top__DOT__controlor_inst__DOT__immop_en)) 
-                                   | (IData)(vlSelf->top__DOT__controlor_inst__DOT__immsf_en)) 
-                                  | (IData)(vlSelf->top__DOT__controlor_inst__DOT__wimmop_en)) 
-                                 | (IData)(vlSelf->top__DOT__controlor_inst__DOT__wimmsf_en)) 
-                                | (IData)(vlSelf->top__DOT__controlor_inst__DOT__wrsop_en));
+    vlSelf->top__DOT__wb_alu = ((((((((((5U == (0x1fU 
+                                                & (vlSelf->inst 
+                                                   >> 2U))) 
+                                        | (0xdU == 
+                                           (0x1fU & 
+                                            (vlSelf->inst 
+                                             >> 2U)))) 
+                                       | (IData)(vlSelf->top__DOT__controlor_inst__DOT__rsop_en)) 
+                                      | (IData)(vlSelf->top__DOT__controlor_inst__DOT__immop_en)) 
+                                     | (IData)(vlSelf->top__DOT__controlor_inst__DOT__immsf_en)) 
+                                    | (IData)(vlSelf->top__DOT__controlor_inst__DOT__wimmop_en)) 
+                                   | (IData)(vlSelf->top__DOT__controlor_inst__DOT__wimmsf_en)) 
+                                  | (IData)(vlSelf->top__DOT__controlor_inst__DOT__wrsop_en)) 
+                                 | (IData)(vlSelf->top__DOT__controlor_inst__DOT__mrsop_en)) 
+                                | (IData)(vlSelf->top__DOT__controlor_inst__DOT__wmrsop_en));
     vlSelf->top__DOT__lgc_en = (((((((((IData)(vlSelf->top__DOT__controlor_inst__DOT__immop_en) 
                                        | (IData)(vlSelf->top__DOT__controlor_inst__DOT__rsop_en)) 
                                       | (IData)(vlSelf->top__DOT__controlor_inst__DOT__immsf_en)) 

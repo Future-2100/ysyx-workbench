@@ -104,6 +104,7 @@ module alu
     endcase
   end
 
+  
   wire  [2*DW-1:0] multu = uopdata1 * uopdata2;
   wire  [2*DW-1:0] multsu= opdata1  * uopdata2;
 

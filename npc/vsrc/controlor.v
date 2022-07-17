@@ -131,7 +131,8 @@ module controlor
   assign  wb_load = load_en;
   assign  wb_pc   = jal_en | jalr_en ;
   assign  wb_alu  = auipc_en |    lui_en |   rsop_en | immop_en |
-                    immsf_en | wimmop_en | wimmsf_en | wrsop_en ;
+                    immsf_en | wimmop_en | wimmsf_en | wrsop_en |
+                    mrsop_en | wmrsop_en ;
 
   assign wb_en = wb_load | wb_pc | wb_alu ;
 
