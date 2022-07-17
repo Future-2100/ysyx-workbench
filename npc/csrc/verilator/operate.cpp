@@ -79,6 +79,8 @@ void run_step(Decode *s) {
   int j = 2 ;
   while ( j-- && ( !contextp->gotFinish() ) ) {
 
+    if( top->clk == 0 ) {
+
       if(top->ebreak)  { 
         npc_trap(2 , top->pc, top->a);
         end_sim(); 
@@ -89,7 +91,6 @@ void run_step(Decode *s) {
         return ;
       }
 
-    if( top->clk == 0 ) {
       if( top->wen ) {
         mem_write(top->addr, top->wlen, top->wdata);
       }
