@@ -20,5 +20,7 @@ typedef uint64_t paddr_t;
 #define FMT_PADDR "0x%016lx"
 typedef uint16_t ioaddr_t;
 
+#define CONFIG_DIFFTEST
+
 #endif
 
