@@ -76,7 +76,8 @@ extern bool g_print_step;
 
 void run_step(Decode *s) {
 
-  for (int j = 0; j<2; j++) {
+  int j = 2 ;
+  while ( j-- && ( !contextp->gotFinish() ) ) {
     if( top->clk == 0 ) {
       if(top->ebreak)  { 
         npc_trap(2 , top->pc, top->a);
