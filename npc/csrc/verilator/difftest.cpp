@@ -31,7 +31,6 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
   handle = dlopen(ref_so_file, RTLD_LAZY);
   assert(handle); 
 
-  printf("ref_so_file = %s\n",ref_so_file);
 /*
   ref_difftest_memcpy = dlsym(handle, "difftest_memcpy");
   assert(ref_difftest_memcpy);
@@ -57,6 +56,7 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
 
   extern uint64_t *cpu_gpr;
   ref_difftest_regcpy(cpu_gpr, DIFFTEST_TO_REF);
+  printf("ref_so_file = %s\n",ref_so_file);
 }
 
 
