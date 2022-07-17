@@ -75,12 +75,6 @@ void init_disasm(const char *triple) {
 //extern "C" void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte) {
 void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte) {
 
-  printf("p : %s\n", str);
-  printf("size : %d\n", size);
-  printf("s->pc : %lx\n", pc);
-  printf("val : %s\n",  code);
-  printf("ilen: %d\n", nbyte);
-
   MCInst inst;
   llvm::ArrayRef<uint8_t> arr(code, nbyte);
   uint64_t dummy_size = 0;
