@@ -69,18 +69,21 @@ static void exec_once(Decode *s, vaddr_t pc) {
   /* update the s->logbuf */
 
   char *p = s->logbuf;
+  printf("logbuf: %s\n",s->logbuf);
 
   //record the pc
   p += snprintf(p, sizeof(s->logbuf), "0x%08lx" ":", s->pc);
   //p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
   int ilen = s->snpc - s->pc;
   int i;
+  printf("logbuf: %s\n",s->logbuf);
 
   //record the infomation of the instruction in s->logbuf
   uint8_t *inst = (uint8_t *)&s->isa.inst.val;
   for (i = ilen - 1; i >= 0; i --) {
     p += snprintf(p, 4, " %02x", inst[i]);
   }
+  printf("logbuf: %s\n",s->logbuf);
 
   //add some number of space in s->logbuf
   int ilen_max = MUXDEF(CONFIG_ISA_x86, 8, 4);
@@ -91,6 +94,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   space_len = space_len * 3 + 1;
   memset(p, ' ', space_len);
   p += space_len;
+  printf("logbuf: %s\n",s->logbuf);
 
 
   //record the disassemble information in s->logbuf
