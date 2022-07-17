@@ -20,7 +20,7 @@ void npc_trap(int state, vaddr_t pc, int halt_ret);
 
 uint64_t *cpu_gpr = NULL;
 //extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
-void set_gpr_ptr(const svOpenArrayHandle r) {
+extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 
