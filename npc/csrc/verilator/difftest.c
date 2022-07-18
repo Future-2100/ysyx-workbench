@@ -52,7 +52,7 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
   ref_difftest_init(port);
 
   printf(FONT_RED "2ref_so_file = %s" FONT_NONE "\n" ,ref_so_file );
-  ref_difftest_memcpy((paddr_t)0x80000000, (uint8_t *)pmem, img_size, DIFFTEST_TO_REF);
+//  ref_difftest_memcpy((paddr_t)0x80000000, (uint8_t *)pmem, img_size, DIFFTEST_TO_REF);
 
   printf(FONT_RED "2ref_so_file = %s" FONT_NONE "\n" ,ref_so_file );
   extern uint64_t *cpu_gpr;
