@@ -191,7 +191,7 @@ static void execute(uint64_t n) {
 #endif
       break;
     }
-    IFDEF(CONFIG_DEVICE, device_update());
+    //IFDEF(CONFIG_DEVICE, device_update());
   }
 }
 
