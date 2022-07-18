@@ -28,6 +28,6 @@ NPCFLAGS = -b
 endif
 
 run: image
-	$(MAKE) -C $(NPC_HOME) -f $(NPC_HOME)/Makefile ARGS="$(NPCFLAGS)" IMG=$(IMAGE).bin run
+	$(MAKE) -f $(NPC_HOME)/Makefile -C $(NPC_HOME) ARGS="$(NPCFLAGS)" IMG=$(IMAGE).bin run
 
 
