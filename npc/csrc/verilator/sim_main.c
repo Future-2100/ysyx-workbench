@@ -19,7 +19,7 @@ int main(int argc, char** argv, char** env) {
   engine_start();
 
   // Return good completion status
-  return 0;//is_exit_status_bad();
+  return is_exit_status_bad();
 
 }
 
