@@ -23,6 +23,8 @@ void difftest_skip_dut(int nr_ref, int nr_dut) {
   }
 }
 
+  extern uint8_t *pmem;
+
 void init_difftest(char *ref_so_file, long img_size, int port) {
   assert(ref_so_file != NULL);
 
@@ -49,9 +51,8 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
   Log("The result of every instruction will be compared with %s. ", ref_so_file);
   ref_difftest_init(port);
 
-  extern uint8_t *pmem;
   printf(FONT_RED "2ref_so_file = %s" FONT_NONE "\n" ,ref_so_file );
-  ref_difftest_memcpy(0x80000000, pmem, img_size, DIFFTEST_TO_REF);
+  ref_difftest_memcpy(0x80000000, (uint8_t *)pmem, img_size, DIFFTEST_TO_REF);
 
   //printf(FONT_RED "2ref_so_file = %s" FONT_NONE "\n" ,ref_so_file );
   extern uint64_t *cpu_gpr;
