@@ -4,6 +4,7 @@
 #include <memory/paddr.h>
 
 void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
+  printf("!!!!!!!!!!!!!!!!!!!!!!!" );
 
   if( direction == DIFFTEST_TO_REF ) {
     memcpy(guest_to_host(RESET_VECTOR), addr + buf - 0x80000000, n);
