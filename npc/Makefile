@@ -100,9 +100,7 @@ CFLAGS += $(INCFLAGS)
 #CFLAGS += $(shell llvm-config --cxxflags) -fPIE
 LDFLAGS += $(shell llvm-config --libs) ~/ysyx-workbench/nemu/build/riscv64-nemu-interpreter-so
 LDFLAGS += -O2 -Og -ggdb3 -ldl -pie -lreadline 
-LDFLAGS = "$(LDFLAGS)"
-VERILATOR_FLAGS += $(addprefix -CFLAGS , $(CFLAGS)) -LDFLAGS $(LDFLAGS)
-#VERILATOR_FLAGS += $(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS))
+VERILATOR_FLAGS += $(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS))
 endif
 
 #rules for verilator output
