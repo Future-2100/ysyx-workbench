@@ -32,7 +32,7 @@ endif
 VERILATOR_FLAGS += -O3 --x-assign fast --x-initial fast --noassert
 
 #Stronger lint warning enabled
-VERILATOR_FLAGS += -Wall
+#VERILATOR_FLAGS += -Wall
 
 # Get C++ output(versus e.g. SystemC or only linting).
 VERILATOR_FLAGS += --cc 
@@ -99,7 +99,7 @@ INCFLAGS = $(addprefix -I, $(INC_PATH))
 CFLAGS += $(INCFLAGS)
 #CFLAGS += $(shell llvm-config --cxxflags) -fPIE
 LDFLAGS += $(shell llvm-config --libs)
-LDFLAGS += -ldl -pie -lreadline 
+LDFLAGS += -O2 -Og -ggdb3 -ldl -pie -lreadline 
 VERILATOR_FLAGS += $(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS))
 endif
 
