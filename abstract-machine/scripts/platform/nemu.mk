@@ -14,7 +14,7 @@ LDFLAGS   += --gc-sections -e _start
 NEMUFLAGS += -l $(shell dirname $(IMAGE).elf)/nemu-log.txt
 
 ifeq ($(AUTO),en)
-NEMUFLAGS += --batch
+NEMUFLAGS += -b
 endif
 
 NEMUFLAGS += -e $(IMAGE).elf
