@@ -40,6 +40,7 @@ VM_USER_CFLAGS = \
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
 	-lLLVM-14 \
+	/home/grand/ysyx-workbench/nemu/build/riscv64-nemu-interpreter-so \
 	-O2 \
 	-Og \
 	-ggdb3 \
