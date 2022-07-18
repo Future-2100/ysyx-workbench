@@ -50,9 +50,10 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
   Log("The result of every instruction will be compared with %s. ", ref_so_file);
   ref_difftest_init(port);
 
+  printf(FONT_RED "1ref_so_file = %s" FONT_NONE "\n" ,ref_so_file );
   ref_difftest_memcpy(0x80000000, pmem, img_size, DIFFTEST_TO_REF);
 
-  printf(FONT_RED "ref_so_file = %s" FONT_NONE "\n" ,ref_so_file );
+  printf(FONT_RED "2ref_so_file = %s" FONT_NONE "\n" ,ref_so_file );
   extern uint64_t *cpu_gpr;
   ref_difftest_regcpy(cpu_gpr, DIFFTEST_TO_REF);
 }
