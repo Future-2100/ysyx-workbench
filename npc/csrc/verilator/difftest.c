@@ -56,7 +56,7 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
 
   //printf(FONT_RED "2ref_so_file = %s" FONT_NONE "\n" ,ref_so_file );
   extern uint64_t *cpu_gpr;
-  ref_difftest_regcpy(cpu_gpr, DIFFTEST_TO_REF);
+//  ref_difftest_regcpy(cpu_gpr, DIFFTEST_TO_REF);
 }
 
 
