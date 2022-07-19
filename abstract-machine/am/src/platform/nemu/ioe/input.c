@@ -9,13 +9,11 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
   uint32_t code = AM_INPUT_KEYBRD ;
   if(code == AM_KEY_NONE) {
     kbd->keydown = false;
-    kbd->keycode = 0;
+    kbd->keycode = AM_KEY_NONE;
   }
-    
+
   else {
-    kbd->keydown = true;
+    kbd->keydown = false;
     kbd->keycode = code;
   }
-  //kbd->keycode = inl(KBD_ADDR);
-  //kbd->keydown = true;
 }
