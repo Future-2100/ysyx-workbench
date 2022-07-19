@@ -10,7 +10,7 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
     
       uint32_t code = inl(KBD_ADDR);
 
-      kbd->keydown = ( code & KEYDOWN_MASK) >> 16;
+      kbd->keydown = ( code & KEYDOWN_MASK) ;
       if( kbd->keydown == 0)
         kbd->keycode = code ;
       else
