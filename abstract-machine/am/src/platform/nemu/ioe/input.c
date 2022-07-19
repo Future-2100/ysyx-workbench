@@ -9,9 +9,15 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
 
     //uint32_t code = inl(KBD_ADDR);
     
-      AM_INPUT_KEYBRD_T ev = io_read(AM_INPUT_KEYBRD);
-      kbd->keydown = ev.keydown;
-      kbd->keycode = ev.keycode;
+      uint32_t code = inl(KBD_ADDR);
+      if( code == AM_KEY_NONE ) {
+        kbd->keycode = AM_KEY_NONE;
+        kbd->keydown = false;
+      }
+      else {
+        kbd->keycode = code;
+        kbd->keydown = code & KEYDOWN_MASK;
+      }
 
    // }
 
