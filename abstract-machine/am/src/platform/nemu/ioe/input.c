@@ -7,17 +7,11 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
 
 //  if( kbd->keycode != AM_KEY_NONE )
 
-    //uint32_t code = inl(KBD_ADDR);
     
       uint32_t code = inl(KBD_ADDR);
-      if( code == AM_KEY_NONE ) {
-        kbd->keycode = AM_KEY_NONE;
-        kbd->keydown = false;
-      }
-      else {
-        kbd->keycode = 1;
-        kbd->keydown = code & KEYDOWN_MASK;
-      }
+
+      kbd->keydown = (code & KEYDOWN_MASK) >> 15;
+      kbd->keycode = code & ~KEYDOWN_MASK;
 
    // }
 
