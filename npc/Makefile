@@ -77,7 +77,7 @@ INC_PATH = $(abspath ./csrc/include)
 INCFLAGS = $(addprefix -I, $(INC_PATH))
 CFLAGS += $(INCFLAGS)
 #CFLAGS += $(shell llvm-config --cxxflags) -fPIE
-LDFLAGS += $(shell llvm-config --libs) -l$(NEMU_HOME)/build/riscv64-nemu-interpreter-so
+LDFLAGS += $(shell llvm-config --libs) $(NEMU_HOME)/build/riscv64-nemu-interpreter-so
 LDFLAGS += -O2 -Og -ggdb3 -ldl -pie -lreadline 
 VERILATOR_FLAGS += $(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS))
 
