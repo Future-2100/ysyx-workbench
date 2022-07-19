@@ -10,7 +10,7 @@ int printf(const char *fmt, ...) {
   //putch(char ch);
   va_list valist;
   va_start(valist, fmt);
-  int j = 0;
+  //int j = 0;
   int buf[8];
   int i;
   int tens ;
@@ -45,8 +45,8 @@ int printf(const char *fmt, ...) {
                       i++ ;
                       ret ++ ;
                     }
-                    for ( j=0 ; j<i; j++ ) {
-                      allbits = buf[j] * tens + allbits ;
+                    while(i--) {
+                      allbits = buf[i] * tens + allbits ;
                       tens = tens * 10;
                     }
                     switch ( *ret ) {
