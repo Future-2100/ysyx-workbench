@@ -40,7 +40,7 @@ int printf(const char *fmt, ...) {
                     i = 0 ;
                     tens = 1;
                     allbits = 0;
-                    while( *ret>= '0' || *ret <= '9') {
+                    while( *ret>= '0' && *ret <= '9') {
                       buf[i] = *ret - '0' ;
                       i++ ;
                       ret ++ ;
