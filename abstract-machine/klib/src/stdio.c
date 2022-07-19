@@ -9,11 +9,9 @@ int printf(const char *fmt, ...) {
 
   va_list valist;
   va_start(valist, fmt);
-  int i = 0;
-  int j = 0;
 
-  /*
   int buf[8];
+  int i;
   int tens ;
   int allbits;
   int bits;
@@ -160,7 +158,7 @@ int printf(const char *fmt, ...) {
 
   }
 
-*/
+/*
 
 
   while( *(fmt+i) != '\0' ) {
@@ -205,6 +203,7 @@ int printf(const char *fmt, ...) {
     
     i++;
   }
+*/
 
   va_end(valist);
   
