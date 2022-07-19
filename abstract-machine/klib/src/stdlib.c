@@ -4,8 +4,8 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 static unsigned long int next = 1;
-bool mem_inited = false ;
-static void *addr;
+//bool mem_inited = false ;
+//static void *addr;
 //Setting *setting;
 
 int rand(void) {
@@ -36,6 +36,7 @@ void *malloc(size_t size) {
   // On native, malloc() will be called during initializaion of C runtime.
   // Therefore do not call panic() here, else it will yield a dead recursion:
   //   panic() -> putchar() -> (glibc) -> malloc() -> panic()
+  /*
   if( mem_inited == false ) {
     addr = heap.start;
     mem_inited = true;
@@ -44,11 +45,12 @@ void *malloc(size_t size) {
   addr_begin = addr;
   addr = addr + size ;
   return addr_begin;
+  */
   
 #if !(defined(__ISA_NATIVE__) && defined(__NATIVE_USE_KLIB__))
- // panic("Not implemented");
+  panic("Not implemented");
 #endif
-//  return NULL;
+  return NULL;
 }
 
 void free(void *ptr) {
