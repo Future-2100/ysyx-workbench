@@ -3,15 +3,16 @@
 #include <readline/readline.h>
 
 
-#define ARRLEN(arr) (int)(sizeof(arr)) / sizeof(arr[0])
-
-
 void cpu_exec(uint64_t n);
 void npc_quit();
 void delete_module();
 void isa_reg_display();
 
 bool is_batch_mode = false ;
+
+void sdb_set_batch_mode() {
+    is_batch_mode = true ;
+}
 
 static int cmd_c(char *args) {
   cpu_exec(-1);
@@ -41,7 +42,7 @@ static int cmd_info(char *args) {
   if(strcmp(args,"r") == 0)
     isa_reg_display();
   else
-    printf(FONT_RED "Parameter error!\n" FONT_NONE);
+    printf(ANSI_FMT_RED "Parameter error!\n" ANSI_FMT_NONE);
 
   return 0;
 }

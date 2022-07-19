@@ -53,9 +53,13 @@ VM_USER_CLASSES = \
 	cpu-exec \
 	difftest \
 	disasm \
+	elf \
 	engine \
+	init \
+	log \
 	monitor \
 	operate \
+	paddr \
 	sim_main \
 
 # User .cpp directories (from .cpp's on Verilator command line)
@@ -78,11 +82,19 @@ difftest.o: /home/grand/ysyx-workbench/npc/csrc/difftest.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 disasm.o: /home/grand/ysyx-workbench/npc/csrc/disasm.cc
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+elf.o: /home/grand/ysyx-workbench/npc/csrc/elf.c
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 engine.o: /home/grand/ysyx-workbench/npc/csrc/engine.c
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+init.o: /home/grand/ysyx-workbench/npc/csrc/init.c
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+log.o: /home/grand/ysyx-workbench/npc/csrc/log.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 monitor.o: /home/grand/ysyx-workbench/npc/csrc/monitor.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 operate.o: /home/grand/ysyx-workbench/npc/csrc/operate.cpp
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+paddr.o: /home/grand/ysyx-workbench/npc/csrc/paddr.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 sim_main.o: /home/grand/ysyx-workbench/npc/csrc/sim_main.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<

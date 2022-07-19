@@ -13,7 +13,6 @@ uint8_t* new_space(int size) {
   // page aligned;
   size = (size + (PAGE_SIZE - 1)) & ~PAGE_MASK; //  ( size + 1_0000_0000_0000b - 1 ) & 1111_0000_0000_0000b ;
   p_space += size;    
-  //now p_space = size + io_space
   assert(p_space - io_space < IO_SPACE_MAX);
   return p;
 }

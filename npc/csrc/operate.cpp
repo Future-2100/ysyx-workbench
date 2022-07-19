@@ -69,7 +69,7 @@ void init_module() {
 
   reset(10);
   printf("pc = %lx\n",top->pc);
-  printf(FONT_GREEN "---------- module reseted ----------\n" FONT_NONE );
+  printf(ANSI_FMT_GREEN "---------- module reseted ----------\n" ANSI_FMT_NONE );
 }
 
 extern bool g_print_step;
@@ -105,10 +105,10 @@ void run_step(Decode *s) {
       if(top->ebreak)  { 
         npc_trap(2 , top->pc, top->a);
         end_sim(); 
-        for(int i=0; i<30; i++) printf(FONT_BLUE "-");
+        for(int i=0; i<30; i++) printf(ANSI_FMT_BLUE "-");
         printf(" program end ");
         for(int i=0; i<30; i++) printf("-");
-        printf(FONT_NONE "\n");
+        printf(ANSI_FMT_NONE "\n");
         return ;
       }
 
