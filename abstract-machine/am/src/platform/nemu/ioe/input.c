@@ -6,13 +6,12 @@
 
 void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
 
-  if( kbd->keycode != AM_KEY_NONE )
-
-    printf("%d\n", kbd->keycode) ;
+//  if( kbd->keycode != AM_KEY_NONE )
 
 
-//    kbd->keydown = false;
-//    kbd->keycode = AM_KEY_NONE;
+
+    kbd->keydown = false;
+    kbd->keycode = AM_KEY_NONE;
 
     
 }
