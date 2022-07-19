@@ -9,7 +9,7 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
   uint32_t code = AM_INPUT_CONFIG ;
   if( code == AM_KEY_NONE) {
     kbd->keydown = false;
-    kbd->keycode = AM_KEY_NONE;
+    kbd->keycode = code;
   }
 
   else {
