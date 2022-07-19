@@ -7,6 +7,9 @@
 void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
 
   uint32_t code = AM_INPUT_CONFIG ;
+  ;
+  ;
+  ;
   printf("code = %d\n", code) ;
 
     kbd->keydown = false;
