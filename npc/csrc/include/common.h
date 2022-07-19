@@ -4,30 +4,23 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
+#include <stdio.h>
 
-#include <generated/autoconf.h>
 #include <macro.h>
 
-#ifdef CONFIG_TARGET_AM
-#include <klib.h>
-#else
 #include <assert.h>
 #include <stdlib.h>
-#endif
 
-#if CONFIG_MBASE + CONFIG_MSIZE > 0x100000000ul
-#define PMEM64 1
-#endif
+typedef uint64_t   word_t;
+typedef  int64_t  sword_t;
+#define FMT_WORD "0x%016lx"
 
-typedef MUXDEF(CONFIG_ISA64, uint64_t, uint32_t) word_t;
-typedef MUXDEF(CONFIG_ISA64, int64_t, int32_t)  sword_t;
-#define FMT_WORD MUXDEF(CONFIG_ISA64, "0x%016lx", "0x%08x")
-
-typedef word_t vaddr_t;
-typedef MUXDEF(PMEM64, uint64_t, uint32_t) paddr_t;
-#define FMT_PADDR MUXDEF(PMEM64, "0x%016lx", "0x%08x")
+typedef   word_t vaddr_t;
+typedef uint64_t paddr_t;
+#define FMT_PADDR "0x%016lx"
 typedef uint16_t ioaddr_t;
 
-#include <debug.h>
+#define CONFIG_DIFFTEST
 
 #endif
+
