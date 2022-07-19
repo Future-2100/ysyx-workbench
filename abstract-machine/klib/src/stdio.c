@@ -10,9 +10,157 @@ int printf(const char *fmt, ...) {
   //putch(char ch);
   va_list valist;
   va_start(valist, fmt);
-  size_t i = 0;
-  size_t j = 0;
+  int j = 0;
+  int buf[8];
+  int i;
+  int tens ;
+  int allbits;
+  int bits;
+  int integer;
+  int zerobits;
+  int k;
+  char chnum;
 
+  while( *fmt ) {
+    if( *fmt == '%') {
+      const char *ret = fmt + 1 ;
+
+      switch ( *ret ) {
+
+        case '0' : 
+        case '1' :
+        case '2' :
+        case '3' :
+        case '4' :
+        case '5' :
+        case '6' :
+        case '7' :
+        case '8' :
+        case '9' :
+                    i = 0 ;
+                    tens = 1;
+                    allbits = 0;
+                    while( *ret>= '0' || *ret <= '9') {
+                      buf[i] = *ret - '0' ;
+                      i++ ;
+                      ret ++ ;
+                    }
+                    for ( j=0 ; j<i; j++ ) {
+                      allbits = buf[j] * tens + allbits ;
+                      tens = tens * 10;
+                    }
+                    switch ( *ret ) {
+                      case 'd' :
+                                bits=0;
+                                tens= 1;
+                                integer = va_arg(valist, int);
+                                while( integer / (tens) != 0 ) {
+                                  bits++;
+                                  tens = tens * 10 ;
+                                }
+                                tens = tens / 10;
+                                zerobits = allbits - bits;
+                                for(k=0; k<zerobits; k++) {
+                                  putch('0');
+
+                                }
+                                for( k=0; k<bits; k++ ) {
+                                  char num = (char)(integer / tens + '0' ); 
+                                  integer = integer % tens ;
+                                  putch(num);
+                                  tens = tens / 10;
+                                }
+                                fmt = ret ;
+                                break;
+
+                      case 'x' : break ;
+                      default  : break ;
+
+                    }
+                    break;
+
+        case 'c' : char ch = va_arg(valist, int);
+                   putch(ch);
+                   fmt = ret ;
+                   break;
+        case 's' : char *pc = va_arg(valist, char *);
+                   while(*pc) {
+                     putch(*pc);
+                     pc++;
+                   }  
+                   fmt = ret ;
+                   break;
+
+        case 'd' : bits=0;
+                   tens= 1;
+                   integer = va_arg(valist, int);
+                   while( integer / (tens) != 0 ) {
+                     bits++;
+                     tens = tens * 10 ;
+                   }
+                   tens = tens / 10;
+                   for( int k=0; k<bits; k++ ) {
+                     char num = (char)(integer / tens + '0' ); 
+                     integer = integer % tens ;
+                     putch(num);
+                     tens = tens / 10;
+                   }
+                   fmt = ret ;
+                   break;
+
+        case 'x' : bits=0;
+                   tens= 1;
+                   integer = va_arg(valist, int);
+                   while( integer / (tens) != 0 ) {
+                     bits++;
+                     tens = tens * 16 ;
+                   }
+                   tens = tens / 16;
+                   for( k=0; k<bits; k++ ) {
+                     int num = integer/tens;
+                     if( num >= 10 ) {
+                       chnum = (char)( num + 'a' ); 
+                     }
+                     else {
+                       chnum = (char)( num + '0' ); 
+                     }
+                     putch(chnum);
+                     integer = integer % tens ;
+                     tens = tens / 16;
+                   }
+                   fmt = ret ;
+                   break;
+
+        case 'u' : bits=0;
+                   unsigned int tens= 1;
+                   unsigned int integer = va_arg(valist, unsigned int);
+                   while( integer / (tens) != 0 ) {
+                     bits++;
+                     tens = tens * 10 ;
+                   }
+                   tens = tens / 10;
+                   for( k=0; k<bits; k++ ) {
+                     char num = (char)(integer / tens + '0' ); 
+                     integer = integer % tens ;
+                     putch(num);
+                     tens = tens / 10;
+                   }
+                   fmt = ret ;
+                   break;
+
+        default : putch(*fmt); fmt++; break;
+
+      }
+    }
+    else {
+      putch(*fmt);
+    }
+    fmt ++ ;
+
+  }
+
+
+/*
   while( *(fmt+i) != '\0' ) {
 
     if( *(fmt+i) == '%' && *(fmt+i+1) == 'd' ) {
@@ -55,6 +203,7 @@ int printf(const char *fmt, ...) {
     
     i++;
   }
+  */
 
   va_end(valist);
   
