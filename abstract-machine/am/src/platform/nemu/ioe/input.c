@@ -7,6 +7,7 @@
 void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
 
   uint32_t code = inl( KBD_ADDR ) ;
+  printf("code = %d\n", code);
   if( code == AM_KEY_NONE  ) {
     kbd->keydown = false;
     kbd->keycode = AM_KEY_NONE;
@@ -15,6 +16,5 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
   else {
       kbd->keydown = true;
       kbd->keycode = AM_KEY_NONE;
-
     }
 }
