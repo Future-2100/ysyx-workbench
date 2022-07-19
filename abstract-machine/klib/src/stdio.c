@@ -7,12 +7,13 @@
 
 int printf(const char *fmt, ...) {
 
-  //putch(char ch);
   va_list valist;
   va_start(valist, fmt);
-  //int j = 0;
+  int i = 0;
+  int j = 0;
+
+  /*
   int buf[8];
-  int i;
   int tens ;
   int allbits;
   int bits;
@@ -159,8 +160,9 @@ int printf(const char *fmt, ...) {
 
   }
 
+*/
 
-/*
+
   while( *(fmt+i) != '\0' ) {
 
     if( *(fmt+i) == '%' && *(fmt+i+1) == 'd' ) {
@@ -203,7 +205,6 @@ int printf(const char *fmt, ...) {
     
     i++;
   }
-  */
 
   va_end(valist);
   
