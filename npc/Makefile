@@ -94,7 +94,7 @@ VERILATOR_OUTFLAGS += -o $(abspath $(BIN))
 
 $(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 	@rm -rf $(OBJ_DIR)
-	@$(VERILATOR) $(VERILATOR_FLAGS) -gdb\
+	@$(VERILATOR) $(VERILATOR_FLAGS) -gdbbt\
 		--top-module $(TOPNAME) $^ \
 		$(NVBOARD_FLAGS) \
 		$(VERILATOR_OUTFLAGS)
