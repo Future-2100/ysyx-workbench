@@ -92,7 +92,6 @@ void run_step(Decode *s, CPU_state *cpu) {
       top->clk = !top->clk;
       top->eval();
       contextp->timeInc(1); // 10 timeprecision period passes...
-      printf(ANSI_FMT_RED "---------------------" ANSI_FMT_NONE);
       top->inst = inst_fetch((vaddr_t *)top->pc, 4);
       top->eval();
       contextp->timeInc(9);
