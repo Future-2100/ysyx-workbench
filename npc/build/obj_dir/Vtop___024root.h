@@ -32,8 +32,8 @@ VL_MODULE(Vtop___024root) {
     VL_OUT64(snxt_pc,63,0);
     VL_OUT64(pc,63,0);
     VL_OUT64(wdata,63,0);
-    VL_OUT64(addr,63,0);
     VL_IN64(rdata,63,0);
+    VL_OUT64(addr,63,0);
 
     // LOCAL SIGNALS
     CData/*0:0*/ top__DOT__br_asrt;
@@ -162,8 +162,8 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT____Vtogcov__snxt_pc;
         QData/*63:0*/ top__DOT____Vtogcov__pc;
         QData/*63:0*/ top__DOT____Vtogcov__wdata;
-        QData/*63:0*/ top__DOT____Vtogcov__addr;
         QData/*63:0*/ top__DOT____Vtogcov__rdata;
+        QData/*63:0*/ top__DOT____Vtogcov__addr;
     };
     struct {
         QData/*63:0*/ top__DOT____Vtogcov__imm;

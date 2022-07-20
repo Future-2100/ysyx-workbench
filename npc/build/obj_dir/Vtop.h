@@ -41,8 +41,8 @@ class Vtop VL_NOT_FINAL {
     VL_OUT8(&wlen,3,0);
     VL_OUT8(&wen,0,0);
     VL_OUT8(&ren,0,0);
-    VL_OUT64(&addr,63,0);
     VL_IN64(&rdata,63,0);
+    VL_OUT64(&addr,63,0);
 
     // CELLS
     // Public to allow access to /* verilator public */ items.

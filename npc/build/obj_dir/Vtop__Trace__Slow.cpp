@@ -34,8 +34,8 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declBus(c+165,"wlen", false,-1, 3,0);
         tracep->declBit(c+166,"wen", false,-1);
         tracep->declBit(c+167,"ren", false,-1);
-        tracep->declQuad(c+168,"addr", false,-1, 63,0);
-        tracep->declQuad(c+170,"rdata", false,-1, 63,0);
+        tracep->declQuad(c+168,"rdata", false,-1, 63,0);
+        tracep->declQuad(c+170,"addr", false,-1, 63,0);
         tracep->declBus(c+192,"top DW", false,-1, 31,0);
         tracep->declBus(c+193,"top IW", false,-1, 31,0);
         tracep->declBit(c+151,"top clk", false,-1);
@@ -50,8 +50,8 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declBus(c+165,"top wlen", false,-1, 3,0);
         tracep->declBit(c+166,"top wen", false,-1);
         tracep->declBit(c+167,"top ren", false,-1);
-        tracep->declQuad(c+168,"top addr", false,-1, 63,0);
-        tracep->declQuad(c+170,"top rdata", false,-1, 63,0);
+        tracep->declQuad(c+168,"top rdata", false,-1, 63,0);
+        tracep->declQuad(c+170,"top addr", false,-1, 63,0);
         tracep->declQuad(c+1,"top imm", false,-1, 63,0);
         tracep->declQuad(c+3,"top result", false,-1, 63,0);
         tracep->declBit(c+5,"top br_asrt", false,-1);
@@ -204,12 +204,12 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declBus(c+165,"top memory_inst wlen", false,-1, 3,0);
         tracep->declBit(c+166,"top memory_inst wen", false,-1);
         tracep->declBit(c+167,"top memory_inst ren", false,-1);
-        tracep->declQuad(c+170,"top memory_inst rdata", false,-1, 63,0);
-        tracep->declQuad(c+168,"top memory_inst addr", false,-1, 63,0);
+        tracep->declQuad(c+168,"top memory_inst rdata", false,-1, 63,0);
+        tracep->declQuad(c+170,"top memory_inst addr", false,-1, 63,0);
         tracep->declQuad(c+73,"top memory_inst lb_data", false,-1, 63,0);
         tracep->declQuad(c+75,"top memory_inst lh_data", false,-1, 63,0);
         tracep->declQuad(c+77,"top memory_inst lw_data", false,-1, 63,0);
-        tracep->declQuad(c+170,"top memory_inst ld_data", false,-1, 63,0);
+        tracep->declQuad(c+168,"top memory_inst ld_data", false,-1, 63,0);
         tracep->declQuad(c+182,"top memory_inst lbu_data", false,-1, 63,0);
         tracep->declQuad(c+184,"top memory_inst lhu_data", false,-1, 63,0);
         tracep->declQuad(c+186,"top memory_inst lwu_data", false,-1, 63,0);
@@ -412,8 +412,8 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->fullCData(oldp+165,(vlSelf->wlen),4);
         tracep->fullBit(oldp+166,(vlSelf->wen));
         tracep->fullBit(oldp+167,(vlSelf->ren));
-        tracep->fullQData(oldp+168,(vlSelf->addr),64);
-        tracep->fullQData(oldp+170,(vlSelf->rdata),64);
+        tracep->fullQData(oldp+168,(vlSelf->rdata),64);
+        tracep->fullQData(oldp+170,(vlSelf->addr),64);
         tracep->fullBit(oldp+172,((0x19U == (0x1fU 
                                              & (vlSelf->inst 
                                                 >> 2U)))));
