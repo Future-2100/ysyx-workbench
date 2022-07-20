@@ -104,7 +104,7 @@ static char* rl_gets() {
 
 void sdb_mainloop() {
   if(is_batch_mode) {
-    cpu_exec(-1);
+    cmd_c(NULL);
     return;
   }
 
