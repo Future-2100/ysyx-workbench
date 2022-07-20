@@ -22,7 +22,7 @@ ifeq ($(AUTO),en)
 ARGS += -b
 endif
 
-ARGS += -e $(IMAGE).elf
+ARGS += --elf=$(IMAGE).elf
 
 image: $(IMAGE).elf
 	@$(OBJDUMP) -d $(IMAGE).elf > $(IMAGE).txt
