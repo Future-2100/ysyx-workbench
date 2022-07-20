@@ -96,7 +96,6 @@ void run_step(Decode *s, CPU_state *cpu) {
       contextp->timeInc(9);
       top->eval();
 
-
       if( top->ren ) {
         top->rdata = paddr_read((paddr_t)(top->addr), 8);
       }
