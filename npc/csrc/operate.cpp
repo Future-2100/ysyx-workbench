@@ -107,6 +107,13 @@ void run_step(Decode *s, CPU_state *cpu) {
       if( top->wen ) {
         paddr_write((paddr_t)(top->addr), top->wlen, top->wdata);
       }
+      s->snpc = top->snxt_pc;
+      s->dnpc = top->dnxt_pc;
+      s->pc   = top->pc;
+      s->isa.inst.val = top->inst;
+      for (int i=0; i<32; i++) {
+        cpu->gpr[i] = cpu_gpr[i];
+      }
 
       top->eval();
       contextp->timeInc(10);
@@ -118,13 +125,6 @@ void run_step(Decode *s, CPU_state *cpu) {
        } 
       top->eval();
       contextp->timeInc(10);
-      s->snpc = top->snxt_pc;
-      s->dnpc = top->dnxt_pc;
-      s->pc   = top->pc;
-      s->isa.inst.val = top->inst;
-      for (int i=0; i<32; i++) {
-        cpu->gpr[i] = cpu_gpr[i];
-      }
 
       if(top->ebreak)  { 
         npc_trap(NPC_END , top->pc, top->a);
