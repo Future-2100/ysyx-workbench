@@ -68,6 +68,7 @@ static void exec_once(Decode *s, vaddr_t pc){
 static void execute(uint64_t n) {
   Decode s;
   for(; n>0; n--) {
+    printf(ANSI_FMT_RED "---------------------" ANSI_FMT_NONE);
     exec_once(&s,cpu.pc);
     g_nr_guest_inst ++;
     trace_and_difftest(&s, cpu.pc);
