@@ -120,7 +120,7 @@ run : sim
 sim: $(BIN) 
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	@echo "----------------------------------------- RUN -----------------------------------------------"
-	@gdb $(BIN) $(NPCFLAGS) 
+	@gdb --args $(BIN) -q $(NPCFLAGS) 
 	@echo "---------------------------------------- DONE  ----------------------------------------------"
 	$(WAVEFLAGS)
 
