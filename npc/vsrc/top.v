@@ -232,7 +232,6 @@ controlor controlor_inst
     $display("[%0t] Model running...\n", $time);
   end
 
-
   import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
   initial set_gpr_ptr(regfile_inst.gpr);
 
