@@ -86,18 +86,18 @@ void run_step(Decode *s, CPU_state *cpu) {
 //  while ( j-- && ( !contextp->gotFinish() ) ) {
       
       if( top->wen ) {
-        paddr_write((paddr_t)guest_to_host(top->addr), top->wlen, top->wdata);
+        paddr_write((paddr_t)(top->addr), top->wlen, top->wdata);
       }
 
       top->clk = !top->clk;
       top->eval();
       contextp->timeInc(1); // 10 timeprecision period passes...
-      top->inst = inst_fetch((vaddr_t *)guest_to_host(top->pc), 4);
+      top->inst = inst_fetch((vaddr_t *)(top->pc), 4);
       top->eval();
       contextp->timeInc(9);
 
       if( top->ren ) {
-        top->rdata = paddr_read((paddr_t)guest_to_host(top->addr), 8);
+        top->rdata = paddr_read((paddr_t)(top->addr), 8);
       }
       s->snpc = top->snxt_pc;
       s->dnpc = top->dnxt_pc;
