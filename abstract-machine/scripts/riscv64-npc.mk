@@ -19,10 +19,10 @@ CFLAGS += -DMAINARGS=\"$(mainargs)\"
 .PHONY: $(AM_HOME)/am/src/riscv/npc/trm.c
 
 ifeq ($(AUTO),en)
-NPCFLAGS += -b
+ARGS += -b
 endif
 
-NPCFLAGS += -e $(IMAGE).elf
+ARGS += -e $(IMAGE).elf
 
 image: $(IMAGE).elf
 	@$(OBJDUMP) -d $(IMAGE).elf > $(IMAGE).txt
@@ -30,6 +30,6 @@ image: $(IMAGE).elf
 	@$(OBJCOPY) -S --set-section-flags .bss=alloc,contents -O binary $(IMAGE).elf $(IMAGE).bin
 
 run: image
-	$(MAKE) -C $(NPC_HOME) ARGS="$(NPCFLAGS)" IMG=$(IMAGE).bin run
+	$(MAKE) -C $(NPC_HOME) ARGS="$(ARGS)" IMG=$(IMAGE).bin run
 
 
