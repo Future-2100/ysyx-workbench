@@ -13,14 +13,12 @@ extern "C" {
 
 
     // DPI EXPORTS
-    // DPI export at /home/grand/ysyx-workbench/npc/vsrc/top.v:256:8
+    // DPI export at /home/grand/ysyx-workbench/npc/vsrc/top.v:253:8
     extern void end_sim();
 
     // DPI IMPORTS
-    // DPI import at /home/grand/ysyx-workbench/npc/vsrc/top.v:237:32
+    // DPI import at /home/grand/ysyx-workbench/npc/vsrc/top.v:235:32
     extern void set_gpr_ptr(const svOpenArrayHandle a);
-    // DPI import at /home/grand/ysyx-workbench/npc/vsrc/top.v:240:32
-    extern void vmem_read(long long raddr, long long* rdata, char ren);
 
 #ifdef __cplusplus
 }

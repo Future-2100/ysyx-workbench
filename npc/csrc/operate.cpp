@@ -49,11 +49,18 @@ void init_verilator(int argc, char** argv, char** env) {
 }
 
 static void single_cycle() {
-  top->clk = 0; top->eval(); contextp->timeInc(10);
-  top->clk = 1; top->eval(); contextp->timeInc(10);
+
+  top->clk = 0; 
+  top->eval(); 
+  contextp->timeInc(10);
+
+  top->clk = 1; 
+  top->eval(); 
+  contextp->timeInc(10);
+
 }
 
-void rstn(int n) {
+void reset(int n) {
   top->rstn = 0;
   while( n-- > 0) single_cycle();
   top->rstn = 1;
@@ -61,7 +68,7 @@ void rstn(int n) {
 
 void init_module() {
 
-  rstn(10);
+  reset(10);
   printf("pc = %lx\n",top->pc);
   printf(ANSI_FMT_GREEN "---------- module reseted ----------\n" ANSI_FMT_NONE );
 
@@ -77,12 +84,12 @@ void vmem_write(long long waddr, long long wdata, char wlen, char wen) {
   if( wen == 1 )
     paddr_write(waddr, wlen, wdata);
 }
-*/
 
 void vmem_read(long long raddr, long long *rdata, char ren) {
   if( ren == 1 )
   *rdata = paddr_read(raddr, 8);
 }
+*/
 
 void isa_reg_display() {
   int i;
@@ -95,8 +102,6 @@ void run_step(Decode *s, CPU_state *cpu) {
 
 //  int j=2;
 //  while ( j-- && ( !contextp->gotFinish() ) ) {
-     
-      
 
       top->clk = !top->clk;   //negedge clk
       if( top->wen ) {
@@ -108,9 +113,9 @@ void run_step(Decode *s, CPU_state *cpu) {
       
       top->clk = !top->clk;   //posedge clk 
       top->inst = inst_fetch(&top->pc, 4);
-/*      if( top->ren ) {
+      if( top->ren ) {
         paddr_read((paddr_t)(top->addr),8);
-       } */
+       } 
       top->eval();
       contextp->timeInc(10);
       s->snpc = top->snxt_pc;
