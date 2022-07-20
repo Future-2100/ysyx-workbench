@@ -252,7 +252,7 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declBit(c+37,"top controlor_inst sw", false,-1);
         tracep->declBit(c+38,"top controlor_inst sd", false,-1);
         tracep->declBit(c+155,"top controlor_inst ebreak", false,-1);
-        tracep->declBus(c+188,"top controlor_inst opcode", false,-1, 4,0);
+        tracep->declBus(c+188,"top controlor_inst opcode", false,-1, 6,0);
         tracep->declBus(c+177,"top controlor_inst funct3", false,-1, 2,0);
         tracep->declBus(c+189,"top controlor_inst funct7", false,-1, 6,0);
         tracep->declBit(c+190,"top controlor_inst lui_en", false,-1);
@@ -414,19 +414,15 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->fullQData(oldp+167,(vlSelf->rdata),64);
         tracep->fullBit(oldp+169,(vlSelf->ren));
         tracep->fullQData(oldp+170,(vlSelf->addr),64);
-        tracep->fullBit(oldp+172,((0x19U == (0x1fU 
-                                             & (vlSelf->inst 
-                                                >> 2U)))));
-        tracep->fullBit(oldp+173,((0x1bU == (0x1fU 
-                                             & (vlSelf->inst 
-                                                >> 2U)))));
-        tracep->fullBit(oldp+174,((0U == (0x1fU & (vlSelf->inst 
-                                                   >> 2U)))));
-        tracep->fullBit(oldp+175,((8U == (0x1fU & (vlSelf->inst 
-                                                   >> 2U)))));
-        tracep->fullBit(oldp+176,((0x18U == (0x1fU 
-                                             & (vlSelf->inst 
-                                                >> 2U)))));
+        tracep->fullBit(oldp+172,((0x67U == (0x7fU 
+                                             & vlSelf->inst))));
+        tracep->fullBit(oldp+173,((0x6fU == (0x7fU 
+                                             & vlSelf->inst))));
+        tracep->fullBit(oldp+174,((3U == (0x7fU & vlSelf->inst))));
+        tracep->fullBit(oldp+175,((0x23U == (0x7fU 
+                                             & vlSelf->inst))));
+        tracep->fullBit(oldp+176,((0x63U == (0x7fU 
+                                             & vlSelf->inst))));
         tracep->fullCData(oldp+177,((7U & (vlSelf->inst 
                                            >> 0xcU))),3);
         tracep->fullCData(oldp+178,((8U | (7U & (vlSelf->inst 
@@ -444,14 +440,12 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                                                     (0xffffU 
                                                      & (IData)(vlSelf->rdata))))),64);
         tracep->fullQData(oldp+186,((QData)((IData)(vlSelf->rdata))),64);
-        tracep->fullCData(oldp+188,((0x1fU & (vlSelf->inst 
-                                              >> 2U))),5);
+        tracep->fullCData(oldp+188,((0x7fU & vlSelf->inst)),7);
         tracep->fullCData(oldp+189,((vlSelf->inst >> 0x19U)),7);
-        tracep->fullBit(oldp+190,((0xdU == (0x1fU & 
-                                            (vlSelf->inst 
-                                             >> 2U)))));
-        tracep->fullBit(oldp+191,((5U == (0x1fU & (vlSelf->inst 
-                                                   >> 2U)))));
+        tracep->fullBit(oldp+190,((0x37U == (0x7fU 
+                                             & vlSelf->inst))));
+        tracep->fullBit(oldp+191,((0x17U == (0x7fU 
+                                             & vlSelf->inst))));
         tracep->fullIData(oldp+192,(0x40U),32);
         tracep->fullIData(oldp+193,(0x20U),32);
         tracep->fullIData(oldp+194,(5U),32);

@@ -2694,8 +2694,7 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__7(Vtop___024root* vlSelf) {
     // Body
     vlSelf->top__DOT__pc_gen_inst__DOT__br_pc = (vlSelf->pc 
                                                  + vlSelf->top__DOT__imm);
-    vlSelf->top__DOT__wb_en = (((0U == (0x1fU & (vlSelf->inst 
-                                                 >> 2U))) 
+    vlSelf->top__DOT__wb_en = (((3U == (0x7fU & vlSelf->inst)) 
                                 | (IData)(vlSelf->top__DOT__wb_pc)) 
                                | (IData)(vlSelf->top__DOT__wb_alu));
     vlSelf->top__DOT__rd_data1 = ((0U == (0x1fU & (vlSelf->inst 
@@ -7287,9 +7286,8 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__7(Vtop___024root* vlSelf) {
             = vlSelf->top__DOT__alu_inst__DOT__br_result;
     }
     vlSelf->top__DOT__br_asrt = ((IData)(vlSelf->top__DOT__alu_inst__DOT__br_result) 
-                                 & (0x18U == (0x1fU 
-                                              & (vlSelf->inst 
-                                                 >> 2U))));
+                                 & (0x63U == (0x7fU 
+                                              & vlSelf->inst)));
     if ((1U & (vlSelf->top__DOT__alu_inst__DOT__wmlgc_result 
                ^ vlSelf->top__DOT__alu_inst__DOT____Vtogcov__wmlgc_result))) {
         ++(vlSymsp->__Vcoverage[1784]);
@@ -9307,16 +9305,14 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__7(Vtop___024root* vlSelf) {
         vlSelf->top__DOT____Vtogcov__br_asrt = vlSelf->top__DOT__br_asrt;
     }
     vlSelf->top__DOT__pc_gen_inst__DOT__snxt_en = (
-                                                   ((0x19U 
+                                                   ((0x67U 
                                                      != 
-                                                     (0x1fU 
-                                                      & (vlSelf->inst 
-                                                         >> 2U))) 
-                                                    & (0x1bU 
+                                                     (0x7fU 
+                                                      & vlSelf->inst)) 
+                                                    & (0x6fU 
                                                        != 
-                                                       (0x1fU 
-                                                        & (vlSelf->inst 
-                                                           >> 2U)))) 
+                                                       (0x7fU 
+                                                        & vlSelf->inst))) 
                                                    & (~ (IData)(vlSelf->top__DOT__br_asrt)));
     if ((1U & ((IData)(vlSelf->top__DOT__alu_inst__DOT__mlgc_result) 
                ^ (IData)(vlSelf->top__DOT__alu_inst__DOT____Vtogcov__mlgc_result)))) {
@@ -11442,25 +11438,22 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__7(Vtop___024root* vlSelf) {
     vlSelf->addr = vlSelf->top__DOT__result;
     vlSelf->dnxt_pc = ((((0xfffffffffffffffeULL & (
                                                    (- (QData)((IData)(
-                                                                      (0x19U 
+                                                                      (0x67U 
                                                                        == 
-                                                                       (0x1fU 
-                                                                        & (vlSelf->inst 
-                                                                           >> 2U)))))) 
+                                                                       (0x7fU 
+                                                                        & vlSelf->inst))))) 
                                                    & vlSelf->top__DOT__result)) 
-                         | ((- (QData)((IData)((0x1bU 
+                         | ((- (QData)((IData)((0x6fU 
                                                 == 
-                                                (0x1fU 
-                                                 & (vlSelf->inst 
-                                                    >> 2U)))))) 
+                                                (0x7fU 
+                                                 & vlSelf->inst))))) 
                             & vlSelf->top__DOT__result)) 
                         | ((- (QData)((IData)(vlSelf->top__DOT__br_asrt))) 
                            & vlSelf->top__DOT__pc_gen_inst__DOT__br_pc)) 
                        | ((- (QData)((IData)(vlSelf->top__DOT__pc_gen_inst__DOT__snxt_en))) 
                           & vlSelf->snxt_pc));
     vlSelf->top__DOT__regfile_inst__DOT__wb_data = 
-        ((((- (QData)((IData)((0U == (0x1fU & (vlSelf->inst 
-                                               >> 2U)))))) 
+        ((((- (QData)((IData)((3U == (0x7fU & vlSelf->inst))))) 
            & vlSelf->top__DOT__load_data) | ((- (QData)((IData)(vlSelf->top__DOT__wb_pc))) 
                                              & vlSelf->snxt_pc)) 
          | ((- (QData)((IData)(vlSelf->top__DOT__wb_alu))) 

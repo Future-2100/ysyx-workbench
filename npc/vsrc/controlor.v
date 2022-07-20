@@ -56,30 +56,30 @@ module controlor
   end
 
 
-  wire  [4:0] opcode = inst[6:2] ;
+  wire  [6:0] opcode = inst[6:0] ;
 
   wire  [2:0] funct3  = inst[14:12];
 
   wire  [6:0] funct7  = inst[31:25];
 
-  assign  ebreak = ( opcode==5'b11100 ) & ( funct7==7'b0 ) & ( inst[24:20]==5'b00001 ) ;
+  assign  ebreak = ( opcode==7'b1110011 ) & ( funct7==7'b0 ) & ( inst[24:20]==5'b00001 ) ;
 
-  wire       lui_en = ( opcode == 5'b01101 ) ;
-  wire     auipc_en = ( opcode == 5'b00101 ) ;
-  assign     jal_en = ( opcode == 5'b11011 ) ;
-  assign    jalr_en = ( opcode == 5'b11001 ) ;
-  assign      br_en = ( opcode == 5'b11000 ) ;
-  wire      load_en = ( opcode == 5'b00000 ) ;
-  wire     store_en = ( opcode == 5'b01000 ) ;
+  wire       lui_en = ( opcode == 7'b0110111 ) ;
+  wire     auipc_en = ( opcode == 7'b0010111 ) ;
+  assign     jal_en = ( opcode == 7'b1101111 ) ;
+  assign    jalr_en = ( opcode == 7'b1100111 ) ;
+  assign      br_en = ( opcode == 7'b1100011 ) ;
+  wire      load_en = ( opcode == 7'b0000011 ) ;
+  wire     store_en = ( opcode == 7'b0100011 ) ;
 
-  wire     immop_en = ( opcode == 5'b00100 ) & ( funct3[1:0] != 2'b01 ) ;
-  wire     immsf_en = ( opcode == 5'b00100 ) & ( funct3[1:0] == 2'b01 ) ;
-  wire    wimmop_en = ( opcode == 5'b00110 ) & ( funct3[1:0] != 2'b01 ) ;
-  wire    wimmsf_en = ( opcode == 5'b00110 ) & ( funct3[1:0] == 2'b01 ) ;
-  wire      rsop_en = ( opcode == 5'b01100 ) & ( funct7[0]   == 1'b0  ) ;
-  wire     wrsop_en = ( opcode == 5'b01110 ) & ( funct7[0]   == 1'b0  ) ;
-  wire     mrsop_en = ( opcode == 5'b01100 ) & ( funct7[0]   == 1'b1  ) ;
-  wire    wmrsop_en = ( opcode == 5'b01110 ) & ( funct7[0]   == 1'b1  ) ;
+  wire     immop_en = ( opcode == 7'b0010011 ) & ( funct3[1:0] != 2'b01 ) ;
+  wire     immsf_en = ( opcode == 7'b0010011 ) & ( funct3[1:0] == 2'b01 ) ;
+  wire    wimmop_en = ( opcode == 7'b0011011 ) & ( funct3[1:0] != 2'b01 ) ;
+  wire    wimmsf_en = ( opcode == 7'b0011011 ) & ( funct3[1:0] == 2'b01 ) ;
+  wire      rsop_en = ( opcode == 7'b0110011 ) & ( funct7[0]   == 1'b0  ) ;
+  wire     wrsop_en = ( opcode == 7'b0111011 ) & ( funct7[0]   == 1'b0  ) ;
+  wire     mrsop_en = ( opcode == 7'b0110011 ) & ( funct7[0]   == 1'b1  ) ;
+  wire    wmrsop_en = ( opcode == 7'b0111011 ) & ( funct7[0]   == 1'b1  ) ;
 
   assign  I_type = jalr_en | load_en | immop_en | immsf_en | wimmop_en | wimmsf_en ;
   assign  S_type = store_en  ;
