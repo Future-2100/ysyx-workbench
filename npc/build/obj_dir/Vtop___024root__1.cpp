@@ -140,7 +140,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__5(Vtop___024root* vlSelf) {
     __Vdlyvset__top__DOT__regfile_inst__DOT__gpr__v0 = 0U;
     __Vdlyvset__top__DOT__regfile_inst__DOT__gpr__v1 = 0U;
     vlSelf->pc = ((IData)(vlSelf->rstn) ? vlSelf->dnxt_pc
-                   : 0x7ffffffcULL);
+                   : 0x80000000ULL);
     if (vlSelf->rstn) {
         if (vlSelf->top__DOT__wb_en) {
             __Vdlyvval__top__DOT__regfile_inst__DOT__gpr__v0 
