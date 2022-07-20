@@ -16,6 +16,7 @@ void sdb_set_batch_mode() {
 
 static int cmd_c(char *args) {
   printf(ANSI_FMT_RED "---------------------" ANSI_FMT_NONE);
+  return 0;
   cpu_exec(-1);
   return 0;
 }
