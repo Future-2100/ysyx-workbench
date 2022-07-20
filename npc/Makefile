@@ -94,10 +94,10 @@ VERILATOR_OUTFLAGS += -o $(abspath $(BIN))
 
 $(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 	@rm -rf $(OBJ_DIR)
-	@$(VERILATOR) $(VERILATOR_FLAGS) -gdbbt\
+	@$(VERILATOR) $(VERILATOR_FLAGS) \
 		--top-module $(TOPNAME) $^ \
 		$(NVBOARD_FLAGS) \
-		$(VERILATOR_OUTFLAGS)
+		$(VERILATOR_OUTFLAGS) -gdb
 
 
 # -b -e <elf_file> from abstract_machine
@@ -120,7 +120,7 @@ run : sim
 sim: $(BIN) 
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	@echo "----------------------------------------- RUN -----------------------------------------------"
-	@gdb $(BIN) $(NPCFLAGS)
+	@$(BIN) $(NPCFLAGS)
 	@echo "---------------------------------------- DONE  ----------------------------------------------"
 	$(WAVEFLAGS)
 
