@@ -98,6 +98,8 @@ void isa_reg_display() {
   }
 }
 
+static bool first = true ;
+
 void run_step(Decode *s, CPU_state *cpu) {
 
 //  int j=2;
@@ -107,15 +109,20 @@ void run_step(Decode *s, CPU_state *cpu) {
       if( top->wen ) {
         paddr_write((paddr_t)(top->addr), top->wlen, top->wdata);
       }
-      s->snpc = top->snxt_pc;
-      s->dnpc = top->dnxt_pc;
-      s->pc   = top->pc;
-      s->isa.inst.val = top->inst;
-      for (int i=0; i<32; i++) {
-        cpu->gpr[i] = cpu_gpr[i];
-      }
 
       top->eval();
+      if( first == false ) {
+        s->snpc = top->snxt_pc;
+        s->dnpc = top->dnxt_pc;
+        s->pc   = top->pc;
+        s->isa.inst.val = top->inst;
+        for (int i=0; i<32; i++) {
+          cpu->gpr[i] = cpu_gpr[i];
+        }
+      }
+      if( first == true ) {
+        first = false ;
+      }
       contextp->timeInc(10);
       
       top->clk = !top->clk;   //posedge clk 
@@ -125,6 +132,7 @@ void run_step(Decode *s, CPU_state *cpu) {
        } 
       top->eval();
       contextp->timeInc(10);
+
 
       if(top->ebreak)  { 
         npc_trap(NPC_END , top->pc, top->a);
