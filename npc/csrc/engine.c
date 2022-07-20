@@ -15,7 +15,6 @@ void sdb_set_batch_mode() {
 }
 
 static int cmd_c(char *args) {
-  printf(ANSI_FMT_RED "---------------------" ANSI_FMT_NONE);
   cpu_exec(-1);
   return 0;
 }
@@ -27,7 +26,6 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_si(char *args) {
-  printf(ANSI_FMT_RED "---------------------" ANSI_FMT_NONE);
   int n;
   char *arg = strtok(NULL, " ");
   if( arg == NULL )
