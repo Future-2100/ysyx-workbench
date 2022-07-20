@@ -32,7 +32,6 @@ VL_MODULE(Vtop___024root) {
     VL_OUT64(snxt_pc,63,0);
     VL_OUT64(pc,63,0);
     VL_OUT64(wdata,63,0);
-    VL_IN64(rdata,63,0);
     VL_OUT64(addr,63,0);
 
     // LOCAL SIGNALS
@@ -76,6 +75,7 @@ VL_MODULE(Vtop___024root) {
     VlWide<4>/*127:0*/ top__DOT__alu_inst__DOT__multu;
     IData/*31:0*/ top__DOT__alu_inst__DOT__wmlgc_result;
     IData/*31:0*/ top__DOT__alu_inst__DOT__wlgc_result;
+    QData/*63:0*/ top__DOT__rdata;
     QData/*63:0*/ top__DOT__imm;
     QData/*63:0*/ top__DOT__result;
     QData/*63:0*/ top__DOT__load_data;
@@ -152,7 +152,6 @@ VL_MODULE(Vtop___024root) {
         CData/*0:0*/ top__DOT__controlor_inst__DOT____Vtogcov__wrsop_en;
         CData/*0:0*/ top__DOT__controlor_inst__DOT____Vtogcov__R_type;
         CData/*0:0*/ __Vclklast__TOP__clk;
-        CData/*0:0*/ __Vclklast__TOP__rstn;
         IData/*31:0*/ top__DOT____Vtogcov__inst;
         VlWide<4>/*127:0*/ top__DOT__alu_inst__DOT____Vtogcov__multu;
         IData/*31:0*/ top__DOT__alu_inst__DOT____Vtogcov__wmlgc_result;
@@ -162,11 +161,11 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT____Vtogcov__snxt_pc;
         QData/*63:0*/ top__DOT____Vtogcov__pc;
         QData/*63:0*/ top__DOT____Vtogcov__wdata;
-        QData/*63:0*/ top__DOT____Vtogcov__rdata;
         QData/*63:0*/ top__DOT____Vtogcov__addr;
+        QData/*63:0*/ top__DOT____Vtogcov__rdata;
+        QData/*63:0*/ top__DOT____Vtogcov__imm;
     };
     struct {
-        QData/*63:0*/ top__DOT____Vtogcov__imm;
         QData/*63:0*/ top__DOT____Vtogcov__result;
         QData/*63:0*/ top__DOT____Vtogcov__load_data;
         QData/*63:0*/ top__DOT____Vtogcov__rd_data1;
@@ -189,6 +188,7 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT__memory_inst__DOT____Vtogcov__lbu_data;
         QData/*63:0*/ top__DOT__memory_inst__DOT____Vtogcov__lhu_data;
         QData/*63:0*/ top__DOT__memory_inst__DOT____Vtogcov__lwu_data;
+        QData/*63:0*/ __Vtask_top__DOT__vmem_read__1__rdata;
         VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
     };
 

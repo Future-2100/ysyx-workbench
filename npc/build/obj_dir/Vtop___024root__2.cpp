@@ -9,7 +9,8 @@
 
 void Vtop___024root___combo__TOP__4(Vtop___024root* vlSelf);
 void Vtop___024root___sequent__TOP__5(Vtop___024root* vlSelf);
-void Vtop___024root___combo__TOP__6(Vtop___024root* vlSelf);
+void Vtop___024root___sequent__TOP__6(Vtop___024root* vlSelf);
+void Vtop___024root___combo__TOP__7(Vtop___024root* vlSelf);
 
 void Vtop___024root___eval(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -18,15 +19,16 @@ void Vtop___024root___eval(Vtop___024root* vlSelf) {
     // Body
     Vtop___024root___combo__TOP__4(vlSelf);
     vlSelf->__Vm_traceActivity[1U] = 1U;
-    if ((((IData)(vlSelf->clk) & (~ (IData)(vlSelf->__Vclklast__TOP__clk))) 
-         | ((~ (IData)(vlSelf->rstn)) & (IData)(vlSelf->__Vclklast__TOP__rstn)))) {
+    if (((IData)(vlSelf->clk) & (~ (IData)(vlSelf->__Vclklast__TOP__clk)))) {
         Vtop___024root___sequent__TOP__5(vlSelf);
+    }
+    if (((~ (IData)(vlSelf->clk)) & (IData)(vlSelf->__Vclklast__TOP__clk))) {
+        Vtop___024root___sequent__TOP__6(vlSelf);
         vlSelf->__Vm_traceActivity[2U] = 1U;
     }
-    Vtop___024root___combo__TOP__6(vlSelf);
+    Vtop___024root___combo__TOP__7(vlSelf);
     // Final
     vlSelf->__Vclklast__TOP__clk = vlSelf->clk;
-    vlSelf->__Vclklast__TOP__rstn = vlSelf->rstn;
 }
 
 QData Vtop___024root___change_request_1(Vtop___024root* vlSelf);

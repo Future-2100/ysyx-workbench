@@ -32,7 +32,7 @@ module pc_gen
                     ( {DW{  br_en }} &   br_pc ) |
                     ( {DW{snxt_en }} & snxt_pc ) ;
 
-  always@(posedge clk or negedge rstn) begin
+  always@(posedge clk) begin
     if(!rstn) begin
       pc <= 64'h80000000 ;
     end else begin

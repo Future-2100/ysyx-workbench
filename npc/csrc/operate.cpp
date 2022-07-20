@@ -77,11 +77,11 @@ void vmem_write(long long waddr, long long wdata, char wlen, char wen) {
   if( wen == 1 )
     paddr_write(waddr, wlen, wdata);
 }
+*/
 
 void vmem_read(long long raddr, long long *rdata) {
   *rdata = paddr_read(raddr, 8);
 }
-*/
 
 void isa_reg_display() {
   int i;
@@ -95,23 +95,23 @@ void run_step(Decode *s, CPU_state *cpu) {
 //  int j=2;
 //  while ( j-- && ( !contextp->gotFinish() ) ) {
      
+      
+
+      top->clk = !top->clk;   //negedge clk
       if( top->wen ) {
         paddr_write((paddr_t)(top->addr), top->wlen, top->wdata);
       }
-      
 
-      top->clk = !top->clk;
-      //top->eval();
-      //contextp->timeInc(1); // 10 timeprecision period passes...
-      top->inst = inst_fetch(&top->pc, 4);
       top->eval();
       contextp->timeInc(10);
-
-    
-      if( top->ren ) {
-        paddr_read((paddr_t)(top->addr),8);
-      }
       
+      top->clk = !top->clk;   //posedge clk 
+      top->inst = inst_fetch(&top->pc, 4);
+/*      if( top->ren ) {
+        paddr_read((paddr_t)(top->addr),8);
+       } */
+      top->eval();
+      contextp->timeInc(10);
       s->snpc = top->snxt_pc;
       s->dnpc = top->dnxt_pc;
       s->pc   = top->pc;
@@ -119,9 +119,6 @@ void run_step(Decode *s, CPU_state *cpu) {
       for (int i=0; i<32; i++) {
         cpu->gpr[i] = cpu_gpr[i];
       }
-      top->clk = !top->clk;
-      top->eval();
-      contextp->timeInc(10);
 
       if(top->ebreak)  { 
         npc_trap(NPC_END , top->pc, top->a);

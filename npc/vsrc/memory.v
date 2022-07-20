@@ -46,7 +46,7 @@ module memory
 
   assign  addr  =  addr_in;
 
-  assign  wen =  ( sb | sh | sw | sd ) & rstn ;
+  assign  wen =  ( sb | sh | sw | sd ) ;
   assign  ren =  ( lb | lh | lw | ld | lbu | lhu | lwu ) ;
 
   wire  [DW-1:0]  lb_data = { {(DW- 8){rdata[ 7]}} , rdata[ 7:0] };

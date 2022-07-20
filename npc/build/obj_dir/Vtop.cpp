@@ -23,7 +23,6 @@ Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     , wlen{vlSymsp->TOP.wlen}
     , wen{vlSymsp->TOP.wen}
     , ren{vlSymsp->TOP.ren}
-    , rdata{vlSymsp->TOP.rdata}
     , addr{vlSymsp->TOP.addr}
     , rootp{&(vlSymsp->TOP)}
 {

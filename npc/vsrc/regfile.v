@@ -34,7 +34,7 @@ module regfile
   assign  a = gpr[10];
   integer i;
 
-  always@(posedge clk or negedge rstn) begin
+  always@(negedge clk) begin
     if(!rstn) begin
       for(i=0; i<32; i=i+1) begin
         gpr[i] <= {DW{1'b0}} ;
