@@ -92,6 +92,15 @@ VERILATOR_OUTFLAGS += --exe
 # Specify the name for the executable built if using --exe. Default to the --prefix if not specified
 VERILATOR_OUTFLAGS += -o $(abspath $(BIN))
 
+
+bin : $(BIN)
+	@rm -rf $(OBJ_DIR)
+	@$(VERILATOR) $(VERILATOR_FLAGS) \
+		--top-module $(TOPNAME) $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE) \
+		$(NVBOARD_FLAGS) \
+		$(VERILATOR_OUTFLAGS) 
+
+
 $(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 	@rm -rf $(OBJ_DIR)
 	@$(VERILATOR) $(VERILATOR_FLAGS) \
@@ -113,14 +122,14 @@ endif
 
 all : default
 
-#NPCFLAGS += --log=$(BUILD_DIR)/npc-log.txt
+NPCFLAGS = --log=$(BUILD_DIR)/npc-log.txt
 
 run : sim
 
 gdb : $(BIN)
 	@gdb --args $(BIN) -b $(NPCFLAGS) 
 
-sim: $(BIN) 
+sim: bin 
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	@echo "----------------------------------------- RUN -----------------------------------------------"
 	@$(BIN) $(NPCFLAGS) 
