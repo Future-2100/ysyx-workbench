@@ -29,6 +29,7 @@ static void exec_once(Decode *s, vaddr_t pc){
 
   s->pc = pc;
   s->snpc = pc;
+  printf(ANSI_FMT_RED "---------------------" ANSI_FMT_NONE);
   run_step(s, &cpu);
   cpu.pc = s->dnpc;
 
