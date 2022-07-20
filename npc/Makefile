@@ -93,13 +93,6 @@ VERILATOR_OUTFLAGS += --exe
 VERILATOR_OUTFLAGS += -o $(abspath $(BIN))
 
 
-bin : $(BIN)
-	@rm -rf $(OBJ_DIR)
-	@$(VERILATOR) $(VERILATOR_FLAGS) \
-		--top-module $(TOPNAME) $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE) \
-		$(NVBOARD_FLAGS) \
-		$(VERILATOR_OUTFLAGS) 
-
 
 $(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 	@rm -rf $(OBJ_DIR)
@@ -129,7 +122,7 @@ run : sim
 gdb : $(BIN)
 	@gdb --args $(BIN) -b $(NPCFLAGS) 
 
-sim: bin 
+sim: $(BIN)
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	@echo "----------------------------------------- RUN -----------------------------------------------"
 	@$(BIN) $(NPCFLAGS) --diff=$(NEMU_HOME)/build/riscv64-nemu-interpreter-so
