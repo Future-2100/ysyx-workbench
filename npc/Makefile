@@ -94,7 +94,7 @@ VERILATOR_OUTFLAGS += -o $(abspath $(BIN))
 
 $(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 	@rm -rf $(OBJ_DIR)
-	@$(VERILATOR) $(VERILATOR_FLAGS) \
+	@$(VERILATOR) $(VERILATOR_FLAGS) -gdb\
 		--top-module $(TOPNAME) $^ \
 		$(NVBOARD_FLAGS) \
 		$(VERILATOR_OUTFLAGS) 
@@ -120,7 +120,7 @@ run : sim
 sim: $(BIN) 
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	@echo "----------------------------------------- RUN -----------------------------------------------"
-	@$(BIN) $(NPCFLAGS)
+	@$(BIN) $(NPCFLAGS) -b
 	@echo "---------------------------------------- DONE  ----------------------------------------------"
 	$(WAVEFLAGS)
 
