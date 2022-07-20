@@ -1,4 +1,6 @@
 #include <common.h>
+#include <paddr.h>
+
 // Include common routines
 #include <verilated.h>
 #include <verilated_dpi.h>
@@ -12,23 +14,15 @@ static VerilatedContext* contextp = new VerilatedContext;
 static Vtop* top = new Vtop;
 
 //-----  extern function ------//
-uint32_t inst_read(uint64_t pc);
-uint64_t mem_read(uint64_t addr);
-void     mem_write(uint64_t addr, int len, word_t data);
 void npc_trap(int state, vaddr_t pc, int halt_ret);
 
-
-uint64_t *cpu_gpr = NULL;
-//extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
-extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
-  cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+word_t vaddr_ifetch(vaddr_t addr, int len){
+    return paddr_read(addr, len);
 }
 
-void isa_reg_display() {
-  int i;
-  for (i = 0; i<32; i++) {
-    printf("gpr[%d] = 0x%lx\n", i, cpu_gpr[i]);
-  }
+static inline uint32_t inst_fetch(vaddr_t *pc, int len){
+  uint32_t inst = vaddr_ifetch(*pc, len);
+  return inst;
 }
 
 void init_verilator(int argc, char** argv, char** env) {
@@ -70,40 +64,54 @@ void init_module() {
   reset(10);
   printf("pc = %lx\n",top->pc);
   printf(ANSI_FMT_GREEN "---------- module reseted ----------\n" ANSI_FMT_NONE );
+
 }
 
-extern bool g_print_step;
+uint64_t *cpu_gpr = NULL;
+//extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
+extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
+  cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+}
 
-void run_step(Decode *s) {
+void isa_reg_display() {
+  int i;
+  for (i = 0; i<32; i++) {
+    printf("gpr[%d] = 0x%lx\n", i, cpu_gpr[i]);
+  }
+}
 
-//  int j = 2 ;
+void run_step(Decode *s, CPU_state *cpu) {
+
+//  int j=2;
 //  while ( j-- && ( !contextp->gotFinish() ) ) {
-
       
       if( top->wen ) {
-        mem_write(top->addr, top->wlen, top->wdata);
+        paddr_write(top->addr, top->wlen, top->wdata);
       }
 
       top->clk = !top->clk;
       top->eval();
       contextp->timeInc(1); // 10 timeprecision period passes...
-      top->inst = inst_read(top->pc);
+      top->inst = inst_fetch((vaddr_t *)top->pc, 4);
       top->eval();
       contextp->timeInc(9);
 
       if( top->ren ) {
-        top->rdata = mem_read(top->addr);
+        top->rdata = paddr_read(top->addr, 8);
       }
       s->snpc = top->snxt_pc;
       s->dnpc = top->dnxt_pc;
       s->pc   = top->pc;
       s->isa.inst.val = top->inst;
+      for (int i=0; i<32; i++) {
+        cpu->gpr[i] = cpu_gpr[i];
+      }
       top->clk = !top->clk;
       top->eval();
       contextp->timeInc(10);
 
       if(top->ebreak)  { 
-        npc_trap(2 , top->pc, top->a);
+        npc_trap(NPC_END , top->pc, top->a);
         end_sim(); 
         for(int i=0; i<30; i++) printf(ANSI_FMT_BLUE "-");
         printf(" program end ");
@@ -111,7 +119,6 @@ void run_step(Decode *s) {
         printf(ANSI_FMT_NONE "\n");
         return ;
       }
-
 }
 
 
@@ -126,5 +133,3 @@ void delete_module() {
   delete contextp;
 
 }
-
-

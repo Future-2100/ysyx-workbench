@@ -31,7 +31,7 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declQuad(c+160,"pc", false,-1, 63,0);
         tracep->declBus(c+162,"inst", false,-1, 31,0);
         tracep->declQuad(c+163,"wdata", false,-1, 63,0);
-        tracep->declBus(c+165,"wlen", false,-1, 2,0);
+        tracep->declBus(c+165,"wlen", false,-1, 3,0);
         tracep->declBit(c+166,"wen", false,-1);
         tracep->declBit(c+167,"ren", false,-1);
         tracep->declQuad(c+168,"addr", false,-1, 63,0);
@@ -47,7 +47,7 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declQuad(c+160,"top pc", false,-1, 63,0);
         tracep->declBus(c+162,"top inst", false,-1, 31,0);
         tracep->declQuad(c+163,"top wdata", false,-1, 63,0);
-        tracep->declBus(c+165,"top wlen", false,-1, 2,0);
+        tracep->declBus(c+165,"top wlen", false,-1, 3,0);
         tracep->declBit(c+166,"top wen", false,-1);
         tracep->declBit(c+167,"top ren", false,-1);
         tracep->declQuad(c+168,"top addr", false,-1, 63,0);
@@ -201,7 +201,7 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declQuad(c+3,"top memory_inst addr_in", false,-1, 63,0);
         tracep->declQuad(c+9,"top memory_inst load_data", false,-1, 63,0);
         tracep->declQuad(c+163,"top memory_inst wdata", false,-1, 63,0);
-        tracep->declBus(c+165,"top memory_inst wlen", false,-1, 2,0);
+        tracep->declBus(c+165,"top memory_inst wlen", false,-1, 3,0);
         tracep->declBit(c+166,"top memory_inst wen", false,-1);
         tracep->declBit(c+167,"top memory_inst ren", false,-1);
         tracep->declQuad(c+170,"top memory_inst rdata", false,-1, 63,0);
@@ -409,7 +409,7 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->fullQData(oldp+160,(vlSelf->pc),64);
         tracep->fullIData(oldp+162,(vlSelf->inst),32);
         tracep->fullQData(oldp+163,(vlSelf->wdata),64);
-        tracep->fullCData(oldp+165,(vlSelf->wlen),3);
+        tracep->fullCData(oldp+165,(vlSelf->wlen),4);
         tracep->fullBit(oldp+166,(vlSelf->wen));
         tracep->fullBit(oldp+167,(vlSelf->ren));
         tracep->fullQData(oldp+168,(vlSelf->addr),64);

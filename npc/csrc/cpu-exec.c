@@ -1,29 +1,38 @@
+#include <common.h>
 #include <cpu.h>
 
 #define MAX_INST_TO_PRINT 30
 
-
-bool g_print_step = false;
-
+CPU_state cpu = {};
 uint64_t g_nr_guest_inst = 0;
+static uint64_t g_timer = 0; // unit: us
+static bool g_print_step = false;
 
 NPCState npc_state = { .state = NPC_STOP };
 
 void difftest_step(vaddr_t pc, vaddr_t npc);
+uint64_t get_time();
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc){
+#ifdef CONFIG_ITRACE
+   log_write("%s\n", _this->logbuf);
   if( g_print_step ) { puts(_this->logbuf); }
+#endif
 #ifdef CONFIG_DIFFTEST
   difftest_step(_this->pc, dnpc);
 #endif
 }
 
-void run_step(Decode *s);
+void run_step(Decode *s, CPU_state *cpu);
 
-static void exec_once(Decode *s){
+static void exec_once(Decode *s, vaddr_t pc){
 
-  run_step(s);
+  s->pc = pc;
+  s->snpc = pc;
+  run_step(s, &cpu);
+  cpu.pc = s->dnpc;
 
+#ifdef CONFIG_ITRACE
   char *p = s->logbuf;
 
   //record the pc
@@ -50,17 +59,23 @@ static void exec_once(Decode *s){
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       s->pc, (uint8_t *)&s->isa.inst.val, ilen);
+
+#endif
+
 }
 
 static void execute(uint64_t n) {
   Decode s;
   for(; n>0; n--) {
-    exec_once(&s);
+    exec_once(&s,cpu.pc);
     g_nr_guest_inst ++;
-    trace_and_difftest(&s, s.dnpc);
+    trace_and_difftest(&s, cpu.pc);
     if(npc_state.state != NPC_RUNNING) {
       break;
     }
+    #ifdef CONFIG_DEVICE
+      device_update();
+    #endif
   }
 }
 
@@ -74,6 +89,13 @@ void npc_quit() {
   npc_state.state = NPC_QUIT;
 }
 
+static void statistic() {
+#define NUMBERIC_FMT "%'ld"
+  Log("host time spent = " NUMBERIC_FMT " us", g_timer);
+  Log("total guest instructions = " NUMBERIC_FMT, g_nr_guest_inst);
+  if (g_timer > 0) Log("simulation frequency = " NUMBERIC_FMT " inst/s", g_nr_guest_inst * 1000000 / g_timer);
+  else Log("Finish running in less than 1 us and can not calculate the simulation frequency");
+}
 
 void cpu_exec(uint64_t n) {
   g_print_step = ( n < MAX_INST_TO_PRINT ) ;
@@ -84,18 +106,23 @@ void cpu_exec(uint64_t n) {
     default : npc_state.state = NPC_RUNNING;
   }
 
+  uint64_t timer_start = get_time();
+
   execute(n);
+
+  uint64_t timer_end = get_time();
+  g_timer += timer_end - timer_start;
 
   switch (npc_state.state) {
     case NPC_RUNNING: npc_state.state = NPC_STOP; break;
 
     case NPC_END: case NPC_ABORT:
-      Log("npc: %s at pc = " "0x%016lx",
+      Log("npc: %s at pc = " FMT_WORD,
           (npc_state.state == NPC_ABORT ? ANSI_FMT("ABORT", ANSI_FMT_RED) :
            (npc_state.halt_ret == 0 ? ANSI_FMT("HIT GOOD TRAP", ANSI_FMT_GREEN) :
              ANSI_FMT("HIT BAD TRAP", ANSI_FMT_RED))),
           npc_state.halt_pc);
-    case NPC_QUIT: Log("total guest instructions = " "%'ld", g_nr_guest_inst);
+    case NPC_QUIT: statistic();
   }
 }
 

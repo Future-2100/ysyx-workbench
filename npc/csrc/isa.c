@@ -1,11 +1,13 @@
 #include <paddr.h>
 #include <isa.h>
+#include <common.h>
 
 static const uint32_t img [] = {
-    0x800002b7,  // lui t0,0x80000
-    0x0002a023,  // sw  zero,0(t0)
-    0x0002a503,  // lw  a0,0(t0)
+    0x00000297,  // lui t0,0x80000
+    0x0002b823,  // sw  zero,0(t0)
+    0x0102b503,  // lw  a0,0(t0)
     0x00100073,  // ebreak (used as nemu_trap)
+    0xdeadbeef,  // some data
 };
 
 static void restart() {  
@@ -18,7 +20,9 @@ static void restart() {
 
 
 void init_isa() {
+  /* Load build-in image. */
   memcpy(guest_to_host(RESET_VECTOR), img, sizeof(img));
-  restart();
 
+  /* Initialize this vertual computer system. */
+  restart();
 }

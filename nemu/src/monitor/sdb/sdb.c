@@ -42,14 +42,14 @@ static int cmd_q(char *args) {
 static int cmd_help(char *args);
 
 static int cmd_si(char *args) {
-  int N;
+  int n;
   char *arg = strtok(NULL," ");
   if( arg == NULL )
-    N = 1; 
+    n = 1; 
   else
-    sscanf(arg,"%d", &N);
+    sscanf(arg,"%d", &n);
   
-  cpu_exec(N);
+  cpu_exec(n);
 
   return 0;
 }
@@ -181,6 +181,7 @@ static int cmd_help(char *args) {
 void sdb_set_batch_mode() {
   is_batch_mode = true;
 }
+
 
 void sdb_mainloop() {
   if (is_batch_mode) {

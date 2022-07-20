@@ -1,10 +1,6 @@
 #ifndef __CPU_H__
 #define __CPU_H__
 
-#include <common.h>
-
-enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
-
 enum { NPC_RUNNING, NPC_STOP, NPC_END, NPC_ABORT, NPC_QUIT };
 
 typedef struct {
@@ -32,7 +28,6 @@ typedef struct Decode {
   ISADecodeInfo isa;
   char logbuf[128];
 } Decode;
-
 
 #endif
 

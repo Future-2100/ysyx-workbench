@@ -1,6 +1,5 @@
-  /*
-    cpu_exec();
-  */
+
+
 void init_monitor(int argc, char** argv);
 void init_verilator(int argc, char** argv, char** env);
 void init_module();

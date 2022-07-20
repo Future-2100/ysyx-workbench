@@ -24,7 +24,7 @@ module alu
   input   wire  [2:0]       br_op   , //branch  option
 
   output  wire  [DW-1:0]  result    ,
-  output  wire            br_asrt ,
+  output  wire            br_asrt   ,
   output  wire            zero      
 
 );

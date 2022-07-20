@@ -38,7 +38,7 @@ class Vtop VL_NOT_FINAL {
     VL_OUT64(&pc,63,0);
     VL_IN(&inst,31,0);
     VL_OUT64(&wdata,63,0);
-    VL_OUT8(&wlen,2,0);
+    VL_OUT8(&wlen,3,0);
     VL_OUT8(&wen,0,0);
     VL_OUT8(&ren,0,0);
     VL_OUT64(&addr,63,0);

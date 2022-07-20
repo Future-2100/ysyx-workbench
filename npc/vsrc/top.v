@@ -15,7 +15,7 @@ module top
   input   wire  [IW-1:0]    inst  ,
 
   output  wire  [DW-1:0]  wdata   ,
-  output  wire  [2:0]     wlen    ,
+  output  wire  [3:0]     wlen    ,
   output  wire            wen     ,
   output  wire            ren     ,
   output  wire  [DW-1:0]  addr    ,
@@ -171,30 +171,30 @@ memory memory_inst
     .load_data( load_data  ) ,
 
     .wdata    ( wdata      ) ,
-    .wlen     ( wlen ) ,
-    .wen      ( wen  ) ,
-    .ren      ( ren  ) ,
-    .rdata    ( rdata ) ,
-    .addr     ( addr ) 
+    .wlen     ( wlen       ) ,
+    .wen      ( wen        ) ,
+    .ren      ( ren        ) ,
+    .rdata    ( rdata      ) ,
+    .addr     ( addr       ) 
 );
 
 controlor controlor_inst 
 (
     .inst        ( inst       ) , 
 
-    .wb_en       ( wb_en    ) ,     
-    .wb_load     ( wb_load  ) ,
-    .wb_pc       ( wb_pc    ) ,
-    .wb_alu      ( wb_alu   ) ,
+    .wb_en       ( wb_en      ) ,     
+    .wb_load     ( wb_load    ) ,
+    .wb_pc       ( wb_pc      ) ,
+    .wb_alu      ( wb_alu     ) ,
     .I_type      ( I_type     ) , 
     .S_type      ( S_type     ) , 
     .B_type      ( B_type     ) , 
     .U_type      ( U_type     ) , 
     .J_type      ( J_type     ) , 
-    .rs1_en      (  rs1_en  ) ,
-    . pc_en      (   pc_en  ) ,  
-    .rs2_en      (  rs2_en  ) ,
-    .imm_en      (  imm_en  ) ,
+    .rs1_en      (  rs1_en    ) ,
+    . pc_en      (   pc_en    ) ,  
+    .rs2_en      (  rs2_en    ) ,
+    .imm_en      (  imm_en    ) ,
     .lgc_en      ( lgc_en     ) , 
     .lgc_op      ( lgc_op     ) , 
     .wlgc_en     ( wlgc_en    ) , 

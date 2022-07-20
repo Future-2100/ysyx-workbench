@@ -26,7 +26,7 @@ module memory
   output  wire  [DW-1:0]  load_data,
 
   output  wire  [DW-1:0]  wdata ,
-  output  wire  [2:0]     wlen  ,
+  output  wire  [3:0]     wlen  ,
   output  wire            wen   ,
   output  wire            ren   ,
   input   wire  [DW-1:0]  rdata ,
@@ -34,10 +34,10 @@ module memory
 
 );
 
-  assign  wlen = ( {3{sb}} & 3'd1 )  |
-                 ( {3{sh}} & 3'd2 )  |
-                 ( {3{sw}} & 3'd3 )  |
-                 ( {3{sd}} & 3'd4 )  ;
+  assign  wlen = ( {4{sb}} & 4'd1 )  |
+                 ( {4{sh}} & 4'd2 )  |
+                 ( {4{sw}} & 4'd4 )  |
+                 ( {4{sd}} & 4'd8 )  ;
 
   assign  wdata = ( {DW{sb}} & {56'b0, wdata_in[7 :0]} ) | 
                   ( {DW{sh}} & {48'b0, wdata_in[15:0]} ) |

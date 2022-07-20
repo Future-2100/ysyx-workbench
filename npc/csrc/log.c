@@ -14,5 +14,9 @@ void init_log(const char *log_file) {
 }
 
 bool log_enable() {
-  return false;
+  #ifdef CONFIG_TRACE
+    return  (g_nr_guest_inst >= CONFIG_TRACE_START) && (g_nr_guest_inst <= CONFIG_TRACE_END);
+  #else
+    return false;
+  #endif
 }

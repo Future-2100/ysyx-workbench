@@ -77,7 +77,7 @@ INC_PATH = $(abspath ./csrc/include)
 INCFLAGS = $(addprefix -I, $(INC_PATH))
 CFLAGS += $(INCFLAGS)
 #CFLAGS += $(shell llvm-config --cxxflags) -fPIE
-LDFLAGS += $(shell llvm-config --libs) $(NEMU_HOME)/build/riscv64-nemu-interpreter-so
+LDFLAGS += $(shell llvm-config --libs) 
 LDFLAGS += -O2 -Og -ggdb3 -ldl -pie -lreadline 
 VERILATOR_FLAGS += $(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS))
 
@@ -100,16 +100,12 @@ $(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 		$(VERILATOR_OUTFLAGS)
 
 
-# difftest file
-DIFF_REF_SO = --diff=$(NEMU_HOME)/build/riscv64-nemu-interpreter-so
-
 # -b -e <elf_file> from abstract_machine
 NPCFLAGS += $(ARGS)
 
 # image file from abstract_machine
 NPCFLAGS += $(IMG)
 
-NPCFLAGS += $(DIFF_REF_SO)
 
 ifeq ($(WAVE),en)
 WAVEFLAGS = gtkwave $(BUILD_DIR)/logs/$(TOPNAME).vcd
@@ -117,7 +113,7 @@ endif
 
 all : default
 
-NPCFLAGS += --log=$(BUILD_DIR)/npc-log.txt
+#NPCFLAGS += --log=$(BUILD_DIR)/npc-log.txt
 
 run : sim
 

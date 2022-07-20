@@ -1,5 +1,5 @@
-#ifndef __MEMORY_PADDR_H__
-#define __MEMORY_PADDR_H__
+#ifndef __PADDR_H__
+#define __PADDR_H__
 
 #include <common.h>
 

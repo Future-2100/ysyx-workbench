@@ -34,21 +34,18 @@ static inline void host_write(void *addr, int len, word_t data) {
 
 static word_t pmem_read(paddr_t addr, int len) {
     word_t ret = host_read(guest_to_host(addr), len);
-    /*
 #ifdef CONFIG_MTRACE
       printf("Read : (%08x) = %08lx  \n", addr, ret);
 #endif
-*/
     return ret;
 }
 
 static void pmem_write(paddr_t addr, int len, word_t data) {
     host_write(guest_to_host(addr), len, data);
-    /*
 #ifdef CONFIG_MTRACE
       printf("Write: (%08x) = %08lx  \n", addr, data);
 #endif
-*/
+
 }
 
 static void out_of_bound(paddr_t addr) {
@@ -57,13 +54,29 @@ static void out_of_bound(paddr_t addr) {
 }
 
 void init_mem() {
+  #ifdef CONFIG_PMEM_MALLOC
+    printf("CONFIG_PMEM_MALLOC defined\n")
+    pmem = malloc(CONFIG_MSIZE);
+    assert(pemm);
+  #endif
+  #ifdef CONFIG_MEM_RANDOM
+    printf("CONFIG_PMEM_MALLOC defined\n")
+    uint32_t *p = (uint32_t *)pmem;
+    int i;
+    for( i=0; i<(int)(CONFIG_MSIZE / sizeof(p[0])); i++ ) {
+      p[i] = rand();
+    }
+  #endif
+
     Log("physical memory area [" FMT_PADDR ", " FMT_PADDR "]",
       (paddr_t)CONFIG_MBASE, (paddr_t)CONFIG_MBASE + CONFIG_MSIZE - 1);
 }
 
 word_t paddr_read(paddr_t addr, int len) {
   if (likely(in_pmem(addr))) return pmem_read(addr, len);
-//  IFDEF(CONFIG_DEVICE, return mmio_read(addr, len));
+  #ifdef CONFIG_DEVICE
+    return mmio_read(addr, len);
+  #endif
   out_of_bound(addr);
   return 0;
 }
@@ -71,7 +84,10 @@ word_t paddr_read(paddr_t addr, int len) {
 
 void paddr_write(paddr_t addr, int len, word_t data) {
   if (likely(in_pmem(addr))) { pmem_write(addr, len, data); return; }
- // IFDEF(CONFIG_DEVICE, mmio_write(addr, len, data); return);
+  #ifdef CONFIG_DEVICE
+    mmio_write(addr, len, data);
+    return ;
+  #endif
   out_of_bound(addr);
 }
 

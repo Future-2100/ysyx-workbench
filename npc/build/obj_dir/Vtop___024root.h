@@ -23,7 +23,7 @@ VL_MODULE(Vtop___024root) {
     VL_IN8(clk,0,0);
     VL_IN8(rstn,0,0);
     VL_OUT8(ebreak,0,0);
-    VL_OUT8(wlen,2,0);
+    VL_OUT8(wlen,3,0);
     VL_OUT8(wen,0,0);
     VL_OUT8(ren,0,0);
     VL_IN(inst,31,0);
@@ -103,7 +103,7 @@ VL_MODULE(Vtop___024root) {
         CData/*0:0*/ top__DOT____Vtogcov__clk;
         CData/*0:0*/ top__DOT____Vtogcov__rstn;
         CData/*0:0*/ top__DOT____Vtogcov__ebreak;
-        CData/*2:0*/ top__DOT____Vtogcov__wlen;
+        CData/*3:0*/ top__DOT____Vtogcov__wlen;
         CData/*0:0*/ top__DOT____Vtogcov__wen;
         CData/*0:0*/ top__DOT____Vtogcov__ren;
         CData/*0:0*/ top__DOT____Vtogcov__br_asrt;

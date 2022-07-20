@@ -1,7 +1,9 @@
+#include <common.h>
+#include <paddr.h>
 #include <cpu.h>
+#include <isa.h>
 #include <dlfcn.h>
-
-CPU_state cpu = {};
+#include <difftest.h>
 
 void (*ref_difftest_memcpy)(paddr_t addr, void *buf, size_t n, bool direction)=NULL;
 void (*ref_difftest_regcpy)(void *dut, bool direction) = NULL;
@@ -23,11 +25,10 @@ void difftest_skip_dut(int nr_ref, int nr_dut) {
   }
 }
 
-  extern uint8_t *pmem;
-
 void init_difftest(char *ref_so_file, long img_size, int port) {
   assert(ref_so_file != NULL);
 
+  //open the dynamic library file ref_so_file
   void *handle;
   handle = dlopen(ref_so_file, RTLD_LAZY);
   assert(handle); 
@@ -49,14 +50,15 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
 
   Log("Differential testing: %s", ANSI_FMT("ON", ANSI_FMT_GREEN));
   Log("The result of every instruction will be compared with %s. ", ref_so_file);
+
+  //Initial the Difftest of REF
   ref_difftest_init(port);
 
-  printf(ANSI_FMT_RED "ref_so_file = %s" ANSI_FMT_NONE "\n" ,ref_so_file );
-//  ref_difftest_memcpy((paddr_t)0x80000000, (uint8_t *)pmem, img_size, DIFFTEST_TO_REF);
+  //Copy guest memory of DUT to REF
+  ref_difftest_memcpy(RESET_VECTOR, guest_to_host(RESET_VECTOR), img_size, DIFFTEST_TO_REF);
 
-  printf(ANSI_FMT_RED "ref_so_file = %s" ANSI_FMT_NONE "\n" ,ref_so_file );
-  extern uint64_t *cpu_gpr;
-//  ref_difftest_regcpy(cpu_gpr, DIFFTEST_TO_REF);
+  //Copy register states of DUT to REF
+  ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
 }
 
 
@@ -136,4 +138,3 @@ void difftest_step(vaddr_t pc, vaddr_t npc) {
   ref_difftest_regcpy(&ref_r, DIFFTEST_TO_DUT);
   checkregs(&ref_r, pc);
 }
-

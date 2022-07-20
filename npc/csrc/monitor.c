@@ -9,6 +9,7 @@ static char *img_file = NULL;
 static int  difftest_port = 1234;
 static char *elf_file = NULL;
 
+void init_rand();
 void init_difftest(char *ref_so_file, long img_size, int port);
 void init_disasm(const char *triple);
 void init_log(const char *log_file);
@@ -16,6 +17,7 @@ void init_elf(char *elf_file);
 void init_isa();
 void sdb_set_batch_mode();
 void init_mem();
+void init_sdb();
 
 static int parse_args(int argc, char *argv[]) {
   const struct option table[] = {
@@ -30,7 +32,7 @@ static int parse_args(int argc, char *argv[]) {
   int o;
   while ( (o = getopt_long(argc, argv, "-bhd:", table, NULL)) != -1) {
     switch (o) {
-      case 'b': sdb_set_batch_mode; break;
+      case 'b': sdb_set_batch_mode(); break;
       case 'p': sscanf(optarg, "%d", &difftest_port); break;
       case 'l': log_file = optarg; break;
       case 'd': diff_so_file = optarg; break;
@@ -73,11 +75,16 @@ static long load_img() {
 
 
 static void welcome() {
-  printf("\n");
-  printf("\n");
+  #ifdef CONFIG_TRACE
+    Log("Trace: %s", ANSI_FMT("ON", ANSI_FG_GREEN));
+  #else
+    Log("Trace: %s", ANSI_FMT("OFF", ANSI_FG_RED)));
+  #endif
+  Log("Build time: %s, %s", __TIME__, __DATE__);
   printf(ANSI_FMT_GREEN "Welcome to riscv64 " ANSI_BG_RED ANSI_FMT_YELLOW "NPC" ANSI_FMT_NONE " !\n");
+  printf("For help, type \"help\"\n");
   printf("\n");
-  printf("\n");
+
 }
 
 void init_monitor(int argc, char** argv) {
@@ -86,15 +93,23 @@ void init_monitor(int argc, char** argv) {
   /* Parse arguments. */
   parse_args(argc, argv);
 
+  /* Set random seen. */
+  init_rand();
+
   /* Open the log file. */
   init_log(log_file);
 
   /* Read the elf file. */
-  init_elf(elf_file);
+  //init_elf(elf_file);
 
-  /* Initial memory */
+  /* Initial memory. */
   init_mem();
 
+  /* Initialize device. */
+  #ifdef CONFIG_DEVICE
+    init_device();
+  #endif
+  
   /* Perform ISA dependent initialization. */
   init_isa();
 
@@ -105,6 +120,9 @@ void init_monitor(int argc, char** argv) {
   /* Initialize differential testing. */
   init_difftest(diff_so_file, img_size, difftest_port);
 #endif
+
+  /* Initialize the simple debugger. */
+  init_sdb();
 
   /* Initialize the llvm */
   init_disasm("riscv64" "-pc-linux-gnu");
