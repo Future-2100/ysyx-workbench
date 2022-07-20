@@ -35,7 +35,13 @@ VM_PREFIX = Vtop
 VM_MODPREFIX = Vtop
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
+	-O2 \
+	-MMD \
+	-Wall \
+	-Werror \
 	-I/home/grand/ysyx-workbench/npc/csrc/include \
+	-Og \
+	-ggdb3 \
 	-g \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)

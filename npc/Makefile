@@ -75,7 +75,7 @@ CSRCS = $(shell find $(CS_DIR) -name "*.c" -or -name "*.cc" -or -name "*.cpp")
 
 INC_PATH = $(abspath ./csrc/include)
 INCFLAGS = $(addprefix -I, $(INC_PATH))
-CFLAGS += $(INCFLAGS) -O2 -Og -ggdb3 -g
+CFLAGS += -O2 -MMD -Wall -Werror $(INCFLAGS) -Og -ggdb3 -g
 #CFLAGS += $(shell llvm-config --cxxflags) -fPIE
 LDFLAGS += $(shell llvm-config --libs) 
 LDFLAGS += -O2 -Og -ggdb3 -ldl -pie -lreadline 
