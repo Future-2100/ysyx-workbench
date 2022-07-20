@@ -54,9 +54,9 @@ static void single_cycle() {
 }
 
 void reset(int n) {
-  top->rstn = 0;
+  top->reset = 0;
   while( n-- > 0) single_cycle();
-  top->rstn = 1;
+  top->reset = 1;
 } 
 
 void init_module() {

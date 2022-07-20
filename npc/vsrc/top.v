@@ -5,7 +5,7 @@ module top
   
 ) (
   input   wire  clk ,
-  input   wire  rstn ,
+  input   wire  reset ,
 
   output  wire  [DW-1:0]       a  ,
   output  wire            ebreak  ,
@@ -22,6 +22,11 @@ module top
   output  wire  [DW-1:0]  addr    
 
 );
+
+  reg  rstn ;
+  always@(posedge clk)
+    rstn <= reset;
+
 
 
 wire    [DW-1:0]    imm      ; 
