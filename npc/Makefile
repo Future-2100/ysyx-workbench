@@ -97,7 +97,7 @@ $(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 	@$(VERILATOR) $(VERILATOR_FLAGS) \
 		--top-module $(TOPNAME) $^ \
 		$(NVBOARD_FLAGS) \
-		$(VERILATOR_OUTFLAGS) -gdb
+		$(VERILATOR_OUTFLAGS) 
 
 
 # -b -e <elf_file> from abstract_machine
