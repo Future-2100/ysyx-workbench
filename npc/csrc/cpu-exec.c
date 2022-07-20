@@ -27,7 +27,6 @@ void run_step(Decode *s, CPU_state *cpu);
 
 static void exec_once(Decode *s, vaddr_t pc){
 
-  printf(ANSI_FMT_RED "---------------------" ANSI_FMT_NONE);
   s->pc = pc;
   s->snpc = pc;
   run_step(s, &cpu);
@@ -68,7 +67,6 @@ static void exec_once(Decode *s, vaddr_t pc){
 static void execute(uint64_t n) {
   Decode s;
   for(; n>0; n--) {
-    printf(ANSI_FMT_RED "---------------------" ANSI_FMT_NONE);
     exec_once(&s,cpu.pc);
     g_nr_guest_inst ++;
     trace_and_difftest(&s, cpu.pc);
@@ -100,6 +98,8 @@ static void statistic() {
 }
 
 void cpu_exec(uint64_t n) {
+  printf(ANSI_FMT_RED "---------------------" ANSI_FMT_NONE);
+
   g_print_step = ( n < MAX_INST_TO_PRINT ) ;
   switch (npc_state.state) {
     case NPC_END : case NPC_ABORT:
