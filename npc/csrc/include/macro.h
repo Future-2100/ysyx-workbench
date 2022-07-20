@@ -37,26 +37,11 @@
 #define ANSI_BG_WHITE   "\33[1;47m"
 #define ANSI_NONE       "\33[0m"
 
-#define ANSI_FMT(str, fmt) fmt str ANSI_FMT_NONE
+#define ANSI_FMT(str, fmt) fmt str ANSI_NONE
 
 #define ARRLEN(arr) (int)(sizeof(arr)) / sizeof(arr[0])
 
-#define Log(format, ...) \
-  do { \
-    printf(ANSI_FMT_BLUE "[%s:%d %s]" format ANSI_FMT_NONE"\n",__FILE__, __LINE__, __func__, ## __VA_ARGS__);\
-  } while(0)
-
-#define Assert(cond, format, ...) \
-  do { \
-    if (!(cond)) { \
-          (fflush(stdout), fprintf(stderr, ANSI_FMT(format, ANSI_FMT_RED) "\n", ##  __VA_ARGS__)); \
-      extern void isa_reg_display(); \
-      isa_reg_display(); \
-      assert(cond); \
-    } \
-  } while (0)
-
-#define log_write(...)  \
+#define log_write(...) \
   do { \
     extern FILE* log_fp; \
     extern bool log_enable(); \
@@ -64,7 +49,23 @@
       fprintf(log_fp, __VA_ARGS__); \
       fflush(log_fp); \
     } \
-  } while (0) \
+  } while (0) 
+
+#define Log(format, ...) \
+ do { \
+  printf(ANSI_FMT("[%s:%d %s] " format, ANSI_FG_BLUE) "\n", \
+  __FILE__, __LINE__, __func__, ## __VA_ARGS__); \
+    } while(0)
+
+#define Assert(cond, format, ...) \
+  do { \
+    if (!(cond)) { \
+      (fflush(stdout), fprintf(stderr, ANSI_FMT(format, ANSI_FG_RED) "\n", ##  __VA_ARGS__)); \
+      extern void isa_reg_display(); \
+      isa_reg_display(); \
+      assert(cond); \
+    } \
+  } while (0)
 
 #define panic(format, ...) Assert(0, format, ## __VA_ARGS__)
 

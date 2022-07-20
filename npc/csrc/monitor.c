@@ -100,7 +100,7 @@ void init_monitor(int argc, char** argv) {
   init_log(log_file);
 
   /* Read the elf file. */
-  //init_elf(elf_file);
+  init_elf(elf_file);
 
   /* Initial memory. */
   init_mem();

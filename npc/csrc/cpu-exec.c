@@ -1,5 +1,6 @@
 #include <common.h>
 #include <cpu.h>
+#include <locale.h>
 
 #define MAX_INST_TO_PRINT 30
 
@@ -90,11 +91,19 @@ void npc_quit() {
 }
 
 static void statistic() {
+  setlocale(LC_NUMERIC, "");
 #define NUMBERIC_FMT "%'ld"
   Log("host time spent = " NUMBERIC_FMT " us", g_timer);
   Log("total guest instructions = " NUMBERIC_FMT, g_nr_guest_inst);
   if (g_timer > 0) Log("simulation frequency = " NUMBERIC_FMT " inst/s", g_nr_guest_inst * 1000000 / g_timer);
   else Log("Finish running in less than 1 us and can not calculate the simulation frequency");
+
+}
+
+extern void isa_reg_display();
+void assert_fail_msg() {
+  isa_reg_display();
+  statistic();
 }
 
 void cpu_exec(uint64_t n) {

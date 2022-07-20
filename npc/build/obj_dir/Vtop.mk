@@ -59,6 +59,7 @@ VM_USER_CLASSES = \
 	cpu-exec \
 	difftest \
 	disasm \
+	elf \
 	engine \
 	isa \
 	log \
@@ -89,6 +90,8 @@ cpu-exec.o: /home/grand/ysyx-workbench/npc/csrc/cpu-exec.c
 difftest.o: /home/grand/ysyx-workbench/npc/csrc/difftest.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 disasm.o: /home/grand/ysyx-workbench/npc/csrc/disasm.cc
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+elf.o: /home/grand/ysyx-workbench/npc/csrc/elf.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 engine.o: /home/grand/ysyx-workbench/npc/csrc/engine.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<

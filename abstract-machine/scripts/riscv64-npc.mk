@@ -23,7 +23,7 @@ ARGS += -b
 endif
 
 ARGS += --elf=$(IMAGE).elf
-ARGS += --log=/home/grand/ysyx-workbench/npc/build/nemu-log.txt
+ARGS += --log=/home/grand/ysyx-workbench/npc/build/npc-log.txt
 
 image: $(IMAGE).elf
 	@$(OBJDUMP) -d $(IMAGE).elf > $(IMAGE).txt
