@@ -49,19 +49,19 @@ void init_verilator(int argc, char** argv, char** env) {
 }
 
 static void single_cycle() {
-  top->clk = 1; top->eval(); contextp->timeInc(10);
   top->clk = 0; top->eval(); contextp->timeInc(10);
+  top->clk = 1; top->eval(); contextp->timeInc(10);
 }
 
-void reset(int n) {
-  top->reset = 0;
+void rstn(int n) {
+  top->rstn = 0;
   while( n-- > 0) single_cycle();
-  top->reset = 1;
+  top->rstn = 1;
 } 
 
 void init_module() {
 
-  reset(10);
+  rstn(10);
   printf("pc = %lx\n",top->pc);
   printf(ANSI_FMT_GREEN "---------- module reseted ----------\n" ANSI_FMT_NONE );
 

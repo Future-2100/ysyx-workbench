@@ -30,7 +30,7 @@ class Vtop VL_NOT_FINAL {
     // The application code writes and reads these signals to
     // propagate new values into/out from the Verilated model.
     VL_IN8(&clk,0,0);
-    VL_IN8(&reset,0,0);
+    VL_IN8(&rstn,0,0);
     VL_OUT64(&a,63,0);
     VL_OUT8(&ebreak,0,0);
     VL_OUT64(&dnxt_pc,63,0);

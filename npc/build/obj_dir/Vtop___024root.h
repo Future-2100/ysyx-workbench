@@ -21,7 +21,7 @@ VL_MODULE(Vtop___024root) {
 
     // PORTS
     VL_IN8(clk,0,0);
-    VL_IN8(reset,0,0);
+    VL_IN8(rstn,0,0);
     VL_OUT8(ebreak,0,0);
     VL_OUT8(wlen,3,0);
     VL_OUT8(wen,0,0);
@@ -36,7 +36,6 @@ VL_MODULE(Vtop___024root) {
     VL_OUT64(addr,63,0);
 
     // LOCAL SIGNALS
-    CData/*0:0*/ top__DOT__rstn;
     CData/*0:0*/ top__DOT__br_asrt;
     CData/*0:0*/ top__DOT__wb_en;
     CData/*0:0*/ top__DOT__wb_pc;
@@ -102,12 +101,11 @@ VL_MODULE(Vtop___024root) {
     // Anonymous structures to workaround compiler member-count bugs
     struct {
         CData/*0:0*/ top__DOT____Vtogcov__clk;
-        CData/*0:0*/ top__DOT____Vtogcov__reset;
+        CData/*0:0*/ top__DOT____Vtogcov__rstn;
         CData/*0:0*/ top__DOT____Vtogcov__ebreak;
         CData/*3:0*/ top__DOT____Vtogcov__wlen;
         CData/*0:0*/ top__DOT____Vtogcov__wen;
         CData/*0:0*/ top__DOT____Vtogcov__ren;
-        CData/*0:0*/ top__DOT____Vtogcov__rstn;
         CData/*0:0*/ top__DOT____Vtogcov__br_asrt;
         CData/*0:0*/ top__DOT____Vtogcov__jalr_en;
         CData/*0:0*/ top__DOT____Vtogcov__jal_en;
@@ -153,10 +151,8 @@ VL_MODULE(Vtop___024root) {
         CData/*0:0*/ top__DOT__controlor_inst__DOT____Vtogcov__rsop_en;
         CData/*0:0*/ top__DOT__controlor_inst__DOT____Vtogcov__wrsop_en;
         CData/*0:0*/ top__DOT__controlor_inst__DOT____Vtogcov__R_type;
-        CData/*0:0*/ __VinpClk__TOP__top__DOT__rstn;
         CData/*0:0*/ __Vclklast__TOP__clk;
-        CData/*0:0*/ __Vclklast__TOP____VinpClk__TOP__top__DOT__rstn;
-        CData/*0:0*/ __Vchglast__TOP__top__DOT__rstn;
+        CData/*0:0*/ __Vclklast__TOP__rstn;
         IData/*31:0*/ top__DOT____Vtogcov__inst;
         VlWide<4>/*127:0*/ top__DOT__alu_inst__DOT____Vtogcov__multu;
         IData/*31:0*/ top__DOT__alu_inst__DOT____Vtogcov__wmlgc_result;
@@ -165,11 +161,11 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT____Vtogcov__dnxt_pc;
         QData/*63:0*/ top__DOT____Vtogcov__snxt_pc;
         QData/*63:0*/ top__DOT____Vtogcov__pc;
-    };
-    struct {
         QData/*63:0*/ top__DOT____Vtogcov__wdata;
         QData/*63:0*/ top__DOT____Vtogcov__rdata;
         QData/*63:0*/ top__DOT____Vtogcov__addr;
+    };
+    struct {
         QData/*63:0*/ top__DOT____Vtogcov__imm;
         QData/*63:0*/ top__DOT____Vtogcov__result;
         QData/*63:0*/ top__DOT____Vtogcov__load_data;

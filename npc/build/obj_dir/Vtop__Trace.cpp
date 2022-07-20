@@ -124,7 +124,7 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
             tracep->chgIData(oldp+149,(vlSelf->top__DOT__regfile_inst__DOT__i),32);
         }
         tracep->chgBit(oldp+150,(vlSelf->clk));
-        tracep->chgBit(oldp+151,(vlSelf->reset));
+        tracep->chgBit(oldp+151,(vlSelf->rstn));
         tracep->chgQData(oldp+152,(vlSelf->a),64);
         tracep->chgBit(oldp+154,(vlSelf->ebreak));
         tracep->chgQData(oldp+155,(vlSelf->dnxt_pc),64);
@@ -137,44 +137,43 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
         tracep->chgBit(oldp+166,(vlSelf->ren));
         tracep->chgQData(oldp+167,(vlSelf->rdata),64);
         tracep->chgQData(oldp+169,(vlSelf->addr),64);
-        tracep->chgBit(oldp+171,(vlSelf->top__DOT__rstn));
-        tracep->chgBit(oldp+172,((0x19U == (0x1fU & 
+        tracep->chgBit(oldp+171,((0x19U == (0x1fU & 
                                             (vlSelf->inst 
                                              >> 2U)))));
-        tracep->chgBit(oldp+173,((0x1bU == (0x1fU & 
+        tracep->chgBit(oldp+172,((0x1bU == (0x1fU & 
                                             (vlSelf->inst 
                                              >> 2U)))));
-        tracep->chgBit(oldp+174,((0U == (0x1fU & (vlSelf->inst 
+        tracep->chgBit(oldp+173,((0U == (0x1fU & (vlSelf->inst 
                                                   >> 2U)))));
-        tracep->chgBit(oldp+175,((8U == (0x1fU & (vlSelf->inst 
+        tracep->chgBit(oldp+174,((8U == (0x1fU & (vlSelf->inst 
                                                   >> 2U)))));
-        tracep->chgBit(oldp+176,((0x18U == (0x1fU & 
+        tracep->chgBit(oldp+175,((0x18U == (0x1fU & 
                                             (vlSelf->inst 
                                              >> 2U)))));
-        tracep->chgCData(oldp+177,((7U & (vlSelf->inst 
+        tracep->chgCData(oldp+176,((7U & (vlSelf->inst 
                                           >> 0xcU))),3);
-        tracep->chgCData(oldp+178,((8U | (7U & (vlSelf->inst 
+        tracep->chgCData(oldp+177,((8U | (7U & (vlSelf->inst 
                                                 >> 0xcU)))),4);
-        tracep->chgCData(oldp+179,((0x1fU & (vlSelf->inst 
+        tracep->chgCData(oldp+178,((0x1fU & (vlSelf->inst 
                                              >> 7U))),5);
-        tracep->chgCData(oldp+180,((0x1fU & (vlSelf->inst 
+        tracep->chgCData(oldp+179,((0x1fU & (vlSelf->inst 
                                              >> 0xfU))),5);
-        tracep->chgCData(oldp+181,((0x1fU & (vlSelf->inst 
+        tracep->chgCData(oldp+180,((0x1fU & (vlSelf->inst 
                                              >> 0x14U))),5);
-        tracep->chgQData(oldp+182,((QData)((IData)(
+        tracep->chgQData(oldp+181,((QData)((IData)(
                                                    (0xffU 
                                                     & (IData)(vlSelf->rdata))))),64);
-        tracep->chgQData(oldp+184,((QData)((IData)(
+        tracep->chgQData(oldp+183,((QData)((IData)(
                                                    (0xffffU 
                                                     & (IData)(vlSelf->rdata))))),64);
-        tracep->chgQData(oldp+186,((QData)((IData)(vlSelf->rdata))),64);
-        tracep->chgCData(oldp+188,((0x1fU & (vlSelf->inst 
+        tracep->chgQData(oldp+185,((QData)((IData)(vlSelf->rdata))),64);
+        tracep->chgCData(oldp+187,((0x1fU & (vlSelf->inst 
                                              >> 2U))),5);
-        tracep->chgCData(oldp+189,((vlSelf->inst >> 0x19U)),7);
-        tracep->chgBit(oldp+190,((0xdU == (0x1fU & 
+        tracep->chgCData(oldp+188,((vlSelf->inst >> 0x19U)),7);
+        tracep->chgBit(oldp+189,((0xdU == (0x1fU & 
                                            (vlSelf->inst 
                                             >> 2U)))));
-        tracep->chgBit(oldp+191,((5U == (0x1fU & (vlSelf->inst 
+        tracep->chgBit(oldp+190,((5U == (0x1fU & (vlSelf->inst 
                                                   >> 2U)))));
     }
 }

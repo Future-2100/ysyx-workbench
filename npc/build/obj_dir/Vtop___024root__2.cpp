@@ -7,18 +7,9 @@
 
 #include "verilated_dpi.h"
 
-VL_INLINE_OPT void Vtop___024root___sequent__TOP__8(Vtop___024root* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
-    Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___sequent__TOP__8\n"); );
-    // Body
-    vlSelf->top__DOT__rstn = vlSelf->reset;
-}
-
 void Vtop___024root___combo__TOP__4(Vtop___024root* vlSelf);
 void Vtop___024root___sequent__TOP__5(Vtop___024root* vlSelf);
-void Vtop___024root___sequent__TOP__6(Vtop___024root* vlSelf);
-void Vtop___024root___combo__TOP__7(Vtop___024root* vlSelf);
+void Vtop___024root___combo__TOP__6(Vtop___024root* vlSelf);
 
 void Vtop___024root___eval(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -27,24 +18,15 @@ void Vtop___024root___eval(Vtop___024root* vlSelf) {
     // Body
     Vtop___024root___combo__TOP__4(vlSelf);
     vlSelf->__Vm_traceActivity[1U] = 1U;
-    if (((IData)(vlSelf->clk) & (~ (IData)(vlSelf->__Vclklast__TOP__clk)))) {
-        Vtop___024root___sequent__TOP__5(vlSelf);
-    }
     if ((((IData)(vlSelf->clk) & (~ (IData)(vlSelf->__Vclklast__TOP__clk))) 
-         | ((~ (IData)(vlSelf->__VinpClk__TOP__top__DOT__rstn)) 
-            & (IData)(vlSelf->__Vclklast__TOP____VinpClk__TOP__top__DOT__rstn)))) {
-        Vtop___024root___sequent__TOP__6(vlSelf);
+         | ((~ (IData)(vlSelf->rstn)) & (IData)(vlSelf->__Vclklast__TOP__rstn)))) {
+        Vtop___024root___sequent__TOP__5(vlSelf);
         vlSelf->__Vm_traceActivity[2U] = 1U;
     }
-    Vtop___024root___combo__TOP__7(vlSelf);
-    if (((IData)(vlSelf->clk) & (~ (IData)(vlSelf->__Vclklast__TOP__clk)))) {
-        Vtop___024root___sequent__TOP__8(vlSelf);
-    }
+    Vtop___024root___combo__TOP__6(vlSelf);
     // Final
     vlSelf->__Vclklast__TOP__clk = vlSelf->clk;
-    vlSelf->__Vclklast__TOP____VinpClk__TOP__top__DOT__rstn 
-        = vlSelf->__VinpClk__TOP__top__DOT__rstn;
-    vlSelf->__VinpClk__TOP__top__DOT__rstn = vlSelf->top__DOT__rstn;
+    vlSelf->__Vclklast__TOP__rstn = vlSelf->rstn;
 }
 
 QData Vtop___024root___change_request_1(Vtop___024root* vlSelf);
@@ -64,10 +46,6 @@ VL_INLINE_OPT QData Vtop___024root___change_request_1(Vtop___024root* vlSelf) {
     // Body
     // Change detection
     QData __req = false;  // Logically a bool
-    __req |= ((vlSelf->top__DOT__rstn ^ vlSelf->__Vchglast__TOP__top__DOT__rstn));
-    VL_DEBUG_IF( if(__req && ((vlSelf->top__DOT__rstn ^ vlSelf->__Vchglast__TOP__top__DOT__rstn))) VL_DBG_MSGF("        CHANGE: /home/grand/ysyx-workbench/npc/vsrc/top.v:26: top.rstn\n"); );
-    // Final
-    vlSelf->__Vchglast__TOP__top__DOT__rstn = vlSelf->top__DOT__rstn;
     return __req;
 }
 
@@ -79,7 +57,7 @@ void Vtop___024root___eval_debug_assertions(Vtop___024root* vlSelf) {
     // Body
     if (VL_UNLIKELY((vlSelf->clk & 0xfeU))) {
         Verilated::overWidthError("clk");}
-    if (VL_UNLIKELY((vlSelf->reset & 0xfeU))) {
-        Verilated::overWidthError("reset");}
+    if (VL_UNLIKELY((vlSelf->rstn & 0xfeU))) {
+        Verilated::overWidthError("rstn");}
 }
 #endif  // VL_DEBUG

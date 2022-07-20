@@ -4,8 +4,8 @@ module top
   parameter IW = 32
   
 ) (
-  input   wire  clk ,
-  input   wire  reset ,
+  input   wire  clk  ,
+  input   wire  rstn ,
 
   output  wire  [DW-1:0]       a  ,
   output  wire            ebreak  ,
@@ -22,12 +22,6 @@ module top
   output  wire  [DW-1:0]  addr    
 
 );
-
-  reg  rstn ;
-  always@(posedge clk)
-    rstn <= reset;
-
-
 
 wire    [DW-1:0]    imm      ; 
 wire    [DW-1:0]    result   ;
