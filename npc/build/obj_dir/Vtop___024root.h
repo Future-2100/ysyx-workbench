@@ -25,7 +25,6 @@ VL_MODULE(Vtop___024root) {
     VL_OUT8(ebreak,0,0);
     VL_OUT8(wlen,3,0);
     VL_OUT8(wen,0,0);
-    VL_OUT8(ren,0,0);
     VL_IN(inst,31,0);
     VL_OUT64(a,63,0);
     VL_OUT64(dnxt_pc,63,0);
@@ -35,6 +34,7 @@ VL_MODULE(Vtop___024root) {
     VL_OUT64(addr,63,0);
 
     // LOCAL SIGNALS
+    CData/*0:0*/ top__DOT__ren;
     CData/*0:0*/ top__DOT__br_asrt;
     CData/*0:0*/ top__DOT__wb_en;
     CData/*0:0*/ top__DOT__wb_pc;

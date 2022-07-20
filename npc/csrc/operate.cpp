@@ -79,7 +79,8 @@ void vmem_write(long long waddr, long long wdata, char wlen, char wen) {
 }
 */
 
-void vmem_read(long long raddr, long long *rdata) {
+void vmem_read(long long raddr, long long *rdata, char ren) {
+  if( ren == 1 )
   *rdata = paddr_read(raddr, 8);
 }
 

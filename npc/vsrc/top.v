@@ -17,14 +17,13 @@ module top
   output  wire  [DW-1:0]  wdata   ,
   output  wire  [3:0]     wlen    ,
   output  wire            wen     ,
-  output  wire            ren     ,
   output  wire  [DW-1:0]  addr    
 
 );
 
 
-
-  wire  [DW-1:0]  rdata   ;
+wire    [DW-1:0]    rdata   ;
+wire                ren     ;
 
 wire    [DW-1:0]    imm      ; 
 wire    [DW-1:0]    result   ;
@@ -239,10 +238,10 @@ controlor controlor_inst
   initial set_gpr_ptr(regfile_inst.gpr);
 
   import "DPI-C" function void vmem_read(
-    input longint raddr, output longint rdata );
+    input longint raddr, output longint rdata, input byte ren);
 
   always@(*) begin
-    vmem_read(addr, rdata);
+    vmem_read(addr, rdata, {7'b0,ren});
   end
   /*
 
