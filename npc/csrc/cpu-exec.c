@@ -27,9 +27,9 @@ void run_step(Decode *s, CPU_state *cpu);
 
 static void exec_once(Decode *s, vaddr_t pc){
 
+  printf(ANSI_FMT_RED "---------------------" ANSI_FMT_NONE);
   s->pc = pc;
   s->snpc = pc;
-  printf(ANSI_FMT_RED "---------------------" ANSI_FMT_NONE);
   run_step(s, &cpu);
   cpu.pc = s->dnpc;
 
