@@ -117,10 +117,13 @@ all : default
 
 run : sim
 
+gdb : $(BIN)
+	@gdb --args $(BIN) -b $(NPCFLAGS) 
+
 sim: $(BIN) 
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	@echo "----------------------------------------- RUN -----------------------------------------------"
-	@gdb --args $(BIN) -b $(NPCFLAGS) 
+	@$(BIN) $(NPCFLAGS) 
 	@echo "---------------------------------------- DONE  ----------------------------------------------"
 	$(WAVEFLAGS)
 
