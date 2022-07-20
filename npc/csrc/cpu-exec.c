@@ -99,7 +99,6 @@ static void statistic() {
 
 void cpu_exec(uint64_t n) {
   printf(ANSI_FMT_RED "---------------------" ANSI_FMT_NONE);
-
   g_print_step = ( n < MAX_INST_TO_PRINT ) ;
   switch (npc_state.state) {
     case NPC_END : case NPC_ABORT:
