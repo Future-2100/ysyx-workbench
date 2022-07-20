@@ -90,7 +90,7 @@ void run_step(Decode *s, CPU_state *cpu) {
       }
 
       top->clk = !top->clk;
-      top->eval();
+      //top->eval();
       //contextp->timeInc(1); // 10 timeprecision period passes...
       top->inst = inst_fetch(&top->pc, 4);
       top->eval();
