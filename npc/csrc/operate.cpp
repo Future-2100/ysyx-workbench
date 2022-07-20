@@ -91,10 +91,10 @@ void run_step(Decode *s, CPU_state *cpu) {
 
       top->clk = !top->clk;
       top->eval();
-      contextp->timeInc(1); // 10 timeprecision period passes...
+      //contextp->timeInc(1); // 10 timeprecision period passes...
       top->inst = inst_fetch(&top->pc, 4);
       top->eval();
-      contextp->timeInc(9);
+      contextp->timeInc(10);
 
       if( top->ren ) {
         top->rdata = paddr_read((paddr_t)(top->addr), 8);
