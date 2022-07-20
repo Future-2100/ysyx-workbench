@@ -4477,10 +4477,11 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
         ++(vlSymsp->__Vcoverage[852]);
         vlSelf->top__DOT____Vtogcov__sd = vlSelf->top__DOT__sd;
     }
-    vlSelf->wen = ((((IData)(vlSelf->top__DOT__sb) 
-                     | (IData)(vlSelf->top__DOT__sh)) 
-                    | (IData)(vlSelf->top__DOT__sw)) 
-                   | (IData)(vlSelf->top__DOT__sd));
+    vlSelf->wen = (((((IData)(vlSelf->top__DOT__sb) 
+                      | (IData)(vlSelf->top__DOT__sh)) 
+                     | (IData)(vlSelf->top__DOT__sw)) 
+                    | (IData)(vlSelf->top__DOT__sd)) 
+                   & (IData)(vlSelf->rstn));
     vlSelf->wlen = ((((1U & (- (IData)((IData)(vlSelf->top__DOT__sb)))) 
                       | (2U & (- (IData)((IData)(vlSelf->top__DOT__sh))))) 
                      | (4U & (- (IData)((IData)(vlSelf->top__DOT__sw))))) 

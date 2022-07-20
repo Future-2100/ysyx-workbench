@@ -3604,10 +3604,11 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__4(Vtop___024root* vlSelf) {
         ++(vlSymsp->__Vcoverage[852]);
         vlSelf->top__DOT____Vtogcov__sd = vlSelf->top__DOT__sd;
     }
-    vlSelf->wen = ((((IData)(vlSelf->top__DOT__sb) 
-                     | (IData)(vlSelf->top__DOT__sh)) 
-                    | (IData)(vlSelf->top__DOT__sw)) 
-                   | (IData)(vlSelf->top__DOT__sd));
+    vlSelf->wen = (((((IData)(vlSelf->top__DOT__sb) 
+                      | (IData)(vlSelf->top__DOT__sh)) 
+                     | (IData)(vlSelf->top__DOT__sw)) 
+                    | (IData)(vlSelf->top__DOT__sd)) 
+                   & (IData)(vlSelf->rstn));
     vlSelf->wlen = ((((1U & (- (IData)((IData)(vlSelf->top__DOT__sb)))) 
                       | (2U & (- (IData)((IData)(vlSelf->top__DOT__sh))))) 
                      | (4U & (- (IData)((IData)(vlSelf->top__DOT__sw))))) 
