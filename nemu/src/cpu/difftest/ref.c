@@ -13,15 +13,15 @@ void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
   }
 }
 
-void difftest_regcpy(void *dut, bool direction) {
+void difftest_regcpy(CPU_state *dut, bool direction) {
 
   int i;
   for( i=0; i<32; i++ ) {
     if( direction == DIFFTEST_TO_REF ) {
-      cpu.gpr[i] = *(uint64_t *)(dut+i);
+      cpu.gpr[i] = dut->gpr[i];
     }
     else if ( direction == DIFFTEST_TO_DUT ) {
-      *(uint64_t *)(dut+i) = cpu.gpr[i] ;
+      (dut->gpr[i]) = cpu.gpr[i] ;
     }
   }
 }
