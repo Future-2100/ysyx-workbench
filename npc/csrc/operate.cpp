@@ -107,7 +107,7 @@ void run_step(Decode *s, CPU_state *cpu) {
         top->rdata = paddr_read((paddr_t)(top->addr),8);
        } 
       top->eval();
-      contextp->timeInc(10);
+      contextp->timeInc(8);
 
       s->snpc = top->snxt_pc;
       s->dnpc = top->dnxt_pc;
@@ -116,6 +116,8 @@ void run_step(Decode *s, CPU_state *cpu) {
       for (int i=0; i<32; i++) {
         cpu->gpr[i] = cpu_gpr[i];
       }
+      top->eval();
+      contextp->timeInc(2);
 
       if(top->ebreak)  { 
         npc_trap(NPC_END , top->pc, top->a);
