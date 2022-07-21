@@ -1,5 +1,6 @@
 #include <common.h>
 #include <device/map.h>
+#include <memory/paddr.h>
 
 #define SCREEN_W (MUXDEF(CONFIG_VGA_SIZE_800x600, 800, 400))
 #define SCREEN_H (MUXDEF(CONFIG_VGA_SIZE_800x600, 600, 300))
@@ -55,11 +56,16 @@ static inline void update_screen() {
 #endif
 #endif
 
-void vga_update_screen() {
+void vga_update_screen(uint32_t offset, int len, bool is_write) {
   // TODO: call `update_screen()` when the sync register is non-zero,
   // then zero out the sync register
+  bool sync = paddr_read( CONFIG_VGA_CTL_MMIO + 4 , 4 );
+  if( sync ) {
+    update_screen();
+  }
 }
 
+//io_callback_t
 void init_vga() {
   vgactl_port_base = (uint32_t *)new_space(8);
   vgactl_port_base[0] = (screen_width() << 16) | screen_height();
@@ -70,7 +76,7 @@ void init_vga() {
 #endif
 
   vmem = new_space(screen_size());
-  add_mmio_map("vmem", CONFIG_FB_ADDR, vmem, screen_size(), NULL);
+  add_mmio_map("vmem", CONFIG_FB_ADDR, vmem, screen_size(), vga_update_screen );
   IFDEF(CONFIG_VGA_SHOW_SCREEN, init_screen());
   IFDEF(CONFIG_VGA_SHOW_SCREEN, memset(vmem, 0, screen_size()));
 }
