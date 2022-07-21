@@ -64,6 +64,9 @@ void reset(int n) {
   top->rstn = 0;
   while( n-- > 0) single_cycle();
   top->rstn = 1;
+  top->clk = !top->clk;
+  top->eval();
+  contextp->timeInc(10);
 } 
 
 void init_module() {
@@ -105,34 +108,29 @@ void run_step(Decode *s, CPU_state *cpu) {
 //  int j=2;
 //  while ( j-- && ( !contextp->gotFinish() ) ) {
 
-      top->clk = !top->clk;   //negedge clk
+      top->clk = !top->clk;   //posedge clk
+      top->inst = inst_fetch(&top->pc, 4);
+      top->eval();
+      contextp->timeInc(10);
+
+
+      top->clk = !top->clk;   //negedge clk 
       if( top->wen ) {
         paddr_write((paddr_t)(top->addr), top->wlen, top->wdata);
       }
-
-      top->eval();
-      if( first == false ) {
-        s->snpc = top->snxt_pc;
-        s->dnpc = top->dnxt_pc;
-        s->pc   = top->pc;
-        s->isa.inst.val = top->inst;
-        for (int i=0; i<32; i++) {
-          cpu->gpr[i] = cpu_gpr[i];
-        }
-      }
-      if( first == true ) {
-        first = false ;
-      }
-      contextp->timeInc(10);
-      
-      top->clk = !top->clk;   //posedge clk 
-      top->inst = inst_fetch(&top->pc, 4);
       if( top->ren ) {
         paddr_read((paddr_t)(top->addr),8);
        } 
       top->eval();
-      contextp->timeInc(10);
 
+      s->snpc = top->snxt_pc;
+      s->dnpc = top->dnxt_pc;
+      s->pc   = top->pc;
+      s->isa.inst.val = top->inst;
+      for (int i=0; i<32; i++) {
+        cpu->gpr[i] = cpu_gpr[i];
+      }
+      contextp->timeInc(10);
 
       if(top->ebreak)  { 
         npc_trap(NPC_END , top->pc, top->a);
