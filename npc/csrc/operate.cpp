@@ -96,18 +96,20 @@ void run_step(Decode *s, CPU_state *cpu) {
       top->clk = !top->clk;   //posedge clk
       top->inst = inst_fetch(&top->dnxt_pc, 4);
       top->eval();
-      contextp->timeInc(10);
+      contextp->timeInc(5);
+      if( top->ren ) {
+        top->rdata = paddr_read((paddr_t)(top->addr),8);
+       } 
+      top->eval();
+      contextp->timeInc(5);
 
 
       top->clk = !top->clk;   //negedge clk 
       if( top->wen ) {
         paddr_write((paddr_t)(top->addr), top->wlen, top->wdata);
       }
-      if( top->ren ) {
-        top->rdata = paddr_read((paddr_t)(top->addr),8);
-       } 
       top->eval();
-      contextp->timeInc(8);
+      contextp->timeInc(10);
 
       s->snpc = top->snxt_pc;
       s->dnpc = top->dnxt_pc;
@@ -116,8 +118,6 @@ void run_step(Decode *s, CPU_state *cpu) {
       for (int i=0; i<32; i++) {
         cpu->gpr[i] = cpu_gpr[i];
       }
-      top->eval();
-      contextp->timeInc(2);
 
       if(top->ebreak)  { 
         npc_trap(NPC_END , top->pc, top->a);
