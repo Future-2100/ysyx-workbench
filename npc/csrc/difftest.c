@@ -6,7 +6,7 @@
 #include <difftest.h>
 
 void (*ref_difftest_memcpy)(paddr_t addr, void *buf, size_t n, bool direction)=NULL;
-void (*ref_difftest_regcpy)(void *dut, bool direction) = NULL;
+void (*ref_difftest_regcpy)(CPU_state *dut, bool direction) = NULL;
 void (*ref_difftest_exec)(uint64_t n) = NULL;
 void (*ref_difftest_raise_intr)(uint64_t NO) = NULL;
 
@@ -36,7 +36,7 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
   ref_difftest_memcpy = (void (*)(paddr_t addr, void *buf, size_t n, bool direction))dlsym(handle, "difftest_memcpy");
   assert(ref_difftest_memcpy);
 
-  ref_difftest_regcpy = (void (*)(void *dut, bool direction))dlsym(handle, "difftest_regcpy");
+  ref_difftest_regcpy = (void (*)(CPU_state *dut, bool direction))dlsym(handle, "difftest_regcpy");
   assert(ref_difftest_regcpy);
 
   ref_difftest_exec = (void (*)(uint64_t n))dlsym(handle, "difftest_exec");
