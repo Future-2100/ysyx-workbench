@@ -120,7 +120,7 @@ NPCFLAGS = --log=$(BUILD_DIR)/npc-log.txt
 run : sim
 
 gdb : $(BIN)
-	@gdb --args $(BIN) -b $(NPCFLAGS) 
+	@gdb --args $(BIN) --diff=$(NEMU_HOME)/build/riscv64-nemu-interpreter-so $(NPCFLAGS) 
 
 sim: $(BIN)
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
