@@ -96,7 +96,7 @@ static inline const char* reg_name(int idx, int width) {
 
 bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
 
-  for(int i=0; i<32; i++) {
+  for(int i=1; i<32; i++) {
     if( difftest_check_reg( reg_name(i, 64), pc, ref_r->gpr[check_reg_idx(i)], gpr(i) ) == false )
       return false;
   }
