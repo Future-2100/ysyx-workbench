@@ -82,6 +82,7 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
 //void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
+
 /*
 void vmem_write(long long waddr, long long wdata, char wlen, char wen) {
   if( wen == 1 )
