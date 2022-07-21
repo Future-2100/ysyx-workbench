@@ -102,8 +102,6 @@ $(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 		$(VERILATOR_OUTFLAGS) 
 
 
-NPC_FLAGS = --log=$(BUILD_DIR)/npc-log.txt
-
 # -b -e <elf_file> from abstract_machine
 NPC_FLAGS += $(ARGS)
 
