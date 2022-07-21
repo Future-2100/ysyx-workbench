@@ -103,10 +103,10 @@ $(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 
 
 # -b -e <elf_file> from abstract_machine
-NPCFLAGS += $(ARGS)
+NPC_FLAGS += $(ARGS)
 
 # image file from abstract_machine
-NPCFLAGS += $(IMG)
+NPC_FLAGS += $(IMG)
 
 
 ifeq ($(WAVE),en)
@@ -115,12 +115,12 @@ endif
 
 all : default
 
-NPCFLAGS = --log=$(BUILD_DIR)/npc-log.txt
+NPC_FLAGS += --log=$(BUILD_DIR)/npc-log.txt
 
 run : sim
 
 gdb : $(BIN)
-	@gdb --args $(BIN) --diff=$(NEMU_HOME)/build/riscv64-nemu-interpreter-so $(NPCFLAGS) 
+	@gdb --args $(BIN) --diff=$(NEMU_HOME)/build/riscv64-nemu-interpreter-so $(NPC_FLAGS) 
 
 sim: $(BIN)
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
