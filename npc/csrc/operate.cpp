@@ -147,6 +147,7 @@ void run_step(Decode *s, CPU_state *cpu) {
 
 void delete_module() {
 
+  end_sim(); 
   // Final model cleanup
   top->final();
 

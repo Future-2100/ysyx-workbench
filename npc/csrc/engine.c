@@ -21,7 +21,6 @@ static int cmd_c(char *args) {
 
 static int cmd_q(char *args) {
   npc_quit();
-  delete_module();
   return -1;
 }
 
