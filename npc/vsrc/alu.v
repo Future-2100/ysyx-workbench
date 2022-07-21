@@ -92,9 +92,9 @@ module alu
       `ADD    :   lgc_result = opdata1 + opdata2 ; 
       `SUB    :   lgc_result = opdata1 - opdata2 ; 
       `XOR    :   lgc_result = opdata1 ^ opdata2 ; 
-      `SLL    :   lgc_result = opdata1  << opdata2[5:0]  ; 
-      `SRL    :   lgc_result = opdata1 <<< opdata2[5:0]  ; 
-      `SRA    :   lgc_result = opdata1  >> opdata2[5:0]  ; 
+      `SLL    :   lgc_result = opdata1  <<  opdata2[5:0]  ; 
+      `SRL    :   lgc_result = opdata1  >> opdata2[5:0]  ; 
+      `SRA    :   lgc_result = opdata1  >>>  opdata2[5:0]  ; 
       `OR     :   lgc_result = opdata1 | opdata2 ; 
       `AND    :   lgc_result = opdata1 & opdata2 ; 
       `SLT    :   lgc_result = (opdata1  <  opdata2) ? 64'b1 : 64'b0 ; 
@@ -140,8 +140,8 @@ module alu
     case (wlgc_op) 
       `ADDW   :   wlgc_result = wopdata1 +   wopdata2 ;
       `SLLW   :   wlgc_result = wopdata1 <<  wopdata2[4:0];
-      `SRLW   :   wlgc_result = wopdata1 <<< wopdata2[4:0];
-      `SRAW   :   wlgc_result = wopdata1 >>  wopdata2[4:0];
+      `SRLW   :   wlgc_result = wopdata1 >>  wopdata2[4:0];
+      `SRAW   :   wlgc_result = wopdata1 >>> wopdata2[4:0];
       `SUBW   :   wlgc_result = wopdata1 - wopdata2 ;
       default :   wlgc_result = {(DW/2){1'b0}};
     endcase
