@@ -59,7 +59,8 @@ static inline void update_screen() {
 void vga_update_screen(uint32_t offset, int len, bool is_write) {
   // TODO: call `update_screen()` when the sync register is non-zero,
   // then zero out the sync register
-  bool sync = paddr_read( CONFIG_VGA_CTL_MMIO + 4 , 4 );
+  assert(is_write);
+  bool sync = paddr_read( offset , len );
   if( sync ) {
     update_screen();
   }
