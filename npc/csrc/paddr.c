@@ -91,3 +91,13 @@ void paddr_write(paddr_t addr, int len, word_t data) {
   out_of_bound(addr);
 }
 
+static inline word_t vaddr_ifetch(vaddr_t addr, int len){
+    return paddr_read(addr, len);
+}
+
+uint32_t inst_fetch(vaddr_t *pc, int len){
+  uint32_t inst = vaddr_ifetch(*pc, len);
+  return inst;
+}
+
+

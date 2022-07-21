@@ -61,6 +61,7 @@ VM_USER_CLASSES = \
 	disasm \
 	elf \
 	engine \
+	expr \
 	isa \
 	log \
 	monitor \
@@ -68,6 +69,7 @@ VM_USER_CLASSES = \
 	operate \
 	paddr \
 	rand \
+	reg \
 	sdb \
 	timer \
 
@@ -95,6 +97,8 @@ elf.o: /home/grand/ysyx-workbench/npc/csrc/elf.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 engine.o: /home/grand/ysyx-workbench/npc/csrc/engine.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+expr.o: /home/grand/ysyx-workbench/npc/csrc/expr.c
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 isa.o: /home/grand/ysyx-workbench/npc/csrc/isa.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 log.o: /home/grand/ysyx-workbench/npc/csrc/log.c
@@ -108,6 +112,8 @@ operate.o: /home/grand/ysyx-workbench/npc/csrc/operate.cpp
 paddr.o: /home/grand/ysyx-workbench/npc/csrc/paddr.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 rand.o: /home/grand/ysyx-workbench/npc/csrc/rand.c
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+reg.o: /home/grand/ysyx-workbench/npc/csrc/reg.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 sdb.o: /home/grand/ysyx-workbench/npc/csrc/sdb.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<

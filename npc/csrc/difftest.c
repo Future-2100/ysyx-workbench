@@ -79,40 +79,20 @@ static inline int check_reg_idx(int idx) {
 }
 
 
-extern uint64_t *cpu_gpr ;
-#define gpr(idx) (cpu_gpr[check_reg_idx(idx)])
-
-const char *regs[] = {
-  "$0", "ra", "sp", "gp", "tp", "t0", "t1", "t2",
-  "s0", "s1", "a0", "a1", "a2", "a3", "a4", "a5",
-  "a6", "a7", "s2", "s3", "s4", "s5", "s6", "s7",
-  "s8", "s9", "s10", "s11", "t3", "t4", "t5", "t6"
-};
-
-static inline const char* reg_name(int idx, int width) {
-  return regs[check_reg_idx(idx)];
-}
-
-
-bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
-
-  for(int i=1; i<32; i++) {
-    if( difftest_check_reg( reg_name(i, 64), pc, ref_r->gpr[check_reg_idx(i)], gpr(i) ) == false )
-      return false;
-  }
-  return true ; 
-}
 
 void isa_reg_display();
+bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc);
 extern NPCState npc_state ;
 
 static void checkregs(CPU_state *ref, vaddr_t pc) {
-  if (!isa_difftest_checkregs(ref, pc)) {
+  if( !isa_difftest_checkregs(ref, pc) ){
     npc_state.state = NPC_ABORT;
     npc_state.halt_pc = pc;
     isa_reg_display();
   }
 }
+
+
 
 void difftest_step(vaddr_t pc, vaddr_t npc) {
   CPU_state ref_r;

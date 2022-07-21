@@ -50,7 +50,13 @@ static int cmd_x(char *args){
   return 0;
   }
 
+word_t expr(char *e, bool *success);
 static int cmd_p(char *args){
+  bool success;
+  word_t result;
+  result = expr(args, &success);
+  printf("%ld\n", result);
+
   return 0;
 }
 

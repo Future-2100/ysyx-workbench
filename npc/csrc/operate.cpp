@@ -16,14 +16,6 @@ static Vtop* top = new Vtop;
 //-----  extern function ------//
 void npc_trap(int state, vaddr_t pc, int halt_ret);
 
-word_t vaddr_ifetch(vaddr_t addr, int len){
-    return paddr_read(addr, len);
-}
-
-static inline uint32_t inst_fetch(vaddr_t *pc, int len){
-  uint32_t inst = vaddr_ifetch(*pc, len);
-  return inst;
-}
 
 void init_verilator(int argc, char** argv, char** env) {
 
@@ -95,14 +87,6 @@ void vmem_read(long long raddr, long long *rdata, char ren) {
 }
 */
 
-void isa_reg_display() {
-  int i;
-  for (i = 0; i<32; i++) {
-    printf("gpr[%d] = 0x%lx\n", i, cpu_gpr[i]);
-  }
-}
-
-static bool first = true ;
 
 void run_step(Decode *s, CPU_state *cpu) {
 
