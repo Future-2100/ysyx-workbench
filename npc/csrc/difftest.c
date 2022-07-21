@@ -80,7 +80,7 @@ static inline int check_reg_idx(int idx) {
 
 
 extern uint64_t *cpu_gpr ;
-#define gpr(idx) (cpu_gpr[check_reg_idx(idx)])
+#define gpr(idx) (cpu.gpr[check_reg_idx(idx)])
 
 const char *regs[] = {
   "$0", "ra", "sp", "gp", "tp", "t0", "t1", "t2",
