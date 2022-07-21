@@ -5,7 +5,7 @@
 //-------------------------some parameter related to the CONFIG_TRACE-----------------------
 #ifdef CONFIG_TRACE
     #define CONFIG_TRACE_START 0
-    #define CONFIG_TRACE_END 0
+    #define CONFIG_TRACE_END 10000
 
     #define CONFIG_ITRACE
 #endif
