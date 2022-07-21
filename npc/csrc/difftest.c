@@ -61,7 +61,6 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
   ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
 }
 
-
 static inline bool difftest_check_reg(const char *name, vaddr_t pc, word_t ref, word_t dut) {
   if (ref != dut) {
     Log("%s is different after executing instruction at pc = " FMT_WORD
@@ -72,12 +71,10 @@ static inline bool difftest_check_reg(const char *name, vaddr_t pc, word_t ref, 
   return true;
 }
 
-
 static inline int check_reg_idx(int idx) {
   assert(idx >= 0 && idx < 32);
   return idx;                                                                  
 }
-
 
 
 void isa_reg_display();
@@ -91,8 +88,6 @@ static void checkregs(CPU_state *ref, vaddr_t pc) {
     isa_reg_display();
   }
 }
-
-
 
 void difftest_step(vaddr_t pc, vaddr_t npc) {
   CPU_state ref_r;

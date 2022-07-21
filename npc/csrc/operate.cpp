@@ -104,7 +104,7 @@ void run_step(Decode *s, CPU_state *cpu) {
         paddr_write((paddr_t)(top->addr), top->wlen, top->wdata);
       }
       if( top->ren ) {
-        paddr_read((paddr_t)(top->addr),8);
+        top->rdata = paddr_read((paddr_t)(top->addr),8);
        } 
       top->eval();
 
