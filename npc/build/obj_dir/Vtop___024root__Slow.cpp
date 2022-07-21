@@ -18003,8 +18003,9 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
               ? ((4U & (IData)(vlSelf->top__DOT__wlgc_op))
                   ? ((2U & (IData)(vlSelf->top__DOT__wlgc_op))
                       ? 0U : ((1U & (IData)(vlSelf->top__DOT__wlgc_op))
-                               ? ((IData)(vlSelf->top__DOT__alu_inst__DOT__opdata1) 
-                                  >> (0x1fU & (IData)(vlSelf->top__DOT__alu_inst__DOT__opdata2)))
+                               ? VL_SHIFTRS_III(32,32,5, (IData)(vlSelf->top__DOT__alu_inst__DOT__opdata1), 
+                                                (0x1fU 
+                                                 & (IData)(vlSelf->top__DOT__alu_inst__DOT__opdata2)))
                                : 0U)) : ((2U & (IData)(vlSelf->top__DOT__wlgc_op))
                                           ? 0U : ((1U 
                                                    & (IData)(vlSelf->top__DOT__wlgc_op))
@@ -18016,7 +18017,7 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                   ? ((2U & (IData)(vlSelf->top__DOT__wlgc_op))
                       ? 0U : ((1U & (IData)(vlSelf->top__DOT__wlgc_op))
                                ? ((IData)(vlSelf->top__DOT__alu_inst__DOT__opdata1) 
-                                  << (0x1fU & (IData)(vlSelf->top__DOT__alu_inst__DOT__opdata2)))
+                                  >> (0x1fU & (IData)(vlSelf->top__DOT__alu_inst__DOT__opdata2)))
                                : 0U)) : ((2U & (IData)(vlSelf->top__DOT__wlgc_op))
                                           ? 0U : ((1U 
                                                    & (IData)(vlSelf->top__DOT__wlgc_op))
@@ -18047,10 +18048,9 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                                                      ((1U 
                                                        & (IData)(vlSelf->top__DOT__lgc_op))
                                                        ? 
-                                                      (vlSelf->top__DOT__alu_inst__DOT__opdata1 
-                                                       >> 
-                                                       (0x3fU 
-                                                        & (IData)(vlSelf->top__DOT__alu_inst__DOT__opdata2)))
+                                                      VL_SHIFTRS_QQI(64,64,6, vlSelf->top__DOT__alu_inst__DOT__opdata1, 
+                                                                     (0x3fU 
+                                                                      & (IData)(vlSelf->top__DOT__alu_inst__DOT__opdata2)))
                                                        : 0ULL))
                                                      : 
                                                     ((2U 
@@ -18083,7 +18083,7 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                                                        & (IData)(vlSelf->top__DOT__lgc_op))
                                                        ? 
                                                       (vlSelf->top__DOT__alu_inst__DOT__opdata1 
-                                                       << 
+                                                       >> 
                                                        (0x3fU 
                                                         & (IData)(vlSelf->top__DOT__alu_inst__DOT__opdata2)))
                                                        : 
