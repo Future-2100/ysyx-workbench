@@ -16,8 +16,6 @@ int main(int argc, char** argv, char** env) {
 
   init_module();  //reset 10 periods
 
-  printf("???????????");
-
   engine_start();
 
   // Return good completion status
