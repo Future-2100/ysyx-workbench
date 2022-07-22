@@ -27,17 +27,18 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
   };
 }
 
+static uint64_t addr = FB_ADDR;
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   if (ctl->sync) {
     outl(SYNC_ADDR, 1);
   }
 
-  uint32_t vga_config = inl(VGACTL_ADDR);
+  //uint32_t vga_config = inl(VGACTL_ADDR);
 
-  int WIDTH = (vga_config >>  16 );
+  //int WIDTH = (vga_config >>  16 );
 
-  uint64_t first_addr = FB_ADDR + ((WIDTH) * (ctl->y)) + ctl->x ;
-  uint64_t addr = first_addr;
+  //uint64_t first_addr = FB_ADDR + ((WIDTH) * (ctl->y)) + ctl->x ;
+  //uint64_t addr = first_addr;
   for ( int j = 0; j < ctl->h; j++) {
     for ( int i = 0; i < ctl->w; i++) {
       outl(  (uintptr_t)addr , *(uint32_t *)(ctl->pixels) );
