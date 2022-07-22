@@ -1,4 +1,4 @@
-
+#include <common.h>
 
 void init_monitor(int argc, char** argv);
 void init_verilator(int argc, char** argv, char** env);
