@@ -33,6 +33,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
 
     outl(SYNC_ADDR, ctl->sync );
 
+    int nums = 0 ;
   uint32_t vga_config = inl(VGACTL_ADDR);
   int WIDTH = (vga_config >> 16 );
 
@@ -44,9 +45,11 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
       *addr = *pixel ;
       addr ++ ;
       pixel ++ ;
+      nums ++ ;
     }
     addr = addr + (WIDTH - ctl->w ) ;
   }
+  printf ( "nums = %d\n" ,nums );
 }
 
 void __am_gpu_status(AM_GPU_STATUS_T *status) {
