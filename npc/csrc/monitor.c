@@ -18,6 +18,7 @@ void init_isa();
 void sdb_set_batch_mode();
 void init_mem();
 void init_sdb();
+void init_device();
 
 static int parse_args(int argc, char *argv[]) {
   const struct option table[] = {
