@@ -46,7 +46,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
       addr ++ ;
       pixel ++ ;
     }
-    addr = addr + (WIDTH - ctl->w ) + 1 ;
+    addr = addr + (WIDTH - ctl->w ) - 1  ;
   }
 }
 
