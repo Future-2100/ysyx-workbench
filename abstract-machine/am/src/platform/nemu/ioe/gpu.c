@@ -29,7 +29,7 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 }
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
-  if (ctl->sync) {
+  if ( ctl->sync == true ) {
     outl(SYNC_ADDR, 1);
     return ;
   }
@@ -38,9 +38,10 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
 
   uint64_t first_addr = FB_ADDR + ((WIDTH) * (ctl->y)) + ctl->x ;
   uint64_t addr = first_addr;
+
   for ( int j = 0; j < ctl->h; j++) {
     for ( int i = 0; i < ctl->w; i++) {
-      outl(  (uintptr_t)addr , *(uint32_t *)(ctl->pixels) );
+      outl(  (uintptr_t)addr , *(uint32_t *)(ctl->pixels + i + j) );
       addr ++ ;
     }
     //addr = addr + (WIDTH - ctl->w );
