@@ -23,7 +23,6 @@ NPCFLAGS += -b
 endif
 
 NPCFLAGS += --elf=$(IMAGE).elf
-NPCFLAGS += --log=/home/grand/ysyx-workbench/npc/build/npc-log.txt
 
 image: $(IMAGE).elf
 	@$(OBJDUMP) -d $(IMAGE).elf > $(IMAGE).txt

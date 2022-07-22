@@ -105,6 +105,8 @@ $(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 # -b -e <elf_file> from abstract_machine
 NPC_FLAGS += $(ARGS)
 
+NPCF_LAGS += --log=/home/grand/ysyx-workbench/npc/build/npc-log.txt
+
 # image file from abstract_machine
 NPC_FLAGS += $(IMG)
 
