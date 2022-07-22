@@ -34,7 +34,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   uint32_t vga_config = inl(VGACTL_ADDR);
   int WIDTH = (vga_config >> 16 );
 
-  printf(" w = %d, h = %d \n", ctl->w, ctl->x );
+  printf(" w = %d, h = %d \n", ctl->w, ctl->h );
   uint32_t *addr = (uint32_t *)(uintptr_t)(FB_ADDR + (WIDTH * (ctl->y)) + ctl->x) ;
   uint32_t *pixel = (uint32_t *)ctl->pixels;
 
