@@ -36,7 +36,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
 
   int WIDTH = (vga_config >>  16 );
 
-  uint64_t first_addr = FB_ADDR + (WIDTH * (ctl->y)) + ctl->x - 1 ;
+  uint64_t first_addr = FB_ADDR + ((WIDTH-1) * (ctl->y)) + ctl->x ;
   uint64_t addr = first_addr;
   for ( int j = 0; j < ctl->h; j++) {
     for ( int i = 0; i < ctl->w; i++) {
