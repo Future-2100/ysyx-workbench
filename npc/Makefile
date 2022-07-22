@@ -126,7 +126,7 @@ gdb : $(BIN)
 sim: $(BIN)
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	@echo "----------------------------------------- RUN -----------------------------------------------"
-	@$(BIN) --diff=$(NEMU_HOME)/build/riscv64-nemu-interpreter-so $(LOG_FLAGS) $(NPC_FLAGS) t
+	@$(BIN) --diff=$(NEMU_HOME)/build/riscv64-nemu-interpreter-so $(LOG_FLAGS) $(NPC_FLAGS) 
 	@echo "---------------------------------------- DONE  ----------------------------------------------"
 	$(WAVEFLAGS)
 
