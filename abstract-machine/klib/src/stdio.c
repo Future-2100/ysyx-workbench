@@ -93,6 +93,10 @@ int printf(const char *fmt, ...) {
         case 'd' : bits=0;
                    tens= 1;
                    integer = va_arg(valist, int);
+                   if( integer == 0 ) {
+                     putch('0');
+                   }
+                   else {
                    while( integer / (tens) != 0 ) {
                      bits++;
                      tens = tens * 10 ;
@@ -103,6 +107,7 @@ int printf(const char *fmt, ...) {
                      integer = integer % tens ;
                      putch(num);
                      tens = tens / 10;
+                   }
                    }
                    fmt = ret ;
                    break;

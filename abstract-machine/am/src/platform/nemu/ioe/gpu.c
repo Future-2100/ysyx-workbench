@@ -40,8 +40,8 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   for ( int j = 0; j < ctl->h ; j++) {
     for ( int i = 0; i < ctl->w ; i++) {
       *addr = *pixel ;
-      addr  ++ ;
-      pixel ++ ;
+       addr  ++ ;
+       pixel ++ ;
     }
     addr = addr + (WIDTH - ctl->w ) ;
   }
