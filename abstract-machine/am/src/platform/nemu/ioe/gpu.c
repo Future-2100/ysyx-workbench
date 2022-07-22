@@ -31,6 +31,7 @@ static uint64_t addr = FB_ADDR;
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   if (ctl->sync) {
     outl(SYNC_ADDR, 1);
+    return ;
   }
 
   //uint32_t vga_config = inl(VGACTL_ADDR);
