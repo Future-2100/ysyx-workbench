@@ -85,8 +85,8 @@ void vmem_read(long long raddr, long long *rdata ) {
   *rdata = paddr_read(raddr, 8);
 }
 */
-#define RTC_ADDR    0xa0000048
-#define SERIAL_ADDR 0xa00003f8
+#define RTC_ADDR    0xa00003f8
+#define SERIAL_ADDR 0xa0000048
 uint64_t get_time();
 
 void run_step(Decode *s, CPU_state *cpu) {
