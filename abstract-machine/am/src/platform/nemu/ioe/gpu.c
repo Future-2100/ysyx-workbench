@@ -31,10 +31,7 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
 
-  if( ctl->sync == true ) {
     outl(SYNC_ADDR, ctl->sync );
-    return ;
-  }
 
   uint32_t vga_config = inl(VGACTL_ADDR);
   int WIDTH = (vga_config >> 16 );
