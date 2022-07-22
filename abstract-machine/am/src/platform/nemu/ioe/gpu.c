@@ -31,10 +31,11 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   if (ctl->sync) {
     outl(SYNC_ADDR, 1);
   }
+  printf("  ctl->x = %d, ctl->y = %d, ctl->w = %d, ctl->h = %d\n", ctl->x, ctl->y, ctl->w, ctl->h);
+
   uint32_t vga_config = inl(VGACTL_ADDR);
 
   int WIDTH = (vga_config >>  16 );
-  printf("  WIDTH = %d\n", WIDTH);
 
   uint64_t first_addr = FB_ADDR + (WIDTH * ctl->y) + ctl->x;
   uint64_t addr = first_addr;
