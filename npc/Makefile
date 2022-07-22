@@ -105,7 +105,7 @@ $(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 # -b -e <elf_file> from abstract_machine
 NPC_FLAGS += $(ARGS)
 
-NPCF_LAGS += --log=/home/grand/ysyx-workbench/npc/build/npc-log.txt
+LOG_FLAGS += --log=/home/grand/ysyx-workbench/npc/build/npc-log.txt
 
 # image file from abstract_machine
 NPC_FLAGS += $(IMG)
@@ -126,7 +126,7 @@ gdb : $(BIN)
 sim: $(BIN)
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	@echo "----------------------------------------- RUN -----------------------------------------------"
-	@$(BIN) --diff=$(NEMU_HOME)/build/riscv64-nemu-interpreter-so $(NPC_FLAGS)
+	@$(BIN) --diff=$(NEMU_HOME)/build/riscv64-nemu-interpreter-so $(NPC_FLAGS) $(LOG_FLAGS)
 	@echo "---------------------------------------- DONE  ----------------------------------------------"
 	$(WAVEFLAGS)
 
