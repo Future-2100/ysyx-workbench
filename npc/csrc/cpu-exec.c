@@ -74,9 +74,11 @@ static void execute(uint64_t n) {
     if(npc_state.state != NPC_RUNNING) {
       break;
     }
+    /*
     #ifdef CONFIG_DEVICE
       device_update();
     #endif
+    */
   }
 }
 
