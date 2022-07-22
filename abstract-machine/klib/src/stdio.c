@@ -104,8 +104,8 @@ int printf(const char *fmt, ...) {
                    tens = tens / 10;
                    for( int k=0; k<bits; k++ ) {
                      char num = (char)(integer / tens + '0' ); 
-                     integer = integer % tens ;
                      putch(num);
+                     integer = integer % tens ;
                      tens = tens / 10;
                    }
                    }
