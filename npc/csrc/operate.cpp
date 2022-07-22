@@ -65,7 +65,7 @@ void init_module() {
 
   reset(10);
   printf("pc = %lx\n",top->pc);
- // printf(ANSI_FMT_GREEN "---------- module reseted ----------\n" ANSI_FMT_NONE );
+  printf(ANSI_FMT_GREEN "---------- module reseted ----------\n" ANSI_FMT_NONE );
 
 }
 
