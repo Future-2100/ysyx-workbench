@@ -19,7 +19,7 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 
   uint32_t vga_config = inl(VGACTL_ADDR);
   uint32_t width  = (vga_config >>  16 );
-  uint32_t height = (vga_config & 0xff );
+  uint32_t height = (vga_config & 0xffff );
 
   *cfg = (AM_GPU_CONFIG_T) {
     .present = true, .has_accel = false,
@@ -35,7 +35,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   }
 
   uint32_t vga_config = inl(VGACTL_ADDR);
-  int WIDTH = (vga_config >>  16 );
+  int WIDTH = (vga_config >>  16  );
 
   uint64_t first_addr = FB_ADDR + ((WIDTH) * (ctl->y)) + ctl->x ;
   uint64_t addr = first_addr;
