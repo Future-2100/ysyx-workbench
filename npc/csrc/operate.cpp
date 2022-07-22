@@ -75,6 +75,7 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 
+/*
 void vmem_write(long long waddr, long long wdata, char wlen, char wen) {
   if( wen == 1 )
     paddr_write(waddr, wlen, wdata);
@@ -83,7 +84,7 @@ void vmem_write(long long waddr, long long wdata, char wlen, char wen) {
 void vmem_read(long long raddr, long long *rdata ) {
   *rdata = paddr_read(raddr, 8);
 }
-
+*/
 
 void run_step(Decode *s, CPU_state *cpu) {
 
@@ -94,21 +95,17 @@ void run_step(Decode *s, CPU_state *cpu) {
       top->inst = inst_fetch(&top->dnxt_pc, 4);
       top->eval();
       contextp->timeInc(5);
-      /*
       if( top->ren ) {
         top->rdata = paddr_read((paddr_t)(top->addr),8);
        } 
-       */
       top->eval();
       contextp->timeInc(5);
 
 
       top->clk = !top->clk;   //negedge clk 
-      /*
       if( top->wen ) {
         paddr_write((paddr_t)(top->addr), top->wlen, top->wdata);
       }
-      */
       top->eval();
       contextp->timeInc(10);
 
