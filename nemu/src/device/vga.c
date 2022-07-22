@@ -61,7 +61,7 @@ void vga_update_screen(uint32_t offset, int len, bool is_write) {
   // then zero out the sync register
   assert(is_write);
   printf( "len = %d\n ", len );
-  bool sync = paddr_read( CONFIG_VGA_CTL_MMIO + offset , len );
+  bool sync = paddr_read( CONFIG_VGA_CTL_MMIO + 4 , 4 );
   if( sync ) {
     update_screen();
   }
