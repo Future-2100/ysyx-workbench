@@ -85,6 +85,9 @@ void vmem_read(long long raddr, long long *rdata ) {
   *rdata = paddr_read(raddr, 8);
 }
 */
+#define RTC_ADDR    0xa0000048
+#define SERIAL_ADDR 0xa00003f8
+uint64_t get_time();
 
 void run_step(Decode *s, CPU_state *cpu) {
 
@@ -96,7 +99,12 @@ void run_step(Decode *s, CPU_state *cpu) {
       top->eval();
       contextp->timeInc(5);
       if( top->ren ) {
+        if( top->addr == RTC_ADDR ) {
+          top->rdata = get_time();
+        }
+        else {
         top->rdata = paddr_read((paddr_t)(top->addr),8);
+        }
        } 
       top->eval();
       contextp->timeInc(5);
@@ -104,7 +112,12 @@ void run_step(Decode *s, CPU_state *cpu) {
 
       top->clk = !top->clk;   //negedge clk 
       if( top->wen ) {
-        paddr_write((paddr_t)(top->addr), top->wlen, top->wdata);
+        if(top->addr == SERIAL_ADDR) {
+          putchar((char)top->wdata);
+        }
+        else {
+          paddr_write((paddr_t)(top->addr), top->wlen, top->wdata);
+        }
       }
       top->eval();
       contextp->timeInc(10);
