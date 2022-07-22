@@ -34,19 +34,21 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   uint32_t vga_config = inl(VGACTL_ADDR);
   uint32_t WIDTH = (vga_config >> 16 );
 
+  printf(" x = %d, y = %d, w = %d, h = %d\n", ctl->x , ctl->y, ctl->w, ctl->h );
   uint32_t *addr = (uint32_t *)(uintptr_t)(FB_ADDR + (WIDTH * (ctl->y)) + ctl->x) ;
   uint32_t *pixel = (uint32_t *)ctl->pixels;
 
   for ( int j = 0; j < ctl->h ; j++) {
     for ( int i = 0; i < ctl->w ; i++) {
       *addr = *pixel ;
-       addr  ++ ;
-       pixel ++ ;
+      addr ++ ;
+      pixel ++ ;
     }
     addr = addr + (WIDTH - ctl->w ) ;
   }
 
   outl(SYNC_ADDR, ctl->sync );
+
 }
 
 void __am_gpu_status(AM_GPU_STATUS_T *status) {
