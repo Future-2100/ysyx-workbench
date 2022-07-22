@@ -22,6 +22,8 @@ ifeq ($(AUTO),en)
 NPCFLAGS += -b
 endif
 
+NPCFLAGS += --log=/home/grand/ysyx-workbench/npc/build/npc-log.txt
+
 NPCFLAGS += --elf=$(IMAGE).elf
 
 image: $(IMAGE).elf
