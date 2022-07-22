@@ -9,6 +9,7 @@ void __am_gpu_init() {
   uint32_t vga_config = inl(VGACTL_ADDR);
   int w = (vga_config >>  16 );
   int h = (vga_config & 0xff);
+  printf ("w = %d, h = %d \n") ;
   uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
   for (i = 0; i < w * h; i++) fb[i] = i;
   outl(SYNC_ADDR, 1);
