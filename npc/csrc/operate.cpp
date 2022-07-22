@@ -1,5 +1,6 @@
 #include <common.h>
 #include <paddr.h>
+#include <malloc.h>
 
 // Include common routines
 #include <verilated.h>
