@@ -5,16 +5,14 @@
 #define SYNC_ADDR (VGACTL_ADDR + 4)
 
 void __am_gpu_init() {
-  /*
+  
   int i;
   uint32_t vga_config = inl(VGACTL_ADDR);
   int w = (vga_config >>  16 );
   int h = (vga_config & 0xffff );
-  printf ("w = %d, h = %d \n", w, h ) ;
   uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
   for (i = 0; i < w * h; i++) fb[i] = i;
   outl(SYNC_ADDR, 1);
-  */
 }
 
 void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
@@ -45,7 +43,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
       outl(  (uintptr_t)addr , *(uint32_t *)(ctl->pixels) );
       addr ++ ;
     }
-    addr = addr + (WIDTH - ctl->w );
+    //addr = addr + (WIDTH - ctl->w );
   }
 }
 
