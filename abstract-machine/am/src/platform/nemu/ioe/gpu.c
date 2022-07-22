@@ -31,7 +31,6 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   if (ctl->sync) {
     outl(SYNC_ADDR, 1);
   }
-  printf(" ctl->y = %d, ctl->h = %d\n", ctl->y, ctl->h);
 
   uint32_t vga_config = inl(VGACTL_ADDR);
 
