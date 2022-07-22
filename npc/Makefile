@@ -108,8 +108,8 @@ NPC_FLAGS += $(ARGS)
 LOG_FLAGS += --log=/home/grand/ysyx-workbench/npc/build/npc-log.txt
 
 # image file from abstract_machine
+IMG = /home/grand/ysyx-workbench/am-kernels/tests/am-tests/build/amtest-riscv64-npc.bin
 NPC_FLAGS += $(IMG)
-
 
 ifeq ($(WAVE),en)
 WAVEFLAGS = gtkwave $(BUILD_DIR)/logs/$(TOPNAME).vcd
@@ -126,7 +126,7 @@ gdb : $(BIN)
 sim: $(BIN)
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	@echo "----------------------------------------- RUN -----------------------------------------------"
-	@$(BIN) --diff=$(NEMU_HOME)/build/riscv64-nemu-interpreter-so $(NPC_FLAGS) $(LOG_FLAGS)
+	@$(BIN) --diff=$(NEMU_HOME)/build/riscv64-nemu-interpreter-so $(LOG_FLAGS) $(NPC_FLAGS) 
 	@echo "---------------------------------------- DONE  ----------------------------------------------"
 	$(WAVEFLAGS)
 
