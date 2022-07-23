@@ -26,7 +26,9 @@ endif
 
 ### Check: environment variable `$ARCH` must be in the supported list
 ARCHS = $(basename $(notdir $(shell ls $(AM_HOME)/scripts/*.mk)))
-ifeq ($(filter $(ARCHS), $(ARCH)), )
+$(info ---------------ARCH = $(ARCH))
+$(info --------------ARCHS = $(ARCHS))
+ifeq ($(filter $(ARCHS), $(ARCH)),)
   $(error Expected $$ARCH in {$(ARCHS)}, Got "$(ARCH)")
 endif
 
@@ -34,6 +36,8 @@ endif
 ARCH_SPLIT = $(subst -, ,$(ARCH))
 ISA        = $(word 1,$(ARCH_SPLIT))
 PLATFORM   = $(word 2,$(ARCH_SPLIT))
+$(info --------------ISA = $(ISA))
+$(info --------------PLATFORM = $(PLATFORM))
 
 ### Check if there is something to build
 ifeq ($(flavor SRCS), undefined)
@@ -48,12 +52,15 @@ endif
 ### Create the destination directory (`build/$ARCH`)
 WORK_DIR  = $(shell pwd)
 DST_DIR   = $(WORK_DIR)/build/$(ARCH)
+$(info ----------------------mkdir doing now)
 $(shell mkdir -p $(DST_DIR))
+$(info ----------------------mkdir doing end)
 
 ### Compilation targets (a binary image or archive)
 IMAGE_REL = build/$(NAME)-$(ARCH)
 IMAGE     = $(abspath $(IMAGE_REL))
 ARCHIVE   = $(WORK_DIR)/build/$(NAME)-$(ARCH).a
+###   archive : .a   归档文件
 
 ### Collect the files to be linked: object files (`.o`) and libraries (`.a`)
 OBJS      = $(addprefix $(DST_DIR)/, $(addsuffix .o, $(basename $(SRCS))))
@@ -123,7 +130,7 @@ $(DST_DIR)/%.o: %.S
 
 ### Rule (recursive make): build a dependent library (am, klib, ...)
 $(LIBS): %:
-	@$(MAKE) -s -C $(AM_HOME)/$* archive
+	@$(MAKE) -s -C $(AM_HOME)/$* ARCH=$(ARCH) archive
 
 ### Rule (link): objects (`*.o`) and libraries (`*.a`) -> `IMAGE.elf`, the final ELF binary to be packed into image (ld)
 $(IMAGE).elf: $(OBJS) am $(LIBS)
