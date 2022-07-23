@@ -139,7 +139,7 @@ void run_step(Decode *s, CPU_state *cpu) {
 
       if(top->ebreak)  { 
         npc_trap(NPC_END , top->pc, top->a);
-        end_sim(); 
+       // end_sim(); 
         for(int i=0; i<30; i++) printf(ANSI_FMT_BLUE "-");
         printf(" program end ");
         for(int i=0; i<30; i++) printf("-");
