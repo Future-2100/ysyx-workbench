@@ -110,7 +110,7 @@ LOG_FLAGS += --log=/home/grand/ysyx-workbench/npc/build/npc-log.txt
 DIFF_FLAGS += --diff=$(NEMU_HOME)/build/riscv64-nemu-interpreter-so
 
 # image file from abstract_machine
-IMG = /home/grand/ysyx-workbench/am-kernels/tests/am-tests/build/amtest-riscv64-npc.bin
+IMG = /home/grand/ysyx-workbench/fceux-am/build/fceux-riscv64-npc.bin
 NPC_FLAGS += $(IMG)
 
 ifeq ($(WAVE),en)
