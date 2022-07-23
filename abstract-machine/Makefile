@@ -26,8 +26,6 @@ endif
 
 ### Check: environment variable `$ARCH` must be in the supported list
 ARCHS = $(basename $(notdir $(shell ls $(AM_HOME)/scripts/*.mk)))
-$(info ---------------ARCH = $(ARCH))
-$(info --------------ARCHS = $(ARCHS))
 ifeq ($(filter $(ARCHS), $(ARCH)),)
   $(error Expected $$ARCH in {$(ARCHS)}, Got "$(ARCH)")
 endif
@@ -36,8 +34,6 @@ endif
 ARCH_SPLIT = $(subst -, ,$(ARCH))
 ISA        = $(word 1,$(ARCH_SPLIT))
 PLATFORM   = $(word 2,$(ARCH_SPLIT))
-$(info --------------ISA = $(ISA))
-$(info --------------PLATFORM = $(PLATFORM))
 
 ### Check if there is something to build
 ifeq ($(flavor SRCS), undefined)
@@ -52,9 +48,7 @@ endif
 ### Create the destination directory (`build/$ARCH`)
 WORK_DIR  = $(shell pwd)
 DST_DIR   = $(WORK_DIR)/build/$(ARCH)
-$(info ----------------------mkdir doing now)
 $(shell mkdir -p $(DST_DIR))
-$(info ----------------------mkdir doing end)
 
 ### Compilation targets (a binary image or archive)
 IMAGE_REL = build/$(NAME)-$(ARCH)
