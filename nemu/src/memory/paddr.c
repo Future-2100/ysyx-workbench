@@ -14,11 +14,17 @@ paddr_t host_to_guest(uint8_t *haddr) { return haddr - pmem + CONFIG_MBASE; }
 
 static word_t pmem_read(paddr_t addr, int len) {
   word_t ret = host_read(guest_to_host(addr), len);
+#ifdef CONFIG_MTRACE
+  printf("Read : (%08x) = %08lx  \n", addr, ret);
+#endif
   return ret;
 }
 
 static void pmem_write(paddr_t addr, int len, word_t data) {
   host_write(guest_to_host(addr), len, data);
+#ifdef CONFIG_MTRACE
+  printf("Write: (%08x) = %08lx  \n", addr, data);
+#endif
 }
 
 static void out_of_bound(paddr_t addr) {
@@ -28,10 +34,12 @@ static void out_of_bound(paddr_t addr) {
 
 void init_mem() {
 #if   defined(CONFIG_PMEM_MALLOC)
+  printf("CONFIG_PMEM_MALLOC defined\n");
   pmem = malloc(CONFIG_MSIZE);
   assert(pmem);
 #endif
 #ifdef CONFIG_MEM_RANDOM
+  printf("CONFIG_MEM_RANDOM defined\n");
   uint32_t *p = (uint32_t *)pmem;
   int i;
   for (i = 0; i < (int) (CONFIG_MSIZE / sizeof(p[0])); i ++) {

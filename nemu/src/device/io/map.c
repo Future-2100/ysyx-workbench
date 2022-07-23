@@ -11,8 +11,8 @@ static uint8_t *p_space = NULL;
 uint8_t* new_space(int size) {
   uint8_t *p = p_space;
   // page aligned;
-  size = (size + (PAGE_SIZE - 1)) & ~PAGE_MASK;
-  p_space += size;
+  size = (size + (PAGE_SIZE - 1)) & ~PAGE_MASK; //  ( size + 1_0000_0000_0000b - 1 ) & 1111_0000_0000_0000b ;
+  p_space += size;    
   assert(p_space - io_space < IO_SPACE_MAX);
   return p;
 }
@@ -32,9 +32,9 @@ static void invoke_callback(io_callback_t c, paddr_t offset, int len, bool is_wr
 }
 
 void init_map() {
-  io_space = malloc(IO_SPACE_MAX);
+  io_space = malloc(IO_SPACE_MAX);  // 2MB space
   assert(io_space);
-  p_space = io_space;
+  p_space = io_space;  
 }
 
 word_t map_read(paddr_t addr, int len, IOMap *map) {

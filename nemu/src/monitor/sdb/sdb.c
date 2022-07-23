@@ -1,5 +1,6 @@
 #include <isa.h>
 #include <cpu/cpu.h>
+#include <memory/vaddr.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"
@@ -34,10 +35,104 @@ static int cmd_c(char *args) {
 
 
 static int cmd_q(char *args) {
+  nemu_state.state = NEMU_QUIT;
   return -1;
 }
 
 static int cmd_help(char *args);
+
+static int cmd_si(char *args) {
+  int n;
+  char *arg = strtok(NULL," ");
+  if( arg == NULL )
+    n = 1; 
+  else
+    sscanf(arg,"%d", &n);
+  
+  cpu_exec(n);
+
+  return 0;
+}
+
+static int cmd_info(char *args) {
+//  char *arg = strtok(NULL, " ");
+  if(strcmp(args,"r") == 0)
+    isa_reg_display();
+  else if (strcmp(args,"w")== 0)
+    info_w();
+  else
+    printf("Parameter error!\n");
+  
+  return 0;
+}
+
+static int cmd_x(char *args){
+  int N;
+  char *arg = strtok(NULL, " ");
+  if(arg == NULL) { 
+    printf("Error : missing the parameter N!\n");
+    return 0;
+  }
+  else {
+    sscanf(arg, "%d", &N);
+    arg = strtok(NULL, " ");
+    if(arg == NULL) {
+      printf("Error: missing the expression EXPR !\n");
+      return 0;
+    }
+    else{
+      bool success = true;
+      vaddr_t addr;
+      addr = (vaddr_t)expr(arg, &success);
+      for(int i=0; i < N; i++) {
+        printf("0x%08lx = 0x%08lx\n",addr,vaddr_read(addr,4));
+        addr += 4;
+      }
+    }
+  return 0;
+  }
+}
+
+static int cmd_p(char *args){
+  bool success;
+  word_t result;
+  result = expr(args,&success);
+  printf("%ld\n", result);
+
+  return 0;
+}
+
+static int cmd_w(char *args){
+  //char *arg = strtok(NULL, " ");
+  if(args == NULL) {
+    printf("Error: failed to apply for a watchpoint, missing the expression EXPR !\n");
+    return 0;
+  }
+  else {
+    new_wp(args);
+    return 0;
+  }
+}
+
+static int cmd_d(char *args){
+  char *arg = strtok(NULL," ");
+  if(arg == NULL) {
+    printf("Error: missing the sequence number N !\n");
+    return 0;
+  }
+  else {
+    int N;
+    sscanf(arg,"%d", &N);
+    if( N < 1 || N > 32) {
+      printf("Error: N should be 1~32\n");
+      return 0;
+    }
+    else {
+      free_NO(N);
+      return 0;
+    }
+  }
+}
 
 static struct {
   const char *name;
@@ -49,7 +144,13 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
-
+  { "si", "The program suspends execution after stepping N instructions. When N is not given, it defaults to 1", cmd_si},
+  { "info", "r : Print register status\n\
+       w : Print watch point information", cmd_info},
+  { "x" , "Solve the expression EXPR, take the result as the first memory address, and output N consecutive 4 bytes in hex form", cmd_x},
+  { "p" , "Solve the expression EXPR", cmd_p},
+  { "w" , "Pauses the execution of program when the value of expression EXPR changes", cmd_w},
+  { "d" , "Delete the watchpoint with sequence number N", cmd_d},
 };
 
 #define NR_CMD ARRLEN(cmd_table)
@@ -80,6 +181,7 @@ static int cmd_help(char *args) {
 void sdb_set_batch_mode() {
   is_batch_mode = true;
 }
+
 
 void sdb_mainloop() {
   if (is_batch_mode) {
@@ -125,4 +227,7 @@ void init_sdb() {
 
   /* Initialize the watchpoint pool. */
   init_wp_pool();
+  
+  /* Initiallize the itrace ring pool */
+  init_iring_pool();
 }

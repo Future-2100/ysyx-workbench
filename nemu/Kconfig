@@ -1,5 +1,10 @@
 mainmenu "NEMU Configuration Menu"
 
+config WATCHPOINT
+  bool "Enable watchpoint"
+  default n
+
+
 choice
   prompt "Base ISA"
   default ISA_riscv32
@@ -25,7 +30,6 @@ config ISA64
   depends on ISA_riscv64
   bool
   default y
-
 
 choice
   prompt "NEMU execution engine"
@@ -121,10 +125,21 @@ endmenu
 
 menu "Testing and Debugging"
 
-
 config TRACE
   bool "Enable tracer"
   default y
+
+config MTRACE
+  bool "Enable mtrace"
+  default n
+
+config FTRACE
+  bool "Enable ftrace"
+  default n
+
+config IRINGTRACE
+  bool "Enable iringtrace"
+  default n
 
 config TRACE_START
   depends on TRACE
