@@ -107,6 +107,8 @@ NPC_FLAGS += $(ARGS)
 
 LOG_FLAGS += --log=/home/grand/ysyx-workbench/npc/build/npc-log.txt
 
+DIFF_FLAGS += --diff=$(NEMU_HOME)/build/riscv64-nemu-interpreter-so
+
 # image file from abstract_machine
 IMG = /home/grand/ysyx-workbench/am-kernels/tests/am-tests/build/amtest-riscv64-npc.bin
 NPC_FLAGS += $(IMG)
@@ -121,7 +123,7 @@ all : default
 run : sim
 
 gdb : $(BIN)
-	@gdb --args $(BIN) --diff=$(NEMU_HOME)/build/riscv64-nemu-interpreter-so $(NPC_FLAGS) 
+	@gdb --args $(BIN) $(DIFF_FLAGS) $(LOG_FLAGS) $(NPC_FLAGS) 
 
 sim: $(BIN)
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
