@@ -112,7 +112,7 @@ int printf(const char *fmt, ...) {
                    fmt = ret ;
                    break;
 
-        case 'p' :
+        //case 'p' :
         case 'x' : bits=0;
                    tens= 1ull;
                    integer = va_arg(valist, unsigned int);
