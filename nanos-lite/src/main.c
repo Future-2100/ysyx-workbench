@@ -15,9 +15,9 @@ int main() {
 
   init_mm();
 
-  init_device();
+  init_device();  // set (__am_has_ioe == true) and then print something
 
-  init_ramdisk();
+  init_ramdisk(); // print something
 
 #ifdef HAS_CTE
   init_irq();
