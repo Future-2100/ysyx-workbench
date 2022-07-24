@@ -31,6 +31,57 @@ word_t isa_csrrw( word_t src1, vaddr_t csr_index ) {
       dest_value = csr.mcause ;
       csr.mcause= src1 ;  
       break;
+    case MSTATUS_ADDR :
+      dest_value = csr.mstatus ;
+      csr.mstatus = src1 ;
+    default : Assert ( 0, "Other CSR register" ); break;
+  }
+  return  dest_value ;
+
+}
+
+word_t isa_csrrc( word_t src1, vaddr_t csr_index ) {
+  word_t dest_value;
+  switch (csr_index) {
+    case MTVEC_ADDR   : 
+      dest_value = csr.mtvec ;
+      csr.mtvec = (~src1) & csr.mtvec ;  
+      break;
+    case MEPC_ADDR    : 
+      dest_value = csr.mepc ;
+      csr.mepc  = (~src1) & csr.mepc ;  
+      break;
+    case MCAUSE_ADDR  : 
+      dest_value = csr.mcause ;
+      csr.mcause=  (~src1) & csr.mcause ;   
+      break;
+    case MSTATUS_ADDR :
+      dest_value = csr.mstatus ;
+      csr.mstatus = (~src1) & csr.mstatus ;  
+    default : Assert ( 0, "Other CSR register" ); break;
+  }
+  return  dest_value ;
+
+}
+
+word_t isa_csrrs( word_t src1, vaddr_t csr_index ) {
+  word_t dest_value;
+  switch (csr_index) {
+    case MTVEC_ADDR   : 
+      dest_value = csr.mtvec ;
+      csr.mtvec = src1 | csr.mtvec ;  
+      break;
+    case MEPC_ADDR    : 
+      dest_value = csr.mepc ;
+      csr.mepc  = src1 | csr.mepc ;  
+      break;
+    case MCAUSE_ADDR  : 
+      dest_value = csr.mcause ;
+      csr.mcause= src1 | csr.mcause ;  
+      break;
+    case MSTATUS_ADDR :
+      dest_value = csr.mstatus ;
+      csr.mstatus = src1 | csr.mstatus ;
     default : Assert ( 0, "Other CSR register" ); break;
   }
   return  dest_value ;
