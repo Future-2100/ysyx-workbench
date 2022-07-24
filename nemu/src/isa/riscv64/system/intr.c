@@ -53,19 +53,19 @@ word_t isa_csrrc( word_t src1, vaddr_t csr_index ) {
   switch (csr_index) {
     case MTVEC_ADDR   : 
       dest_value = cpu.mtvec ;
-      cpu.mtvec = (~src1) & cpu.mtvec ;  
+      cpu.mtvec = (~cpu.gpr[src1]) & cpu.mtvec ;  
       break;
     case MEPC_ADDR    : 
       dest_value = cpu.mepc ;
-      cpu.mepc  = (~src1) & cpu.mepc ;  
+      cpu.mepc  = (~cpu.gpr[src1]) & cpu.mepc ;  
       break;
     case MCAUSE_ADDR  : 
       dest_value = cpu.mcause ;
-      cpu.mcause=  (~src1) & cpu.mcause ;   
+      cpu.mcause=  (~cpu.gpr[src1]) & cpu.mcause ;   
       break;
     case MSTATUS_ADDR :
       dest_value = cpu.mstatus ;
-      cpu.mstatus = (~src1) & cpu.mstatus ;  
+      cpu.mstatus = (~cpu.gpr[src1]) & cpu.mstatus ;  
       break;
     default : Assert ( 0, "isa_csrrc : no index = 0x%lx",csr_index ); break;
   }
@@ -78,19 +78,19 @@ word_t isa_csrrs( word_t src1, vaddr_t csr_index ) {
   switch (csr_index) {
     case MTVEC_ADDR   : 
       dest_value = cpu.mtvec ;
-      cpu.mtvec = src1 | cpu.mtvec ;  
+      cpu.mtvec = cpu.gpr[src1] | cpu.mtvec ;  
       break;
     case MEPC_ADDR    : 
       dest_value = cpu.mepc ;
-      cpu.mepc  = src1 | cpu.mepc ;  
+      cpu.mepc  = cpu.gpr[src1] | cpu.mepc ;  
       break;
     case MCAUSE_ADDR  : 
       dest_value = cpu.mcause ;
-      cpu.mcause= src1 | cpu.mcause ;  
+      cpu.mcause= cpu.gpr[src1] | cpu.mcause ;  
       break;
     case MSTATUS_ADDR :
       dest_value = cpu.mstatus ;
-      cpu.mstatus = src1 | cpu.mstatus ;
+      cpu.mstatus = cpu.gpr[src1] | cpu.mstatus ;
       break;
     default : Assert ( 0, "isa_csrrs : no index = 0x%lx",csr_index ); break;
   }
