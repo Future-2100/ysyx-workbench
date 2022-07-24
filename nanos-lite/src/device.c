@@ -34,3 +34,11 @@ void init_device() {
   Log("Initializing devices...");
   ioe_init();
 }
+/*
+bool ioe_init() {
+  panic_on(cpu_current() != 0, "call ioe_init() in other CPUs");
+  panic_on(ioe_init_done, "double-initialization");
+  __am_has_ioe = true;
+  return true;
+}
+*/

@@ -10,6 +10,25 @@ typedef concat(__GUEST_ISA__, _CPU_state) CPU_state;
 typedef concat(__GUEST_ISA__, _ISADecodeInfo) ISADecodeInfo;
 //riscv64_CPU_state
 
+// csr register for riscv-64
+#define  MTVEC_ADDR 0x305
+#define   MEPC_ADDR 0x341
+#define MCAUSE_ADDR 0x342
+
+typedef struct {
+  vaddr_t mepc   ;
+  word_t  mcause ;
+  vaddr_t mtvec  ;
+} CPU_CSR;
+
+// event number for riscv-64
+enum { 
+  EVENT_NULL = 0,
+  EVENT_YIELD, EVENT_SYSCALL, EVENT_PAGEFAULT, EVENT_ERROR,
+  EVENT_IRQ_TIMER, EVENT_IRQ_IODEV,
+} ;
+word_t isa_csrrw(word_t src1, vaddr_t csr_index);
+
 
 // monitor
 extern char isa_logo[];
