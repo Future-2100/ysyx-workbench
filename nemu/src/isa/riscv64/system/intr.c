@@ -1,6 +1,6 @@
 #include <isa.h>
 
-CPU_CSR csr = { .mstatus = 0xa00000080,  };
+CPU_CSR csr = { .mstatus = 0xa00001800,  };
 
 vaddr_t isa_mret() {
   return csr.mepc ;
