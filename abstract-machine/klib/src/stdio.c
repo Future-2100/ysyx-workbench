@@ -114,15 +114,15 @@ int printf(const char *fmt, ...) {
 
         case 'p' :
         case 'x' : bits=0;
-                   tens= 1;
-                   integer = va_arg(valist, int);
+                   tens= 1u;
+                   integer = va_arg(valist, unsigned int);
                    while( integer / (tens) != 0 ) {
                      bits++;
                      tens = tens * 16 ;
                    }
                    tens = tens / 16;
                    for( k=0; k<bits; k++ ) {
-                     int num = integer/tens;
+                     unsigned int num = (unsigned)integer/(unsigned)tens;
                      if( num >= 10 ) {
                        chnum = (char)( num + 'a' -10 ); 
                      }
