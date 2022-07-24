@@ -114,7 +114,7 @@ int printf(const char *fmt, ...) {
 
         case 'p' :
         case 'x' : bits=0;
-                   tens= 1u;
+                   tens= 1ul;
                    integer = va_arg(valist, unsigned int);
                    while( (integer / tens) != 0 ) {
                      bits++;
