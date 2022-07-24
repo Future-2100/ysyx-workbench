@@ -8,7 +8,7 @@ Context* __am_irq_handle(Context *c) {
 
   Context* info = c ;
   for(int i=0; i < 35; i++) {
-    printf("gpr[%d] = %lx\n",i , info );
+    printf("gpr[%d] = %lx\n",i , *info );
     info ++ ;
   }
   if (user_handler) {
