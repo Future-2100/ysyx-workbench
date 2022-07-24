@@ -16,12 +16,6 @@ typedef concat(__GUEST_ISA__, _ISADecodeInfo) ISADecodeInfo;
 #define MCAUSE_ADDR 0x342
 #define MSTATUS_ADDR 0x300
 
-typedef struct {
-  vaddr_t mepc   ;
-  word_t  mcause ;
-  vaddr_t mtvec  ;
-  vaddr_t mstatus;
-} CPU_CSR;
 
 // event number for riscv-64
 enum { 
@@ -33,7 +27,6 @@ word_t isa_csrrw( word_t src1, vaddr_t csr_index );
 word_t isa_csrrs( word_t src1, vaddr_t csr_index );
 word_t isa_csrrc( word_t src1, vaddr_t csr_index );
 vaddr_t isa_mret();
-
 
 // monitor
 extern char isa_logo[];
