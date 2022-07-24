@@ -123,7 +123,7 @@ int printf(const char *fmt, ...) {
                    for( k=0; k<bits; k++ ) {
                      int num = integer/tens;
                      if( num >= 10 ) {
-                       chnum = (char)( num + 'a' ); 
+                       chnum = (char)( num + 'a' -10 ); 
                      }
                      else {
                        chnum = (char)( num + '0' ); 
