@@ -9,7 +9,7 @@ Context* __am_irq_handle(Context *c) {
   printf("c->mstatus = %d\n", c->mstatus);
  // printf("c->mepc    = %x\n", c->mepc);
   for( int i=0; i<32; i++ ) {
-    printf("c->gpr[%d] = %x\n", i,c->gpr[i]);
+    printf("c->gpr[%d] = %d\n", i,c->gpr[i]);
   }
   if (user_handler) {
     Event ev = {0};
