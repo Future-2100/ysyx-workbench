@@ -112,6 +112,7 @@ int printf(const char *fmt, ...) {
                    fmt = ret ;
                    break;
 
+        case 'p' :
         case 'x' : bits=0;
                    tens= 1;
                    integer = va_arg(valist, int);
