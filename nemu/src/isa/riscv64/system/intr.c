@@ -13,7 +13,7 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
   cpu.mepc = epc;
   cpu.mcause = NO;
   
-  printf("raise_intr : mtvec = %lx, mepc = %lx, mcause = %lx, mstatus = %lx \n", cpu.mtvec, cpu.mepc, cpu.mcause, cpu.mstatus );
+  printf("raise_intr :pc = %lx, mtvec = %lx, mepc = %lx, mcause = %lx, mstatus = %lx \n",cpu.pc, cpu.mtvec, cpu.mepc, cpu.mcause, cpu.mstatus );
   return cpu.mtvec;
 }
 
