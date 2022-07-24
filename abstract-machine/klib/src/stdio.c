@@ -90,23 +90,23 @@ int printf(const char *fmt, ...) {
                    fmt = ret ;
                    break;
 
-        case 'd' : bits=0;
-                   tens= 1;
-                   integer = va_arg(valist, int);
-                   if( integer == 0 ) {
+        case 'd' : bits=0ull;
+                   tens= 1ull;
+                   integer = va_arg(valist, unsigned long long );
+                   if( integer == 0ull ) {
                      putch('0');
                    }
                    else {
-                   while( integer / (tens) != 0 ) {
+                   while( integer / (tens) != 0ull ) {
                      bits++;
-                     tens = tens * 10 ;
+                     tens = tens * 10ull ;
                    }
-                   tens = tens / 10;
+                   tens = tens / 10ull;
                    for( int k=0; k<bits; k++ ) {
                      char num = (char)(integer / tens + '0' ); 
                      putch(num);
                      integer = integer % tens ;
-                     tens = tens / 10;
+                     tens = tens / 10ull;
                    }
                    }
                    fmt = ret ;
