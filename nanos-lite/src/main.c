@@ -13,8 +13,6 @@ int main() {
   Log("'Hello World!' from Nanos-lite");
   Log("Build time: %s, %s", __TIME__, __DATE__);
 
-  printf("test = %p\n" , 0x10000000);
-
   init_mm();
 
   init_device();  // set (__am_has_ioe == true) and then print something
