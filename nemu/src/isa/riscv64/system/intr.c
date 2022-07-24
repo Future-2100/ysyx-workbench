@@ -48,7 +48,7 @@ word_t isa_csrrw( int src1, vaddr_t csr_index ) {
 
 }
 
-word_t isa_csrrc( word_t src1, vaddr_t csr_index ) {
+word_t isa_csrrc( int src1, vaddr_t csr_index ) {
   word_t dest_value;
   switch (csr_index) {
     case MTVEC_ADDR   : 
@@ -73,7 +73,8 @@ word_t isa_csrrc( word_t src1, vaddr_t csr_index ) {
 
 }
 
-word_t isa_csrrs( word_t src1, vaddr_t csr_index ) {
+word_t isa_csrrs( int src1, vaddr_t csr_index ) {
+  printf("cpu.gpr[%d] = %lx, csr_index = %lx\n", src1, cpu.gpr[src1], csr_index );
   word_t dest_value;
   switch (csr_index) {
     case MTVEC_ADDR   : 
@@ -94,6 +95,7 @@ word_t isa_csrrs( word_t src1, vaddr_t csr_index ) {
       break;
     default : Assert ( 0, "isa_csrrs : no index = 0x%lx",csr_index ); break;
   }
+  printf("cpu.mcause = %lx\n",cpu.mcause);
   return  dest_value ;
 
 }
