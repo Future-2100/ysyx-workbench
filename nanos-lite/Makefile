@@ -2,6 +2,9 @@
 #----------------------------------------------------------------------------
 RAMDISK_FILE = build/ramdisk.img
 
+AUTO=en
+ARCH=riscv64-nemu
+
 NAME = nanos-lite
 SRCS = $(shell find -L ./src/ -name "*.c" -o -name "*.cpp" -o -name "*.S")
 include $(AM_HOME)/Makefile
