@@ -12,7 +12,7 @@ int printf(const char *fmt, ...) {
 
   int buf[8];
   int i;
-  int tens ;
+  unsigned long long int tens ;
   int allbits;
   int bits;
   int integer;
@@ -114,7 +114,7 @@ int printf(const char *fmt, ...) {
 
         case 'p' :
         case 'x' : bits=0;
-                   tens= 1ul;
+                   tens= 1ull;
                    integer = va_arg(valist, unsigned int);
                    while( (integer / tens) != 0 ) {
                      bits++;
