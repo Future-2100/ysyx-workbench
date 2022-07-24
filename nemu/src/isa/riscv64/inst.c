@@ -47,7 +47,7 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
     case TYPE_J: src1J(immJ(i)); break;
     case TYPE_B: destI(immB(i)); src1R(rs1); src2R(rs2); break;
     case TYPE_R: src1R(rs1);     src2R(rs2); break;
-    case TYPE_C: src1R(rs1);     *src2 = csr ; break;
+    case TYPE_C: *src1 = rs1;     *src2 = csr ; break;
   }
 }
 
@@ -123,7 +123,7 @@ static int decode_exec(Decode *s) {
   ////fence
   ////ecall
   INSTPAT("0000000 00001 00000 000 00000 11100 11", ebreak , N, NEMUTRAP(s->pc, R(10))); // R(10) is $a0
-  INSTPAT("0000000 00000 00000 000 00000 11100 11", ecall  , N, s->dnpc = isa_raise_intr(0x0b, s->pc));
+  INSTPAT("0000000 00000 00000 000 00000 11100 11", ecall  , N, s->dnpc = isa_raise_intr(EVENT_YIELD, s->pc ));
 
   INSTPAT("??????? ????? ????? 110 ????? 00000 11", lwu    , I, R(dest) = Mr(src1 + src2, 4) );
   INSTPAT("??????? ????? ????? 011 ????? 00000 11", ld     , I, R(dest) = Mr(src1 + src2, 8));
@@ -165,6 +165,7 @@ static int decode_exec(Decode *s) {
   INSTPAT("??????? ????? ????? 111 ????? 11100 11", csrrci , C, () );
   */
 
+  INSTPAT("0011000 00010 00000 000 00000 11100 11", mret   , C, s->dnpc = isa_mret());
 
   INSTPAT("??????? ????? ????? ??? ????? ????? ??", inv    , N, INV(s->pc));
   INSTPAT_END();

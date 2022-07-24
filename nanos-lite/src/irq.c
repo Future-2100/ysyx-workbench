@@ -9,7 +9,7 @@ struct Context {
 
 static Context* do_event(Event e, Context* c) {
   switch (e.event) {
-      case EVENT_YIELD     : break; 
+      case EVENT_YIELD     :  printf("here is the event_yield !\n") ; break; 
       case EVENT_SYSCALL   : break;
       case EVENT_PAGEFAULT : break;
       case EVENT_ERROR     : break;
