@@ -23,7 +23,7 @@ enum {
   EVENT_YIELD, EVENT_SYSCALL, EVENT_PAGEFAULT, EVENT_ERROR,
   EVENT_IRQ_TIMER, EVENT_IRQ_IODEV,
 } ;
-word_t isa_csrrw( word_t src1, vaddr_t csr_index );
+word_t isa_csrrw( int src1, vaddr_t csr_index );
 word_t isa_csrrs( word_t src1, vaddr_t csr_index );
 word_t isa_csrrc( word_t src1, vaddr_t csr_index );
 vaddr_t isa_mret();
