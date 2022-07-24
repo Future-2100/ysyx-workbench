@@ -32,6 +32,7 @@ enum {
 word_t isa_csrrw( word_t src1, vaddr_t csr_index );
 word_t isa_csrrs( word_t src1, vaddr_t csr_index );
 word_t isa_csrrc( word_t src1, vaddr_t csr_index );
+vaddr_t isa_mret();
 
 
 // monitor
