@@ -87,7 +87,7 @@ word_t isa_csrrs( int src1, vaddr_t csr_index ) {
       break;
     case MCAUSE_ADDR  : 
       dest_value = cpu.mcause ;
-      cpu.mcause= cpu.gpr[src1] | cpu.mcause ;  
+      cpu.mcause = cpu.gpr[src1] | cpu.mcause ;  
       break;
     case MSTATUS_ADDR :
       dest_value = cpu.mstatus ;
