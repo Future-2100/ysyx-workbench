@@ -27,15 +27,15 @@ word_t isa_csrrw( int src1, vaddr_t csr_index ) {
   switch (csr_index) {
     case MTVEC_ADDR   : 
       dest_value = cpu.mtvec ;
-      cpu.mtvec = src1 ;  
+      cpu.mtvec = cpu.gpr[src1] ;  
       break;
     case MEPC_ADDR    : 
       dest_value = cpu.mepc ;
-      cpu.mepc  = src1 ;  
+      cpu.mepc  = cpu.gpr[src1] ;  
       break;
     case MCAUSE_ADDR  : 
       dest_value = cpu.mcause ;
-      cpu.mcause= src1 ;  
+      cpu.mcause= cpu.gpr[src1] ;  
       break;
     case MSTATUS_ADDR :
       dest_value = cpu.mstatus ;
