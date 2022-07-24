@@ -17,7 +17,6 @@ word_t isa_query_intr() {
 }
 
 word_t isa_csrrw( word_t src1, vaddr_t csr_index ) {
-  printf("src1 = %lx, csr_index = %lx\n",src1, csr_index);
   word_t dest_value;
   switch (csr_index) {
     case MTVEC_ADDR   : 
@@ -43,7 +42,6 @@ word_t isa_csrrw( word_t src1, vaddr_t csr_index ) {
 }
 
 word_t isa_csrrc( word_t src1, vaddr_t csr_index ) {
-  printf("src1 = %lx, csr_index = %lx\n",src1, csr_index);
   word_t dest_value;
   switch (csr_index) {
     case MTVEC_ADDR   : 
@@ -69,8 +67,6 @@ word_t isa_csrrc( word_t src1, vaddr_t csr_index ) {
 }
 
 word_t isa_csrrs( word_t src1, vaddr_t csr_index ) {
-  printf("src1 = %lx, csr_index = %lx\n",src1, csr_index);
-  printf("mcause=%lx", csr.mcause);
   word_t dest_value;
   switch (csr_index) {
     case MTVEC_ADDR   : 
