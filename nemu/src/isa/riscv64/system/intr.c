@@ -1,6 +1,6 @@
 #include <isa.h>
 
-CPU_CSR csr = { };
+CPU_CSR csr = { .mstatus = 0xa00001800 };
 
 word_t isa_raise_intr(word_t NO, vaddr_t epc) {
   /* TODO: Trigger an interrupt/exception with ``NO''.
