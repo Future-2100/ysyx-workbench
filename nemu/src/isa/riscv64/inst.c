@@ -123,7 +123,7 @@ static int decode_exec(Decode *s) {
   ////fence
   ////ecall
   INSTPAT("0000000 00001 00000 000 00000 11100 11", ebreak , N, NEMUTRAP(s->pc, R(10))); // R(10) is $a0
-  INSTPAT("0000000 00000 00000 000 00000 11100 11", ecall  , N, s->dnpc = isa_raise_intr(0x80000570, s->dnpc));
+  INSTPAT("0000000 00000 00000 000 00000 11100 11", ecall  , N, s->dnpc = isa_raise_intr(0x80000570, s->snpc));
 
   INSTPAT("??????? ????? ????? 110 ????? 00000 11", lwu    , I, R(dest) = Mr(src1 + src2, 4) );
   INSTPAT("??????? ????? ????? 011 ????? 00000 11", ld     , I, R(dest) = Mr(src1 + src2, 8));
@@ -165,7 +165,7 @@ static int decode_exec(Decode *s) {
   INSTPAT("??????? ????? ????? 111 ????? 11100 11", csrrci , C, () );
   */
 
-  INSTPAT("0011000 00010 00000 000 00000 11100 11", mret   , C, s->dnpc = isa_mret());
+ // INSTPAT("0011000 00010 00000 000 00000 11100 11", mret   , C, s->dnpc = isa_mret());
 
   INSTPAT("??????? ????? ????? ??? ????? ????? ??", inv    , N, INV(s->pc));
   INSTPAT_END();
