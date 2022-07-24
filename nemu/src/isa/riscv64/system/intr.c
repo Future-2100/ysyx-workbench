@@ -2,7 +2,7 @@
 
 
 vaddr_t isa_mret() {
-  return cpu.mepc ;
+  return cpu.mepc + 4 ;
 
 }
 
