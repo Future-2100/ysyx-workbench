@@ -35,7 +35,7 @@ word_t isa_csrrw( word_t src1, vaddr_t csr_index ) {
     case MSTATUS_ADDR :
       dest_value = csr.mstatus ;
       csr.mstatus = src1 ;
-    default : Assert ( 0, "Other CSR register addr = 0x%lx",csr_index ); break;
+    default : Assert ( 0, "isa_csrrw : no index = 0x%lx",csr_index ); break;
   }
   return  dest_value ;
 
@@ -60,7 +60,7 @@ word_t isa_csrrc( word_t src1, vaddr_t csr_index ) {
     case MSTATUS_ADDR :
       dest_value = csr.mstatus ;
       csr.mstatus = (~src1) & csr.mstatus ;  
-    default : Assert ( 0, "Other CSR register addr = 0x%lx",csr_index ); break;
+    default : Assert ( 0, "isa_csrrc : no index = 0x%lx",csr_index ); break;
   }
   return  dest_value ;
 
@@ -85,7 +85,7 @@ word_t isa_csrrs( word_t src1, vaddr_t csr_index ) {
     case MSTATUS_ADDR :
       dest_value = csr.mstatus ;
       csr.mstatus = src1 | csr.mstatus ;
-    default : Assert ( 0, "Other CSR register addr = 0x%lx",csr_index ); break;
+    default : Assert ( 0, "isa_csrrs : no index = 0x%lx",csr_index ); break;
   }
   return  dest_value ;
 
