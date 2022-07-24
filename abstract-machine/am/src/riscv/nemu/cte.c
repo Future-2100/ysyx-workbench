@@ -6,10 +6,8 @@ static Context* (*user_handler)(Event, Context*) = NULL;
 
 Context* __am_irq_handle(Context *c) {
 
-  Context* info = c ;
-  for(int i=0; i < 35; i++) {
-    printf("gpr[%d] = %x\n",i , *info );
-    info ++ ;
+  for(int i=0; i < 32; i++) {
+    printf("gpr[%d] = %x\n",i , c->gpr[i] );
   }
   if (user_handler) {
     Event ev = {0};
