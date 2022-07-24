@@ -13,6 +13,7 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
   cpu.mepc = epc;
   cpu.mcause = NO;
   
+  printf("cpu.mcause = %lx\n",cpu.mcause);
   return cpu.mtvec;
 }
 
@@ -43,7 +44,8 @@ word_t isa_csrrw( int src1, vaddr_t csr_index ) {
       break;
     default : Assert ( 0, "isa_csrrw : no index = 0x%lx",csr_index ); break;
   }
-  printf("cpu.mtvec = %lx\n",cpu.mtvec);
+  //printf("cpu.mtvec = %lx\n",cpu.mtvec);
+  printf("cpu.mcause = %lx\n",cpu.mcause);
   return  dest_value ;
 
 }
@@ -69,6 +71,7 @@ word_t isa_csrrc( int src1, vaddr_t csr_index ) {
       break;
     default : Assert ( 0, "isa_csrrc : no index = 0x%lx",csr_index ); break;
   }
+  printf("cpu.mcause = %lx\n",cpu.mcause);
   return  dest_value ;
 
 }
