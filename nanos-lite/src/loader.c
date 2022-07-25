@@ -52,7 +52,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
      }
   }
 
-      return entry;
+      return entry + 0x1000;
 //  TODO();
       printf(" loaded program  \n" );
   return 0;
