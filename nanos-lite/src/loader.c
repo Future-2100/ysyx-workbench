@@ -18,6 +18,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   ramdisk_read( &phentsize, 54, 2);
   uint16_t phnum;
   ramdisk_read( &phnum, 56, 2);
+  printf(" phnum = %d \n",phnum );
 
   Elf_Phdr elf_phdr;
   uintptr_t entry = 0;
@@ -32,6 +33,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     ramdisk_read( &elf_phdr.p_align  , phoff + i*phentsize + 8 , 8 );
     if( elf_phdr.p_type == PT_LOAD ) {
       printf(" load program ++ \n" );
+      printf(" p_type = %d \n",elf_phdr.p_type );
       printf("p_vaddr = %x,  p_offset = %x, p_memsz = %x\n", elf_phdr.p_vaddr, elf_phdr.p_offset, elf_phdr.p_memsz );
       entry = elf_phdr.p_vaddr;
       ramdisk_read( (char *)elf_phdr.p_vaddr, elf_phdr.p_offset, elf_phdr.p_memsz );
