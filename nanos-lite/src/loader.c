@@ -27,8 +27,11 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   ramdisk_read( &phnum, 56, 2);
   printf(" phnum = %d \n",phnum );
 
+  Elf64_Addr entry;
+  ramdisk_read( &entry, 24, 8 );
+  printf(" entry = %x \n",entry );
+
   Elf_Phdr elf_phdr;
-  uintptr_t entry = 0x83000468;
   for( int i = 0; i < phnum; i++ ) {
     ramdisk_read( &elf_phdr.p_type   , phoff + phentsize*i +  0 , 4 );
     ramdisk_read( &elf_phdr.p_flags  , phoff + phentsize*i +  4 , 4 );
@@ -38,10 +41,10 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     ramdisk_read( &elf_phdr.p_filesz , phoff + phentsize*i + 32 , 8 );
     ramdisk_read( &elf_phdr.p_memsz  , phoff + phentsize*i + 40 , 8 );
     ramdisk_read( &elf_phdr.p_align  , phoff + phentsize*i + 48 , 8 );
-    printf(" p_type   = %x ,p_flags  = %x\n",elf_phdr.p_type, elf_phdr.p_flags );
-    printf(" p_offset = %x ,p_vaddr  = %x\n",elf_phdr.p_offset, elf_phdr.p_vaddr );
-    printf(" p_paddr  = %x ,p_filesz = %x\n",elf_phdr.p_paddr , elf_phdr.p_filesz );
-    printf(" p_memsz  = %x ,p_align  = %x\n",elf_phdr.p_memsz , elf_phdr.p_align );
+    //printf(" p_type   = %x ,p_flags  = %x\n",elf_phdr.p_type, elf_phdr.p_flags );
+    //printf(" p_offset = %x ,p_vaddr  = %x\n",elf_phdr.p_offset, elf_phdr.p_vaddr );
+    //printf(" p_paddr  = %x ,p_filesz = %x\n",elf_phdr.p_paddr , elf_phdr.p_filesz );
+    //printf(" p_memsz  = %x ,p_align  = %x\n",elf_phdr.p_memsz , elf_phdr.p_align );
     if( elf_phdr.p_type == PT_LOAD ) {
       ramdisk_read( (char *)(elf_phdr.p_vaddr), elf_phdr.p_offset , elf_phdr.p_filesz );
       memset( (char *)(elf_phdr.p_vaddr + elf_phdr.p_filesz), 0, elf_phdr.p_memsz - elf_phdr.p_filesz);
