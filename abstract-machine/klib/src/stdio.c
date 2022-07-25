@@ -130,8 +130,8 @@ int printf(const char *fmt, ...) {
 
     else {
       putch(*fmt);
-      fmt++;
     }
+
       fmt++;
 
   }
