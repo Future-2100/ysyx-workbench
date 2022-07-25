@@ -12,7 +12,6 @@
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
-  printf("-------------------------------\n");
   Elf64_Off phoff;
   ramdisk_read( &phoff, 32, 8);
   uint16_t phentsize;
@@ -22,6 +21,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 
   Elf_Phdr elf_phdr;
   uintptr_t entry = 0;
+  printf("-------------------------------\n");
   for( int i = 0; i < phnum; i++ ) {
     ramdisk_read( &elf_phdr.p_type   , phoff + i*phentsize + 0 , 4 );
     ramdisk_read( &elf_phdr.p_offset , phoff + i*phentsize + 4 , 4 );
