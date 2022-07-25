@@ -28,6 +28,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   printf(" phnum = %d \n",phnum );
 
   Elf_Phdr elf_phdr;
+  uintptr_t entry = 0x83005f60;
   for( int i = 0; i < phnum; i++ ) {
     ramdisk_read( &elf_phdr.p_type   , phoff + phentsize*i +  0 , 4 );
     ramdisk_read( &elf_phdr.p_flags  , phoff + phentsize*i +  4 , 4 );
@@ -49,7 +50,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 
 //  TODO();
       printf(" loaded program  \n" );
-  return 0;
+  return entry ;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
