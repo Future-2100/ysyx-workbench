@@ -11,6 +11,7 @@
 
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
 
+#define BASE_PA 0x83000000
 static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf64_Off phoff;
   ramdisk_read( &phoff, 32, 8);
@@ -38,8 +39,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       printf(" p_type = %d \n",elf_phdr.p_type );
       printf(" p_vaddr = %x,  p_offset = %x, p_memsz = %x\n", elf_phdr.p_vaddr, elf_phdr.p_offset, elf_phdr.p_memsz );
       entry = elf_phdr.p_vaddr;
-      //ramdisk_read( (char *)elf_phdr.p_vaddr, elf_phdr.p_offset, elf_phdr.p_memsz );
-      //memset( (char *)elf_phdr.p_vaddr + elf_phdr.p_filesz, 0, elf_phdr.p_memsz - elf_phdr.p_filesz);
+      ramdisk_read( (char *)(elf_phdr.p_vaddr + BASE_PA), elf_phdr.p_offset, elf_phdr.p_memsz );
+      memset( (char *)(elf_phdr.p_vaddr + elf_phdr.p_filesz + BASE_PA), 0, elf_phdr.p_memsz - elf_phdr.p_filesz);
     }
   }
 
