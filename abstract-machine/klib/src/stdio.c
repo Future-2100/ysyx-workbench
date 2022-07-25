@@ -102,7 +102,7 @@ int printf(const char *fmt, ...) {
         (*fmt == '%' && *(fmt+1) == '0'  && *(fmt+2) == '2' && *(fmt+3) == 'd' ) ) {
       int64_t d_number = va_arg(valist, int64_t);
       change_format_d(d_number);
-      char_buf = number_buf + 1;
+      char_buf = number_buf ;
       while( *char_buf ) {
         putch( *char_buf );
         char_buf++;
