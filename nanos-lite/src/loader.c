@@ -25,28 +25,25 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 
   Elf_Phdr elf_phdr;
   uintptr_t entry = 0;
-  //for( int i = 0; i < phnum; i++ ) {
-    ramdisk_read( &elf_phdr.p_type   , phoff +  0 , 4 );
-    ramdisk_read( &elf_phdr.p_flags  , phoff +  4 , 4 );
-    printf(" p_type = %x ,p_flags = %x\n",elf_phdr.p_type, elf_phdr.p_flags );
-    ramdisk_read( &elf_phdr.p_offset , phoff +  4 , 8 );
-    ramdisk_read( &elf_phdr.p_vaddr  , phoff +  8 , 8 );
-    printf(" p_offset = %x ,p_vaddr = %x\n",elf_phdr.p_offset, elf_phdr.p_vaddr );
-    ramdisk_read( &elf_phdr.p_paddr  , phoff +  8 , 8 );
-    ramdisk_read( &elf_phdr.p_filesz , phoff +  8 , 8 );
-    printf(" p_paddr = %x ,p_filesz = %x\n",elf_phdr.p_paddr , elf_phdr.p_filesz );
-    ramdisk_read( &elf_phdr.p_memsz  , phoff +  8 , 8 );
-    ramdisk_read( &elf_phdr.p_align  , phoff +  8 , 8 );
-    printf(" p_memsz = %x ,p_align = %x\n",elf_phdr.p_memsz , elf_phdr.p_align );
-   // if( elf_phdr.p_type == PT_LOAD ) {
-   //   printf(" load program ++ \n" );
-   //   printf(" p_type = %x \n",elf_phdr.p_type );
-   //   printf(" p_vaddr = %x,  p_offset = %x, p_memsz = %x\n", elf_phdr.p_vaddr, elf_phdr.p_offset, elf_phdr.p_memsz );
+  for( int i = 0; i < phnum; i++ ) {
+    ramdisk_read( &elf_phdr.p_type   , phoff + phentsize*i +  0 , 4 );
+    ramdisk_read( &elf_phdr.p_flags  , phoff + phentsize*i +  4 , 4 );
+    ramdisk_read( &elf_phdr.p_offset , phoff + phentsize*i +  8 , 8 );
+    ramdisk_read( &elf_phdr.p_vaddr  , phoff + phentsize*i + 16 , 8 );
+    ramdisk_read( &elf_phdr.p_paddr  , phoff + phentsize*i + 24 , 8 );
+    ramdisk_read( &elf_phdr.p_filesz , phoff + phentsize*i + 32 , 8 );
+    ramdisk_read( &elf_phdr.p_memsz  , phoff + phentsize*i + 40 , 8 );
+    ramdisk_read( &elf_phdr.p_align  , phoff + phentsize*i + 48 , 8 );
+    printf(" p_type   = %x ,p_flags  = %x\n",elf_phdr.p_type, elf_phdr.p_flags );
+    printf(" p_offset = %x ,p_vaddr  = %x\n",elf_phdr.p_offset, elf_phdr.p_vaddr );
+    printf(" p_paddr  = %x ,p_filesz = %x\n",elf_phdr.p_paddr , elf_phdr.p_filesz );
+    printf(" p_memsz  = %x ,p_align  = %x\n",elf_phdr.p_memsz , elf_phdr.p_align );
+    if( elf_phdr.p_type == PT_LOAD ) {
       entry = elf_phdr.p_vaddr;
       ramdisk_read( (char *)(elf_phdr.p_vaddr + BASE_PA), elf_phdr.p_memsz, elf_phdr.p_memsz );
       memset( (char *)(elf_phdr.p_vaddr + elf_phdr.p_filesz + BASE_PA), 0, elf_phdr.p_memsz - elf_phdr.p_filesz);
-    //}
-  //}
+     }
+  }
 
 //  TODO();
       printf(" loaded program  \n" );
