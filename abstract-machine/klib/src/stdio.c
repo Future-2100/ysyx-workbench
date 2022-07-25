@@ -111,8 +111,6 @@ int printf(const char *fmt, ...) {
       //  fmt = fmt  + 2 ;
       }
       fmt++;
-      fmt++;
-      fmt++;
     }
 
     if( *fmt == '%' && *(fmt+1) == 's' ) {
