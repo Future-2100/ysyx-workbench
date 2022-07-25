@@ -102,13 +102,13 @@ int printf(const char *fmt, ...) {
         (*fmt == '%' && *(fmt+1) == '0'  && *(fmt+2) == '2' && *(fmt+3) == 'd' ) ) {
       int64_t d_number = va_arg(valist, int64_t);
       change_format_d(d_number);
-      char_buf = number_buf ;
+      char_buf = number_buf + 1;
       while( *char_buf ) {
         putch( *char_buf );
         char_buf++;
       }
       if (*fmt == '%' && *(fmt+1) == '0'  && *(fmt+2) == '2' && *(fmt+3) == 'd' ) {
-      //  fmt = fmt  + 2 ;
+        fmt = fmt  + 2 ;
       }
       fmt++;
     }
