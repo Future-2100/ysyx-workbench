@@ -45,7 +45,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     if( elf_phdr.p_type == PT_LOAD ) {
       entry = elf_phdr.p_vaddr;
       uint32_t instr ;
-      ramdisk_read( &instr, elf_phdr.p_offset, 4 );
+      ramdisk_read( &instr, elf_phdr.p_offset + 4 , 4 );
       printf(" instr = %x\n " , instr);
       ramdisk_read( (char *)(elf_phdr.p_vaddr), elf_phdr.p_offset, elf_phdr.p_memsz );
       memset( (char *)(elf_phdr.p_vaddr + elf_phdr.p_filesz), 0, elf_phdr.p_memsz - elf_phdr.p_filesz);
