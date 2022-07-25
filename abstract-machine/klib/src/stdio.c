@@ -107,10 +107,10 @@ int printf(const char *fmt, ...) {
         putch( *char_buf );
         char_buf++;
       }
-      fmt++;
       if (*fmt == '%' && *(fmt+1) == '0'  && *(fmt+2) == '2' && *(fmt+3) == 'd' ) {
         fmt = fmt + 2 ;
       }
+      fmt++;
     }
 
     if( *fmt == '%' && *(fmt+1) == 's' ) {
