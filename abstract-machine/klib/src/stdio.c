@@ -108,6 +108,9 @@ int printf(const char *fmt, ...) {
         char_buf++;
       }
       fmt++;
+      if (*fmt == '%' && *(fmt+1) == '0'  && *(fmt+2) == '2' && *(fmt+3) == 'd' ) {
+        fmt = fmt + 2 ;
+      }
     }
 
     if( *fmt == '%' && *(fmt+1) == 's' ) {
