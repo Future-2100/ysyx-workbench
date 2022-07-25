@@ -13,6 +13,10 @@ size_t ramdisk_read(void *buf, size_t offset, size_t len);
 
 #define BASE_PA 0x83000000
 static uintptr_t loader(PCB *pcb, const char *filename) {
+  uint32_t ident;
+  ramdisk_read( &ident, 0, 4 );
+  assert ( ident == 0x464c457f );
+
   Elf64_Off phoff;
   ramdisk_read( &phoff, 32, 8);
   printf(" phoff = %d \n",phoff );
