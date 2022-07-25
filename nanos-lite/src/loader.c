@@ -28,16 +28,20 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   //for( int i = 0; i < phnum; i++ ) {
     ramdisk_read( &elf_phdr.p_type   , phoff +  0 , 4 );
     ramdisk_read( &elf_phdr.p_flags  , phoff +  4 , 4 );
+    printf(" p_type = %x ,p_flags = %x\n",elf_phdr.p_type, elf_phdr.p_flags );
     ramdisk_read( &elf_phdr.p_offset , phoff +  4 , 8 );
     ramdisk_read( &elf_phdr.p_vaddr  , phoff +  8 , 8 );
+    printf(" p_offset = %x ,p_vaddr = %x\n",elf_phdr.p_offset, elf_phdr.p_vaddr );
     ramdisk_read( &elf_phdr.p_paddr  , phoff +  8 , 8 );
     ramdisk_read( &elf_phdr.p_filesz , phoff +  8 , 8 );
+    printf(" p_paddr = %x ,p_filesz = %x\n",elf_phdr.p_paddr , elf_phdr.p_filesz );
     ramdisk_read( &elf_phdr.p_memsz  , phoff +  8 , 8 );
     ramdisk_read( &elf_phdr.p_align  , phoff +  8 , 8 );
+    printf(" p_memsz = %x ,p_align = %x\n",elf_phdr.p_memsz , elf_phdr.p_align );
    // if( elf_phdr.p_type == PT_LOAD ) {
-      printf(" load program ++ \n" );
-      printf(" p_type = %x \n",elf_phdr.p_type );
-      printf(" p_vaddr = %x,  p_offset = %x, p_memsz = %x\n", elf_phdr.p_vaddr, elf_phdr.p_offset, elf_phdr.p_memsz );
+   //   printf(" load program ++ \n" );
+   //   printf(" p_type = %x \n",elf_phdr.p_type );
+   //   printf(" p_vaddr = %x,  p_offset = %x, p_memsz = %x\n", elf_phdr.p_vaddr, elf_phdr.p_offset, elf_phdr.p_memsz );
       entry = elf_phdr.p_vaddr;
       ramdisk_read( (char *)(elf_phdr.p_vaddr + BASE_PA), elf_phdr.p_memsz, elf_phdr.p_memsz );
       memset( (char *)(elf_phdr.p_vaddr + elf_phdr.p_filesz + BASE_PA), 0, elf_phdr.p_memsz - elf_phdr.p_filesz);
