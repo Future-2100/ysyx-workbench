@@ -108,7 +108,7 @@ int printf(const char *fmt, ...) {
         char_buf++;
       }
       if (*fmt == '%' && *(fmt+1) == '0'  && *(fmt+2) == '2' && *(fmt+3) == 'd' ) {
-        fmt = fmt + 2 ;
+        fmt = fmt + 3 ;
       }
       fmt++;
     }
@@ -132,7 +132,6 @@ int printf(const char *fmt, ...) {
       putch(*fmt);
     }
 
-    fmt++;
     fmt++;
   }
   va_end(valist);
