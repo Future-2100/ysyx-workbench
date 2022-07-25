@@ -12,6 +12,7 @@
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
+  printf("-------------------------------\n");
   Elf64_Off phoff;
   ramdisk_read( &phoff, 32, 8);
   uint16_t phentsize;
