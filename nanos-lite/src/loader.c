@@ -42,10 +42,10 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       entry = elf_phdr.p_vaddr;
       ramdisk_read( (char *)(elf_phdr.p_vaddr), elf_phdr.p_offset, elf_phdr.p_memsz );
       memset( (char *)(elf_phdr.p_vaddr + elf_phdr.p_filesz), 0, elf_phdr.p_memsz - elf_phdr.p_filesz);
-      return entry;
      }
   }
 
+      return entry;
 //  TODO();
       printf(" loaded program  \n" );
   return 0;
