@@ -98,7 +98,7 @@ int printf(const char *fmt, ...) {
       fmt++;
     }
 
-    if( (*fmt == '%' && *(fmt+1) == 'd') || 
+    else if( (*fmt == '%' && *(fmt+1) == 'd') || 
         (*fmt == '%' && *(fmt+1) == '0'  && *(fmt+2) == '2' && *(fmt+3) == 'd' ) ) {
       int64_t d_number = va_arg(valist, int64_t);
       change_format_d(d_number);
@@ -113,7 +113,7 @@ int printf(const char *fmt, ...) {
       fmt++;
     }
 
-    if( *fmt == '%' && *(fmt+1) == 's' ) {
+    else if( *fmt == '%' && *(fmt+1) == 's' ) {
       char* string = va_arg(valist, char*);
         while( *string ){
           putch( *string );
@@ -122,7 +122,7 @@ int printf(const char *fmt, ...) {
       fmt++;
     }
 
-    if( *fmt == '%' && *(fmt+1) == 'c' ) {
+    else if( *fmt == '%' && *(fmt+1) == 'c' ) {
       char character = va_arg(valist, int);
       putch(character);
       fmt++;
