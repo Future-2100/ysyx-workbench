@@ -14,11 +14,8 @@ struct Context {
 static Context* (*user_handler)(Event, Context*) = NULL;
 
 Context* __am_irq_handle(Context *c) {
-  printf(" mcause  = %x\n", c->mcause );
-  printf(" mstatus = %x\n", c->mstatus);
-  printf(" mepc    = %x\n", c->mepc   );
-  for( int i = 0; i < 32; i ++)
-    printf(" gpr[%d]    = %x\n", i, c->gpr[i]   );
+  for( int i = 1; i < 32; i ++)
+    printf(" gpr[%d] = %x\n", i, c->gpr[i] );
 
   if (user_handler) {
     Event ev = {0};
