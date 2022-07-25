@@ -133,6 +133,7 @@ int printf(const char *fmt, ...) {
     }
 
     fmt++;
+    fmt++;
   }
   va_end(valist);
   return 0;
