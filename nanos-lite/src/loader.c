@@ -9,9 +9,53 @@
 # define Elf_Phdr Elf32_Phdr
 #endif
 
+size_t ramdisk_read(void *buf, size_t offset, size_t len);
+
 static uintptr_t loader(PCB *pcb, const char *filename) {
-  TODO();
-  return 0;
+  uint32_t ident;
+  ramdisk_read( &ident, 0, 4 );
+  assert ( ident == 0x464c457f );
+
+  Elf64_Off phoff;
+  ramdisk_read( &phoff, 32, 8);
+  
+  uint16_t phentsize;
+  ramdisk_read( &phentsize, 54, 2);
+
+  uint16_t phnum;
+  ramdisk_read( &phnum, 56, 2);
+
+  Elf64_Addr entry;
+  ramdisk_read( &entry, 24, 8 );
+
+  //printf(" phoff = %d \n",phoff );
+  //printf(" phentsize = %d \n",phentsize );
+  //printf(" phnum = %d \n",phnum );
+  //printf(" entry = %x \n",entry );
+
+  Elf_Phdr elf_phdr;
+  for( int i = 0; i < phnum; i++ ) {
+    ramdisk_read( &elf_phdr.p_type   , phoff + phentsize*i +  0 , 4 );
+    ramdisk_read( &elf_phdr.p_flags  , phoff + phentsize*i +  4 , 4 );
+    ramdisk_read( &elf_phdr.p_offset , phoff + phentsize*i +  8 , 8 );
+    ramdisk_read( &elf_phdr.p_vaddr  , phoff + phentsize*i + 16 , 8 );
+    ramdisk_read( &elf_phdr.p_paddr  , phoff + phentsize*i + 24 , 8 );
+    ramdisk_read( &elf_phdr.p_filesz , phoff + phentsize*i + 32 , 8 );
+    ramdisk_read( &elf_phdr.p_memsz  , phoff + phentsize*i + 40 , 8 );
+    ramdisk_read( &elf_phdr.p_align  , phoff + phentsize*i + 48 , 8 );
+   //printf(" p_type   = %x ,p_flags  = %x\n",elf_phdr.p_type, elf_phdr.p_flags );
+   //printf(" p_offset = %x ,p_vaddr  = %x\n",elf_phdr.p_offset, elf_phdr.p_vaddr );
+   //printf(" p_paddr  = %x ,p_filesz = %x\n",elf_phdr.p_paddr , elf_phdr.p_filesz );
+   //printf(" p_memsz  = %x ,p_align  = %x\n",elf_phdr.p_memsz , elf_phdr.p_align );
+    if( elf_phdr.p_type == PT_LOAD ) {
+      ramdisk_read( (char *)(elf_phdr.p_vaddr), elf_phdr.p_offset , elf_phdr.p_filesz );
+      memset( (char *)(elf_phdr.p_vaddr + elf_phdr.p_filesz), 0, elf_phdr.p_memsz - elf_phdr.p_filesz);
+     }
+  }
+
+//  TODO();
+      Log("\n\n program loaded successful \n\n" );
+  return entry ;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {

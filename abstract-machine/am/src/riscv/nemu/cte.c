@@ -2,6 +2,15 @@
 #include <riscv/riscv.h>
 #include <klib.h>
 
+/*
+struct Context {
+  // TODO: fix the order of these members to match trap.S
+
+  uintptr_t gpr[32], mcause, mstatus, mepc;
+
+  void *pdir;
+};
+*/
 static Context* (*user_handler)(Event, Context*) = NULL;
 
 Context* __am_irq_handle(Context *c) {
@@ -37,7 +46,7 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
 }
 
 void yield() {
-  asm volatile("li a7, -1; ecall");
+  asm volatile("li a7, 1; ecall");
 }
 
 bool ienabled() {

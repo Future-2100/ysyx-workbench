@@ -13,7 +13,7 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
   cpu.mepc = epc;
   cpu.mcause = NO;
   
-  printf("raise_intr :pc = %lx, mtvec = %lx, mepc = %lx, mcause = %lx, mstatus = %lx \n",cpu.pc, cpu.mtvec, cpu.mepc, cpu.mcause, cpu.mstatus );
+  //printf("raise_intr :pc = %lx, mtvec = %lx, mepc = %lx, mcause = %lx, mstatus = %lx \n",cpu.pc, cpu.mtvec, cpu.mepc, cpu.mcause, cpu.mstatus );
   return cpu.mtvec;
 }
 
@@ -22,6 +22,7 @@ word_t isa_query_intr() {
 }
 
 
+//riscv64_CPU_State
 word_t isa_csrrw( int src1, vaddr_t csr_index ) {
   //printf("cpu.gpr[%d] = %lx, csr_index = %lx\n", src1, cpu.gpr[src1], csr_index );
   word_t dest_value;
@@ -45,7 +46,7 @@ word_t isa_csrrw( int src1, vaddr_t csr_index ) {
     default : Assert ( 0, "isa_csrrw : no index = 0x%lx",csr_index ); break;
   }
   //printf("cpu.mtvec = %lx\n",cpu.mtvec);
-  printf("csrrw : csr_index = %lx , mtvec = %lx, mepc = %lx, mcause = %lx, mstatus = %lx \n",csr_index , cpu.mtvec, cpu.mepc, cpu.mcause, cpu.mstatus );
+  //printf("csrrw : csr_index = %lx , mtvec = %lx, mepc = %lx, mcause = %lx, mstatus = %lx \n",csr_index , cpu.mtvec, cpu.mepc, cpu.mcause, cpu.mstatus );
   return  dest_value ;
 
 }
@@ -71,7 +72,7 @@ word_t isa_csrrc( int src1, vaddr_t csr_index ) {
       break;
     default : Assert ( 0, "isa_csrrc : no index = 0x%lx",csr_index ); break;
   }
-  printf("csrrc : csr_index = %lx , mtvec = %lx, mepc = %lx, mcause = %lx, mstatus = %lx \n",csr_index , cpu.mtvec, cpu.mepc, cpu.mcause, cpu.mstatus );
+ // printf("csrrc : csr_index = %lx , mtvec = %lx, mepc = %lx, mcause = %lx, mstatus = %lx \n",csr_index , cpu.mtvec, cpu.mepc, cpu.mcause, cpu.mstatus );
   return  dest_value ;
 
 }
@@ -98,7 +99,7 @@ word_t isa_csrrs( int src1, vaddr_t csr_index ) {
       break;
     default : Assert ( 0, "isa_csrrs : no index = 0x%lx",csr_index ); break;
   }
-  printf("csrrs : csr_index = %lx , mtvec = %lx, mepc = %lx, mcause = %lx, mstatus = %lx \n",csr_index , cpu.mtvec, cpu.mepc, cpu.mcause, cpu.mstatus );
+  //printf("csrrs : csr_index = %lx , mtvec = %lx, mepc = %lx, mcause = %lx, mstatus = %lx \n",csr_index , cpu.mtvec, cpu.mepc, cpu.mcause, cpu.mstatus );
   return  dest_value ;
 
 }
