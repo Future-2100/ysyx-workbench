@@ -1,13 +1,14 @@
 #include <common.h>
 #include "syscall.h"
 
-
+enum { SYS_exit, SYS_yield };
 void do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
 
   switch (a[0]) {
-    case 2 : printf("is in do_sys_call\n"); yield(); return ;
+    case SYS_exit  : halt( c->GPRx ); break;
+    case SYS_yield : printf("is in sys_yield\n"); yield();  break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
