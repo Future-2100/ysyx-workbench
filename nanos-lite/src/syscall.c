@@ -1,7 +1,7 @@
 #include <common.h>
 #include "syscall.h"
 
-enum { SYS_exit, SYS_yield };
+enum { SYS_exit, SYS_yield = 2 };
 void do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
