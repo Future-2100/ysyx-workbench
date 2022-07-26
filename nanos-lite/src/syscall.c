@@ -1,8 +1,6 @@
 #include <common.h>
 #include "syscall.h"
 
-enum { SYS_exit = 0 , SYS_yield = 2 };
-
 /*
 int sys_exit(){
 
