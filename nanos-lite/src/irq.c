@@ -8,6 +8,9 @@ struct Context {
 */
 
 static Context* do_event(Event e, Context* c) {
+
+  printf("event number = %d\n", e.event);
+
   switch (e.event) {
       case EVENT_YIELD     :  printf("\n\nhere is the event_yield !\n\n") ; break; 
       case EVENT_SYSCALL   :  printf("\n\nhere is the event_syscall!\n\n"); break;
