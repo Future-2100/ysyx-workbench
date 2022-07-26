@@ -9,9 +9,11 @@ struct Context {
 //enum {EVENT_YIELD = 1, EVENT_SYSCALL = 2, };
 
 void do_syscall(Context *c);
+
 static Context* do_event(Event e, Context* c) {
 
   switch (e.event) {
+      case EVENT_NULL      :  do_syscall(c);
       case EVENT_YIELD     :  printf("dealing with event_yield  !\n") ; 
                               break; 
 
