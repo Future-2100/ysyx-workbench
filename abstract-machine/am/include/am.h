@@ -24,7 +24,7 @@ typedef struct Context Context;
 typedef struct {
   enum {
     EVENT_NULL = 0,
-    EVENT_YIELD , EVENT_PAGEFAULT, EVENT_ERROR,EVENT_SYSCALL ,
+    EVENT_YIELD , EVENT_PAGEFAULT, EVENT_ERROR,EVENT_SYSCALL = 4 ,
     EVENT_IRQ_TIMER, EVENT_IRQ_IODEV,
   } event;
   uintptr_t cause, ref;
