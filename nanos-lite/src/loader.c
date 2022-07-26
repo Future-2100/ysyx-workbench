@@ -32,6 +32,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   //printf(" phentsize = %d \n",phentsize );
   //printf(" phnum = %d \n",phnum );
   //printf(" entry = %x \n",entry );
+  //entry = 0x83000468
 
   Elf_Phdr elf_phdr;
   for( int i = 0; i < phnum; i++ ) {
