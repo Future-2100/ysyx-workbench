@@ -6,11 +6,13 @@ struct Context {
   void *pdir;
 };
 */
+//enum {EVENT_YIELD = 1, EVENT_SYSCALL = 2, };
 
 void do_syscall(Context *c);
 static Context* do_event(Event e, Context* c) {
 
   switch (e.event) {
+      case EVENT_NULL      :  do_syscall(c); break;
       case EVENT_YIELD     :  printf("\n\nhere is the event_yield !\n\n") ; break; 
       case EVENT_SYSCALL   :  do_syscall(c); break;
                               /*
