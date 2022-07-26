@@ -7,7 +7,7 @@ void do_syscall(Context *c) {
   a[0] = c->GPR1;
 
   switch (a[0]) {
-    case 2 : yield(); return ;
+    case 2 : printf("is in do_sys_call\n"); yield(); return ;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
