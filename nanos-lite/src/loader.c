@@ -54,7 +54,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   }
 
 //  TODO();
-      printf(" loaded program  \n" );
+      Log("\n\n program loaded successful \n\n" );
   return entry ;
 }
 
