@@ -7,9 +7,8 @@ int sys_exit(){
 }
 */
 
-int sys_yield() {
+void sys_yield() {
   yield();
-  return 0;
 }
 
 void do_syscall(Context *c) {
