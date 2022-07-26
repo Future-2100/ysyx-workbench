@@ -11,7 +11,6 @@
 
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
 
-#define BASE_PA 0x83000000
 static uintptr_t loader(PCB *pcb, const char *filename) {
   uint32_t ident;
   ramdisk_read( &ident, 0, 4 );
