@@ -13,7 +13,7 @@ void do_syscall(Context *c);
 static Context* do_event(Event e, Context* c) {
 
   switch (e.event) {
-      case EVENT_NULL      :  do_syscall(c);
+      case EVENT_EXIT      :  do_syscall(c);
       case EVENT_YIELD     :  printf("dealing with event_yield  !\n") ; 
                               break; 
 
