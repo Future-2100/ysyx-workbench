@@ -9,7 +9,7 @@ uintptr_t write( int fd, uintptr_t buf, size_t count ) {
       ch++;
     }
   }
-  return -1 ; 
+  return 0 ; 
 }
 
 void do_syscall(Context *c) {
