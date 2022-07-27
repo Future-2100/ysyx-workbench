@@ -19,8 +19,8 @@ Context* __am_irq_handle(Context *c) {
 #ifdef CONFIG_ETRACE
   printf("---------------- trap triggered -------------------\n");
   printf(" mcause  = %d \n", c->mcause );
-  printf(" mstatus = %d \n", c->mstatus);
-  printf(" mepc    = %d \n", c->mepc   );
+  printf(" mstatus = %x \n", c->mstatus);
+  printf(" mepc    = %x \n", c->mepc   );
   for(int i = 0; i < 32; i++) {
     printf(" gpr[%d]  = 0x%x \n", i, c->gpr[i]);
   }
