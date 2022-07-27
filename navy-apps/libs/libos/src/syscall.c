@@ -67,19 +67,20 @@ int _write(int fd, void *buf, size_t count) {
   return _syscall_(SYS_write, fd, (intptr_t)buf, count);
 }
 
-extern uintptr_t _end ;
+extern  uintptr_t _end ;
 uintptr_t program_break ;
 static bool break_inited = false ;
 
 void *_sbrk(intptr_t increment) {
+  return (void *)-1;
 
   if( break_inited == false ) {
-    program_break = _end;
+    program_break = (uintptr_t)&_end;
     break_inited == true;
   }
-  char char_buf[30];
-  sprintf( char_buf, "program_break = %lx\n", program_break ) ;
-  _write( 1, char_buf, 30 );
+//  char char_buf[30];
+//  sprintf( char_buf, "program_break = %lx\n", program_break ) ;
+//  _write( 1, char_buf, 30 );
 
   intptr_t new_break = program_break + increment ;
   intptr_t old_break = program_break ;
