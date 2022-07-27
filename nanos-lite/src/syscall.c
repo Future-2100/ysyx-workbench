@@ -21,7 +21,7 @@ void do_syscall(Context *c) {
 
   switch (a[0]) {
     case SYS_exit  : printf("is in sys_exit \n"); 
-                     halt(a[1]) ;  
+                     //halt(a[1]) ;  
                      break;
 
     case SYS_yield : printf("is in sys_yield\n"); 
