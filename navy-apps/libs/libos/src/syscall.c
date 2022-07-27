@@ -6,6 +6,7 @@
 #include <time.h>
 #include "syscall.h"
 #include <stdbool.h>
+#include <stdio.h>
 
 // helper macros
 #define _concat(x, y) x ## y
@@ -76,6 +77,9 @@ void *_sbrk(intptr_t increment) {
     program_break = _end;
     break_inited == true;
   }
+  char char_buf[30];
+  sprintf( char_buf, "program_break = %lx\n", program_break ) ;
+  _write( 1, char_buf, 25 );
 
   intptr_t new_break = program_break + increment ;
   intptr_t old_break = program_break ;
