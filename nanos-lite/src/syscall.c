@@ -31,7 +31,10 @@ void do_syscall(Context *c) {
                      break  ;
 
     case SYS_write : printf("is in sys_write\n"); 
-                     c->GPRx = write((int)a[1],a[2],a[3]); 
+                     if ( write((int)a[1],a[2],a[3]) == -1 )
+                       c->GPRx = 1 ;
+                     else
+                       c->GPRx = 0 ;
                      break;
 
     case  -1       : printf(" here is_yield \n");  
