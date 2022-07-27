@@ -72,7 +72,7 @@ uintptr_t program_break ;
 static bool break_inited = false ;
 
 void *_sbrk(intptr_t increment) {
-  return (void *)-1;
+  //return (void *)-1;
 
   if( break_inited == false ) {
     program_break = (uintptr_t)&_end;
