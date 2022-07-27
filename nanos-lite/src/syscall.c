@@ -30,7 +30,7 @@ void do_syscall(Context *c) {
                      c->GPRx = 0  ;
                      break  ;
 
-    case SYS_write : printf("is in sys_write\n"); 
+    case SYS_write : //printf("is in sys_write\n"); 
                      c->GPRx =  ( write((int)a[1],a[2],a[3]) );
                      break;
 
