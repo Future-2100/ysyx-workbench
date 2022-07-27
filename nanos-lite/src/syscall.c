@@ -42,6 +42,7 @@ void do_syscall(Context *c) {
                      break;
 
     case SYS_brk   : c->GPRx = sys_brk( a[1] );
+                     break;
 
     case  -1       : printf(" here is_yield \n");  
                      c->GPRx = 0 ;
