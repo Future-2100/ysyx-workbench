@@ -40,7 +40,6 @@
 #error _syscall_ is not implemented
 #endif
 
-//void putch(char);
 
 intptr_t _syscall_(intptr_t type, intptr_t a0, intptr_t a1, intptr_t a2) {
   register intptr_t _gpr1 asm (GPR1) = type;
@@ -64,7 +63,6 @@ int _open(const char *path, int flags, mode_t mode) {
 
 int _write(int fd, void *buf, size_t count) {
   return _syscall_(SYS_write, fd, (intptr_t)buf, count);
- // _exit(SYS_write);
 }
 
 void *_sbrk(intptr_t increment) {
