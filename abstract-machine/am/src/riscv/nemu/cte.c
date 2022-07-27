@@ -2,8 +2,6 @@
 #include <riscv/riscv.h>
 #include <klib.h>
 
-
-#define CONFIG_ETRACE
 /*
 struct Context {
   // TODO: fix the order of these members to match trap.S

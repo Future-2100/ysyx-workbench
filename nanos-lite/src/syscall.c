@@ -10,7 +10,7 @@ void write( uintptr_t *ret , void *pdir){
 void do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
-  printf(" a[0] = %d\n", a[0]);
+  //printf(" syscall number = %d\n", a[0]);
 
   switch (a[0]) {
     case   0 : printf("is in sys_exit \n"); halt(c->GPRx) ;  break;
