@@ -31,7 +31,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   //printf(" phoff = %d \n",phoff );
   //printf(" phentsize = %d \n",phentsize );
   //printf(" phnum = %d \n",phnum );
-  //printf(" entry = %x \n",entry );
+  printf(" entry = %x \n",entry );
   //entry = 0x83000468
 
   Elf_Phdr elf_phdr;
@@ -55,7 +55,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   }
 
 //  TODO();
-      Log("\n\n program loaded successful \n\n" );
+      Log("program loaded successful" );
   return entry ;
 }
 
