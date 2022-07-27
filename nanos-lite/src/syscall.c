@@ -5,7 +5,7 @@ uintptr_t write( int fd, uintptr_t buf, size_t count ) {
   char *ch = (char *)buf;
   if( fd==1 || fd==2 ) {
     for(int i = 0; i < count; i++) {
-      putch(*ch);
+     // putch(*ch);
       ch++;
     }
   }
