@@ -22,7 +22,7 @@ Context* __am_irq_handle(Context *c) {
   printf(" mstatus = %d \n", c->mstatus);
   printf(" mepc    = %d \n", c->mepc   );
   for(int i = 0; i < 32; i++) {
-    printf(" gpr[i]  = 0x%x \n", c->gpr[i]);
+    printf(" gpr[%d]  = 0x%x \n", i, c->gpr[i]);
   }
 #endif
 
