@@ -22,13 +22,23 @@ void do_syscall(Context *c) {
   //printf(" syscall number = %d\n", a[0]);
 
   switch (a[0]) {
-    case SYS_exit  : printf("is in sys_exit \n"); halt(c->GPRx) ;  break;
-    case SYS_yield : printf("is in sys_yield\n"); yield()       ;  break;
-    case SYS_write : printf("is in sys_write\n"); write((int)a[1],a[2],a[3]); break;
-    case  -1       : printf(" here is_yield \n");                  break;
+    case SYS_exit  : printf("is in sys_exit \n"); 
+                     halt(a[1]) ;  
+                     break;
 
-    //case SYS_write : printf("is in sys_write\n"); write(&c->GPRx,pdir);  break;
-    //case SYS_write : printf("is in sys_write\n");  break;
+    case SYS_yield : printf("is in sys_yield\n"); 
+                     yield() ; 
+                     c->GPRx = 0  ;
+                     break  ;
+
+    case SYS_write : printf("is in sys_write\n"); 
+                     c->GPRx = write((int)a[1],a[2],a[3]); 
+                     break;
+
+    case  -1       : printf(" here is_yield \n");  
+                     c->GPRx = 0 ;
+                     break;
+
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
