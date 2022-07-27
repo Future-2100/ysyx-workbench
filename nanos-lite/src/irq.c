@@ -16,7 +16,7 @@ static Context* do_event(Event e, Context* c) {
       //case EVENT_YIELD     :  printf("dealing with event_yield  !\n") ; 
        //                       break; 
 
-     case EVENT_SYSCALL   : printf("dealing with the enviroment call");
+     case EVENT_SYSCALL   : printf("dealing with the enviroment call\n");
                             do_syscall(c); 
                             break;
                               /*
