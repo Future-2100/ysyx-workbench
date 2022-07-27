@@ -17,7 +17,7 @@ static Context* (*user_handler)(Event, Context*) = NULL;
 
 Context* __am_irq_handle(Context *c) {
 #ifdef CONFIG_ETRACE
-  printf("---------------- trap triggered -------------------");
+  printf("---------------- trap triggered -------------------\n");
   printf(" mcause  = %d \n", c->mcause );
   printf(" mstatus = %d \n", c->mstatus);
   printf(" mepc    = %d \n", c->mepc   );
