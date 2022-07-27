@@ -12,7 +12,7 @@ struct Context {
 };
 */
 
-#define CONFIG_ETRACE
+//#define CONFIG_ETRACE
 
 static Context* (*user_handler)(Event, Context*) = NULL;
 
