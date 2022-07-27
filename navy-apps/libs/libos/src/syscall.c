@@ -79,7 +79,7 @@ void *_sbrk(intptr_t increment) {
   }
   char char_buf[30];
   sprintf( char_buf, "program_break = %lx\n", program_break ) ;
-  _write( 1, char_buf, 25 );
+  _write( 1, char_buf, 30 );
 
   intptr_t new_break = program_break + increment ;
   intptr_t old_break = program_break ;
