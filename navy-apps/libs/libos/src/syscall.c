@@ -5,6 +5,7 @@
 #include <assert.h>
 #include <time.h>
 #include "syscall.h"
+#include <stdbool.h>
 
 // helper macros
 #define _concat(x, y) x ## y
@@ -65,8 +66,31 @@ int _write(int fd, void *buf, size_t count) {
   return _syscall_(SYS_write, fd, (intptr_t)buf, count);
 }
 
+extern uintptr_t _end ;
+uintptr_t program_break ;
+static bool break_inited = false ;
+
+/*
+void init_program_break {
+  uintptr_t program_break = _end;
+}
+*/
 void *_sbrk(intptr_t increment) {
-  return (void *)-1;
+  if( break_inited == false ) {
+    program_break = _end;
+    break_inited == true;
+    return (void *)program_break;
+  }
+
+  uintptr_t old_break = program_break ;
+  uintptr_t new_break = program_break + increment ;
+  if ( _syscall_(SYS_brk, program_break, 0, 0) == 0 )  {
+    program_break = new_break ;
+    return (void *)old_break ;
+  }
+  else {
+    return (void *)-1;
+  }
 }
 
 int _read(int fd, void *buf, size_t count) {
