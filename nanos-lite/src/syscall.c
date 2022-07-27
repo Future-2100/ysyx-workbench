@@ -9,7 +9,7 @@ uintptr_t write( int fd, uintptr_t buf, size_t count ) {
       ch++;
     }
   }
-  printf("count = %d\n", count);
+//  printf("count = %d\n", count);
   return count ; 
 }
 
