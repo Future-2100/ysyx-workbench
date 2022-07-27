@@ -11,6 +11,9 @@ struct Context {
   void *pdir;
 };
 */
+
+#define CONFIG_ETRACE
+
 static Context* (*user_handler)(Event, Context*) = NULL;
 
 Context* __am_irq_handle(Context *c) {
