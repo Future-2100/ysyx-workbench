@@ -13,8 +13,10 @@ uintptr_t sys_write( int fd, uintptr_t buf, size_t count ) {
 }
 
 
-uintptr_t sys_brk( uintptr_t program_break ) {
+static uintptr_t program_break;
+uintptr_t sys_brk( uintptr_t new_break ) {
 
+  program_break = new_break;
   return 0;
 }
 

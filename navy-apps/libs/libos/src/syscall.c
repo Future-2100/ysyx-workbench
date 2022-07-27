@@ -79,7 +79,6 @@ void *_sbrk(intptr_t increment) {
   if( break_inited == false ) {
     program_break = _end;
     break_inited == true;
-    return (void *)program_break;
   }
 
   uintptr_t old_break = program_break ;
