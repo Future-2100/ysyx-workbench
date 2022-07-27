@@ -9,7 +9,7 @@ uintptr_t write( int fd, uintptr_t buf, size_t count ) {
       ch++;
     }
   }
-  return count; 
+  return -1 ; 
 }
 
 void do_syscall(Context *c) {
@@ -30,10 +30,7 @@ void do_syscall(Context *c) {
                      break  ;
 
     case SYS_write : printf("is in sys_write\n"); 
-                     if ( write((int)a[1],a[2],a[3]) == -1 )
-                       c->GPRx = 1 ;
-                     else
-                       c->GPRx = 0 ;
+                     c->GPRx =  ( write((int)a[1],a[2],a[3]) );
                      break;
 
     case  -1       : printf(" here is_yield \n");  
