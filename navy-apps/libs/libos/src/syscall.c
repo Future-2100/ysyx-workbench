@@ -40,7 +40,7 @@
 #error _syscall_ is not implemented
 #endif
 
-void putch(char);
+//void putch(char);
 
 intptr_t _syscall_(intptr_t type, intptr_t a0, intptr_t a1, intptr_t a2) {
   register intptr_t _gpr1 asm (GPR1) = type;
@@ -50,7 +50,6 @@ intptr_t _syscall_(intptr_t type, intptr_t a0, intptr_t a1, intptr_t a2) {
   register intptr_t ret asm (GPRx);
   asm volatile (SYSCALL : "=r" (ret) : "r"(_gpr1), "r"(_gpr2), "r"(_gpr3), "r"(_gpr4));
   return ret;
-  putch(ret + '0');
 }
 
 void _exit(int status) {
