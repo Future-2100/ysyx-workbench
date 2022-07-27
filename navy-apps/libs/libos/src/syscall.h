@@ -3,8 +3,8 @@
 
 enum {
   SYS_exit,
-  SYS_open,
   SYS_yield,
+  SYS_open,
   SYS_read,
   SYS_write,
   SYS_kill,

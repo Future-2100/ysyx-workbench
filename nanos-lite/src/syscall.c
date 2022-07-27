@@ -15,7 +15,7 @@ void do_syscall(Context *c) {
   switch (a[0]) {
     case SYS_exit  : printf("is in sys_exit \n"); halt(c->GPRx) ;  break;
     case SYS_yield : printf("is in sys_yield\n"); yield()       ;  break;
-    case  -1       : printf(" here is_yield \n");   break;
+    case  -1       : printf(" here is_yield \n");                  break;
 
     //case SYS_write : printf("is in sys_write\n"); write(&c->GPRx,pdir);  break;
     //case SYS_write : printf("is in sys_write\n");  break;
