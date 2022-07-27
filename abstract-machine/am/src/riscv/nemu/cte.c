@@ -24,6 +24,7 @@ Context* __am_irq_handle(Context *c) {
   for(int i = 0; i < 32; i++) {
     printf(" gpr[%d]  = 0x%x \n", i, c->gpr[i]);
   }
+  printf("------------- Context information end ------------\n");
 #endif
 
   if (user_handler) {
