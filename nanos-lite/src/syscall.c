@@ -15,38 +15,62 @@ void do_syscall(Context *c) {
   a[3] = c->GPR4;
 
   switch (a[0]) {
-    case SYS_exit  : printf("is in sys_exit \n"); 
+    case SYS_exit  : 
+#ifdef CONFIG_STRACE 
+                     printf("sys_exit : a[1] = %x, a[2] = %x, a[3] = %x\n", a[1], a[2], a[3] );
+#endif
                      halt(a[1]) ;  
                      c->GPRx = 0 ;
                      break;
 
-    case SYS_yield : printf("is in sys_yield\n"); 
+    case SYS_yield : 
+#ifdef CONFIG_STRACE 
+                     printf("sys_yield : a[1] = %x, a[2] = %x, a[3] = %x\n", a[1], a[2], a[3] );
+#endif
                      yield() ; 
                      c->GPRx = 0  ;
                      break  ;
 
-    case SYS_open  : printf("is in sys_open\n");
+    case SYS_open  : 
+#ifdef CONFIG_STRACE 
+                     printf("sys_open : a[1] = %x, a[2] = %x, a[3] = %x\n", a[1], a[2], a[3] );
+#endif
                      c->GPRx = fs_open( (char *)a[1], (int)a[2], (int)a[3] );
                      break;
 
-    case SYS_read  : printf("is in sys_read\n");
+    case SYS_read  : 
+#ifdef CONFIG_STRACE 
+                     printf("sys_read : a[1] = %x, a[2] = %x, a[3] = %x\n", a[1], a[2], a[3] );
+#endif
                      c->GPRx = fs_read( (int)a[1], (void *)a[2], a[3] );
                      break;
 
-    case SYS_write : //printf("is in sys_write\n"); 
-                     //printf("write : a[1] = %x, a[2] = %x, a[3] = %x\n", a[1], a[2], a[3] );
+    case SYS_write : 
+#ifdef CONFIG_STRACE 
+                     printf("sys_write : a[1] = %x, a[2] = %x, a[3] = %x\n", a[1], a[2], a[3] );
+#endif
                      c->GPRx = fs_write((int)a[1], (void *)a[2], a[3] ) ;
                      break;
 
-    case SYS_close : printf("is in sys_close\n");
+    case SYS_close : 
+#ifdef CONFIG_STRACE 
+                     printf("sys_close : a[1] = %x, a[2] = %x, a[3] = %x\n", a[1], a[2], a[3] );
+#endif
                      c->GPRx = fs_close( (int)a[1] );
                      break;
 
-    case SYS_lseek : printf("is in sys_lseek\n");
+    case SYS_lseek : 
+#ifdef CONFIG_STRACE 
+                     printf("sys_lseek : a[1] = %x, a[2] = %x, a[3] = %x\n", a[1], a[2], a[3] );
+#endif
                      c->GPRx = fs_lseek( (int)a[1], a[2], (int)a[3] );
                      break;
 
-    case SYS_brk   : c->GPRx = sys_brk( a[1] );  //used in malloc
+    case SYS_brk   : 
+#ifdef CONFIG_STRACE 
+                     printf("sys_brk : a[1] = %x, a[2] = %x, a[3] = %x\n", a[1], a[2], a[3] );
+#endif
+                     c->GPRx = sys_brk( a[1] );  //used in malloc
                      break;
 
     case  -1       : printf(" here is_yield \n");  
