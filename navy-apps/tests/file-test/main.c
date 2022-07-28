@@ -39,7 +39,6 @@ int main() {
 
   fclose(fp);
 
-  printf(" >>>>>>>7 \n");
   printf("PASS!!!\n");
 
   return 0;
