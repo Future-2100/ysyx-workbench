@@ -5,7 +5,7 @@
 int main() {
   //int i = _open("/share/files/num", 0,0);
   //printf("begin of the main\n");
-  FILE *fp = fopen("/share/files/num", "r+");
+  FILE *fp = fopen("/share/files/num", "w");
   assert(fp);
 
   fseek(fp, 0, SEEK_END);
