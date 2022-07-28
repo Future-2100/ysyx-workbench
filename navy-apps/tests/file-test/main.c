@@ -4,7 +4,6 @@
 int main() {
   printf(" >>>>>>>7 \n");
   FILE *fp = fopen("/share/files/num", "r+");
-  printf(" >>>>>>>7 \n");
   assert(fp);
 
   printf(" >>>>>>>7 \n");
