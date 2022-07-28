@@ -15,14 +15,15 @@ size_t ramdisk_read(void *buf, size_t offset, size_t len);
 static uintptr_t loader(PCB *pcb, const char *filename) {
   int fd = fs_open(filename, 0, 0);
   assert(fd);
-  halt(1);
-
-  //fs_read(fd, ident, 4);
-
 
   uint32_t ident;
-  ramdisk_read( &ident, 0, 4 );
+  fs_read(fd, &ident, 4);
   assert ( ident == 0x464c457f );
+  halt(0);
+  return 0 ;
+
+
+  ramdisk_read( &ident, 0, 4 );
 
   Elf64_Off phoff;
   ramdisk_read( &phoff, 32, 8);
