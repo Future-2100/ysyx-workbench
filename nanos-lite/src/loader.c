@@ -21,10 +21,10 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   assert ( ident == 0x464c457f );
 
   Elf64_Off phoff;
-  //fs_lseek(fd, 32, 0);
-  //fs_read(fd, &phoff, 8);
-  ramdisk_read( &phoff, 32, 8);
-  printf("phoff = 0x%x\n", phoff);
+  fs_lseek(fd, 32, 0);
+  fs_read(fd, &phoff, 8);
+  //ramdisk_read( &phoff, 32, 8);
+  assert( phoff == 0x40 );
   halt(0);
   return 0 ;
   
