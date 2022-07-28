@@ -66,6 +66,7 @@ size_t fs_read(int fd, void *buf, size_t len){
 }
 
 size_t fs_write(int fd, void *buf, size_t len){
+  printf("fd = %d, buf = 0x%p, len = %d\n", fd, buf, len);
   char *ch = (char *)buf;
   if( fd==FD_STDOUT || fd==FD_STDERR ) {
     for( int i = 0; i < len; i++) {
