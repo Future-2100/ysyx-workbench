@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <assert.h>
 
-int _open(const char *path, int flags, mode_t mode);
+//int _open(const char *path, int flags, mode_t mode);
 int main() {
-  int i = _open("/share/files/num", 0,0);
+  //int i = _open("/share/files/num", 0,0);
   //printf("begin of the main\n");
   FILE *fp = fopen("/share/files/num", "r+");
   assert(fp);
