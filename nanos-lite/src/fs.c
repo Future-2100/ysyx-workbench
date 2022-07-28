@@ -4,7 +4,6 @@ typedef size_t (*ReadFn) (void *buf, size_t offset, size_t len);
 typedef size_t (*WriteFn) (const void *buf, size_t offset, size_t len);
 
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
-size_t file_offset = 0 ;
 
 typedef struct {
   char *name;
@@ -12,6 +11,7 @@ typedef struct {
   size_t disk_offset;
   ReadFn read;
   WriteFn write;
+  size_t open_offset;
 } Finfo;
 
 enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB};
@@ -42,7 +42,8 @@ int fs_open(const char *pathname, int flags, int mode){
   int i;
   for( i=0; i<sizeof(file_table)/sizeof(file_table[0]) ; i++ ) {
     if( strcmp ( pathname, file_table[i].name  ) == 0 ){
-      printf("opened file : %s\n", pathname);
+      printf("opened file : %s\n", file_table[i].name);
+      file_table[i].open_offset = 0;
       return i ;
     }
   }
@@ -54,8 +55,8 @@ size_t fs_read(int fd, void *buf, size_t len){
   //size_t offset = file_table[fd].disk_offset + file_offset ;
   //size_t offset = file_offset ;
   //printf("offset = 0x%x\n", offset );
-  ramdisk_read( buf, file_offset, len );
-  file_offset = file_offset + len ;
+  ramdisk_read( buf, file_table[fd].open_offset, len );
+  file_table[fd].open_offset = file_table[fd].open_offset + len ;
   return len ;
 }
 
@@ -71,7 +72,7 @@ size_t fs_write(int fd, void *buf, size_t len){
 }
 
 size_t fs_lseek(int fd, size_t offset, int whence){
-  file_offset = offset;
+  file_table[fd].open_offset = offset;
   return 0;
 }
 
