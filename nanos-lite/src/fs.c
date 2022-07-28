@@ -43,7 +43,6 @@ int fs_open(const char *pathname, int flags, int mode){
   for( i=0; i<sizeof(file_table)/sizeof(file_table[0]) ; i++ ) {
     if( strcmp ( pathname, file_table[i].name  ) == 0 ){
       printf("opened file : %s\n", pathname);
-      file_offset = file_table[i].disk_offset;
       return i ;
     }
   }
@@ -52,7 +51,8 @@ int fs_open(const char *pathname, int flags, int mode){
 }
 
 size_t fs_read(int fd, void *buf, size_t len){
-  ramdisk_read( buf, file_offset, len );
+  size_t offset = file_table[fd].disk_offset + file_offset ;
+  ramdisk_read( buf, offset, len );
   file_offset = file_offset + len ;
   return len ;
 }
