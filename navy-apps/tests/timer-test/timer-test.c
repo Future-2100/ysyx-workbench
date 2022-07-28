@@ -8,8 +8,8 @@ int main() {
   struct timeval tv;
   while(1) {
     gettimeofday(&tv, NULL);
-    if( tv.tv_usec ==500 ) {
-      printf("output a sentence every 0.5 second . %d\n",times);
+    if( tv.tv_usec ==500 || tv.tv_usec == 1000) {
+      printf("output a sentence every 0.5 second. %d\n",times);
       times ++ ;
     }
   }
