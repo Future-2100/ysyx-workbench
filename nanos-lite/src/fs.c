@@ -85,12 +85,17 @@ size_t fs_write(int fd, void *buf, size_t len){
 }
 
 size_t fs_lseek(int fd, size_t offset, int whence){
-  if( offset >= file_table[fd].size ){
-    Log( "Set seek failed : out of the boundary" );
-    return file_table[fd].open_offset ;
+  switch (whence) {
+    case SEEK_SET :  file_table[fd].open_offset = offset;
+                     break;
+    case SEEK_CUR :  file_table[fd].open_offset = file_table[fd].open_offset + offset;
+                     break;
+    case SEEK_END :  file_table[fd].open_offset = file_table[fd].size + offset;
+                     break;
+    default       :  file_table[fd].open_offset = file_table[fd].open_offset ;
+                     break;
   }
 
-  file_table[fd].open_offset = offset;
   return file_table[fd].open_offset ;
 }
 
