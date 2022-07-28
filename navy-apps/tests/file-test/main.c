@@ -11,7 +11,6 @@ int main() {
   long size = ftell(fp);
   assert(size == 5000);
 
-  printf(" >>>>>>>7 \n");
   fseek(fp, 500 * 5, SEEK_SET);
   int i, n;
   for (i = 500; i < 1000; i ++) {
