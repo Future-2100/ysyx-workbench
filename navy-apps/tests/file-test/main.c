@@ -3,6 +3,8 @@
 
 int main() {
   //printf(" >>>>>>>7 \n");
+  int a = 0;
+  if(a) {}
   FILE *fp = fopen("/share/files/num", "r+");
   assert(fp);
 
