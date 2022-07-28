@@ -42,7 +42,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   //ramdisk_read( &entry, 24, 8 );
 
   Elf_Phdr elf_phdr;
-    fs_lseek(fd, phoff + phentsize*0, 4);
+    fs_lseek(fd, phoff , 4);
   for( int i = 0; i < phnum; i++ ) {
     fs_read(fd, &elf_phdr.p_type  , 4);
     fs_read(fd, &elf_phdr.p_flags , 4);
@@ -61,7 +61,9 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
    // ramdisk_read( &elf_phdr.p_memsz  , phoff + phentsize*i + 40 , 8 );
    // ramdisk_read( &elf_phdr.p_align  , phoff + phentsize*i + 48 , 8 );
     if( elf_phdr.p_type == PT_LOAD ) {
-      ramdisk_read( (char *)(elf_phdr.p_vaddr), elf_phdr.p_offset , elf_phdr.p_memsz );
+      fs_lseek( fd, elf_phdr.p_offset, 0 );
+      fs_read(fd, (char *)elf_phdr.p_vaddr, elf_phdr.p_memsz);
+      //ramdisk_read( (char *)(elf_phdr.p_vaddr), elf_phdr.p_offset , elf_phdr.p_memsz );
       memset( (char *)(elf_phdr.p_vaddr + elf_phdr.p_filesz), 0, elf_phdr.p_memsz - elf_phdr.p_filesz);
      }
   }
