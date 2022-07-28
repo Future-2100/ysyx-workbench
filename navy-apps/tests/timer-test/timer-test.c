@@ -8,7 +8,7 @@ int main() {
   struct timeval tv;
   while(1) {
     gettimeofday(&tv, NULL);
-    if( tv.tv_usec >=500 ) {
+    if( tv.tv_usec ==500 ) {
       printf("output a sentence every 0.5 second . %d\n",times);
       times ++ ;
     }
