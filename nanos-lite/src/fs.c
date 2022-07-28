@@ -52,6 +52,7 @@ int fs_open(const char *pathname, int flags, int mode){
 
 size_t fs_read(int fd, void *buf, size_t len){
   size_t offset = file_table[fd].disk_offset + file_offset ;
+  printf("offset = 0x%x\n", offset );
   ramdisk_read( buf, offset, len );
   file_offset = file_offset + len ;
   return len ;
