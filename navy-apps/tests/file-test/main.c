@@ -6,7 +6,6 @@ int main() {
   printf(" >>>>>>>2 \n");
   assert(fp);
 
-  printf(" >>>>>>>3 \n");
   fseek(fp, 0, SEEK_END);
   printf(" >>>>>>>4 \n");
   long size = ftell(fp);
