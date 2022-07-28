@@ -9,7 +9,7 @@ static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
 
-extern uint32_t bool_time = 0 ;
+uint32_t bool_time = 0 ;
 
 uint32_t NDL_GetTicks() {
   struct timeval tv;
