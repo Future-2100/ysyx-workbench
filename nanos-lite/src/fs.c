@@ -83,7 +83,7 @@ size_t fs_write(int fd, void *buf, size_t len){
   printf(" fd = %d, buf = 0x%p, offset = 0x%p, len = 0x%p\n", fd, buf, offset, len);
   ramdisk_write( buf, offset, len );
   file_table[fd].open_offset = file_table[fd].open_offset + len ;
-  return len;
+  return 0;
 }
 
 size_t fs_lseek(int fd, size_t offset, int whence){
