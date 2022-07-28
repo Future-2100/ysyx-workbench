@@ -39,6 +39,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf64_Addr entry;
   fs_lseek(fd, 24, SEEK_SET);
   fs_read(fd, &entry, 8);
+  assert( entry!=0x83008040 );
   //ramdisk_read( &entry, 24, 8 );
 
   Elf_Phdr elf_phdr;
@@ -71,7 +72,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   //halt(0);
   //return 0 ;
   fs_close(fd);
-  return entry + 4;
+  return entry ;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
