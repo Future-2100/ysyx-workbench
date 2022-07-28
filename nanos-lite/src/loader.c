@@ -67,8 +67,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   }
 
       Log("program loaded successful" );
-  halt(0);
-  return 0 ;
+  //halt(0);
+  //return 0 ;
   return entry ;
 }
 
