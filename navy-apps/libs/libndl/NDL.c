@@ -9,9 +9,9 @@ static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
 
-extern uint64_t bool_time = 0 ;
+extern uint32_t bool_time = 0 ;
 
-uint64_t NDL_GetTicks() {
+uint32_t NDL_GetTicks() {
   struct timeval tv;
   struct timezone tz;
   if( bool_time == 0 ) {
@@ -19,7 +19,7 @@ uint64_t NDL_GetTicks() {
     bool_time = tv.tv_sec * 1000000 + tv.tv_usec;
   }
   gettimeofday(&tv,&tz);
-  uint64_t now = tv.tv_sec * 1000000 + tv.tv_usec;
+  uint32_t now = tv.tv_sec * 1000000 + tv.tv_usec;
   return now - bool_time;
 }
 
