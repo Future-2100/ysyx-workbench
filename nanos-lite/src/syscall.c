@@ -15,41 +15,41 @@ void do_syscall(Context *c) {
   a[3] = c->GPR4;
 
   switch (a[0]) {
-    case SYS_exit  : printf("is in sys_exit \n"); 
+    case SYS_exit  : //printf("is in sys_exit \n"); 
                      halt(a[1]) ;  
                      c->GPRx = 0 ;
                      break;
 
-    case SYS_yield : printf("is in sys_yield\n"); 
+    case SYS_yield : //printf("is in sys_yield\n"); 
                      yield() ; 
                      c->GPRx = 0  ;
                      break  ;
 
-    case SYS_open  : printf("is in sys_open\n");
+    case SYS_open  : //printf("is in sys_open\n");
                      c->GPRx = fs_open( (char *)a[1], (int)a[2], (int)a[3] );
                      break;
 
-    case SYS_read  : printf("is in sys_read\n");
+    case SYS_read  : //printf("is in sys_read\n");
                      c->GPRx = fs_read( (int)a[1], (void *)a[2], a[3] );
                      break;
 
-    case SYS_write : printf("is in sys_write\n"); 
-                     printf("a[1] = %x, a[2] = %x, a[3] = %x\n");
+    case SYS_write : //printf("is in sys_write\n"); 
+                     //printf("a[1] = %x, a[2] = %x, a[3] = %x\n");
                      c->GPRx = fs_write((int)a[1], (void *)a[2], a[3] ) ;
                      break;
 
-    case SYS_close : printf("is in sys_close\n");
+    case SYS_close : //printf("is in sys_close\n");
                      c->GPRx = fs_close( (int)a[1] );
                      break;
 
-    case SYS_lseek : printf("is in sys_lseek\n");
+    case SYS_lseek : //printf("is in sys_lseek\n");
                      c->GPRx = fs_lseek( (int)a[1], a[2], (int)a[3] );
                      break;
 
     case SYS_brk   : c->GPRx = sys_brk( a[1] );  //used in malloc
                      break;
 
-    case  -1       : printf(" here is_yield \n");  
+    case  -1       : //printf(" here is_yield \n");  
                      c->GPRx = 0 ;
                      break;
 

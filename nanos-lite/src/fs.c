@@ -67,7 +67,6 @@ size_t fs_read(int fd, void *buf, size_t len){
 
 size_t fs_write(int fd, void *buf, size_t len){
   char *ch = (char *)buf;
-  printf(" fd = %d\n", fd);
   if( fd==FD_STDOUT || fd==FD_STDERR ) {
     for( int i = 0; i < len; i++) {
       putch(*ch);
@@ -80,7 +79,7 @@ size_t fs_write(int fd, void *buf, size_t len){
     len = file_table[fd].size - file_table[fd].open_offset;
   }
   size_t offset = file_table[fd].open_offset + file_table[fd].disk_offset;
-  printf(" buf = 0x%p, offset = 0x%p, len = 0x%p\n", buf, offset, len);
+  //printf(" buf = 0x%p, offset = 0x%p, len = 0x%p\n", buf, offset, len);
   ramdisk_write( buf, offset, len );
   file_table[fd].open_offset = file_table[fd].open_offset + len ;
   return len;
