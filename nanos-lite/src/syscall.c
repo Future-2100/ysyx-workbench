@@ -1,11 +1,12 @@
 #include <common.h>
 #include "syscall.h"
 #include "fs.h"
-
+#include <sys/time.h>
 uintptr_t sys_brk( uintptr_t new_break ) {
 
   return 0 ;
 }
+
 
 void do_syscall(Context *c) {
   uintptr_t a[4];
@@ -72,6 +73,20 @@ void do_syscall(Context *c) {
 #endif
                      c->GPRx = sys_brk( a[1] );  //used in malloc
                      break;
+
+    case SYS_gettimeofday :
+#ifdef CONFIG_STRACE
+                     printf("sys_gettimeofday : a[1] = %x, a[2] = %x, a[3] = %x\n", a[1], a[2], a[3] );
+#endif
+                     struct timeval *tv = (struct timeval *)a[1];
+                     uint64_t res = io_read(AM_TIMER_UPTIME).us;
+                     tv->tv_sec = res / 1000000;
+                     res = res % 1000000;
+                     tv->tv_usec = res / 1000;
+                     c->GPRx = 0;
+                     break;
+
+                     //sys_gettimeofday(a[1], a[2]);
 
     case  -1       : printf(" here is_yield \n");  
                      c->GPRx = 0 ;
