@@ -25,7 +25,7 @@ size_t invalid_write(const void *buf, size_t offset, size_t len) {
 
 /* This is the information about all files in disk. */
 static Finfo file_table[] __attribute__((used)) = {
-  [FD_STDIN]  = {"stdin", 0, 0, invalid_read, invalid_write},
+  [FD_STDIN]  = {"stdin" , 0, 0, invalid_read, invalid_write},
   [FD_STDOUT] = {"stdout", 0, 0, invalid_read, invalid_write},
   [FD_STDERR] = {"stderr", 0, 0, invalid_read, invalid_write},
 #include "files.h"
@@ -33,4 +33,39 @@ static Finfo file_table[] __attribute__((used)) = {
 
 void init_fs() {
   // TODO: initialize the size of /dev/fb
+}
+
+int fs_open(const char *pathname, int flags, int mode){
+  int i;
+  for( i=0; i<sizeof(file_table)/sizeof(file_table[0]) ; i++ ) {
+    if( strcmp ( pathname, file_table[i].name  ) == 0 ){
+      printf("opened file : %s\n", pathname);
+      return i ;
+    }
+  }
+  //if( i == sizeof(file_table)/sizeof(file_table[0]) )
+    return 0 ;
+}
+
+size_t fs_read(int fd, void *buf, size_t len){
+  return 0 ;
+}
+
+size_t fs_write(int fd, void *buf, size_t len){
+  char *ch = (char *)buf;
+  if( fd==FD_STDOUT || fd==FD_STDIN ) {
+    for( int i = 0; i < len; i++) {
+      putch(*ch);
+      ch++;
+    }
+  }
+  return len ;
+}
+
+size_t fs_lseek(int fd, size_t offset, int whence){
+  return 0;
+}
+
+int fs_close(int fd){
+  return 0;
 }

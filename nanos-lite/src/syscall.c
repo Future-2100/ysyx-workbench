@@ -1,18 +1,6 @@
 #include <common.h>
 #include "syscall.h"
-
-uintptr_t sys_write( int fd, uintptr_t buf, size_t count ) {
-  char *ch = (char *)buf;
-  if( fd==1 || fd==2 ) {
-    for(int i = 0; i < count; i++) {
-      putch(*ch);
-      ch++;
-    }
-  }
-  return count ; 
-}
-
-
+#include "fs.h"
 
 uintptr_t sys_brk( uintptr_t new_break ) {
 
@@ -37,11 +25,18 @@ void do_syscall(Context *c) {
                      c->GPRx = 0  ;
                      break  ;
 
+    case SYS_open  : c->GPRx = fs_open( (char *)a[1], (int)a[2], (int)a[3] );
+                     halt(1);
+                     break;
+    case SYS_read  : break;
     case SYS_write : //printf("is in sys_write\n"); 
-                     c->GPRx = ( sys_write((int)a[1],a[2],a[3]) );
+                     c->GPRx = ( fs_write((int)a[1],(void *)a[2],a[3]) );
                      break;
 
-    case SYS_brk   : c->GPRx = sys_brk( a[1] );
+    case SYS_close :
+    case SYS_lseek :
+
+    case SYS_brk   : c->GPRx = sys_brk( a[1] );  //used in malloc
                      break;
 
     case  -1       : printf(" here is_yield \n");  
