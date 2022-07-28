@@ -63,7 +63,6 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     if( elf_phdr.p_type == PT_LOAD ) {
       fs_lseek( fd, elf_phdr.p_offset, 0 );
       fs_read(fd, (char *)elf_phdr.p_vaddr, elf_phdr.p_memsz);
-      //ramdisk_read( (char *)(elf_phdr.p_vaddr), elf_phdr.p_offset , elf_phdr.p_memsz );
       memset( (char *)(elf_phdr.p_vaddr + elf_phdr.p_filesz), 0, elf_phdr.p_memsz - elf_phdr.p_filesz);
      }
   }

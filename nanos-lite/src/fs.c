@@ -4,6 +4,7 @@ typedef size_t (*ReadFn) (void *buf, size_t offset, size_t len);
 typedef size_t (*WriteFn) (const void *buf, size_t offset, size_t len);
 
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
+size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 
 typedef struct {
   char *name;
@@ -55,6 +56,9 @@ size_t fs_read(int fd, void *buf, size_t len){
   //size_t offset = file_table[fd].disk_offset + file_offset ;
   //size_t offset = file_offset ;
   //printf("offset = 0x%x\n", offset );
+  if( file_table[fd].open_offset >= file_table[fd].size) {
+    len = file_table[fd].size - file_table[fd].open_offset;
+  }
   ramdisk_read( buf, file_table[fd].open_offset, len );
   file_table[fd].open_offset = file_table[fd].open_offset + len ;
   return len ;
@@ -67,13 +71,25 @@ size_t fs_write(int fd, void *buf, size_t len){
       putch(*ch);
       ch++;
     }
+    return len ;
   }
-  return len ;
+
+  if( file_table[fd].open_offset + len >= file_table[fd].size) {
+    len = file_table[fd].size - file_table[fd].open_offset;
+  }
+  ramdisk_write( buf, file_table[fd].open_offset, len );
+  file_table[fd].open_offset = file_table[fd].open_offset + len ;
+  return len;
 }
 
 size_t fs_lseek(int fd, size_t offset, int whence){
+  if( offset >= file_table[fd].size ){
+    Log( "Set seek failed : out of the boundary" );
+    return file_table[fd].open_offset ;
+  }
+
   file_table[fd].open_offset = offset;
-  return 0;
+  return file_table[fd].open_offset ;
 }
 
 int fs_close(int fd){

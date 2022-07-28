@@ -26,15 +26,20 @@ void do_syscall(Context *c) {
                      break  ;
 
     case SYS_open  : c->GPRx = fs_open( (char *)a[1], (int)a[2], (int)a[3] );
-                     halt(1);
-                     break;
-    case SYS_read  : break;
-    case SYS_write : //printf("is in sys_write\n"); 
-                     c->GPRx = ( fs_write((int)a[1],(void *)a[2],a[3]) );
                      break;
 
-    case SYS_close :
-    case SYS_lseek :
+    case SYS_read  : c->GPRx = fs_read( (int)a[1], (void *)a[2], a[3] );
+                     break;
+
+    case SYS_write : //printf("is in sys_write\n"); 
+                     c->GPRx = fs_write((int)a[1], (void *)a[2], a[3] ) ;
+                     break;
+
+    case SYS_close : c->GPRx = fs_close( (int)a[1] );
+                     break;
+
+    case SYS_lseek : c->GPRx = fs_lseek( (int)a[1], a[2], (int)a[3] );
+                     break;
 
     case SYS_brk   : c->GPRx = sys_brk( a[1] );  //used in malloc
                      break;
