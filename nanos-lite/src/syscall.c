@@ -33,8 +33,8 @@ void do_syscall(Context *c) {
                      c->GPRx = fs_read( (int)a[1], (void *)a[2], a[3] );
                      break;
 
-    case SYS_write : printf("is in sys_write\n"); 
-                     printf("write : a[1] = %x, a[2] = %x, a[3] = %x\n", a[1], a[2], a[3] );
+    case SYS_write : //printf("is in sys_write\n"); 
+                     //printf("write : a[1] = %x, a[2] = %x, a[3] = %x\n", a[1], a[2], a[3] );
                      c->GPRx = fs_write((int)a[1], (void *)a[2], a[3] ) ;
                      break;
 
