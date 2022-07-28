@@ -2,6 +2,7 @@
 #include <assert.h>
 
 int main() {
+  printf(" >>>>>>>7 \n");
   FILE *fp = fopen("/share/files/num", "r+");
   printf(" >>>>>>>7 \n");
   assert(fp);
@@ -11,6 +12,7 @@ int main() {
   long size = ftell(fp);
   assert(size == 5000);
 
+  printf(" >>>>>>>7 \n");
   fseek(fp, 500 * 5, SEEK_SET);
   int i, n;
   for (i = 500; i < 1000; i ++) {
@@ -18,6 +20,7 @@ int main() {
     assert(n == i + 1);
   }
 
+  printf(" >>>>>>>7 \n");
   fseek(fp, 0, SEEK_SET);
   for (i = 0; i < 500; i ++) {
     fprintf(fp, "%4d\n", i + 1 + 1000);
