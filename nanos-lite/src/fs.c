@@ -67,6 +67,7 @@ size_t fs_read(int fd, void *buf, size_t len){
 
 size_t fs_write(int fd, void *buf, size_t len){
   char *ch = (char *)buf;
+  printf(" fd = %d\n", fd);
   if( fd==FD_STDOUT || fd==FD_STDIN ) {
     for( int i = 0; i < len; i++) {
       putch(*ch);
