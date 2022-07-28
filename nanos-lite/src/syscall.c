@@ -25,7 +25,7 @@ void do_syscall(Context *c) {
                      c->GPRx = 0  ;
                      break  ;
 
-    case SYS_open  : //printf("is in sys_open\n");
+    case SYS_open  : printf("is in sys_open\n");
                      c->GPRx = fs_open( (char *)a[1], (int)a[2], (int)a[3] );
                      break;
 
