@@ -126,11 +126,13 @@ void *memmove(void *dst, const void *src, size_t n) {
 }
 
 void *memcpy(void *out, const void *in, size_t n) {
+  /*
   if( out == NULL || in == NULL || out <= in+n ) {
     printf(" memcpy error \n");
     assert(0);
     return NULL;
   }
+  */
   char *tmp_dest = out;
   const char *tmp_src = in;
   while(n--) *tmp_dest++ = *tmp_src++;
