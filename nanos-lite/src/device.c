@@ -32,7 +32,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   AM_INPUT_KEYBRD_T ev ;
   ev.keycode = AM_KEY_NONE;
   for( int i=0; i < len; i++ ) {
-    while( ev.keycode == AM_KEY_NONE ) {
+    while( ev.keycode == AM_KEY_NONE || ev.keydown == 0 ) {
        ev = io_read(AM_INPUT_KEYBRD);
     }
     if( ev.keycode == AM_KEY_RETURN ) {
