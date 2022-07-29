@@ -37,6 +37,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     }
     if( ev.keycode == AM_KEY_RETURN ) {
       *dst = '\n';
+      *(dst++) = '\0';
       real_len ++ ;
       return real_len;
     }
@@ -51,6 +52,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     ev.keycode = AM_KEY_NONE;
 }
   *dst = '\n';
+  *(dst++) = '\0';
   return real_len;
     
     //if( ev.keydown == 0 ) {
