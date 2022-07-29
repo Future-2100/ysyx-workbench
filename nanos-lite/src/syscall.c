@@ -86,7 +86,6 @@ void do_syscall(Context *c) {
                      c->GPRx = 0;
                      break;
 
-                     //sys_gettimeofday(a[1], a[2]);
 
     case  -1       : printf(" here is_yield \n");  
                      c->GPRx = 0 ;
