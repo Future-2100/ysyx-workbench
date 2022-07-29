@@ -28,10 +28,14 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   size_t real_len = 0 ;
   //char *src = keyname[ev.keycode];
   char *dst = buf;
+  AM_INPUT_KEYBRD_T ev ;
+  ev.keycode = AM_KEY_NONE;
   for( int i=0; i < len; i++ ) {
-    AM_INPUT_KEYBRD_T ev = io_read(AM_INPUT_KEYBRD);
-    if( ev.keycode == AM_KEY_NONE ) break;
-    if( ev.keydown == 0 ) {
+    while( ev.keycode == AM_KEY_NONE ) {
+       ev = io_read(AM_INPUT_KEYBRD);
+    }
+    
+    //if( ev.keydown == 0 ) {
       if( ev.keycode == AM_KEY_RETURN ) {
         *dst = '\n';
         return real_len;
@@ -44,7 +48,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
       }
         real_len ++ ;
         dst ++;
-      }
+     // }
     }
   *dst = '\n';
   return real_len;
