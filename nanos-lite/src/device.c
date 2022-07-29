@@ -27,11 +27,6 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   //bool has_kbd = io_read(AM_INPUT_CONFIG).present;
   size_t real_len = 0 ;
 
-
-  memcpy(buf, "Hello", 6);
-  return 1;
-
-
   //char *src = keyname[ev.keycode];
   char *dst = buf;
   AM_INPUT_KEYBRD_T ev ;
@@ -41,27 +36,28 @@ size_t events_read(void *buf, size_t offset, size_t len) {
        ev = io_read(AM_INPUT_KEYBRD);
     }
     if( ev.keycode == AM_KEY_RETURN ) {
-      return 6;
+      *dst = '\n';
+      real_len ++ ;
+      return real_len;
     }
-  //printf(" %s (%d) %s\n", keyname[ev.keycode], ev.keycode, ev.keydown ? "DOWN" : "UP");
+    else if( ev.keycode == AM_KEY_SPACE ) {
+        *dst = ' ';
+    }
+    else {
+      *dst = *keyname[ev.keycode];
+    }
+    real_len ++ ;
+    dst ++;
 }
-  return 1;
+  *dst = '\n';
+  return real_len;
     
     //if( ev.keydown == 0 ) {
       if( ev.keycode == AM_KEY_RETURN ) {
         *dst = '\n';
         return real_len;
       }
-      else if( ev.keycode == AM_KEY_SPACE ) {
-        *dst = ' ';
-      }
-      else {
-        *dst = *keyname[ev.keycode];
-      }
-        real_len ++ ;
-        dst ++;
      // }
-  *dst = '\n';
   return 1;
 
 }
