@@ -26,6 +26,9 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 size_t events_read(void *buf, size_t offset, size_t len) {
   //bool has_kbd = io_read(AM_INPUT_CONFIG).present;
   size_t real_len = 0 ;
+
+
+
   //char *src = keyname[ev.keycode];
   char *dst = buf;
   AM_INPUT_KEYBRD_T ev ;
@@ -40,7 +43,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     }
   //printf(" %s (%d) %s\n", keyname[ev.keycode], ev.keycode, ev.keydown ? "DOWN" : "UP");
 }
-  return 0;
+  return 1;
     
     //if( ev.keydown == 0 ) {
       if( ev.keycode == AM_KEY_RETURN ) {
@@ -57,7 +60,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
         dst ++;
      // }
   *dst = '\n';
-  return real_len;
+  return 1;
 
 }
 
