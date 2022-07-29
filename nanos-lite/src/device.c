@@ -30,6 +30,9 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   char *dst = buf;
   AM_INPUT_KEYBRD_T ev ;
   ev.keycode = AM_KEY_NONE;
+  ev = io_read(AM_INPUT_KEYBRD);
+  printf(" %s (%d) %s\n", keyname[ev.keycode], ev.keycode, ev.keydown ? "DOWN" : "UP");
+
   for( int i=0; i < len; i++ ) {
     while( ev.keycode == AM_KEY_NONE ) {
        ev = io_read(AM_INPUT_KEYBRD);
