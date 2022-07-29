@@ -35,10 +35,8 @@ size_t events_read(void *buf, size_t offset, size_t len) {
        ev = io_read(AM_INPUT_KEYBRD);
     }
     if( ev.keycode == AM_KEY_RETURN ) {
-      *dst = 'h';
-      dst ++ ;
-      *dst = '\n';
-      return 1;
+      printf("in return\n");
+      return 0;
     }
   printf(" %s (%d) %s\n", keyname[ev.keycode], ev.keycode, ev.keydown ? "DOWN" : "UP");
 }
