@@ -28,6 +28,9 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   size_t real_len = 0 ;
 
 
+  memcpy(buf, "Hello", 6);
+  return 1;
+
 
   //char *src = keyname[ev.keycode];
   char *dst = buf;
@@ -38,7 +41,6 @@ size_t events_read(void *buf, size_t offset, size_t len) {
        ev = io_read(AM_INPUT_KEYBRD);
     }
     if( ev.keycode == AM_KEY_RETURN ) {
-      memcpy(buf, "Hello", 6);
       return 6;
     }
   //printf(" %s (%d) %s\n", keyname[ev.keycode], ev.keycode, ev.keydown ? "DOWN" : "UP");
