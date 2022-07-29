@@ -48,6 +48,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     }
     real_len ++ ;
     dst ++;
+    ev.keycode = AM_KEY_NONE;
 }
   *dst = '\n';
   return real_len;
