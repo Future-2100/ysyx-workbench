@@ -35,6 +35,8 @@ size_t events_read(void *buf, size_t offset, size_t len) {
        ev = io_read(AM_INPUT_KEYBRD);
     }
     if( ev.keycode == AM_KEY_RETURN ) {
+      *dst = 'h';
+      dst ++ ;
       *dst = '\n';
       return 1;
     }
