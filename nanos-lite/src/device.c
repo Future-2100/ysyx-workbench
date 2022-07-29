@@ -38,7 +38,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
       memcpy(buf, "Hello", 6);
       return 6;
     }
-  printf(" %s (%d) %s\n", keyname[ev.keycode], ev.keycode, ev.keydown ? "DOWN" : "UP");
+  //printf(" %s (%d) %s\n", keyname[ev.keycode], ev.keycode, ev.keydown ? "DOWN" : "UP");
 }
   return 0;
     
