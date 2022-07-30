@@ -25,7 +25,7 @@ uint32_t NDL_GetTicks() {
 
 int NDL_PollEvent(char *buf, int len) {
   int fp = open("/dev/events", 0, 0);
-  return read(fp, buf, len);
+  return  read(fp, buf, len);
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
@@ -46,6 +46,12 @@ void NDL_OpenCanvas(int *w, int *h) {
     }
     close(fbctl);
   }
+
+  int fp = open("/proc/dispinfo", 0, 0);
+  assert(fp);
+  char file_context[64];
+  read(fp, file_context, len);
+
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
