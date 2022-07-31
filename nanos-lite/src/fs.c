@@ -96,7 +96,7 @@ size_t fs_write(int fd, void *buf, size_t len){
   }
 
   else
-    return file_table[fd].write( buf, 0, len );
+    return file_table[fd].write( buf, offset, len );
 }
 
 size_t fs_lseek(int fd, size_t offset, int whence){
