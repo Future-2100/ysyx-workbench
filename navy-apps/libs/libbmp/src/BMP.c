@@ -54,7 +54,7 @@ void* BMP_Load(const char *filename, int *width, int *height) {
   printf(" line_off = %d\n ", line_off);
   for (int i = 0; i < h; i ++) {
     fseek(fp, hdr.offset + (h - 1 - i) * line_off, SEEK_SET);
-    printf(" fp->ptr = 0x%x\n ", fp->_ptr);
+    printf(" fp->ptr = 0x%x\n ", fp->_p);
     printf(" w = %d\n ", w);
     printf(" i = %d\n ", i);
     int nread = fread(&pixels[w * i], 3, w, fp);
