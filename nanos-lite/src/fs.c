@@ -29,15 +29,25 @@ size_t invalid_write(const void *buf, size_t offset, size_t len) {
 
 size_t serial_write(const void *buf, size_t offset, size_t len);
 size_t events_read (void *buf, size_t offset, size_t len);
+size_t dispinfo_read(void *buf, size_t offset, size_t len);
 /* This is the information about all files in disk. */
 static Finfo file_table[] __attribute__((used)) = {
-  [FD_STDIN]  = {"stdin" , 0, 0, invalid_read , invalid_write},
+  [FD_STDIN]  = {"stdin" , 0, 0, invalid_read, invalid_write},
   [FD_STDOUT] = {"stdout", 0, 0, invalid_read, serial_write },
   [FD_STDERR] = {"stderr", 0, 0, invalid_read, serial_write },
 #include "files.h"
 };
 
 void init_fs() {
+
+  for( int i=0; i<sizeof(file_table)/sizeof(file_table[0]) ; i++ ) {
+    if( strcmp ( "/dev/events", file_table[i].name  ) == 0 ){
+      file_table[i].read = events_read;
+    }
+    if( strcmp ( "/proc/dispinfo", file_table[i].name  ) == 0 ){
+      file_table[i].read = dispinfo_read;
+    }
+  }
   // TODO: initialize the size of /dev/fb
 }
 

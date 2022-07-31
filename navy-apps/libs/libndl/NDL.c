@@ -4,6 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/time.h>
+#include <assert.h>
 
 static int evtdev = -1;
 static int fbdev = -1;
@@ -47,10 +48,19 @@ void NDL_OpenCanvas(int *w, int *h) {
     close(fbctl);
   }
 
-  int fp = open("/proc/dispinfo", 0, 0);
-  assert(fp);
-  char file_context[64];
-  read(fp, file_context, len);
+  screen_w = *w ; 
+  screen_h = *h ; 
+
+  if ( *w == 0 && *h == 0 ) { 
+    int fp = open("/proc/dispinfo", 0, 0);
+    assert(fp);
+    int wh[2];
+    read(fp, wh, sizeof(wh));
+    screen_w = wh[0] ; 
+    screen_h = wh[1] ; 
+    *w = wh[0]; 
+    *h = wh[1]; 
+  }
 
 }
 

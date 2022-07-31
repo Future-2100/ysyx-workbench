@@ -58,7 +58,9 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 }
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
-  return 0;
+  *(int *)buf = 400;
+  *(int *)(buf+1) = 300;
+  return 2;
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
