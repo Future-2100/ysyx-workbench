@@ -44,9 +44,11 @@ void init_fs() {
     if( strcmp ( "/dev/events", file_table[i].name  ) == 0 ){
       file_table[i].read = events_read;
     }
+    /*
     if( strcmp ( "/proc/dispinfo", file_table[i].name  ) == 0 ){
       file_table[i].read = dispinfo_read;
     }
+      */
   }
   // TODO: initialize the size of /dev/fb
 }
