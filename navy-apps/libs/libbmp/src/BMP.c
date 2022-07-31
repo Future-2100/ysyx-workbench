@@ -26,7 +26,6 @@ void* BMP_Load(const char *filename, int *width, int *height) {
 
   struct BitmapHeader hdr;
   assert(sizeof(hdr) == 54);
-  printf(">>>>>>>>>>>>>>>>>\n");
   //assert(1 == fread(&hdr, sizeof(struct BitmapHeader), 1, fp));
   assert(sizeof(struct BitmapHeader) == read(fp, &hdr, sizeof(struct BitmapHeader)));
 
@@ -43,7 +42,7 @@ void* BMP_Load(const char *filename, int *width, int *height) {
     lseek(fp, hdr.offset + (h - 1 - i) * line_off, SEEK_SET);
     printf("offset = %d\n", hdr.offset + (h - 1 - i) * line_off);
     //int nread = fread(&pixels[w * i], 3, w, fp);
-    int nread = read(fp, &pixels[w * i], 3);
+    int nread = read(fp, &pixels[w * i], 3*w);
     for (int j = w - 1; j >= 0; j --) {
       uint8_t b = *(((uint8_t*)&pixels[w * i]) + 3 * j);
       uint8_t g = *(((uint8_t*)&pixels[w * i]) + 3 * j + 1);
