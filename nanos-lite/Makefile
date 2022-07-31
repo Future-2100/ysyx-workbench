@@ -23,8 +23,7 @@ endif
 
 uprun :
 	make ARCH=riscv64-nemu update
-	make ARCH=riscv64-nemu run > log.txt
-	vim log.txt
+	make ARCH=riscv64-nemu run
 
 ifeq ($(HAS_NAVY),)
 ###----------------------------------------------------------------------------
