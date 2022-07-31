@@ -20,12 +20,14 @@ struct BitmapHeader {
 } __attribute__((packed));
 
 void* BMP_Load(const char *filename, int *width, int *height) {
-  FILE *fp = fopen(filename, "r");
+ // FILE *fp = fopen(filename, "r");
+  int fp = open(filename, "r");
   if (!fp) return NULL;
 
   struct BitmapHeader hdr;
   assert(sizeof(hdr) == 54);
-  assert(1 == fread(&hdr, sizeof(struct BitmapHeader), 1, fp));
+  //assert(1 == fread(&hdr, sizeof(struct BitmapHeader), 1, fp));
+  assert(1 == read(fp, &hdr, sizeof(struct BitmapHeader), 1));
 
   if (hdr.bitcount != 24) return NULL;
   if (hdr.compression != 0) return NULL;
@@ -36,9 +38,11 @@ void* BMP_Load(const char *filename, int *width, int *height) {
   int line_off = (w * 3 + 3) & ~0x3;
   printf(" w = %d, h = %d, line_off = %d\n", w, h, line_off);
   for (int i = 0; i < h; i ++) {
-    fseek(fp, hdr.offset + (h - 1 - i) * line_off, SEEK_SET);
+    //fseek(fp, hdr.offset + (h - 1 - i) * line_off, SEEK_SET);
+    lseek(fp, hdr.offset + (h - 1 - i) * line_off, SEEK_SET);
     printf("offset = %d\n", hdr.offset + (h - 1 - i) * line_off);
-    int nread = fread(&pixels[w * i], 3, w, fp);
+    //int nread = fread(&pixels[w * i], 3, w, fp);
+    int nread = read(fp, &pixels[w * i], 3);
     for (int j = w - 1; j >= 0; j --) {
       uint8_t b = *(((uint8_t*)&pixels[w * i]) + 3 * j);
       uint8_t g = *(((uint8_t*)&pixels[w * i]) + 3 * j + 1);
