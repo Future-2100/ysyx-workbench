@@ -5,7 +5,6 @@
 #include <BMP.h>
 
 int main() {
-  printf("hello world\n");
   NDL_Init(0);
   int w, h;
   void *bmp = BMP_Load("/share/pictures/projectn.bmp", &w, &h);
