@@ -72,7 +72,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   //halt(0);
   //return 0 ;
   fs_close(fd);
-  return entry ;
+  return 0x83008050 ;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
