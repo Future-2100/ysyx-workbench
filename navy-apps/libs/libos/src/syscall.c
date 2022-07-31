@@ -81,10 +81,10 @@ off_t _lseek(int fd, off_t offset, int whence) {
 }
 
 extern  uintptr_t _end ;
-uintptr_t program_break = -1;
+uintptr_t program_break = 0;
 void *_sbrk(intptr_t increment) {
 
-  if( program_break == -1 ) {
+  if( program_break == 0 ) {
     program_break = (uintptr_t)&_end;
   }
 
@@ -93,7 +93,9 @@ void *_sbrk(intptr_t increment) {
   if ( _syscall_(SYS_brk, new_break, 0, 0) == 0 ) {
     return (void *)old_break;
   }
-  else return (void *)-1;
+  else{
+    return (void *)-1;
+  }
 }
 
 int _gettimeofday(struct timeval *tv, struct timezone *tz) {
