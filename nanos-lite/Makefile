@@ -22,8 +22,8 @@ endif
 	@touch $@
 
 uprun :
-	make ARCH=riscv64-nemu update
-	make ARCH=riscv64-nemu run
+	make ARCH=$(ARCH) update
+	make ARCH=$(ARCH) AUTO=$(AUTO) run
 
 ifeq ($(HAS_NAVY),)
 ###----------------------------------------------------------------------------
