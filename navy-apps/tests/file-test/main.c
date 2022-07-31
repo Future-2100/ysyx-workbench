@@ -3,7 +3,7 @@
 
 int main() {
 
-  printf("why\n");
+  printf("why must have a printf first?\n");
   FILE *fp = fopen("/share/files/num", "r+");
   assert(fp);
 
