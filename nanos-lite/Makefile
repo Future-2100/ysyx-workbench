@@ -3,7 +3,7 @@ HAS_NAVY = 1
 RAMDISK_FILE = build/ramdisk.img
 
 #AUTO=en
-#ARCH=riscv64-nemu
+ARCH=riscv64-nemu
 
 NAME = nanos-lite
 SRCS = $(shell find -L ./src/ -name "*.c" -o -name "*.cpp" -o -name "*.S")
@@ -22,8 +22,9 @@ endif
 	@touch $@
 
 uprun :
-	make update
-	make run
+	make ARCH=riscv64-nemu update
+	make ARCH=riscv64-nemu run > log.txt
+	vim log.txt
 
 ifeq ($(HAS_NAVY),)
 ###----------------------------------------------------------------------------
