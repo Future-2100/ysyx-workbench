@@ -21,6 +21,10 @@ endif
 ./src/resources.S: $(RAMDISK_FILE)
 	@touch $@
 
+uprun :
+	make update
+	make run
+
 ifeq ($(HAS_NAVY),)
 ###----------------------------------------------------------------------------
 files = $(RAMDISK_FILE) src/files.h src/syscall.h
