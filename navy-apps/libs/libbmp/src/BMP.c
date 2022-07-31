@@ -20,6 +20,7 @@ struct BitmapHeader {
 } __attribute__((packed));
 
 void* BMP_Load(const char *filename, int *width, int *height) {
+  printf("just have a test \n");
   FILE *fp = fopen(filename, "r");
  // int fp = open(filename, "r");
   if (!fp) return NULL;

@@ -7,7 +7,7 @@
 int main() {
   NDL_Init(0);
   int w, h;
-  printf("just have a test!");
+  printf("just have a test!\n");
   void *bmp = BMP_Load("/share/pictures/projectn.bmp", &w, &h);
   printf("just have a test!\n");
   assert(bmp);
