@@ -2,10 +2,14 @@
 #include "syscall.h"
 #include "fs.h"
 #include <sys/time.h>
-uintptr_t sys_brk( uintptr_t new_break ) {
+
+uintptr_t sys_brk( uintptr_t new_break ); 
+
+/*{
 
   return 0 ;
 }
+*/
 
 
 void do_syscall(Context *c) {
@@ -71,7 +75,8 @@ void do_syscall(Context *c) {
 #ifdef CONFIG_STRACE 
                      printf("sys_brk : a[1] = %x, a[2] = %x, a[3] = %x\n", a[1], a[2], a[3] );
 #endif
-                     c->GPRx = sys_brk( a[1] );  //used in malloc
+                     //c->GPRx = sys_brk( a[1] );  //used in malloc
+                     c->GPRx = 0;
                      break;
 
     case SYS_gettimeofday :
