@@ -2,7 +2,7 @@
 
 
 vaddr_t isa_mret() {
-  //cpu.mstatus = 0xa00001800;
+  cpu.mstatus = 0xa00001800;
   return cpu.mepc + 4 ;
 
 }
