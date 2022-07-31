@@ -22,24 +22,24 @@ struct BitmapHeader {
 void* BMP_Load(const char *filename, int *width, int *height) {
   FILE *fp = fopen(filename, "r");
   if (!fp) return NULL;
-  printf(">>>>>>>>>>>>>>>>>>>>>\n");
 
   struct BitmapHeader hdr;
   assert(sizeof(hdr) == 54);
   assert(1 == fread(&hdr, sizeof(struct BitmapHeader), 1, fp));
-  printf(">>>>>>>>>>>>>>>>>>>>>\n");
 
   if (hdr.bitcount != 24) return NULL;
   if (hdr.compression != 0) return NULL;
   int w = hdr.width;
   int h = hdr.height;
   uint32_t *pixels = malloc(w * h * sizeof(uint32_t));
-  printf(">>>>>>>>>>>>>>>>>>>>>\n");
 
   int line_off = (w * 3 + 3) & ~0x3;
   for (int i = 0; i < h; i ++) {
+    printf("1>>>>>>>>>>>>>>>>>>>>>\n");
     fseek(fp, hdr.offset + (h - 1 - i) * line_off, SEEK_SET);
+    printf("2>>>>>>>>>>>>>>>>>>>>>\n");
     int nread = fread(&pixels[w * i], 3, w, fp);
+    printf("3>>>>>>>>>>>>>>>>>>>>>\n");
     for (int j = w - 1; j >= 0; j --) {
       uint8_t b = *(((uint8_t*)&pixels[w * i]) + 3 * j);
       uint8_t g = *(((uint8_t*)&pixels[w * i]) + 3 * j + 1);
