@@ -30,6 +30,21 @@ int NDL_PollEvent(char *buf, int len) {
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
+
+  screen_w = *w ; 
+  screen_h = *h ; 
+
+  if ( *w == 0 && *h == 0 ) { 
+    int fp = open("/proc/dispinfo", 0);
+    assert(fp);
+    int wh[2];
+    read(fp, wh, sizeof(wh));
+    screen_w = wh[0] ; 
+    screen_h = wh[1] ; 
+    *w = wh[0]; 
+    *h = wh[1]; 
+  }
+  
   if (getenv("NWM_APP")) {
     int fbctl = 4;
     fbdev = 5;
@@ -46,20 +61,6 @@ void NDL_OpenCanvas(int *w, int *h) {
       if (strcmp(buf, "mmap ok") == 0) break;
     }
     close(fbctl);
-  }
-
-  screen_w = *w ; 
-  screen_h = *h ; 
-
-  if ( *w == 0 && *h == 0 ) { 
-    int fp = open("/proc/dispinfo", 0, 0);
-    assert(fp);
-    int wh[2];
-    read(fp, wh, sizeof(wh));
-    screen_w = wh[0] ; 
-    screen_h = wh[1] ; 
-    *w = wh[0]; 
-    *h = wh[1]; 
   }
 
 }
