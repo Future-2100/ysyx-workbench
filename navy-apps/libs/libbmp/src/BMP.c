@@ -36,11 +36,11 @@ void* BMP_Load(const char *filename, int *width, int *height) {
   uint32_t *pixels = malloc(w * h * sizeof(uint32_t));
 
   int line_off = (w * 3 + 3) & ~0x3;
-  //printf(" w = %d, h = %d, line_off = 0x%x\n", w, h, line_off);
+  printf(" w = %d, h = %d, line_off = 0x%x\n", w, h, line_off);
   for (int i = 0; i < h; i ++) {
     fseek(fp, hdr.offset + (h - 1 - i) * line_off, SEEK_SET);
     //lseek(fp, hdr.offset + (h - 1 - i) * line_off, SEEK_SET);
-    printf("offset = %d\n", hdr.offset + (h - 1 - i) * line_off);
+    printf("offset = 0x%x\n", hdr.offset + (h - 1 - i) * line_off);
     int nread = fread(&pixels[w * i], 3, w, fp);
     //int nread = read(fp, &pixels[w * i], 3*w);
     for (int j = w - 1; j >= 0; j --) {
