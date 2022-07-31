@@ -2,7 +2,7 @@ HAS_NAVY = 1
 #----------------------------------------------------------------------------
 RAMDISK_FILE = build/ramdisk.img
 
-#AUTO=en
+AUTO=en
 ARCH=riscv64-nemu
 
 NAME = nanos-lite
