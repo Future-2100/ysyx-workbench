@@ -72,8 +72,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
       if( (i < y || i >= y+h) && ( j < x || j >= x+w ) )
         full_pixels[j + i*screen_w] = 0;
       else {
-        full_pixels[j + i*screen_w] = ret ;
-        ret++;
+        full_pixels[j + i*screen_w] = ret[j + i*w] ;
       }
     }
   }
