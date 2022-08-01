@@ -33,34 +33,6 @@ int NDL_PollEvent(char *buf, int len) {
 void NDL_OpenCanvas(int *w, int *h) {
 
   if ( *w == 0 && *h == 0 ) { 
-    int fp = open("/proc/dispinfo", 0);
-    assert(fp);
-    char buf[128];
-    char WIDTH[5];
-    char HEIGHT[5];
-    char *width_p  = WIDTH ;
-    char *height_p = HEIGHT;
-    read(fp, buf, sizeof(buf));
-    int i;
-    for( i = 0; (i < sizeof(buf)) && (*(buf+i)!='\n') ; i++) {
-      if( *(buf+i) >= '0' && *(buf+i) <= '9' ){
-        *width_p = *(buf+i);
-        width_p ++ ;
-      }
-    }
-    *width_p = '\0';
-    screen_w = atoi(WIDTH);
-    printf("screen_w = %d\n", screen_w);
-    assert(0);
-    for( ; (i < sizeof(buf)) && (*(buf+i)!='\0') ; i++) {
-      if( *(buf+i) >= '0' && *(buf+i) <= '9' ){
-        *height_p = *(buf+i);
-        height_p ++;
-      }
-    }
-    *height_p = '\0';
-    screen_h = atoi(HEIGHT);
-    printf("screen_h = %d\n", screen_h);
     canvas_w = screen_w;
     canvas_h = screen_h;
   }
@@ -117,7 +89,7 @@ int NDL_QueryAudio() {
 }
 
 int NDL_Init(uint32_t flags) {
-/*
+
     int fp = open("/proc/dispinfo", 0);
     assert(fp);
     char buf[128];
@@ -146,7 +118,6 @@ int NDL_Init(uint32_t flags) {
     *height_p = '\0';
     screen_h = atoi(HEIGHT);
     printf("screen_h = %d\n", screen_h);
-    */
 
   if (getenv("NWM_APP")) {
     evtdev = 3;
