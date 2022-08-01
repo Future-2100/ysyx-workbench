@@ -126,16 +126,32 @@ void *memmove(void *dst, const void *src, size_t n) {
 }
 
 void *memcpy(void *out, const void *in, size_t n) {
-  if( out == NULL || in == NULL || out <= in+n ) {
-    printf(" memcpy error \n");
-    assert(0);
+
+ if( out == NULL || in == NULL ) {
     return NULL;
+ }
+
+ void *ret = out;
+ if( out <= in || (char *)out >= (char *)in + n) {
+  //无内存重叠，从低地址开始复制
+  while(n--) {
+      *(char *)out = *(char *)in;
+      out = (char *)out + 1;
+      in  = (char *)in  + 1;
   }
-  char *tmp_dest = out;
-  const char *tmp_src = in;
-  while(n--) *tmp_dest++ = *tmp_src++;
+ }
+ else {
+  //内存重叠，从高地址开始复制
+  in  = (char *)in  + n - 1;
+  out = (char *)out + n - 1;
+  while(n--) {
+      *(char *)out = *(char *)in;
+      out = (char *)out - 1;
+      in  = (char *)in  - 1;
+  }
+}
   
-  return out;
+  return ret;
 }
 
 

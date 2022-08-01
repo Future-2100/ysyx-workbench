@@ -167,10 +167,14 @@ $(CLEAN_ALL):
 
 ### Build fsimg and ramdisk for Nanos-lite
 APPS =
-TESTS = dummy hello
+TESTS = dummy hello file-test timer-test event-test bmp-test
 
 fsimg: $(addprefix apps/, $(APPS)) $(addprefix tests/, $(TESTS))
 	-for t in $^; do $(MAKE) -s -C $(NAVY_HOME)/$$t install; done
+# $^ means all the dependence files
+# $@ means all the target files
+# $? means all the dependence files newer than target files
+# $< means the first target file 
 
 RAMDISK = build/ramdisk.img
 RAMDISK_H = build/ramdisk.h
@@ -182,6 +186,8 @@ $(RAMDISK): fsimg
 	@echo "// file path, file size, offset in disk" > $(RAMDISK_H)
 	@wc -c $(FSIMG_FILES) | grep -v 'total$$' | sed -e 's+ ./fsimg+ +' | awk -v sum=0 '{print "\x7b\x22" $$2 "\x22\x2c " $$1 "\x2c " sum "\x7d\x2c";sum += $$1}' >> $(RAMDISK_H)
 
+# $(@D)表示$@的目录部分，不以斜杠作为结尾
+# $(@F)means the file part of the $@, for example : if $@ = dir/foo.o, then $(@F) = foo.o 
 ramdisk: $(RAMDISK)
 
 .PHONY: fsimg ramdisk

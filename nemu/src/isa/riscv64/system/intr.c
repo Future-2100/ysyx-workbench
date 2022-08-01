@@ -2,6 +2,7 @@
 
 
 vaddr_t isa_mret() {
+  //cpu.mstatus = 0xa00001800;
   return cpu.mepc + 4 ;
 
 }
@@ -10,8 +11,8 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
   /* TODO: Trigger an interrupt/exception with ``NO''.
    * Then return the address of the interrupt/exception vector.
    */
-  cpu.mepc = epc;
-  cpu.mcause = NO;
+  cpu.mepc   = epc;
+  cpu.mcause = NO ;
   
   //printf("raise_intr :pc = %lx, mtvec = %lx, mepc = %lx, mcause = %lx, mstatus = %lx \n",cpu.pc, cpu.mtvec, cpu.mepc, cpu.mcause, cpu.mstatus );
   return cpu.mtvec;

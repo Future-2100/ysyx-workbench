@@ -1,4 +1,4 @@
-#HAS_NAVY = 1
+HAS_NAVY = 1
 #----------------------------------------------------------------------------
 RAMDISK_FILE = build/ramdisk.img
 
@@ -20,6 +20,10 @@ endif
 
 ./src/resources.S: $(RAMDISK_FILE)
 	@touch $@
+
+uprun :
+	make ARCH=$(ARCH) update
+	make ARCH=$(ARCH) AUTO=$(AUTO) run
 
 ifeq ($(HAS_NAVY),)
 ###----------------------------------------------------------------------------

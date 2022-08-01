@@ -5,6 +5,8 @@
 #include <assert.h>
 #include <time.h>
 #include "syscall.h"
+#include <stdbool.h>
+#include <stdio.h>
 
 // helper macros
 #define _concat(x, y) x ## y
@@ -40,6 +42,7 @@
 #error _syscall_ is not implemented
 #endif
 
+
 intptr_t _syscall_(intptr_t type, intptr_t a0, intptr_t a1, intptr_t a2) {
   register intptr_t _gpr1 asm (GPR1) = type;
   register intptr_t _gpr2 asm (GPR2) = a0;
@@ -56,36 +59,59 @@ void _exit(int status) {
 }
 
 int _open(const char *path, int flags, mode_t mode) {
-  _exit(SYS_open);
-  return 0;
+//  printf("in function _open\n");
+  return _syscall_(SYS_open, (intptr_t)path, flags, mode);
 }
 
 int _write(int fd, void *buf, size_t count) {
-  _exit(SYS_write);
-  return 0;
+  return _syscall_(SYS_write, fd, (intptr_t)buf, count);
 }
 
-void *_sbrk(intptr_t increment) {
-  return (void *)-1;
-}
 
 int _read(int fd, void *buf, size_t count) {
-  _exit(SYS_read);
-  return 0;
+  return _syscall_(SYS_read, fd, (intptr_t)buf, count);
 }
 
 int _close(int fd) {
-  _exit(SYS_close);
-  return 0;
+  return _syscall_( SYS_close, fd, 0, 0 );
 }
 
 off_t _lseek(int fd, off_t offset, int whence) {
-  _exit(SYS_lseek);
-  return 0;
+  return _syscall_( SYS_lseek, fd, (intptr_t)offset, whence );
+}
+
+extern  intptr_t _end ;
+static  intptr_t program_break = (intptr_t)-1;
+void *_sbrk(intptr_t increment) {
+
+  if( program_break == (intptr_t)-1 ) {
+    program_break = (intptr_t)&_end;
+  }
+
+  intptr_t new_break = program_break + increment ;
+  intptr_t old_break = program_break ;
+  if ( _syscall_(SYS_brk, new_break, 0, 0) == 0 ) {
+    program_break = new_break;
+    return (void *)old_break;
+  }
+  else{
+    assert(0);
+    return (void *)-1;
+  }
+  
+  /*
+  void * ret = (void *)-1;
+  intptr_t program_break_new = program_break + increment;
+  if ( _syscall_(SYS_brk, program_break_new, 0, 0) == 0 ) {
+    ret = (void *)program_break;
+    program_break = program_break_new;
+  }
+  return ret;
+  */
 }
 
 int _gettimeofday(struct timeval *tv, struct timezone *tz) {
-  _exit(SYS_gettimeofday);
+  _syscall_(SYS_gettimeofday, (intptr_t)tv, (intptr_t)tz, 0);
   return 0;
 }
 

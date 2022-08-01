@@ -11,18 +11,32 @@ struct Context {
   void *pdir;
 };
 */
+
+//#define CONFIG_ETRACE
+
 static Context* (*user_handler)(Event, Context*) = NULL;
 
 Context* __am_irq_handle(Context *c) {
+#ifdef CONFIG_ETRACE
+  printf("---------------- trap triggered -------------------\n");
+  printf(" mcause  =   %d \n", c->mcause );
+  printf(" mstatus = 0x%x \n", c->mstatus);
+  printf(" mepc    = 0x%x \n", c->mepc   );
+  for(int i = 0; i < 32; i++) {
+    printf(" gpr[%d]  = 0x%x \n", i, c->gpr[i]);
+  }
+  printf("------------- Context information end ------------\n");
+#endif
 
   if (user_handler) {
     Event ev = {0};
     switch (c->mcause) {
-      case EVENT_YIELD : ev.event = EVENT_YIELD; break;
-      default: ev.event = EVENT_ERROR; break;
+      case 11  : ev.event = EVENT_SYSCALL; break;
+      default  : ev.event = EVENT_ERROR  ; break;
     }
 
     c = user_handler(ev, c);
+    //user_handler = do_event()
     assert(c != NULL);
   }
 
@@ -46,7 +60,7 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
 }
 
 void yield() {
-  asm volatile("li a7, 1; ecall");
+  asm volatile("li a7, -1; ecall");
 }
 
 bool ienabled() {
