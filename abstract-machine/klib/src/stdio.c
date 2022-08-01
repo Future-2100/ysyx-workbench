@@ -204,6 +204,69 @@ int sprintf(char *out, const char *fmt, ...) {
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
+
+  va_list valist;
+  va_start(valist, fmt);
+
+  char *out_offset = out;
+  char *char_buf ;
+  while( *fmt ) {
+    if( ( *fmt == '%' && *(fmt+1) == 'x' )  ||
+        ( *fmt == '%' && *(fmt+1) == 'p' ) ) {
+      uint64_t x_number = va_arg(valist, uint64_t);
+      change_format_x(x_number);
+      char_buf = number_buf + 1 ;
+      while( *char_buf ) {
+        *out_offset = *char_buf;
+        char_buf++;
+        out_offset ++;
+      }
+      fmt++;
+    }
+
+    else if( (*fmt == '%' && *(fmt+1) == 'd') || 
+        (*fmt == '%' && *(fmt+1) == '0'  && *(fmt+2) == '2' && *(fmt+3) == 'd' ) ) {
+      int64_t d_number = va_arg(valist, int64_t);
+      change_format_d(d_number);
+      char_buf = number_buf ;
+      while( *char_buf ) {
+        *out_offset = *char_buf ;
+        char_buf++;
+        out_offset ++ ;
+      }
+      if (*fmt == '%' && *(fmt+1) == '0'  && *(fmt+2) == '2' && *(fmt+3) == 'd' ) {
+          fmt = fmt  + 2 ;
+      }
+      fmt++;
+    }
+
+    else if( *fmt == '%' && *(fmt+1) == 's' ) {
+      char* string = va_arg(valist, char*);
+        while( *string ){
+          *out_offset = *string ;
+          string++;
+          out_offset++;
+        }
+      fmt++;
+    }
+
+    else if( *fmt == '%' && *(fmt+1) == 'c' ) {
+      char character = va_arg(valist, int);
+      *out_offset = character ;
+      fmt++;
+      out_offset ++;
+    }
+
+    else {
+      *out_offset = *fmt ;
+      out_offset ++ ;
+    }
+
+      fmt++;
+
+  }
+  va_end(valist);
+  return 0;
   panic("Not implemented");
 }
 
