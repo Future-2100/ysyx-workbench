@@ -21,48 +21,21 @@ struct BitmapHeader {
 
 void* BMP_Load(const char *filename, int *width, int *height) {
   FILE *fp = fopen(filename, "r");
-  printf(" fp->_file = %d\n", fp->_file);
   if (!fp) return NULL;
 
   struct BitmapHeader hdr;
   assert(sizeof(hdr) == 54);
   assert(1 == fread(&hdr, sizeof(struct BitmapHeader), 1, fp));
 
-  printf(" type     = %d\n ", hdr.type);
-  printf(" filesize = %d\n ", hdr.filesize);
-  printf(" resv_1   = %d\n ", hdr.resv_1);
-  printf(" offset   = %d\n ", hdr.offset);
-  printf(" ih_size  = %d\n ", hdr.ih_size);
-  printf(" width    = %d\n ", hdr.width);
-  printf(" height   = %d\n ", hdr.height);
-  printf(" planes   = %d\n ", hdr.planes);
-  printf(" bitcount = %d\n ", hdr.bitcount);
-  printf(" compression = %d\n ", hdr.compression);
-  printf(" sizeimg  = %d\n ", hdr.sizeimg);
-  printf(" xres     = %d\n ", hdr.xres);
-  printf(" yres     = %d\n ", hdr.yres);
-  printf(" clrused  = %d\n ", hdr.clrused);
-  printf(" clrimportant = %d\n ", hdr.clrimportant);
-
   if (hdr.bitcount != 24) return NULL;
   if (hdr.compression != 0) return NULL;
   int w = hdr.width;
   int h = hdr.height;
   uint32_t *pixels = malloc(w * h * sizeof(uint32_t));
-    printf("pixels = %x\n", pixels);
 
   int line_off = (w * 3 + 3) & ~0x3;
-  printf(" line_off = %d\n ", line_off);
   for (int i = 0; i < h; i ++) {
     fseek(fp, hdr.offset + (h - 1 - i) * line_off, SEEK_SET);
-    printf(" fp->_p = 0x%x\n ", fp->_p);
-    printf(" fp->_r = 0x%x\n ", fp->_r);
-    printf(" fp->_w = 0x%x\n ", fp->_w);
-    printf(" fp->_flags  = 0x%x\n ", fp->_flags);
-    printf(" fp->_file   = 0x%x\n ", fp->_file);
-    printf(" fp->lbfsize = 0x%x\n ", fp->_lbfsize);
-    printf(" w = %d\n ", w);
-    printf(" i = %d\n ", i);
     int nread = fread(&pixels[w * i], 3, w, fp);
     for (int j = w - 1; j >= 0; j --) {
       uint8_t b = *(((uint8_t*)&pixels[w * i]) + 3 * j);
