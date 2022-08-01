@@ -35,6 +35,8 @@ void NDL_OpenCanvas(int *w, int *h) {
   if ( *w == 0 && *h == 0 ) { 
     canvas_w = screen_w;
     canvas_h = screen_h;
+    *w = screen_w;
+    *h = screen_h;
   }
   else {
     canvas_w = *w ; 
@@ -67,7 +69,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
 
   lseek(fp, y*screen_w+x, SEEK_SET);
   for( int i = 0; i < h; i++ ) {
-    write(fp, ret, w);
+    write(fp, ret, 4*w);
     ret = ret + w;
     lseek(fp, (y+i+1)*screen_w + x, SEEK_SET);
   }
