@@ -108,7 +108,6 @@ int NDL_Init(uint32_t flags) {
     *width_p = '\0';
     screen_w = atoi(WIDTH);
     printf("screen_w = %d\n", screen_w);
-    assert(0);
     for( ; (i < sizeof(buf)) && (*(buf+i)!='\0') ; i++) {
       if( *(buf+i) >= '0' && *(buf+i) <= '9' ){
         *height_p = *(buf+i);
