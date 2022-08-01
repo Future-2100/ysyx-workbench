@@ -59,7 +59,6 @@ void* BMP_Load(const char *filename, int *width, int *height) {
     printf(" fp->_w = 0x%x\n ", fp->_w);
     printf(" fp->_flags  = 0x%x\n ", fp->_flags);
     printf(" fp->_file   = 0x%x\n ", fp->_file);
-    printf(" fp->__bf    = 0x%x\n ", fp->_bf);
     printf(" fp->lbfsize = 0x%x\n ", fp->_lbfsize);
     printf(" w = %d\n ", w);
     printf(" i = %d\n ", i);
