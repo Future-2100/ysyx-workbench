@@ -79,6 +79,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
     }
     printf("i = %d, j = %d \n", i, j);
   }
+    printf("i = %d, j = %d \n", i, j);
 
   assert(0);
   lseek(fp, 0 , SEEK_SET);
