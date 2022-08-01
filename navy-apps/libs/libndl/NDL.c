@@ -9,6 +9,7 @@
 static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
+static int canvas_w = 0, canvas_h = 0;
 
 uint32_t bool_time = 0 ;
 
@@ -31,40 +32,13 @@ int NDL_PollEvent(char *buf, int len) {
 
 void NDL_OpenCanvas(int *w, int *h) {
 
-  screen_w = *w ; 
-  screen_h = *h ; 
-
   if ( *w == 0 && *h == 0 ) { 
-    int fp = open("/proc/dispinfo", 0);
-    assert(fp);
-    char buf[128];
-    char WIDTH[5];
-    char HEIGHT[5];
-    char *width_p  = WIDTH ;
-    char *height_p = HEIGHT;
-    read(fp, buf, sizeof(buf));
-    int i;
-    for( i = 0; (i < sizeof(buf)) && (*(buf+i)!='\n') ; i++) {
-      if( *(buf+i) >= '0' && *(buf+i) <= '9' ){
-        *width_p = *(buf+i);
-        width_p ++ ;
-      }
-    }
-    *width_p = '\0';
-    *w = atoi(WIDTH);
-    printf("w = %d\n", *w);
-    for( ; (i < sizeof(buf)) && (*(buf+i)!='\0') ; i++) {
-      if( *(buf+i) >= '0' && *(buf+i) <= '9' ){
-        *height_p = *(buf+i);
-        height_p ++;
-      }
-    }
-    *height_p = '\0';
-    *h = atoi(HEIGHT);
-    printf("h = %d\n", *h);
-
-    screen_w = *w ; 
-    screen_h = *h ; 
+    canvas_w = screen_w;
+    canvas_h = screen_h;
+  }
+  else {
+    canvas_w = *w ; 
+    canvas_h = *h ; 
   }
   
   if (getenv("NWM_APP")) {
@@ -88,6 +62,16 @@ void NDL_OpenCanvas(int *w, int *h) {
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
+  int fp = open("/dev/fb");
+  uint32_t *ret = pixels;
+
+  lseek(fp, y*screen_w+x, SEEK_SET);
+  for( int i = 0; i < h; i++ ) {
+    write(fp, ret, w);
+    ret = ret + w;
+    lseek(fp, (y+i+1)*screen_w + x, SEEK_SET);
+  }
+
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
@@ -105,6 +89,35 @@ int NDL_QueryAudio() {
 }
 
 int NDL_Init(uint32_t flags) {
+
+    int fp = open("/proc/dispinfo", 0);
+    assert(fp);
+    char buf[128];
+    char WIDTH[5];
+    char HEIGHT[5];
+    char *width_p  = WIDTH ;
+    char *height_p = HEIGHT;
+    read(fp, buf, sizeof(buf));
+    int i;
+    for( i = 0; (i < sizeof(buf)) && (*(buf+i)!='\n') ; i++) {
+      if( *(buf+i) >= '0' && *(buf+i) <= '9' ){
+        *width_p = *(buf+i);
+        width_p ++ ;
+      }
+    }
+    *width_p = '\0';
+    screen_w = atoi(WIDTH);
+    printf("screen_w = %d\n", screen_w);
+    for( ; (i < sizeof(buf)) && (*(buf+i)!='\0') ; i++) {
+      if( *(buf+i) >= '0' && *(buf+i) <= '9' ){
+        *height_p = *(buf+i);
+        height_p ++;
+      }
+    }
+    *height_p = '\0';
+    screen_h = atoi(HEIGHT);
+    printf("screen_h = %d\n", screen_h);
+
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
