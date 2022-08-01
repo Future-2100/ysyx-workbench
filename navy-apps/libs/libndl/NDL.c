@@ -77,9 +77,10 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
         full_pixels[j + i*screen_w] = ret[j + i*w] ;
       }
     }
-      printf("i = %d, j = %d \n", i, j);
+      //printf("i = %d, j = %d \n", i, j);
   }
 
+  assert(0);
   lseek(fp, 0 , SEEK_SET);
   write(fp, full_pixels, screen_w * screen_h);
   /*
