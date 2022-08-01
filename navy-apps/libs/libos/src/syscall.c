@@ -80,12 +80,12 @@ off_t _lseek(int fd, off_t offset, int whence) {
   return _syscall_( SYS_lseek, fd, (intptr_t)offset, whence );
 }
 
-extern  uintptr_t _end ;
-uintptr_t program_break = 0;
+extern  intptr_t _end ;
+intptr_t program_break = (intptr_t)-1;
 void *_sbrk(intptr_t increment) {
 
-  if( program_break == 0 ) {
-    program_break = (uintptr_t)&_end;
+  if( program_break == (intptr_t)-1 ) {
+    program_break = (intptr_t)&_end;
   }
 
   intptr_t new_break = program_break + increment ;
