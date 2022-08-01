@@ -78,7 +78,6 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
         full_pixels[j + i*screen_w] = 0;
       }
     }
-    assert( i != 50);
   }
   //printf("i = %d, j = %d \n", i, j);
   assert(0);
