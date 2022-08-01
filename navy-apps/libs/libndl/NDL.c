@@ -52,9 +52,8 @@ void NDL_OpenCanvas(int *w, int *h) {
     }
     *width_p = '\0';
     *w = atoi(WIDTH);
-    printf("w = %d\n", *w);
-    assert(0);
-    for( ; i < sizeof(buf) && (buf+i)!='\0'; i++) {
+    printf("h = %d\n", *h);
+    for( ; (i < sizeof(buf)) && (*(buf+i)!='\0') ; i++) {
       if( *(buf+i) >= '0' && *(buf+i) <= '9' ){
         *height_p = *(buf+i);
         height_p ++;
@@ -63,6 +62,7 @@ void NDL_OpenCanvas(int *w, int *h) {
     *height_p = '\0';
     *h = atoi(HEIGHT);
     printf("h = %d\n", *h);
+    assert(0);
 
     screen_w = *w ; 
     screen_h = *h ; 
