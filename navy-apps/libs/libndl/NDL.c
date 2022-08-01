@@ -70,7 +70,6 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   int i , j ;
   for( i = 0; i < screen_h; i++ ){
     for( j = 0; j < screen_w; j++ ){
-      assert(i!=253);
       if( (i < y || i >= y+h) || ( j < x || j >= x+w ) ){
         full_pixels[j + i*screen_w] = 0;
       }
@@ -81,7 +80,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   }
     printf("i = %d, j = %d \n", i, j);
 
-  assert(0);
+  //assert(0);
   lseek(fp, 0 , SEEK_SET);
   write(fp, full_pixels, screen_w * screen_h);
   /*
