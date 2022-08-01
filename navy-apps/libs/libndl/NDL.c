@@ -73,11 +73,11 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
 
       if( ((i>=y) && (i<y+h)) && ( (j>=x) && (j<x+w) )) {
   printf("i = %d, j = %d \n", i, j);
-        //full_pixels[j + i*screen_w] = ret[j + i*w] ;
+        full_pixels[j + i*screen_w] = ret[j + i*w] ;
       }
       else {
   printf("i = %d, j = %d \n", i, j);
-        //full_pixels[j + i*screen_w] = 0;
+        full_pixels[j + i*screen_w] = 0;
       }
     }
   }
