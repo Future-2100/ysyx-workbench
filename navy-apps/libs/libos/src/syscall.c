@@ -84,8 +84,6 @@ extern  intptr_t _end ;
 intptr_t program_break = (intptr_t)-1;
 void *_sbrk(intptr_t increment) {
 
-
-  printf("............\n");
   if( program_break == (intptr_t)-1 ) {
     program_break = (intptr_t)&_end;
   }

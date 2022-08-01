@@ -39,6 +39,7 @@ void *malloc(size_t size) {
   // Therefore do not call panic() here, else it will yield a dead recursion:
   //   panic() -> putchar() -> (glibc) -> malloc() -> panic()
   
+  printf(">>>>>>>>>>>>>\n");
   if(  hbrk == 0 ){
     hbrk = (void *)ROUNDUP(heap.start, 8);
   }
