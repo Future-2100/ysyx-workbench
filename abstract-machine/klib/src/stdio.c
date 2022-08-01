@@ -266,7 +266,6 @@ int snprintf(char *out, size_t n, const char *fmt, ...) {
 
   }
   va_end(valist);
-  assert(0);
   return 0;
   panic("Not implemented");
 }
