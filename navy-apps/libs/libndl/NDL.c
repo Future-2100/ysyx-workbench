@@ -122,6 +122,7 @@ int NDL_Init(uint32_t flags) {
     evtdev = 3;
   }
   return 0;
+
 }
 
 void NDL_Quit() {
