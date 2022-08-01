@@ -87,16 +87,18 @@ void *_sbrk(intptr_t increment) {
   if( program_break == (intptr_t)-1 ) {
     program_break = (intptr_t)&_end;
   }
-/*
+
   intptr_t new_break = program_break + increment ;
-  intptr_t old_break = program_break ;
+  void *old_break = (void *)program_break ;
   if ( _syscall_(SYS_brk, new_break, 0, 0) == 0 ) {
+
     return (void *)old_break;
   }
   else{
     return (void *)-1;
   }
-  */
+  
+  /*
   void * ret = (void *)-1;
   intptr_t program_break_new = program_break + increment;
   if ( _syscall_(SYS_brk, program_break_new, 0, 0) == 0 ) {
@@ -104,6 +106,7 @@ void *_sbrk(intptr_t increment) {
     program_break = program_break_new;
   }
   return ret;
+  */
 }
 
 int _gettimeofday(struct timeval *tv, struct timezone *tz) {
