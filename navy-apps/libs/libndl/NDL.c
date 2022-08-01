@@ -37,12 +37,35 @@ void NDL_OpenCanvas(int *w, int *h) {
   if ( *w == 0 && *h == 0 ) { 
     int fp = open("/proc/dispinfo", 0);
     assert(fp);
-    int wh[2];
-    read(fp, wh, sizeof(wh));
-    screen_w = wh[0] ; 
-    screen_h = wh[1] ; 
-    *w = wh[0]; 
-    *h = wh[1]; 
+    char buf[128];
+    char WIDTH[5];
+    char HEIGHT[5];
+    char *width_p  = WIDTH ;
+    char *height_p = HEIGHT;
+    read(fp, buf, sizeof(buf));
+    int i;
+    for( i = 0; (i < sizeof(buf)) || ((buf+i)!='\n') ; i++) {
+      if( *(buf+i) >= '0' && *(buf+i) <= '9' ){
+        *width_p = *(buf+i);
+        width_p ++ ;
+      }
+    }
+    *width_p = '\0';
+    *w = atoi(WIDTH);
+    printf("w = %d\n", *w);
+    assert(0);
+    for( ; i < sizeof(buf) || (buf+i)!='\0'; i++) {
+      if( *(buf+i) >= '0' && *(buf+i) <= '9' ){
+        *height_p = *(buf+i);
+        height_p ++;
+      }
+    }
+    *height_p = '\0';
+    *h = atoi(HEIGHT);
+    printf("h = %d\n", *h);
+
+    screen_w = *w ; 
+    screen_h = *h ; 
   }
   
   if (getenv("NWM_APP")) {
