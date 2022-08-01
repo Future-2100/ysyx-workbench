@@ -51,8 +51,6 @@ void NDL_OpenCanvas(int *w, int *h) {
       }
     }
     *width_p = '\0';
-    printf("%s\n", WIDTH);
-    assert(0);
     *w = atoi(WIDTH);
     printf("w = %d\n", *w);
     assert(0);
