@@ -99,11 +99,15 @@ size_t fs_write(int fd, void *buf, size_t len){
     file_table[fd].open_offset = file_table[fd].open_offset + len ;
     return len;
   }
+  else if ( file_table[fd].write == fb_write ) {
+    size_t offset = file_table[fd].open_offset ;
+    file_table[fd].write( buf, offset, len );
+    file_table[fd].open_offset = file_table[fd].open_offset + len ;
+    return len;
+  }
 
   else {
-    //size_t offset = file_table[fd].open_offset;
     return file_table[fd].write( buf, 0, len );
-    //file_table[fd].open_offset = file_table[fd].open_offset + len ;
   }
 }
 
@@ -122,7 +126,11 @@ size_t fs_lseek(int fd, size_t offset, int whence){
 
   return file_table[fd].open_offset ;
   }
-  else return 0;
+  else {
+    printf("fs_lseek error : should not reach here \n");
+    assert(0);
+    return 0;
+  }
 }
 
 
