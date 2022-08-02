@@ -2,13 +2,6 @@
 #include <isa.h>
 #include <paddr.h>
 
-#include <verilated.h>
-#include <verilated_dpi.h>
-#include <Vtop.h>
-#include "svdpi.h"
-#include "Vtop__Dpi.h"
-
-
 #define PG_ALIGN __attribute((aligned(4096))) 
 
 #define likely(cond)   __builtin_expect(cond, 1)
@@ -35,7 +28,6 @@ static void pmem_write(paddr_t addr, int len, word_t data) {
 }
 
 static void out_of_bound(paddr_t addr) {
-
     panic("address = " FMT_PADDR " is out of bound of pmem [" FMT_PADDR ", " FMT_PADDR "] at pc = " FMT_WORD,
               addr, (paddr_t)CONFIG_MBASE, (paddr_t)CONFIG_MBASE + CONFIG_MSIZE - 1, cpu.pc);
 }

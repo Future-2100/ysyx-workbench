@@ -122,33 +122,8 @@ void run_step(Decode *s, CPU_state *cpu) {
       top->inst = inst_fetch(&top->dnxt_pc, 4);
       top->eval();
       contextp->timeInc(10);
-      /*
-      if( top->ren ) {
-        if( top->addr == RTC_ADDR ) {
-          uint64_t us = get_time();
-          top->rdata = (uint32_t)us;
-        }
-        else if( top->addr == RTC_ADDR + 4 ) {
-          uint64_t us = get_time() >> 32;
-          top->rdata = (uint32_t)us;
-        }
-        else {
-        top->rdata = paddr_read((paddr_t)(top->addr),8);
-        }
-       } 
-       */
 
       top->clk = !top->clk;   //negedge clk 
-      /*
-      if( top->wen ) {
-        if(top->addr == SERIAL_ADDR) {
-          putc((char)(top->wdata), stderr);
-        }
-        else {
-          paddr_write((paddr_t)(top->addr), top->wlen, top->wdata);
-        }
-      }
-      */
       
       top->eval();
       contextp->timeInc(10);
@@ -163,7 +138,6 @@ void run_step(Decode *s, CPU_state *cpu) {
 
       if(top->ebreak)  { 
         npc_trap(NPC_END , top->pc, top->a);
-       // end_sim(); 
         for(int i=0; i<30; i++) printf(ANSI_FMT_BLUE "-");
         printf(" program end ");
         for(int i=0; i<30; i++) printf("-");
