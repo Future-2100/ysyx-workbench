@@ -89,6 +89,9 @@ void vmem_write(long long waddr, long long wdata, char wlen, char wen) {
     if(align_addr == SERIAL_ADDR) {
       putc((char)(wdata), stderr);
     }
+    else if ( align_addr == RTC_ADDR2 || align_addr == RTC_ADDR1) {
+      return ;
+    }
     else {
       paddr_write((paddr_t)(align_addr), wlen, wdata);
     }
@@ -98,7 +101,7 @@ void vmem_write(long long waddr, long long wdata, char wlen, char wen) {
 
 void vmem_read(long long raddr, long long *rdata , char ren) {
   if(ren && top->clk ){
-    printf("raddr = 0x%llx, rdata = 0x%llx\n", raddr, *rdata);
+    //printf("raddr = 0x%llx, rdata = 0x%llx\n", raddr, *rdata);
     long long align_addr = raddr ; //& ~0x7ull;
     if( align_addr == RTC_ADDR1 ){
       uint64_t us = get_time();
@@ -111,7 +114,7 @@ void vmem_read(long long raddr, long long *rdata , char ren) {
     else {
       *rdata = paddr_read((paddr_t)(align_addr),8);
     }
-    printf("-----finished read data-----\n");
+    //printf("-----finished read data-----\n");
   }
 }
 
