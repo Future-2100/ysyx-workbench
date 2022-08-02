@@ -117,7 +117,7 @@ void run_step(Decode *s, CPU_state *cpu) {
       top->clk = !top->clk;   //posedge clk
       top->inst = inst_fetch(&top->dnxt_pc, 4);
       top->eval();
-      contextp->timeInc(5);
+      contextp->timeInc(10);
       /*
       if( top->ren ) {
         if( top->addr == RTC_ADDR ) {
@@ -133,9 +133,6 @@ void run_step(Decode *s, CPU_state *cpu) {
         }
        } 
        */
-      top->eval();
-      contextp->timeInc(5);
-
 
       top->clk = !top->clk;   //negedge clk 
       /*
