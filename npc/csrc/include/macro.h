@@ -72,6 +72,6 @@
     } \
   } while (0)
 
-#define panic(format, ...) Assert(0, format, ## __VA_ARGS__)
+#define panic(format, ...) Assert(1, format, ## __VA_ARGS__)
 
 #endif
