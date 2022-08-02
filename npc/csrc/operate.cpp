@@ -89,9 +89,11 @@ void vmem_write(long long waddr, long long wdata, char wlen, char wen) {
     if(align_addr == SERIAL_ADDR) {
       putc((char)(wdata), stderr);
     }
+    /*
     else if ( align_addr == RTC_ADDR2 || align_addr == RTC_ADDR1) {
       return ;
     }
+    */
     else {
       paddr_write((paddr_t)(align_addr), wlen, wdata);
     }
