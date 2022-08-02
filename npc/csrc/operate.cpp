@@ -14,8 +14,8 @@
 #define SERIAL_ADDR 0xa00003f8
 uint64_t get_time();
 
-static VerilatedContext* contextp = new VerilatedContext;
-static Vtop* top = new Vtop;
+VerilatedContext* contextp = new VerilatedContext;
+Vtop* top = new Vtop;
 
 //-----  extern function ------//
 void npc_trap(int state, vaddr_t pc, int halt_ret);
