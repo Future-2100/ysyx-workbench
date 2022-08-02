@@ -10,8 +10,10 @@
 #include "Vtop__Dpi.h"
 #include "cpu.h"
 
-#define RTC_ADDR    0xa0000048
+#define RTC_ADDR1   0xa0000048
+#define RTC_ADDR2   0xa000004c
 #define SERIAL_ADDR 0xa00003f8
+
 uint64_t get_time();
 
 static VerilatedContext* contextp = new VerilatedContext;
@@ -96,20 +98,20 @@ void vmem_write(long long waddr, long long wdata, char wlen, char wen) {
 
 void vmem_read(long long raddr, long long *rdata , char ren) {
   if(ren && top->clk ){
-    //printf("raddr = 0x%llx, rdata = 0x%llx\n", raddr, *rdata);
+    printf("raddr = 0x%llx, rdata = 0x%llx\n", raddr, *rdata);
     long long align_addr = raddr ; //& ~0x7ull;
-    if( align_addr == RTC_ADDR ){
+    if( align_addr == RTC_ADDR1 ){
       uint64_t us = get_time();
       *rdata = (uint32_t)us;
     }
-    else if( align_addr == (RTC_ADDR + 0x04) ) {
+    else if( align_addr == RTC_ADDR2 ) {
       uint64_t us = get_time() >> 32;
       *rdata = (uint32_t)us;
     }
     else {
       *rdata = paddr_read((paddr_t)(align_addr),8);
     }
-    //printf("-----finished read data-----\n");
+    printf("-----finished read data-----\n");
   }
 }
 
