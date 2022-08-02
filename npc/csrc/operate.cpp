@@ -90,6 +90,7 @@ extern "C" void vmem_write(long long waddr, long long wdata, char wlen, char wen
     else {
       paddr_write((paddr_t)(align_addr), wlen, wdata);
     }
+    printf("-----finished write data-----\n");
   }
 }
 
