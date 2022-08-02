@@ -82,7 +82,7 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
 
 extern "C" void vmem_write(long long waddr, long long wdata, char wlen, char wen) {
   if(wen){
-    long long align_addr = waddr & ~0x7ull;
+    long long align_addr = waddr ;//& ~0x7ull;
     if(align_addr == SERIAL_ADDR) {
       putc((char)(wdata), stderr);
     }
@@ -94,7 +94,7 @@ extern "C" void vmem_write(long long waddr, long long wdata, char wlen, char wen
 
 extern "C" void vmem_read(long long raddr, long long *rdata , char ren) {
   if(ren){
-    long long align_addr = raddr & ~0x7ull;
+    long long align_addr = raddr;// & ~0x7ull;
     if( align_addr == RTC_ADDR ){
       uint64_t us = get_time();
       *rdata = (uint32_t)us;
