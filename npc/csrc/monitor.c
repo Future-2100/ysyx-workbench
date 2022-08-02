@@ -101,7 +101,9 @@ void init_monitor(int argc, char** argv) {
   init_log(log_file);
 
   /* Read the elf file. */
+  #ifdef CONFIG_ELF
   init_elf(elf_file);
+  #endif
 
   /* Initial memory. */
   init_mem();
