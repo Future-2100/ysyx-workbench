@@ -171,7 +171,8 @@ static int cmd_help(char *args) {
 
 void engine_start() {
   //cpu_exec(-1);
-  
+   
+   printf("in engine_start\n");
   sdb_mainloop();
 }
 
