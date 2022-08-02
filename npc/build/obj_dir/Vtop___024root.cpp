@@ -5283,7 +5283,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__5(Vtop___024root* vlSelf) {
         ++(vlSymsp->__Vcoverage[922]);
     }
     vlSelf->pc = ((IData)(vlSelf->rstn) ? vlSelf->dnxt_pc
-                   : 0x7ffffffcULL);
+                   : 0x80000000ULL);
     if ((1U & ((IData)(vlSelf->pc) ^ (IData)(vlSelf->top__DOT____Vtogcov__pc)))) {
         ++(vlSymsp->__Vcoverage[195]);
         vlSelf->top__DOT____Vtogcov__pc = ((0xfffffffffffffffeULL 

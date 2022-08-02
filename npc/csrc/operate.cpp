@@ -119,7 +119,7 @@ void run_step(Decode *s, CPU_state *cpu) {
 //  while ( j-- && ( !contextp->gotFinish() ) ) {
 
       top->clk = !top->clk;   //posedge clk
-      top->inst = inst_fetch(&top->dnxt_pc, 4);
+      top->inst = inst_fetch(&top->pc, 4);
       top->eval();
       contextp->timeInc(10);
 
