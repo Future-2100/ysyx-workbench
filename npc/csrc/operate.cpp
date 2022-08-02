@@ -70,7 +70,7 @@ void init_module() {
 
   reset(10);
   printf("pc = %lx\n",top->pc);
-  printf(ANSI_FMT_GREEN "---------- module reseted ----------\n" ANSI_FMT_NONE );
+  printf(ANSI_FMT_GREEN "---------- module reseted ----------" ANSI_FMT_NONE "\n");
   //printf("pc = %lx\n",top->pc);
   return ;
 
@@ -89,11 +89,6 @@ void vmem_write(long long waddr, long long wdata, char wlen, char wen) {
     if(align_addr == SERIAL_ADDR) {
       putc((char)(wdata), stderr);
     }
-    /*
-    else if ( align_addr == RTC_ADDR2 || align_addr == RTC_ADDR1) {
-      return ;
-    }
-    */
     else {
       paddr_write((paddr_t)(align_addr), wlen, wdata);
     }
