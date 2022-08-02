@@ -34,7 +34,7 @@ module pc_gen
 
   always@(posedge clk) begin
     if(!rstn) begin
-      pc <= 64'h80000000 ;
+      pc <= 64'h80000000 - 4 ;
     end else begin
       pc <= dnxt_pc  ;
     end
