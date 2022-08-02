@@ -102,7 +102,7 @@ void vmem_read(long long raddr, long long *rdata , char ren) {
       uint64_t us = get_time();
       *rdata = (uint32_t)us;
     }
-    else if( align_addr == RTC_ADDR + 4 ) {
+    else if( align_addr == (RTC_ADDR + 0x04) ) {
       uint64_t us = get_time() >> 32;
       *rdata = (uint32_t)us;
     }
