@@ -11,6 +11,7 @@
 #define panic(format, ...) \
   do { \
     Log("\33[1;31msystem panic: " format, ## __VA_ARGS__); \
+    end_sim(); \
     halt(1); \
   } while (0)
 
