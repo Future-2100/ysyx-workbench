@@ -61,7 +61,7 @@
     _Log(ANSI_FMT("[%s:%d:%s] " format, ANSI_FG_BLUE) "\n", \
     __FILE__, __LINE__, __func__, ## __VA_ARGS__)
 
-
+extern "C" void end_sim();
 #define Assert(cond, format, ...) \
   do { \
     if (!(cond)) { \
@@ -69,6 +69,7 @@
       extern FILE* log_fp; fflush(log_fp); \
       extern void assert_fail_msg(); \
       assert_fail_msg(); \
+      end_sim(); \
       assert(cond); \
     } \
   } while (0)
