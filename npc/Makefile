@@ -1,6 +1,5 @@
 TOPNAME = top
 
-
 ############################## Verilator Check #####################################
 
 # Check for sanity to avoid later confusion

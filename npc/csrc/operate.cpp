@@ -10,12 +10,15 @@
 #include "Vtop__Dpi.h"
 #include "cpu.h"
 
+#define RTC_ADDR    0xa0000048
+#define SERIAL_ADDR 0xa00003f8
+uint64_t get_time();
+
 static VerilatedContext* contextp = new VerilatedContext;
 static Vtop* top = new Vtop;
 
 //-----  extern function ------//
 void npc_trap(int state, vaddr_t pc, int halt_ret);
-
 
 void init_verilator(int argc, char** argv, char** env) {
 
@@ -77,19 +80,32 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 
-/*
-void vmem_write(long long waddr, long long wdata, char wlen, char wen) {
-  if( wen == 1 )
-    paddr_write(waddr, wlen, wdata);
+extern "C" void vmem_write(long long waddr, long long wdata, char wlen, char wen) {
+  if(wen){
+    long long align_addr = waddr & ~0x7ull;
+    if(align_addr == SERIAL_ADDR) {
+      putc((char)(wdata), stderr);
+    }
+    else {
+      paddr_write((paddr_t)(align_addr), wlen, wdata);
+    }
+  }
 }
 
-void vmem_read(long long raddr, long long *rdata ) {
-  *rdata = paddr_read(raddr, 8);
+extern "C" void vmem_read(long long raddr, long long *rdata ) {
+  long long align_addr = raddr & ~0x7ull;
+  if( align_addr == RTC_ADDR ){
+    uint64_t us = get_time();
+    *rdata = (uint32_t)us;
+  }
+  else if( align_addr == RTC_ADDR + 4 ) {
+    uint64_t us = get_time() >> 32;
+    *rdata = (uint32_t)us;
+  }
+  else {
+    *rdata = paddr_read((paddr_t)(align_addr),8);
+  }
 }
-*/
-#define RTC_ADDR    0xa0000048
-#define SERIAL_ADDR 0xa00003f8
-uint64_t get_time();
 
 void run_step(Decode *s, CPU_state *cpu) {
 
@@ -100,6 +116,7 @@ void run_step(Decode *s, CPU_state *cpu) {
       top->inst = inst_fetch(&top->dnxt_pc, 4);
       top->eval();
       contextp->timeInc(5);
+      /*
       if( top->ren ) {
         if( top->addr == RTC_ADDR ) {
           uint64_t us = get_time();
@@ -113,11 +130,13 @@ void run_step(Decode *s, CPU_state *cpu) {
         top->rdata = paddr_read((paddr_t)(top->addr),8);
         }
        } 
+       */
       top->eval();
       contextp->timeInc(5);
 
 
       top->clk = !top->clk;   //negedge clk 
+      /*
       if( top->wen ) {
         if(top->addr == SERIAL_ADDR) {
           putc((char)(top->wdata), stderr);
@@ -126,6 +145,8 @@ void run_step(Decode *s, CPU_state *cpu) {
           paddr_write((paddr_t)(top->addr), top->wlen, top->wdata);
         }
       }
+      */
+      
       top->eval();
       contextp->timeInc(10);
 

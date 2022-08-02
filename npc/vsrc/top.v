@@ -12,17 +12,16 @@ module top
   output  wire  [DW-1:0]  dnxt_pc ,
   output  wire  [DW-1:0]  snxt_pc ,
   output  wire  [DW-1:0]       pc ,
-  input   wire  [IW-1:0]    inst  ,
-
-  output  wire  [DW-1:0]  wdata   ,
-  output  wire  [3:0]     wlen    ,
-  output  wire            wen     ,
-  output wire                ren     ,
-  input  wire    [DW-1:0]    rdata   ,
-  output  wire  [DW-1:0]  addr    
+  input   wire  [IW-1:0]    inst  
 
 );
 
+  wire  [DW-1:0]    rdata    ;
+  wire  [DW-1:0]    addr     ;
+  wire  [DW-1:0]    wdata    ;
+  wire  [3:0]       wlen     ;
+  wire              wen      ;
+  wire              ren      ;
 
 wire    [DW-1:0]    imm      ; 
 wire    [DW-1:0]    result   ;
@@ -236,18 +235,22 @@ controlor controlor_inst
   import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
   initial set_gpr_ptr(regfile_inst.gpr);
 
-  /*
   import "DPI-C" function void vmem_read(
-    input longint raddr, output longint rdata );
+    input  longint raddr, 
+    output longint rdata
+  );
 
   import "DPI-C" function void vmem_write(
-    input longint waddr, input longint wdata, input byte wlen, input byte wen);
+    input longint waddr, 
+    input longint wdata, 
+    input byte wlen, 
+    input byte wen
+  );
 
   always@(*) begin
-    vmem_read(addr, rdata);
-    vmem_write(addr, wdata, {4'b0, wlen}, {7'b0, wen} );
+    vmem_read ( addr, rdata );
+    vmem_write( addr, wdata, {4'b0, wlen}, {7'b0, wen} );
   end
-*/
 
   export "DPI-C" task end_sim;
   task end_sim;
