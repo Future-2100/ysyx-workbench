@@ -20,15 +20,17 @@ VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__set_gpr_ptr__Vdpioc2_T
     set_gpr_ptr(&a__Vopenarray);
 }
 
-extern "C" void vmem_read(long long raddr, long long* rdata);
+extern "C" void vmem_read(long long raddr, long long* rdata, char ren);
 
-VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__vmem_read_TOP(QData/*63:0*/ raddr, QData/*63:0*/ &rdata) {
+VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__vmem_read_TOP(QData/*63:0*/ raddr, QData/*63:0*/ &rdata, CData/*7:0*/ ren) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root____Vdpiimwrap_top__DOT__vmem_read_TOP\n"); );
     // Body
     long long raddr__Vcvt;
     for (size_t raddr__Vidx = 0; raddr__Vidx < 1; ++raddr__Vidx) raddr__Vcvt = raddr;
     long long rdata__Vcvt;
-    vmem_read(raddr__Vcvt, &rdata__Vcvt);
+    char ren__Vcvt;
+    for (size_t ren__Vidx = 0; ren__Vidx < 1; ++ren__Vidx) ren__Vcvt = ren;
+    vmem_read(raddr__Vcvt, &rdata__Vcvt, ren__Vcvt);
     rdata = rdata__Vcvt;
 }
 
@@ -52,7 +54,7 @@ void Vtop___024root____Vdpiexp_top__DOT__end_sim_TOP(Vtop__Syms* __restrict vlSy
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root____Vdpiexp_top__DOT__end_sim_TOP\n"); );
     // Variables
     // Body
-    VL_FINISH_MT("/home/grand/ysyx-workbench/npc/vsrc/top.v", 257, "");
+    VL_FINISH_MT("/home/grand/ysyx-workbench/npc/vsrc/top.v", 258, "");
     ++(vlSymsp->__Vcoverage[792]);
 }
 

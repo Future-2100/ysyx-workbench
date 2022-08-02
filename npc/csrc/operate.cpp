@@ -92,18 +92,20 @@ extern "C" void vmem_write(long long waddr, long long wdata, char wlen, char wen
   }
 }
 
-extern "C" void vmem_read(long long raddr, long long *rdata ) {
-  long long align_addr = raddr & ~0x7ull;
-  if( align_addr == RTC_ADDR ){
-    uint64_t us = get_time();
-    *rdata = (uint32_t)us;
-  }
-  else if( align_addr == RTC_ADDR + 4 ) {
-    uint64_t us = get_time() >> 32;
-    *rdata = (uint32_t)us;
-  }
-  else {
-    *rdata = paddr_read((paddr_t)(align_addr),8);
+extern "C" void vmem_read(long long raddr, long long *rdata , char ren) {
+  if(ren){
+    long long align_addr = raddr & ~0x7ull;
+    if( align_addr == RTC_ADDR ){
+      uint64_t us = get_time();
+      *rdata = (uint32_t)us;
+    }
+    else if( align_addr == RTC_ADDR + 4 ) {
+      uint64_t us = get_time() >> 32;
+      *rdata = (uint32_t)us;
+    }
+    else {
+      *rdata = paddr_read((paddr_t)(align_addr),8);
+    }
   }
 }
 

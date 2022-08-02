@@ -7,7 +7,7 @@
 
 #include "verilated_dpi.h"
 
-void Vtop___024root____Vdpiimwrap_top__DOT__vmem_read_TOP(QData/*63:0*/ raddr, QData/*63:0*/ &rdata);
+void Vtop___024root____Vdpiimwrap_top__DOT__vmem_read_TOP(QData/*63:0*/ raddr, QData/*63:0*/ &rdata, CData/*7:0*/ ren);
 void Vtop___024root____Vdpiimwrap_top__DOT__vmem_write_TOP(QData/*63:0*/ waddr, QData/*63:0*/ wdata, CData/*7:0*/ wlen, CData/*7:0*/ wen);
 
 VL_INLINE_OPT void Vtop___024root___combo__TOP__7(Vtop___024root* vlSelf) {
@@ -8781,7 +8781,7 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__7(Vtop___024root* vlSelf) {
                            & vlSelf->top__DOT__pc_gen_inst__DOT__br_pc)) 
                        | ((- (QData)((IData)(vlSelf->top__DOT__pc_gen_inst__DOT__snxt_en))) 
                           & vlSelf->snxt_pc));
-    Vtop___024root____Vdpiimwrap_top__DOT__vmem_read_TOP(vlSelf->top__DOT__result, vlSelf->__Vtask_top__DOT__vmem_read__1__rdata);
+    Vtop___024root____Vdpiimwrap_top__DOT__vmem_read_TOP(vlSelf->top__DOT__result, vlSelf->__Vtask_top__DOT__vmem_read__1__rdata, (IData)(vlSelf->top__DOT__ren));
     vlSelf->top__DOT__rdata = vlSelf->__Vtask_top__DOT__vmem_read__1__rdata;
     Vtop___024root____Vdpiimwrap_top__DOT__vmem_write_TOP(vlSelf->top__DOT__result, vlSelf->top__DOT__wdata, (IData)(vlSelf->top__DOT__wlen), vlSelf->top__DOT__wen);
     if ((1U & ((IData)(vlSelf->dnxt_pc) ^ (IData)(vlSelf->top__DOT____Vtogcov__dnxt_pc)))) {

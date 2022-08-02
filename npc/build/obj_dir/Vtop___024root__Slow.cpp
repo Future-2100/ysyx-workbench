@@ -41,7 +41,7 @@ void Vtop___024root::__vlCoverInsert(uint32_t* countp, bool enable, const char* 
         "hier",std::string(name())+hierp,  "page",pagep,  "comment",commentp,  (linescovp[0] ? "linescov" : ""), linescovp);
 }
 
-void Vtop___024root____Vdpiimwrap_top__DOT__vmem_read_TOP(QData/*63:0*/ raddr, QData/*63:0*/ &rdata);
+void Vtop___024root____Vdpiimwrap_top__DOT__vmem_read_TOP(QData/*63:0*/ raddr, QData/*63:0*/ &rdata, CData/*7:0*/ ren);
 void Vtop___024root____Vdpiimwrap_top__DOT__vmem_write_TOP(QData/*63:0*/ waddr, QData/*63:0*/ wdata, CData/*7:0*/ wlen, CData/*7:0*/ wen);
 
 void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
@@ -16521,7 +16521,7 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                            & vlSelf->top__DOT__pc_gen_inst__DOT__br_pc)) 
                        | ((- (QData)((IData)(vlSelf->top__DOT__pc_gen_inst__DOT__snxt_en))) 
                           & vlSelf->snxt_pc));
-    Vtop___024root____Vdpiimwrap_top__DOT__vmem_read_TOP(vlSelf->top__DOT__result, vlSelf->__Vtask_top__DOT__vmem_read__1__rdata);
+    Vtop___024root____Vdpiimwrap_top__DOT__vmem_read_TOP(vlSelf->top__DOT__result, vlSelf->__Vtask_top__DOT__vmem_read__1__rdata, (IData)(vlSelf->top__DOT__ren));
     vlSelf->top__DOT__rdata = vlSelf->__Vtask_top__DOT__vmem_read__1__rdata;
     Vtop___024root____Vdpiimwrap_top__DOT__vmem_write_TOP(vlSelf->top__DOT__result, vlSelf->top__DOT__wdata, (IData)(vlSelf->top__DOT__wlen), vlSelf->top__DOT__wen);
     if ((1U & ((IData)(vlSelf->dnxt_pc) ^ (IData)(vlSelf->top__DOT____Vtogcov__dnxt_pc)))) {
@@ -19299,17 +19299,5 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                                                                   & (IData)(vlSelf->top__DOT__rdata)))) 
                                                  >> 0x1dU))))) 
                   << 0x1dU));
-    }
-    if ((1U & ((IData)(((QData)((IData)((0xffffU & (IData)(vlSelf->top__DOT__rdata)))) 
-                        >> 0x1eU)) ^ (IData)((vlSelf->top__DOT__memory_inst__DOT____Vtogcov__lhu_data 
-                                              >> 0x1eU))))) {
-        ++(vlSymsp->__Vcoverage[2094]);
-        vlSelf->top__DOT__memory_inst__DOT____Vtogcov__lhu_data 
-            = ((0xffffffffbfffffffULL & vlSelf->top__DOT__memory_inst__DOT____Vtogcov__lhu_data) 
-               | ((QData)((IData)((1U & (IData)(((QData)((IData)(
-                                                                 (0xffffU 
-                                                                  & (IData)(vlSelf->top__DOT__rdata)))) 
-                                                 >> 0x1eU))))) 
-                  << 0x1eU));
     }
 }

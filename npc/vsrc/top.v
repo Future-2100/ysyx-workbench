@@ -237,7 +237,8 @@ controlor controlor_inst
 
   import "DPI-C" function void vmem_read(
     input  longint raddr, 
-    output longint rdata
+    output longint rdata,
+    input  byte    ren 
   );
 
   import "DPI-C" function void vmem_write(
@@ -248,7 +249,7 @@ controlor controlor_inst
   );
 
   always@(*) begin
-    vmem_read ( addr, rdata );
+    vmem_read ( addr, rdata, {7'b0, ren });
     vmem_write( addr, wdata, {4'b0, wlen}, {7'b0, wen} );
   end
 
