@@ -1,7 +1,7 @@
 #ifndef __CONFIG_H_
 #define __CONFIG_H_
 
-#define CONFIG_TRACE
+//#define CONFIG_TRACE
 //-------------------------some parameter related to the CONFIG_TRACE-----------------------
 #ifdef CONFIG_TRACE
     #define CONFIG_TRACE_START 0
@@ -11,7 +11,7 @@
 #endif
 //_______________________________end of the CONFIG_TRACE parameters--------------------------
 
-#define CONFIG_DIFFTEST
+//#define CONFIG_DIFFTEST
 //#define CONFIG_DEVICE
 
 #define CONFIG_PC_RESET_OFFSET 0x0
