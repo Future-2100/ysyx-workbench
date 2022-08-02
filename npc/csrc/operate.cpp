@@ -82,6 +82,7 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
 
 extern "C" void vmem_write(long long waddr, long long wdata, char wlen, char wen) {
   if(wen){
+    printf("waddr = 0x%llx, wdata = 0x%llx, wlen = %d\n", waddr, wdata, wlen);
     long long align_addr = waddr ;//& ~0x7ull;
     if(align_addr == SERIAL_ADDR) {
       putc((char)(wdata), stderr);
