@@ -80,7 +80,7 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 
-extern "C" void vmem_write(long long waddr, long long wdata, char wlen, char wen) {
+void vmem_write(long long waddr, long long wdata, char wlen, char wen) {
   if(wen && top->clk ){
     //printf("waddr = 0x%llx, wdata = 0x%llx, wlen = %d\n", waddr, wdata, wlen);
     long long align_addr = waddr ;//& ~0x7ull;
@@ -94,7 +94,7 @@ extern "C" void vmem_write(long long waddr, long long wdata, char wlen, char wen
   }
 }
 
-extern "C" void vmem_read(long long raddr, long long *rdata , char ren) {
+void vmem_read(long long raddr, long long *rdata , char ren) {
   if(ren && top->clk ){
     //printf("raddr = 0x%llx, rdata = 0x%llx\n", raddr, *rdata);
     long long align_addr = raddr ; //& ~0x7ull;
