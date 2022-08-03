@@ -166,7 +166,7 @@ void run_step(Decode *s, CPU_state *cpu) {
         printf(ANSI_FMT_NONE "\n");
         return ;
       }
-      }
+    }
 }
 
 
