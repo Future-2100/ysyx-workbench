@@ -11,7 +11,7 @@
 #endif
 //_______________________________end of the CONFIG_TRACE parameters--------------------------
 
-#define CONFIG_DIFFTEST
+//#define CONFIG_DIFFTEST
 //#define CONFIG_DEVICE
 //#define CONFIG_ELF
 
