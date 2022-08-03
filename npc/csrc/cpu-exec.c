@@ -30,9 +30,7 @@ static void exec_once(Decode *s, vaddr_t pc){
 
   s->pc = pc;
   s->snpc = pc;
-  for(int x=0; x<5; x++) {
-    run_step(s, &cpu);
-  }
+  run_step(s, &cpu);
   cpu.pc = s->dnpc;
 
 #ifdef CONFIG_ITRACE
