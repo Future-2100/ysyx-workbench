@@ -135,7 +135,7 @@ void run_step(Decode *s, CPU_state *cpu) {
       top->eval();
       contextp->timeInc(10);
 
-      if(top->instr != 0) {
+      //if(top->instr != 0) {
       if(top->ifu_ARVALID == 1 ) {
         if( top->ifu_ARPORT == 4 ) {
           top->ifu_ARREADY = 0 ;
@@ -168,7 +168,7 @@ void run_step(Decode *s, CPU_state *cpu) {
         printf(ANSI_FMT_NONE "\n");
         return ;
       }
-    }
+    //}
   //}
 }
 
