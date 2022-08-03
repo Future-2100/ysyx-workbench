@@ -59,6 +59,7 @@ static void single_cycle() {
 
 void reset(int n) {
   top->rstn = 0;
+  top->ifu_ARREADY = 1;
   while( n-- > 0) single_cycle();
   top->rstn = 1;
   top->clk = !top->clk;
@@ -82,7 +83,7 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 
-void vmem_write(long long waddr, long long wdata, char wlen, char wen) {
+extern "C" void vmem_write(long long waddr, long long wdata, char wlen, char wen) {
   if(wen && top->clk ){
     //printf("waddr = 0x%llx, wdata = 0x%llx, wlen = %d\n", waddr, wdata, wlen);
     long long align_addr = waddr ;//& ~0x7ull;
@@ -96,7 +97,7 @@ void vmem_write(long long waddr, long long wdata, char wlen, char wen) {
   }
 }
 
-void vmem_read(long long raddr, long long *rdata , char ren) {
+extern "C" void vmem_read(long long raddr, long long *rdata , char ren) {
   if(ren && top->clk ){
     //printf("raddr = 0x%llx, rdata = 0x%llx\n", raddr, *rdata);
     long long align_addr = raddr ; //& ~0x7ull;
@@ -120,26 +121,44 @@ void run_step(Decode *s, CPU_state *cpu) {
 //  int j=2;
 //  while ( j-- && ( !contextp->gotFinish() ) ) {
 
-      top->clk = !top->clk;   //posedge clk
-      top->inst = inst_fetch(&top->dnxt_pc, 4);
+      uintptr_t ifu_addr ;
+      top->clk  = !top->clk;   //posedge clk
+      //top->inst = inst_fetch(&top->dnxt_pc, 4);
       top->eval();
       contextp->timeInc(10);
+
 
       top->clk = !top->clk;   //negedge clk 
       
       top->eval();
       contextp->timeInc(10);
 
+      if(top->ifu_ARVALID == 1 ) {
+        if( top->ifu_ARPORT == 4 ) {
+          top->ifu_ARREADY = 0 ;
+          top->ifu_RVALID  = 1 ;
+          top->ifu_RDATA   = inst_fetch(&top->ifu_ARADDR,4);
+          top->ifu_RRESP   = 0 ;
+        }
+        else {
+          printf(" ARPORT code error : %d \n", top->ifu_ARPORT);
+        } 
+      }
+
+      if( top->ifu_RREADY==1 && top->ifu_RVALID==1 ) {
+        top->ifu_ARREADY = 1;
+      }
+
       s->snpc = top->snxt_pc;
       s->dnpc = top->dnxt_pc;
       s->pc   = top->pc;
-      s->isa.inst.val = top->inst;
+      s->isa.inst.val = top->instr;
       for (int i=0; i<32; i++) {
         cpu->gpr[i] = cpu_gpr[i];
       }
 
       if(top->ebreak)  { 
-        npc_trap(NPC_END , top->pc, top->a);
+        npc_trap(NPC_END , top->pc, cpu_gpr[10]);
         for(int i=0; i<30; i++) printf(ANSI_FMT_BLUE "-");
         printf(" program end ");
         for(int i=0; i<30; i++) printf("-");

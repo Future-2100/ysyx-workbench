@@ -15,7 +15,6 @@ module regfile
   input   wire    [DW-1:0]    pc_data   , //result of the pc added 4
   input   wire    [DW-1:0]   alu_data   , //result from alu
 
-  output  wire    [DW-1:0]        a   ,  
   input   wire    [AW-1:0]  rd_addr1  ,
   input   wire    [AW-1:0]  rd_addr2  ,
   output  wire    [DW-1:0]  rd_data1  ,
@@ -31,7 +30,6 @@ module regfile
 
   reg   [DW-1:0]    gpr   [31:0]  ;
 
-  assign  a = gpr[10];
   integer i;
 
   always@(negedge clk) begin
@@ -40,7 +38,7 @@ module regfile
         gpr[i] <= {DW{1'b0}} ;
       end
     end
-    else if (wb_en) begin
+    else if ( wb_en && wb_addr != 5'b0 ) begin
       gpr[wb_addr] <= wb_data ;
     end
   end

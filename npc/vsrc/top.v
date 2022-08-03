@@ -7,14 +7,28 @@ module top
   input   wire  clk  ,
   input   wire  rstn ,
 
-  output  wire  [DW-1:0]       a  ,
-  output  wire            ebreak  ,
-  output  wire  [DW-1:0]  dnxt_pc ,
-  output  wire  [DW-1:0]  snxt_pc ,
-  output  wire  [DW-1:0]       pc ,
-  input   wire  [IW-1:0]    inst  
+  output  wire  [DW-1:0]       pc    ,
+  output  wire  [DW-1:0]  snxt_pc    ,
+  output  wire  [DW-1:0]  dnxt_pc    ,
+  output  wire  [IW-1:0]    instr    ,
+
+
+  output  wire            ifu_ARVALID ,
+  input   wire            ifu_ARREADY ,
+  output  wire  [DW-1:0]  ifu_ARADDR  ,
+  output  wire  [2:0]     ifu_ARPORT  ,
+
+  input   wire            ifu_RVALID  ,
+  output  wire            ifu_RREADY  ,
+  input   wire  [DW-1:0]  ifu_RDATA   ,
+  input   wire  [1:0]     ifu_RRESP   ,
+
+  output  wire            ebreak      
 
 );
+
+  wire                 pc_ld ;
+  wire                 pc_en ;
 
   wire  [DW-1:0]    rdata    ;
   wire  [DW-1:0]    addr     ;
@@ -23,11 +37,11 @@ module top
   wire              wen      ;
   wire              ren      ;
 
-wire    [DW-1:0]    imm      ; 
-wire    [DW-1:0]    result   ;
-wire                br_asrt  ;
-wire                jalr_en  ;
-wire                jal_en   ;
+  wire    [DW-1:0]    imm      ; 
+  wire    [DW-1:0]    result   ;
+  wire                br_asrt  ;
+  wire                jalr_en  ;
+  wire                jal_en   ;
 
   pc_gen pc_gen_inst(
     .clk      (clk) ,
@@ -40,7 +54,8 @@ wire                jal_en   ;
     .jal_en   ( jal_en     ),
     .dnxt_pc  ( dnxt_pc    ),
     .snxt_pc  ( snxt_pc    ),
-    .pc       ( pc         )
+    .pc       ( pc         ),
+    .pc_ld    ( pc_ld      )
   );
 
   wire              wb_en      ; 
@@ -59,16 +74,15 @@ regfile regfile_inst
   .wb_load   ( wb_load   )   ,
   .wb_pc     ( wb_pc     )   ,
   .wb_alu    ( wb_alu    )   ,
-  .wb_addr   ( inst[11:7])   ,
+  .wb_addr   ( instr[11:7])  ,
   .load_data ( load_data )   , // data read from memory
   .pc_data   ( snxt_pc   )   , // next pc
   .alu_data  ( result    )   , // result from alu
   
-  .rd_addr1  (inst[19:15])   ,
-  .rd_addr2  (inst[24:20])   ,
+  .rd_addr1  (instr[19:15])  ,
+  .rd_addr2  (instr[24:20])  ,
   .rd_data1  ( rd_data1  )   ,
-  .rd_data2  ( rd_data2  )   ,
-  .a         (      a    )
+  .rd_data2  ( rd_data2  )   
 );
 
 
@@ -85,7 +99,7 @@ imm_gen imm_gen_inst
   .B_type ( B_type ),
   .U_type ( U_type ),
   .J_type ( J_type ),
-  .inst   (   inst ),
+  .instr  (  instr ),
   .imm    (    imm )
 );
 
@@ -178,9 +192,22 @@ memory memory_inst
     .addr     ( addr       ) 
 );
 
+
+wire           fetch_en  ;
+wire  [IW-1:0] instr_in  ;
+wire  [IW-1:0] instr_out ;
+wire           instr_en  ;
+
 controlor controlor_inst 
 (
-    .inst        ( inst       ) , 
+    .clk         ( clk        ) ,
+    .rstn        ( rstn       ) ,
+
+    .instr_in    ( instr_in   ) , 
+    .instr_out   ( instr      ) ,
+    .instr_en    ( instr_en   ) ,
+    .fetch_en    ( fetch_en   ) ,
+    .pc_ld       (  pc_ld     ) ,
 
     .wb_en       ( wb_en      ) ,     
     .wb_load     ( wb_load    ) ,
@@ -192,7 +219,6 @@ controlor controlor_inst
     .U_type      ( U_type     ) , 
     .J_type      ( J_type     ) , 
     .rs1_en      (  rs1_en    ) ,
-    . pc_en      (   pc_en    ) ,  
     .rs2_en      (  rs2_en    ) ,
     .imm_en      (  imm_en    ) ,
     .lgc_en      ( lgc_en     ) , 
@@ -204,6 +230,7 @@ controlor controlor_inst
     .wmlgc_en    ( wmlgc_en   ) ,
     .wmlgc_op    ( wmlgc_op   ) ,
     .br_en       ( br_en      ) ,
+    .pc_en       ( pc_en      ) ,
     .br_op       ( br_op      ) , 
     .jal_en      ( jal_en     ) , 
     .jalr_en     ( jalr_en    ) , 
@@ -222,6 +249,30 @@ controlor controlor_inst
     .ebreak      ( ebreak     )
 
 );
+
+
+ifu ifu_inst (
+
+   .clk          ( clk          )  , 
+   .rstn         ( rstn         )  , 
+
+   .dnxt_pc      ( dnxt_pc      )  , 
+   .fetch_en     ( fetch_en     )  , 
+   .instr        ( instr_in     )  , 
+   .instr_en     ( instr_en     )  , 
+
+   .ifu_ARVALID  ( ifu_ARVALID  )  , 
+   .ifu_ARREADY  ( ifu_ARREADY  )  , 
+   .ifu_ARADDR   ( ifu_ARADDR   )  , 
+   .ifu_ARPORT   ( ifu_ARPORT   )  , 
+
+   .ifu_RVALID   ( ifu_RVALID   )  , 
+   .ifu_RREADY   ( ifu_RREADY   )  , 
+   .ifu_RDATA    ( ifu_RDATA    )  , 
+   .ifu_RRESP    ( ifu_RRESP    ) 
+
+);
+
 
   initial begin
 //    if($test$plusargs("trace") != 0) begin

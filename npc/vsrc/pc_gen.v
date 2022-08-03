@@ -15,6 +15,7 @@ module pc_gen
 
   output  wire    [DW-1:0]    snxt_pc   ,
   output  wire    [DW-1:0]    dnxt_pc   ,
+  input   wire                pc_ld     ,
   output   reg    [DW-1:0]    pc        
 
 );
@@ -33,11 +34,10 @@ module pc_gen
                     ( {DW{snxt_en }} & snxt_pc ) ;
 
   always@(posedge clk) begin
-    if(!rstn) begin
+    if(!rstn) 
       pc <= 64'h80000000 - 4 ;
-    end else begin
+    else if(pc_ld)
       pc <= dnxt_pc  ;
-    end
   end
 
 endmodule

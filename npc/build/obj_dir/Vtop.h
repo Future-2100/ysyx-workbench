@@ -31,12 +31,19 @@ class Vtop VL_NOT_FINAL {
     // propagate new values into/out from the Verilated model.
     VL_IN8(&clk,0,0);
     VL_IN8(&rstn,0,0);
-    VL_OUT64(&a,63,0);
-    VL_OUT8(&ebreak,0,0);
-    VL_OUT64(&dnxt_pc,63,0);
-    VL_OUT64(&snxt_pc,63,0);
     VL_OUT64(&pc,63,0);
-    VL_IN(&inst,31,0);
+    VL_OUT64(&snxt_pc,63,0);
+    VL_OUT64(&dnxt_pc,63,0);
+    VL_OUT(&instr,31,0);
+    VL_OUT8(&ifu_ARVALID,0,0);
+    VL_IN8(&ifu_ARREADY,0,0);
+    VL_OUT64(&ifu_ARADDR,63,0);
+    VL_OUT8(&ifu_ARPORT,2,0);
+    VL_IN8(&ifu_RVALID,0,0);
+    VL_OUT8(&ifu_RREADY,0,0);
+    VL_IN64(&ifu_RDATA,63,0);
+    VL_IN8(&ifu_RRESP,1,0);
+    VL_OUT8(&ebreak,0,0);
 
     // CELLS
     // Public to allow access to /* verilator public */ items.

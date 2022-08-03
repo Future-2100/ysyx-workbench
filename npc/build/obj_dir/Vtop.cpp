@@ -13,12 +13,19 @@ Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     : vlSymsp{new Vtop__Syms(_vcontextp__, _vcname__, this)}
     , clk{vlSymsp->TOP.clk}
     , rstn{vlSymsp->TOP.rstn}
-    , a{vlSymsp->TOP.a}
-    , ebreak{vlSymsp->TOP.ebreak}
-    , dnxt_pc{vlSymsp->TOP.dnxt_pc}
-    , snxt_pc{vlSymsp->TOP.snxt_pc}
     , pc{vlSymsp->TOP.pc}
-    , inst{vlSymsp->TOP.inst}
+    , snxt_pc{vlSymsp->TOP.snxt_pc}
+    , dnxt_pc{vlSymsp->TOP.dnxt_pc}
+    , instr{vlSymsp->TOP.instr}
+    , ifu_ARVALID{vlSymsp->TOP.ifu_ARVALID}
+    , ifu_ARREADY{vlSymsp->TOP.ifu_ARREADY}
+    , ifu_ARADDR{vlSymsp->TOP.ifu_ARADDR}
+    , ifu_ARPORT{vlSymsp->TOP.ifu_ARPORT}
+    , ifu_RVALID{vlSymsp->TOP.ifu_RVALID}
+    , ifu_RREADY{vlSymsp->TOP.ifu_RREADY}
+    , ifu_RDATA{vlSymsp->TOP.ifu_RDATA}
+    , ifu_RRESP{vlSymsp->TOP.ifu_RRESP}
+    , ebreak{vlSymsp->TOP.ebreak}
     , rootp{&(vlSymsp->TOP)}
 {
 }

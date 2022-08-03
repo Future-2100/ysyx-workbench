@@ -10,7 +10,7 @@ module imm_gen
   input   wire                B_type,
   input   wire                U_type,
   input   wire                J_type,
-  input   wire    [IW-1:0]      inst,
+  input   wire    [IW-1:0]      instr,
 
   output  wire    [DW-1:0]       imm
 
@@ -23,11 +23,11 @@ module imm_gen
   wire    [DW-1:0]    immU_num ;
   wire    [DW-1:0]    immJ_num ;
 
-  assign    immI_num = { {53{inst[IW-1]}}, inst[30:20] };
-  assign    immS_num = { {53{inst[IW-1]}}, inst[30:25], inst[11:7] };
-  assign    immB_num = { {52{inst[IW-1]}}, inst[7], inst[30:25], inst[11:8], 1'b0 };
-  assign    immU_num = { {33{inst[IW-1]}}, inst[30:12], 12'b0 };
-  assign    immJ_num = { {44{inst[IW-1]}}, inst[19:12], inst[20], inst[30:21], 1'b0 };
+  assign    immI_num = { {53{instr[IW-1]}}, instr[30:20] };
+  assign    immS_num = { {53{instr[IW-1]}}, instr[30:25], instr[11:7] };
+  assign    immB_num = { {52{instr[IW-1]}}, instr[7], instr[30:25], instr[11:8], 1'b0 };
+  assign    immU_num = { {33{instr[IW-1]}}, instr[30:12], 12'b0 };
+  assign    immJ_num = { {44{instr[IW-1]}}, instr[19:12], instr[20], instr[30:21], 1'b0 };
 
   assign       imm = ( {DW{I_type}} & immI_num ) |
                      ( {DW{S_type}} & immS_num ) |
