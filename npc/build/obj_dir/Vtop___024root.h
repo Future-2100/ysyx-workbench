@@ -99,12 +99,13 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT__rd_data1;
         QData/*63:0*/ top__DOT__rd_data2;
         QData/*63:0*/ top__DOT__pc_gen_inst__DOT__br_pc;
+        QData/*63:0*/ top__DOT__pc_gen_inst__DOT__dnxt_pc_reg;
         QData/*63:0*/ top__DOT__regfile_inst__DOT__wb_data;
         QData/*63:0*/ top__DOT__imm_gen_inst__DOT__immI_num;
         QData/*63:0*/ top__DOT__imm_gen_inst__DOT__immS_num;
-        QData/*63:0*/ top__DOT__imm_gen_inst__DOT__immB_num;
     };
     struct {
+        QData/*63:0*/ top__DOT__imm_gen_inst__DOT__immB_num;
         QData/*63:0*/ top__DOT__imm_gen_inst__DOT__immU_num;
         QData/*63:0*/ top__DOT__imm_gen_inst__DOT__immJ_num;
         QData/*63:0*/ top__DOT__alu_inst__DOT__opdata1;
@@ -137,6 +138,7 @@ VL_MODULE(Vtop___024root) {
         CData/*0:0*/ top__DOT____Vtogcov__br_asrt;
         CData/*0:0*/ top__DOT____Vtogcov__jalr_en;
         CData/*0:0*/ top__DOT____Vtogcov__jal_en;
+        CData/*0:0*/ top__DOT____Vtogcov__dnpc_en;
         CData/*0:0*/ top__DOT____Vtogcov__wb_en;
         CData/*0:0*/ top__DOT____Vtogcov__wb_load;
         CData/*0:0*/ top__DOT____Vtogcov__wb_pc;
@@ -183,9 +185,9 @@ VL_MODULE(Vtop___024root) {
         CData/*0:0*/ top__DOT__controlor_inst__DOT____Vtogcov__wrsop_en;
         CData/*0:0*/ top__DOT__controlor_inst__DOT____Vtogcov__R_type;
         CData/*2:0*/ top__DOT__ifu_inst__DOT____Vtogcov__state_now;
-        CData/*2:0*/ top__DOT__ifu_inst__DOT____Vtogcov__state_next;
     };
     struct {
+        CData/*2:0*/ top__DOT__ifu_inst__DOT____Vtogcov__state_next;
         CData/*0:0*/ __Vclklast__TOP__clk;
         IData/*31:0*/ top__DOT____Vtogcov__instr;
         IData/*31:0*/ top__DOT____Vtogcov__instr_in;
@@ -207,6 +209,7 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT____Vtogcov__rd_data2;
         QData/*63:0*/ top__DOT__pc_gen_inst__DOT____Vtogcov__br_pc;
         QData/*63:0*/ top__DOT__pc_gen_inst__DOT____Vtogcov__jalr_pc;
+        QData/*63:0*/ top__DOT__pc_gen_inst__DOT____Vtogcov__dnxt_pc_reg;
         QData/*63:0*/ top__DOT__regfile_inst__DOT____Vtogcov__wb_data;
         QData/*63:0*/ top__DOT__imm_gen_inst__DOT____Vtogcov__immI_num;
         QData/*63:0*/ top__DOT__imm_gen_inst__DOT____Vtogcov__immS_num;

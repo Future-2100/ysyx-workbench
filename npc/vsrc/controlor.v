@@ -11,6 +11,7 @@ module controlor
   input  wire            instr_en   ,
   output wire            fetch_en   ,
   output wire               pc_ld   ,
+  output wire             dnpc_en   ,
 
   output  wire  wb_en   ,
   output  wire  wb_load ,
@@ -58,7 +59,10 @@ module controlor
   output  wire  ebreak
 );
 
+
 wire  [31:0]  instr = instr_out;
+
+assign dnpc_en = ( instr == 32'b0 ) ? 1'b0 : 1'b1 ;
 
 always@(posedge clk) begin
   if(!rstn)

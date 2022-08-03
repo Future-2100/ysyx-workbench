@@ -42,6 +42,7 @@ module top
   wire                br_asrt  ;
   wire                jalr_en  ;
   wire                jal_en   ;
+  wire                dnpc_en  ;
 
   pc_gen pc_gen_inst(
     .clk      (clk) ,
@@ -55,6 +56,7 @@ module top
     .dnxt_pc  ( dnxt_pc    ),
     .snxt_pc  ( snxt_pc    ),
     .pc       ( pc         ),
+    .dnpc_en  ( dnpc_en    ),
     .pc_ld    ( pc_ld      )
   );
 
@@ -207,6 +209,7 @@ controlor controlor_inst
     .instr_out   ( instr      ) ,
     .instr_en    ( instr_en   ) ,
     .fetch_en    ( fetch_en   ) ,
+    .dnpc_en     (  dnpc_en   ) ,
     .pc_ld       (  pc_ld     ) ,
 
     .wb_en       ( wb_en      ) ,     

@@ -14,8 +14,9 @@ module pc_gen
   input   wire                jal_en    ,
 
   output  wire    [DW-1:0]    snxt_pc   ,
-  output  wire    [DW-1:0]    dnxt_pc   ,
+  output  reg     [DW-1:0]    dnxt_pc   ,
   input   wire                pc_ld     ,
+  input   wire                dnpc_en   ,
   output   reg    [DW-1:0]    pc        
 
 );
@@ -28,10 +29,18 @@ module pc_gen
   wire    snxt_en = (!jalr_en) & (!jal_en) & (!br_en) ;
   assign  snxt_pc = pc + 4 ;
 
-  assign  dnxt_pc = ( {DW{jalr_en }} & jalr_pc ) |
-                    ( {DW{ jal_en }} &  jal_pc ) |
-                    ( {DW{  br_en }} &   br_pc ) |
-                    ( {DW{snxt_en }} & snxt_pc ) ;
+  
+  wire [DW-1:0]  dnxt_pc_reg = ( {DW{jalr_en }} & jalr_pc ) |
+                               ( {DW{ jal_en }} &  jal_pc ) |
+                               ( {DW{  br_en }} &   br_pc ) |
+                               ( {DW{snxt_en }} & snxt_pc ) ;
+
+
+  always@(posedge clk) begin
+    if(!rstn || dnpc_en)
+      dnxt_pc <= dnxt_pc_reg;
+  end
+
 
   always@(posedge clk) begin
     if(!rstn) 
