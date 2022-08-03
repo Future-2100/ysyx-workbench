@@ -121,8 +121,8 @@ void run_step(Decode *s, CPU_state *cpu) {
 //  int j=2;
 //  while ( j-- && ( !contextp->gotFinish() ) ) {
 
-  int i = 5;
-  while( i-- ) {
+  //int i = 5;
+  //while( i-- ) {
       uintptr_t ifu_addr ;
       top->clk  = !top->clk;   //posedge clk
       //top->inst = inst_fetch(&top->dnxt_pc, 4);
@@ -169,7 +169,7 @@ void run_step(Decode *s, CPU_state *cpu) {
         return ;
       }
     }
-  }
+  //}
 }
 
 
