@@ -139,7 +139,7 @@ void run_step(Decode *s, CPU_state *cpu) {
       if(top->ifu_ARVALID == 1 ) {
         if( top->ifu_ARPORT == 4 ) {
           top->ifu_ARREADY = 0 ;
-          top->ifu_RVALID  = 1 ;
+          top->ifu_RVALID  = (rand()%2) ;
           top->ifu_RDATA   = inst_fetch(&top->ifu_ARADDR,4);
           top->ifu_RRESP   = 0 ;
         }
