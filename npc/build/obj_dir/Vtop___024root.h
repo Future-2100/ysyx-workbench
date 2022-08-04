@@ -74,6 +74,8 @@ VL_MODULE(Vtop___024root) {
         CData/*0:0*/ top__DOT__controlor_inst__DOT__first_pc_ld;
         CData/*1:0*/ top__DOT__controlor_inst__DOT__cpu_nstate;
         CData/*1:0*/ top__DOT__controlor_inst__DOT__cpu_cstate;
+        CData/*0:0*/ top__DOT__controlor_inst__DOT__load_en;
+        CData/*0:0*/ top__DOT__controlor_inst__DOT__store_en;
         CData/*0:0*/ top__DOT__controlor_inst__DOT__immop_en;
         CData/*0:0*/ top__DOT__controlor_inst__DOT__immsf_en;
         CData/*0:0*/ top__DOT__controlor_inst__DOT__wimmop_en;
@@ -101,10 +103,10 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT__imm_gen_inst__DOT__immB_num;
         QData/*63:0*/ top__DOT__imm_gen_inst__DOT__immU_num;
         QData/*63:0*/ top__DOT__imm_gen_inst__DOT__immJ_num;
-        QData/*63:0*/ top__DOT__alu_inst__DOT__opdata1;
-        QData/*63:0*/ top__DOT__alu_inst__DOT__opdata2;
     };
     struct {
+        QData/*63:0*/ top__DOT__alu_inst__DOT__opdata1;
+        QData/*63:0*/ top__DOT__alu_inst__DOT__opdata2;
         QData/*63:0*/ top__DOT__alu_inst__DOT__lgc_result;
         QData/*63:0*/ top__DOT__alu_inst__DOT__mlgc_result;
         QData/*63:0*/ top__DOT__memory_inst__DOT__lb_data;

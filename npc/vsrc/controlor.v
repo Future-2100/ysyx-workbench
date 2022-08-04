@@ -139,8 +139,8 @@ end
   assign     jal_en = ( opcode == 7'b1101111 )  ;
   assign    jalr_en = ( opcode == 7'b1100111 )  ;
   assign      br_en = ( opcode == 7'b1100011 )  ;
-  wire      load_en = ( opcode == 7'b0000011 )  ;
-  wire     store_en = ( opcode == 7'b0100011 )  ;
+  wire      load_en = ( opcode == 7'b0000011 ) & instr_en ;
+  wire     store_en = ( opcode == 7'b0100011 ) & instr_en ;
 
   wire     immop_en = ( opcode == 7'b0010011 ) & ( funct3[1:0] != 2'b01 )  ;
   wire     immsf_en = ( opcode == 7'b0010011 ) & ( funct3[1:0] == 2'b01 )  ;
@@ -186,18 +186,18 @@ end
   assign  mlgc_en =  mrsop_en ;
   assign wmlgc_en = wmrsop_en ;
 
-  assign  lb  = load_en & ( funct3 == 3'b000 ) & instr_en ;
-  assign  lh  = load_en & ( funct3 == 3'b001 ) & instr_en ;
-  assign  lw  = load_en & ( funct3 == 3'b010 ) & instr_en ;
-  assign  ld  = load_en & ( funct3 == 3'b011 ) & instr_en ;
-  assign  lbu = load_en & ( funct3 == 3'b100 ) & instr_en ;
-  assign  lhu = load_en & ( funct3 == 3'b101 ) & instr_en ;
-  assign  lwu = load_en & ( funct3 == 3'b110 ) & instr_en ;
+  assign  lb  = load_en & ( funct3 == 3'b000 )  ;
+  assign  lh  = load_en & ( funct3 == 3'b001 )  ;
+  assign  lw  = load_en & ( funct3 == 3'b010 )  ;
+  assign  ld  = load_en & ( funct3 == 3'b011 )  ;
+  assign  lbu = load_en & ( funct3 == 3'b100 )  ;
+  assign  lhu = load_en & ( funct3 == 3'b101 )  ;
+  assign  lwu = load_en & ( funct3 == 3'b110 )  ;
 
-  assign  sb  = store_en & ( funct3 == 3'b000 ) & instr_en ;
-  assign  sh  = store_en & ( funct3 == 3'b001 ) & instr_en ;
-  assign  sw  = store_en & ( funct3 == 3'b010 ) & instr_en ;
-  assign  sd  = store_en & ( funct3 == 3'b011 ) & instr_en ;
+  assign  sb  = store_en & ( funct3 == 3'b000 ) ;
+  assign  sh  = store_en & ( funct3 == 3'b001 ) ;
+  assign  sw  = store_en & ( funct3 == 3'b010 ) ;
+  assign  sd  = store_en & ( funct3 == 3'b011 ) ;
 
   assign  wb_load = load_en;
   assign  wb_pc   = jal_en | jalr_en ;

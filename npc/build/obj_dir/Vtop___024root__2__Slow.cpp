@@ -206,6 +206,8 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__controlor_inst__DOT__first_pc_ld = 0;
     vlSelf->top__DOT__controlor_inst__DOT__cpu_nstate = 0;
     vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate = 0;
+    vlSelf->top__DOT__controlor_inst__DOT__load_en = 0;
+    vlSelf->top__DOT__controlor_inst__DOT__store_en = 0;
     vlSelf->top__DOT__controlor_inst__DOT__immop_en = 0;
     vlSelf->top__DOT__controlor_inst__DOT__immsf_en = 0;
     vlSelf->top__DOT__controlor_inst__DOT__wimmop_en = 0;
