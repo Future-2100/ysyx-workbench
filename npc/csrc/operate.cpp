@@ -59,7 +59,7 @@ static void single_cycle() {
 
 void reset(int n) {
   top->rstn = 0;
-  top->ifu_ARREADY = 1;
+  top->ifu_ARREADY = 0;
   while( n-- > 0) single_cycle();
   top->rstn = 1;
   top->clk = !top->clk;
@@ -125,11 +125,14 @@ void run_step(Decode *s, CPU_state *cpu) {
 //  while ( j-- && ( !contextp->gotFinish() ) ) {
 
   
+
       top->clk  = !top->clk;   //posedge clk
       //top->inst = inst_fetch(&top->dnxt_pc, 4);
       top->eval();
+      if( top->ifu_ARVALID == 1 ) {
+        top->ifu_ARREADY = rand()%2;
+      }
       contextp->timeInc(10);
-
 
       top->clk = !top->clk;   //negedge clk 
       
@@ -137,7 +140,8 @@ void run_step(Decode *s, CPU_state *cpu) {
       contextp->timeInc(10);
 
       //if(top->instr != 0) {
-      if( top->ifu_ARVALID == 1 && top->ifu_ARPORT == 4) {
+      //
+      if( top->ifu_ARVALID == 1 && top->ifu_ARREADY == 1 && top->ifu_ARPORT == 4) {
         fetch_req  = true;
         fetch_addr = top->ifu_ARADDR ;
         //printf("1 : fetch_addr = %lx\n", fetch_addr);
