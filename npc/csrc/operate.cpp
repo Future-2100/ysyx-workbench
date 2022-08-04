@@ -175,6 +175,9 @@ void run_step(Decode *s, CPU_state *cpu) {
           top->ifu_RVALID = 0;
         }
       }
+      else {
+          top->ifu_RVALID = 0;
+      }
       top->ifu_ARREADY = 0;
 
       s->snpc = top->snxt_pc;
