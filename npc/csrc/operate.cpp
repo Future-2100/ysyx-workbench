@@ -161,7 +161,7 @@ void run_step(Decode *s, CPU_state *cpu) {
           top->ifu_ARREADY = 0;
           top->ifu_RVALID  = 1 ;
           printf("2 : fetch_addr = %lx\n", fetch_addr);
-          top->ifu_RDATA   = inst_fetch((vaddr_t *)fetch_addr,4);
+          top->ifu_RDATA   = inst_fetch(&fetch_addr,4);
           top->ifu_RRESP   = 0 ;
         }
       }
