@@ -117,7 +117,7 @@ extern "C" void vmem_read(long long raddr, long long *rdata , char ren) {
 }
 
 bool fetch_req = false;
-vaddr_t *fetch_addr = 0;
+uintptr_t fetch_addr = 0;
 
 void run_step(Decode *s, CPU_state *cpu) {
 
@@ -139,7 +139,9 @@ void run_step(Decode *s, CPU_state *cpu) {
       //if(top->instr != 0) {
       if( top->ifu_ARVALID == 1 && top->ifu_ARPORT == 4) {
         fetch_req  = true;
-        fetch_addr = (vaddr_t *)top->ifu_ARADDR ;
+        fetch_addr = top->ifu_ARADDR ;
+        printf("1 : fetch_addr = %lx\n", fetch_addr);
+
         /*
         if( top->ifu_ARPORT == 4 ) {
           top->ifu_ARREADY = 0 ;
@@ -158,7 +160,8 @@ void run_step(Decode *s, CPU_state *cpu) {
           fetch_req = false;
           top->ifu_ARREADY = 0;
           top->ifu_RVALID  = 1 ;
-          top->ifu_RDATA   = inst_fetch(fetch_addr,4);
+          printf("2 : fetch_addr = %lx\n", fetch_addr);
+          top->ifu_RDATA   = inst_fetch((vaddr_t *)fetch_addr,4);
           top->ifu_RRESP   = 0 ;
         }
       }
