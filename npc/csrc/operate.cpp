@@ -141,6 +141,7 @@ void run_step(Decode *s, CPU_state *cpu) {
 
       //if(top->instr != 0) {
       //
+      top->ifu_ARREADY = 0;
       if( top->ifu_ARVALID == 1 && top->ifu_ARREADY == 1 && top->ifu_ARPORT == 4) {
         fetch_req  = true;
         fetch_addr = top->ifu_ARADDR ;
