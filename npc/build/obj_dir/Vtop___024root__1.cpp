@@ -7,11 +7,137 @@
 
 #include "verilated_dpi.h"
 
-VL_INLINE_OPT void Vtop___024root___combo__TOP__8(Vtop___024root* vlSelf) {
+VL_INLINE_OPT void Vtop___024root___combo__TOP__9(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___combo__TOP__8\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___combo__TOP__9\n"); );
     // Body
+    if ((1U & ((IData)((vlSelf->ifu_ARADDR >> 0x20U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__ifu_ARADDR 
+                          >> 0x20U))))) {
+        ++(vlSymsp->__Vcoverage[260]);
+        vlSelf->top__DOT____Vtogcov__ifu_ARADDR = (
+                                                   (0xfffffffeffffffffULL 
+                                                    & vlSelf->top__DOT____Vtogcov__ifu_ARADDR) 
+                                                   | ((QData)((IData)(
+                                                                      (1U 
+                                                                       & (IData)(
+                                                                                (vlSelf->ifu_ARADDR 
+                                                                                >> 0x20U))))) 
+                                                      << 0x20U));
+    }
+    if ((1U & ((IData)((vlSelf->ifu_ARADDR >> 0x21U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__ifu_ARADDR 
+                          >> 0x21U))))) {
+        ++(vlSymsp->__Vcoverage[261]);
+        vlSelf->top__DOT____Vtogcov__ifu_ARADDR = (
+                                                   (0xfffffffdffffffffULL 
+                                                    & vlSelf->top__DOT____Vtogcov__ifu_ARADDR) 
+                                                   | ((QData)((IData)(
+                                                                      (1U 
+                                                                       & (IData)(
+                                                                                (vlSelf->ifu_ARADDR 
+                                                                                >> 0x21U))))) 
+                                                      << 0x21U));
+    }
+    if ((1U & ((IData)((vlSelf->ifu_ARADDR >> 0x22U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__ifu_ARADDR 
+                          >> 0x22U))))) {
+        ++(vlSymsp->__Vcoverage[262]);
+        vlSelf->top__DOT____Vtogcov__ifu_ARADDR = (
+                                                   (0xfffffffbffffffffULL 
+                                                    & vlSelf->top__DOT____Vtogcov__ifu_ARADDR) 
+                                                   | ((QData)((IData)(
+                                                                      (1U 
+                                                                       & (IData)(
+                                                                                (vlSelf->ifu_ARADDR 
+                                                                                >> 0x22U))))) 
+                                                      << 0x22U));
+    }
+    if ((1U & ((IData)((vlSelf->ifu_ARADDR >> 0x23U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__ifu_ARADDR 
+                          >> 0x23U))))) {
+        ++(vlSymsp->__Vcoverage[263]);
+        vlSelf->top__DOT____Vtogcov__ifu_ARADDR = (
+                                                   (0xfffffff7ffffffffULL 
+                                                    & vlSelf->top__DOT____Vtogcov__ifu_ARADDR) 
+                                                   | ((QData)((IData)(
+                                                                      (1U 
+                                                                       & (IData)(
+                                                                                (vlSelf->ifu_ARADDR 
+                                                                                >> 0x23U))))) 
+                                                      << 0x23U));
+    }
+    if ((1U & ((IData)((vlSelf->ifu_ARADDR >> 0x24U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__ifu_ARADDR 
+                          >> 0x24U))))) {
+        ++(vlSymsp->__Vcoverage[264]);
+        vlSelf->top__DOT____Vtogcov__ifu_ARADDR = (
+                                                   (0xffffffefffffffffULL 
+                                                    & vlSelf->top__DOT____Vtogcov__ifu_ARADDR) 
+                                                   | ((QData)((IData)(
+                                                                      (1U 
+                                                                       & (IData)(
+                                                                                (vlSelf->ifu_ARADDR 
+                                                                                >> 0x24U))))) 
+                                                      << 0x24U));
+    }
+    if ((1U & ((IData)((vlSelf->ifu_ARADDR >> 0x25U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__ifu_ARADDR 
+                          >> 0x25U))))) {
+        ++(vlSymsp->__Vcoverage[265]);
+        vlSelf->top__DOT____Vtogcov__ifu_ARADDR = (
+                                                   (0xffffffdfffffffffULL 
+                                                    & vlSelf->top__DOT____Vtogcov__ifu_ARADDR) 
+                                                   | ((QData)((IData)(
+                                                                      (1U 
+                                                                       & (IData)(
+                                                                                (vlSelf->ifu_ARADDR 
+                                                                                >> 0x25U))))) 
+                                                      << 0x25U));
+    }
+    if ((1U & ((IData)((vlSelf->ifu_ARADDR >> 0x26U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__ifu_ARADDR 
+                          >> 0x26U))))) {
+        ++(vlSymsp->__Vcoverage[266]);
+        vlSelf->top__DOT____Vtogcov__ifu_ARADDR = (
+                                                   (0xffffffbfffffffffULL 
+                                                    & vlSelf->top__DOT____Vtogcov__ifu_ARADDR) 
+                                                   | ((QData)((IData)(
+                                                                      (1U 
+                                                                       & (IData)(
+                                                                                (vlSelf->ifu_ARADDR 
+                                                                                >> 0x26U))))) 
+                                                      << 0x26U));
+    }
+    if ((1U & ((IData)((vlSelf->ifu_ARADDR >> 0x27U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__ifu_ARADDR 
+                          >> 0x27U))))) {
+        ++(vlSymsp->__Vcoverage[267]);
+        vlSelf->top__DOT____Vtogcov__ifu_ARADDR = (
+                                                   (0xffffff7fffffffffULL 
+                                                    & vlSelf->top__DOT____Vtogcov__ifu_ARADDR) 
+                                                   | ((QData)((IData)(
+                                                                      (1U 
+                                                                       & (IData)(
+                                                                                (vlSelf->ifu_ARADDR 
+                                                                                >> 0x27U))))) 
+                                                      << 0x27U));
+    }
+    if ((1U & ((IData)((vlSelf->ifu_ARADDR >> 0x28U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__ifu_ARADDR 
+                          >> 0x28U))))) {
+        ++(vlSymsp->__Vcoverage[268]);
+        vlSelf->top__DOT____Vtogcov__ifu_ARADDR = (
+                                                   (0xfffffeffffffffffULL 
+                                                    & vlSelf->top__DOT____Vtogcov__ifu_ARADDR) 
+                                                   | ((QData)((IData)(
+                                                                      (1U 
+                                                                       & (IData)(
+                                                                                (vlSelf->ifu_ARADDR 
+                                                                                >> 0x28U))))) 
+                                                      << 0x28U));
+    }
     if ((1U & ((IData)((vlSelf->ifu_ARADDR >> 0x29U)) 
                ^ (IData)((vlSelf->top__DOT____Vtogcov__ifu_ARADDR 
                           >> 0x29U))))) {
@@ -3092,7 +3218,7 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__8(Vtop___024root* vlSelf) {
                                                      << 0x3fU));
     }
     vlSelf->top__DOT__regfile_inst__DOT__wb_data = 
-        ((((- (QData)((IData)(vlSelf->top__DOT__controlor_inst__DOT__load_en))) 
+        ((((- (QData)((IData)((3U == (0x7fU & vlSelf->instr))))) 
            & vlSelf->top__DOT__load_data) | ((- (QData)((IData)(vlSelf->top__DOT__wb_pc))) 
                                              & vlSelf->snxt_pc)) 
          | ((- (QData)((IData)(vlSelf->top__DOT__wb_alu))) 
@@ -3739,7 +3865,7 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__8(Vtop___024root* vlSelf) {
 void Vtop___024root___combo__TOP__3(Vtop___024root* vlSelf);
 void Vtop___024root___sequent__TOP__4(Vtop___024root* vlSelf);
 void Vtop___024root___sequent__TOP__5(Vtop___024root* vlSelf);
-void Vtop___024root___combo__TOP__7(Vtop___024root* vlSelf);
+void Vtop___024root___combo__TOP__8(Vtop___024root* vlSelf);
 
 void Vtop___024root___eval(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -3755,8 +3881,8 @@ void Vtop___024root___eval(Vtop___024root* vlSelf) {
         Vtop___024root___sequent__TOP__5(vlSelf);
         vlSelf->__Vm_traceActivity[2U] = 1U;
     }
-    Vtop___024root___combo__TOP__7(vlSelf);
     Vtop___024root___combo__TOP__8(vlSelf);
+    Vtop___024root___combo__TOP__9(vlSelf);
     // Final
     vlSelf->__Vclklast__TOP__clk = vlSelf->clk;
 }

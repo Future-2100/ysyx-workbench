@@ -79,7 +79,6 @@ void init_module() {
 
 uint64_t *cpu_gpr = NULL;
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
-//void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 
@@ -121,13 +120,7 @@ uintptr_t fetch_addr = 0;
 
 void run_step(Decode *s, CPU_state *cpu) {
 
-//  int j=2;
-//  while ( j-- && ( !contextp->gotFinish() ) ) {
-
-  
-
       top->clk  = !top->clk;   //posedge clk
-      //top->inst = inst_fetch(&top->dnxt_pc, 4);
       top->eval();
       if( top->ifu_ARVALID == 1 ) {
         top->ifu_ARREADY = rand()%2;
@@ -139,24 +132,9 @@ void run_step(Decode *s, CPU_state *cpu) {
       top->eval();
       contextp->timeInc(10);
 
-      //if(top->instr != 0) {
-      //
       if( top->ifu_ARVALID == 1 && top->ifu_ARREADY == 1 && top->ifu_ARPORT == 4) {
         fetch_req  = true;
         fetch_addr = top->ifu_ARADDR ;
-        //printf("1 : fetch_addr = %lx\n", fetch_addr);
-
-        /*
-        if( top->ifu_ARPORT == 4 ) {
-          top->ifu_ARREADY = 0 ;
-          top->ifu_RVALID  = (rand()%2) ;
-          top->ifu_RDATA   = inst_fetch(&top->ifu_ARADDR,4);
-          top->ifu_RRESP   = 0 ;
-        }
-        else {
-          printf(" ARPORT code error : %d \n", top->ifu_ARPORT);
-        } 
-        */
       }
       if( fetch_req == true ) {
         int ready = rand()%2;
@@ -164,7 +142,6 @@ void run_step(Decode *s, CPU_state *cpu) {
           fetch_req = false;
           top->ifu_ARREADY = 0;
           top->ifu_RVALID  = 1 ;
-          //printf("2 : fetch_addr = %lx\n", fetch_addr);
           top->ifu_RDATA   = inst_fetch(&fetch_addr,4);
           top->ifu_RRESP   = 0 ;
           if( top->ifu_RREADY==1 ) {
@@ -196,8 +173,6 @@ void run_step(Decode *s, CPU_state *cpu) {
         printf(ANSI_FMT_NONE "\n");
         return ;
       }
-    //}
-  //}
 }
 
 

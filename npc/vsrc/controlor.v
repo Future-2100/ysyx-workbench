@@ -71,7 +71,8 @@ assign  pc_ld = ( ifu_ARVALID && ifu_ARREADY ) ;
 
 assign  instr_en   = ( ifu_RVALID  && ifu_RREADY && (ifu_RRESP == 2'b00) ) ? 1'b1 : 1'b0 ;
 assign  ifu_RREADY = 1'b1;
-assign  instr      =  ifu_RDATA[31:0] ;
+assign  instr      =  {32{ instr_en}} & ifu_RDATA[31:0] |
+                      {32{~instr_en}} & 32'h13;
 
 parameter IDLE  = 2'b00;
 parameter FETCH = 2'b01;
@@ -129,8 +130,8 @@ end
   assign     jal_en = ( opcode == 7'b1101111 )  ;
   assign    jalr_en = ( opcode == 7'b1100111 )  ;
   assign      br_en = ( opcode == 7'b1100011 )  ;
-  wire      load_en = ( opcode == 7'b0000011 ) & instr_en ;
-  wire     store_en = ( opcode == 7'b0100011 ) & instr_en ;
+  wire      load_en = ( opcode == 7'b0000011 )  ;
+  wire     store_en = ( opcode == 7'b0100011 )  ;
 
   wire     immop_en = ( opcode == 7'b0010011 ) & ( funct3[1:0] != 2'b01 )  ;
   wire     immsf_en = ( opcode == 7'b0010011 ) & ( funct3[1:0] == 2'b01 )  ;
@@ -195,7 +196,7 @@ end
                     immsf_en | wimmop_en | wimmsf_en | wrsop_en |
                     mrsop_en | wmrsop_en ;
 
-  assign wb_en = ( wb_load | wb_pc | wb_alu ) & instr_en ;
+  assign wb_en = ( wb_load | wb_pc | wb_alu ) ;
 
 endmodule
 
