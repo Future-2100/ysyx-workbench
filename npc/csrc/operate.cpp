@@ -117,6 +117,7 @@ extern "C" void vmem_read(long long raddr, long long *rdata , char ren) {
 }
 
 bool fetch_req = false;
+vaddr_t *fetch_addr = 0;
 
 void run_step(Decode *s, CPU_state *cpu) {
 
@@ -124,7 +125,6 @@ void run_step(Decode *s, CPU_state *cpu) {
 //  while ( j-- && ( !contextp->gotFinish() ) ) {
 
   
-  vaddr_t *fetch_addr = 0;
       top->clk  = !top->clk;   //posedge clk
       //top->inst = inst_fetch(&top->dnxt_pc, 4);
       top->eval();
