@@ -67,17 +67,7 @@ module controlor
   output  wire  ebreak
 );
 
-reg first_pc_ld;
-always@(posedge clk) begin
-  if(!rstn)
-    first_pc_ld <= 1'b0;
-  else if(cpu_cstate == 2'b00)
-    first_pc_ld <= 1'b1;
-  else
-    first_pc_ld <= 1'b0;
-end
-
-assign  pc_ld = instr_en | first_pc_ld;
+assign  pc_ld = ( ifu_ARVALID && ifu_ARREADY ) ;
 
 assign  instr_en   = ( ifu_RVALID  && ifu_RREADY && (ifu_RRESP == 2'b00) ) ? 1'b1 : 1'b0 ;
 assign  ifu_RREADY = 1'b1;

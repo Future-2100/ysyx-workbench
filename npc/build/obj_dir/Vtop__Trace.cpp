@@ -168,12 +168,11 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
                                              >> 0xfU))),5);
         tracep->chgCData(oldp+195,((0x1fU & (vlSelf->instr 
                                              >> 0x14U))),5);
-        tracep->chgBit(oldp+196,(vlSelf->top__DOT__controlor_inst__DOT__first_pc_ld));
-        tracep->chgCData(oldp+197,(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate),2);
-        tracep->chgCData(oldp+198,((0x7fU & vlSelf->instr)),7);
-        tracep->chgCData(oldp+199,((vlSelf->instr >> 0x19U)),7);
-        tracep->chgBit(oldp+200,((0x37U == (0x7fU & vlSelf->instr))));
-        tracep->chgBit(oldp+201,((0x17U == (0x7fU & vlSelf->instr))));
+        tracep->chgCData(oldp+196,(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate),2);
+        tracep->chgCData(oldp+197,((0x7fU & vlSelf->instr)),7);
+        tracep->chgCData(oldp+198,((vlSelf->instr >> 0x19U)),7);
+        tracep->chgBit(oldp+199,((0x37U == (0x7fU & vlSelf->instr))));
+        tracep->chgBit(oldp+200,((0x17U == (0x7fU & vlSelf->instr))));
     }
 }
 

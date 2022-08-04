@@ -62,18 +62,12 @@ void Vtop___024root___settle__TOP__6(Vtop___024root* vlSelf) {
         ++(vlSymsp->__Vcoverage[863]);
         vlSelf->top__DOT____Vtogcov__instr_en = vlSelf->top__DOT__instr_en;
     }
-    vlSelf->top__DOT__pc_ld = ((IData)(vlSelf->top__DOT__instr_en) 
-                               | (IData)(vlSelf->top__DOT__controlor_inst__DOT__first_pc_ld));
     vlSelf->top__DOT__controlor_inst__DOT__store_en 
         = ((0x23U == (0x7fU & vlSelf->instr)) & (IData)(vlSelf->top__DOT__instr_en));
     vlSelf->top__DOT__wb_en = ((((3U == (0x7fU & vlSelf->instr)) 
                                  | (IData)(vlSelf->top__DOT__wb_pc)) 
                                 | (IData)(vlSelf->top__DOT__wb_alu)) 
                                & (IData)(vlSelf->top__DOT__instr_en));
-    if (((IData)(vlSelf->top__DOT__pc_ld) ^ (IData)(vlSelf->top__DOT____Vtogcov__pc_ld))) {
-        ++(vlSymsp->__Vcoverage[364]);
-        vlSelf->top__DOT____Vtogcov__pc_ld = vlSelf->top__DOT__pc_ld;
-    }
     if (((IData)(vlSelf->top__DOT__controlor_inst__DOT__store_en) 
          ^ (IData)(vlSelf->top__DOT____Vtogcov__S_type))) {
         ++(vlSymsp->__Vcoverage[828]);

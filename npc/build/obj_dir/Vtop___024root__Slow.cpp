@@ -52,7 +52,7 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
     ++(vlSymsp->__Vcoverage[1835]);
     ++(vlSymsp->__Vcoverage[1874]);
     ++(vlSymsp->__Vcoverage[1883]);
-    ++(vlSymsp->__Vcoverage[2286]);
+    ++(vlSymsp->__Vcoverage[2281]);
     if ((1U & (~ ((IData)(vlSelf->top__DOT____Vtogcov__wmlgc_op) 
                   >> 3U)))) {
         ++(vlSymsp->__Vcoverage[847]);
@@ -922,11 +922,94 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                                                      << 0x3fU));
     }
     vlSelf->instr = (IData)(vlSelf->ifu_RDATA);
-    if (((IData)(vlSelf->top__DOT__controlor_inst__DOT__first_pc_ld) 
-         ^ (IData)(vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__first_pc_ld))) {
-        ++(vlSymsp->__Vcoverage[2268]);
-        vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__first_pc_ld 
-            = vlSelf->top__DOT__controlor_inst__DOT__first_pc_ld;
+    if ((0U != (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
+        if ((1U != (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
+            if ((2U == (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
+                ++(vlSymsp->__Vcoverage[2279]);
+            }
+        }
+    }
+    if ((0U == (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
+        ++(vlSymsp->__Vcoverage[2275]);
+    }
+    if ((0U != (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
+        if ((1U == (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
+            ++(vlSymsp->__Vcoverage[2276]);
+        }
+    }
+    if ((0U != (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
+        if ((1U != (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
+            if ((2U != (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
+                ++(vlSymsp->__Vcoverage[2280]);
+            }
+        }
+    }
+    if ((0U != (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
+        if ((1U != (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
+            if ((2U == (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
+                if ((1U & (~ ((IData)(vlSelf->ifu_RVALID) 
+                              & (0U == (IData)(vlSelf->ifu_RRESP)))))) {
+                    ++(vlSymsp->__Vcoverage[2278]);
+                }
+            }
+        }
+    }
+    if ((0U != (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
+        if ((1U != (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
+            if ((2U == (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
+                if (((IData)(vlSelf->ifu_RVALID) & 
+                     (0U == (IData)(vlSelf->ifu_RRESP)))) {
+                    ++(vlSymsp->__Vcoverage[2277]);
+                }
+            }
+        }
+    }
+    if ((1U & ((IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate) 
+               ^ (IData)(vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__cpu_cstate)))) {
+        ++(vlSymsp->__Vcoverage[2270]);
+        vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__cpu_cstate 
+            = ((2U & (IData)(vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__cpu_cstate)) 
+               | (1U & (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate)));
+    }
+    if ((2U & ((IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate) 
+               ^ (IData)(vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__cpu_cstate)))) {
+        ++(vlSymsp->__Vcoverage[2271]);
+        vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__cpu_cstate 
+            = ((1U & (IData)(vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__cpu_cstate)) 
+               | (2U & (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate)));
+    }
+    vlSelf->top__DOT__controlor_inst__DOT__cpu_nstate 
+        = ((0U == (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))
+            ? 1U : ((1U == (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))
+                     ? ((IData)(vlSelf->ifu_ARREADY)
+                         ? 2U : 1U) : ((2U == (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))
+                                        ? (((IData)(vlSelf->ifu_RVALID) 
+                                            & (0U == (IData)(vlSelf->ifu_RRESP)))
+                                            ? ((IData)(vlSelf->ifu_ARREADY)
+                                                ? 2U
+                                                : 1U)
+                                            : 2U) : 1U)));
+    vlSelf->ifu_ARVALID = 0U;
+    if ((0U != (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
+        if ((1U == (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
+            vlSelf->ifu_ARVALID = 1U;
+        } else if ((2U == (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
+            if (((IData)(vlSelf->ifu_RVALID) & (0U 
+                                                == (IData)(vlSelf->ifu_RRESP)))) {
+                vlSelf->ifu_ARVALID = 1U;
+            }
+        }
+    }
+    vlSelf->ifu_ARPORT = 0U;
+    if ((0U != (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
+        if ((1U == (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
+            vlSelf->ifu_ARPORT = 4U;
+        } else if ((2U == (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
+            if (((IData)(vlSelf->ifu_RVALID) & (0U 
+                                                == (IData)(vlSelf->ifu_RRESP)))) {
+                vlSelf->ifu_ARPORT = 4U;
+            }
+        }
     }
     if ((1U & ((IData)(vlSelf->pc) ^ (IData)(vlSelf->top__DOT____Vtogcov__pc)))) {
         ++(vlSymsp->__Vcoverage[2]);
@@ -1756,95 +1839,6 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                                               << 0x3fU));
     }
     vlSelf->snxt_pc = (4ULL + vlSelf->pc);
-    if ((0U != (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
-        if ((1U != (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
-            if ((2U == (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
-                ++(vlSymsp->__Vcoverage[2284]);
-            }
-        }
-    }
-    if ((0U == (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
-        ++(vlSymsp->__Vcoverage[2280]);
-    }
-    if ((0U != (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
-        if ((1U == (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
-            ++(vlSymsp->__Vcoverage[2281]);
-        }
-    }
-    if ((0U != (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
-        if ((1U != (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
-            if ((2U != (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
-                ++(vlSymsp->__Vcoverage[2285]);
-            }
-        }
-    }
-    if ((0U != (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
-        if ((1U != (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
-            if ((2U == (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
-                if ((1U & (~ ((IData)(vlSelf->ifu_RVALID) 
-                              & (0U == (IData)(vlSelf->ifu_RRESP)))))) {
-                    ++(vlSymsp->__Vcoverage[2283]);
-                }
-            }
-        }
-    }
-    if ((0U != (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
-        if ((1U != (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
-            if ((2U == (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
-                if (((IData)(vlSelf->ifu_RVALID) & 
-                     (0U == (IData)(vlSelf->ifu_RRESP)))) {
-                    ++(vlSymsp->__Vcoverage[2282]);
-                }
-            }
-        }
-    }
-    if ((1U & ((IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate) 
-               ^ (IData)(vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__cpu_cstate)))) {
-        ++(vlSymsp->__Vcoverage[2275]);
-        vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__cpu_cstate 
-            = ((2U & (IData)(vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__cpu_cstate)) 
-               | (1U & (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate)));
-    }
-    if ((2U & ((IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate) 
-               ^ (IData)(vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__cpu_cstate)))) {
-        ++(vlSymsp->__Vcoverage[2276]);
-        vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__cpu_cstate 
-            = ((1U & (IData)(vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__cpu_cstate)) 
-               | (2U & (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate)));
-    }
-    vlSelf->ifu_ARVALID = 0U;
-    if ((0U != (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
-        if ((1U == (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
-            vlSelf->ifu_ARVALID = 1U;
-        } else if ((2U == (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
-            if (((IData)(vlSelf->ifu_RVALID) & (0U 
-                                                == (IData)(vlSelf->ifu_RRESP)))) {
-                vlSelf->ifu_ARVALID = 1U;
-            }
-        }
-    }
-    vlSelf->top__DOT__controlor_inst__DOT__cpu_nstate 
-        = ((0U == (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))
-            ? 1U : ((1U == (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))
-                     ? ((IData)(vlSelf->ifu_ARREADY)
-                         ? 2U : 1U) : ((2U == (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))
-                                        ? (((IData)(vlSelf->ifu_RVALID) 
-                                            & (0U == (IData)(vlSelf->ifu_RRESP)))
-                                            ? ((IData)(vlSelf->ifu_ARREADY)
-                                                ? 2U
-                                                : 1U)
-                                            : 2U) : 1U)));
-    vlSelf->ifu_ARPORT = 0U;
-    if ((0U != (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
-        if ((1U == (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
-            vlSelf->ifu_ARPORT = 4U;
-        } else if ((2U == (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate))) {
-            if (((IData)(vlSelf->ifu_RVALID) & (0U 
-                                                == (IData)(vlSelf->ifu_RRESP)))) {
-                vlSelf->ifu_ARPORT = 4U;
-            }
-        }
-    }
     if ((1U & (~ (vlSelf->instr >> 0xeU)))) {
         if ((0x2000U & vlSelf->instr)) {
             if ((0x1000U & vlSelf->instr)) {
@@ -2022,12 +2016,12 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                                                    & vlSelf->instr));
     }
     if (((0x37U == (0x7fU & vlSelf->instr)) ^ (IData)(vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__lui_en))) {
-        ++(vlSymsp->__Vcoverage[2287]);
+        ++(vlSymsp->__Vcoverage[2282]);
         vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__lui_en 
             = (0x37U == (0x7fU & vlSelf->instr));
     }
     if (((0x17U == (0x7fU & vlSelf->instr)) ^ (IData)(vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__auipc_en))) {
-        ++(vlSymsp->__Vcoverage[2288]);
+        ++(vlSymsp->__Vcoverage[2283]);
         vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__auipc_en 
             = (0x17U == (0x7fU & vlSelf->instr));
     }
@@ -2348,6 +2342,50 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                                                      >> 0xcU))));
     vlSelf->top__DOT__controlor_inst__DOT__immsf_en 
         = (IData)((0x1013U == (0x307fU & vlSelf->instr)));
+    if ((1U & ((IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_nstate) 
+               ^ (IData)(vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__cpu_nstate)))) {
+        ++(vlSymsp->__Vcoverage[2268]);
+        vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__cpu_nstate 
+            = ((2U & (IData)(vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__cpu_nstate)) 
+               | (1U & (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_nstate)));
+    }
+    if ((2U & ((IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_nstate) 
+               ^ (IData)(vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__cpu_nstate)))) {
+        ++(vlSymsp->__Vcoverage[2269]);
+        vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__cpu_nstate 
+            = ((1U & (IData)(vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__cpu_nstate)) 
+               | (2U & (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_nstate)));
+    }
+    if (((IData)(vlSelf->ifu_ARVALID) ^ (IData)(vlSelf->top__DOT____Vtogcov__ifu_ARVALID))) {
+        ++(vlSymsp->__Vcoverage[226]);
+        vlSelf->top__DOT____Vtogcov__ifu_ARVALID = vlSelf->ifu_ARVALID;
+    }
+    vlSelf->top__DOT__pc_ld = ((IData)(vlSelf->ifu_ARVALID) 
+                               & (IData)(vlSelf->ifu_ARREADY));
+    if ((1U & ((IData)(vlSelf->ifu_ARPORT) ^ (IData)(vlSelf->top__DOT____Vtogcov__ifu_ARPORT)))) {
+        ++(vlSymsp->__Vcoverage[292]);
+        vlSelf->top__DOT____Vtogcov__ifu_ARPORT = (
+                                                   (6U 
+                                                    & (IData)(vlSelf->top__DOT____Vtogcov__ifu_ARPORT)) 
+                                                   | (1U 
+                                                      & (IData)(vlSelf->ifu_ARPORT)));
+    }
+    if ((2U & ((IData)(vlSelf->ifu_ARPORT) ^ (IData)(vlSelf->top__DOT____Vtogcov__ifu_ARPORT)))) {
+        ++(vlSymsp->__Vcoverage[293]);
+        vlSelf->top__DOT____Vtogcov__ifu_ARPORT = (
+                                                   (5U 
+                                                    & (IData)(vlSelf->top__DOT____Vtogcov__ifu_ARPORT)) 
+                                                   | (2U 
+                                                      & (IData)(vlSelf->ifu_ARPORT)));
+    }
+    if ((4U & ((IData)(vlSelf->ifu_ARPORT) ^ (IData)(vlSelf->top__DOT____Vtogcov__ifu_ARPORT)))) {
+        ++(vlSymsp->__Vcoverage[294]);
+        vlSelf->top__DOT____Vtogcov__ifu_ARPORT = (
+                                                   (3U 
+                                                    & (IData)(vlSelf->top__DOT____Vtogcov__ifu_ARPORT)) 
+                                                   | (4U 
+                                                      & (IData)(vlSelf->ifu_ARPORT)));
+    }
     if ((1U & ((IData)(vlSelf->snxt_pc) ^ (IData)(vlSelf->top__DOT____Vtogcov__snxt_pc)))) {
         ++(vlSymsp->__Vcoverage[66]);
         vlSelf->top__DOT____Vtogcov__snxt_pc = ((0xfffffffffffffffeULL 
@@ -3174,48 +3212,6 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                                                                               (vlSelf->snxt_pc 
                                                                                >> 0x3fU))))) 
                                                    << 0x3fU));
-    }
-    if (((IData)(vlSelf->ifu_ARVALID) ^ (IData)(vlSelf->top__DOT____Vtogcov__ifu_ARVALID))) {
-        ++(vlSymsp->__Vcoverage[226]);
-        vlSelf->top__DOT____Vtogcov__ifu_ARVALID = vlSelf->ifu_ARVALID;
-    }
-    if ((1U & ((IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_nstate) 
-               ^ (IData)(vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__cpu_nstate)))) {
-        ++(vlSymsp->__Vcoverage[2273]);
-        vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__cpu_nstate 
-            = ((2U & (IData)(vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__cpu_nstate)) 
-               | (1U & (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_nstate)));
-    }
-    if ((2U & ((IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_nstate) 
-               ^ (IData)(vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__cpu_nstate)))) {
-        ++(vlSymsp->__Vcoverage[2274]);
-        vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__cpu_nstate 
-            = ((1U & (IData)(vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__cpu_nstate)) 
-               | (2U & (IData)(vlSelf->top__DOT__controlor_inst__DOT__cpu_nstate)));
-    }
-    if ((1U & ((IData)(vlSelf->ifu_ARPORT) ^ (IData)(vlSelf->top__DOT____Vtogcov__ifu_ARPORT)))) {
-        ++(vlSymsp->__Vcoverage[292]);
-        vlSelf->top__DOT____Vtogcov__ifu_ARPORT = (
-                                                   (6U 
-                                                    & (IData)(vlSelf->top__DOT____Vtogcov__ifu_ARPORT)) 
-                                                   | (1U 
-                                                      & (IData)(vlSelf->ifu_ARPORT)));
-    }
-    if ((2U & ((IData)(vlSelf->ifu_ARPORT) ^ (IData)(vlSelf->top__DOT____Vtogcov__ifu_ARPORT)))) {
-        ++(vlSymsp->__Vcoverage[293]);
-        vlSelf->top__DOT____Vtogcov__ifu_ARPORT = (
-                                                   (5U 
-                                                    & (IData)(vlSelf->top__DOT____Vtogcov__ifu_ARPORT)) 
-                                                   | (2U 
-                                                      & (IData)(vlSelf->ifu_ARPORT)));
-    }
-    if ((4U & ((IData)(vlSelf->ifu_ARPORT) ^ (IData)(vlSelf->top__DOT____Vtogcov__ifu_ARPORT)))) {
-        ++(vlSymsp->__Vcoverage[294]);
-        vlSelf->top__DOT____Vtogcov__ifu_ARPORT = (
-                                                   (3U 
-                                                    & (IData)(vlSelf->top__DOT____Vtogcov__ifu_ARPORT)) 
-                                                   | (4U 
-                                                      & (IData)(vlSelf->ifu_ARPORT)));
     }
     if (((IData)(vlSelf->ebreak) ^ (IData)(vlSelf->top__DOT____Vtogcov__ebreak))) {
         ++(vlSymsp->__Vcoverage[363]);
@@ -8121,13 +8117,13 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
     }
     if (((IData)(vlSelf->top__DOT__controlor_inst__DOT__wrsop_en) 
          ^ (IData)(vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__wrsop_en))) {
-        ++(vlSymsp->__Vcoverage[2294]);
+        ++(vlSymsp->__Vcoverage[2289]);
         vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__wrsop_en 
             = vlSelf->top__DOT__controlor_inst__DOT__wrsop_en;
     }
     if (((IData)(vlSelf->top__DOT__controlor_inst__DOT__rsop_en) 
          ^ (IData)(vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__rsop_en))) {
-        ++(vlSymsp->__Vcoverage[2293]);
+        ++(vlSymsp->__Vcoverage[2288]);
         vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__rsop_en 
             = vlSelf->top__DOT__controlor_inst__DOT__rsop_en;
     }
@@ -8138,13 +8134,13 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
          | (IData)(vlSelf->top__DOT__controlor_inst__DOT__wmrsop_en));
     if (((IData)(vlSelf->top__DOT__controlor_inst__DOT__wimmop_en) 
          ^ (IData)(vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__wimmop_en))) {
-        ++(vlSymsp->__Vcoverage[2291]);
+        ++(vlSymsp->__Vcoverage[2286]);
         vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__wimmop_en 
             = vlSelf->top__DOT__controlor_inst__DOT__wimmop_en;
     }
     if (((IData)(vlSelf->top__DOT__controlor_inst__DOT__wimmsf_en) 
          ^ (IData)(vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__wimmsf_en))) {
-        ++(vlSymsp->__Vcoverage[2292]);
+        ++(vlSymsp->__Vcoverage[2287]);
         vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__wimmsf_en 
             = vlSelf->top__DOT__controlor_inst__DOT__wimmsf_en;
     }
@@ -8171,13 +8167,13 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                                                       >> 0xcU))))));
     if (((IData)(vlSelf->top__DOT__controlor_inst__DOT__immop_en) 
          ^ (IData)(vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__immop_en))) {
-        ++(vlSymsp->__Vcoverage[2289]);
+        ++(vlSymsp->__Vcoverage[2284]);
         vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__immop_en 
             = vlSelf->top__DOT__controlor_inst__DOT__immop_en;
     }
     if (((IData)(vlSelf->top__DOT__controlor_inst__DOT__immsf_en) 
          ^ (IData)(vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__immsf_en))) {
-        ++(vlSymsp->__Vcoverage[2290]);
+        ++(vlSymsp->__Vcoverage[2285]);
         vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__immsf_en 
             = vlSelf->top__DOT__controlor_inst__DOT__immsf_en;
     }
@@ -8223,13 +8219,17 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                                   | (IData)(vlSelf->top__DOT__controlor_inst__DOT__immsf_en)) 
                                  | (IData)(vlSelf->top__DOT__controlor_inst__DOT__wimmop_en)) 
                                 | (IData)(vlSelf->top__DOT__controlor_inst__DOT__wimmsf_en));
+    if (((IData)(vlSelf->top__DOT__pc_ld) ^ (IData)(vlSelf->top__DOT____Vtogcov__pc_ld))) {
+        ++(vlSymsp->__Vcoverage[364]);
+        vlSelf->top__DOT____Vtogcov__pc_ld = vlSelf->top__DOT__pc_ld;
+    }
     if (((IData)(vlSelf->top__DOT__ren) ^ (IData)(vlSelf->top__DOT____Vtogcov__ren))) {
         ++(vlSymsp->__Vcoverage[563]);
         vlSelf->top__DOT____Vtogcov__ren = vlSelf->top__DOT__ren;
     }
     if (((IData)(vlSelf->top__DOT__controlor_inst__DOT__R_type) 
          ^ (IData)(vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__R_type))) {
-        ++(vlSymsp->__Vcoverage[2295]);
+        ++(vlSymsp->__Vcoverage[2290]);
         vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__R_type 
             = vlSelf->top__DOT__controlor_inst__DOT__R_type;
     }

@@ -71,7 +71,6 @@ VL_MODULE(Vtop___024root) {
         CData/*0:0*/ top__DOT__instr_en;
         CData/*0:0*/ top__DOT__pc_gen_inst__DOT__snxt_en;
         CData/*0:0*/ top__DOT__alu_inst__DOT__br_result;
-        CData/*0:0*/ top__DOT__controlor_inst__DOT__first_pc_ld;
         CData/*1:0*/ top__DOT__controlor_inst__DOT__cpu_nstate;
         CData/*1:0*/ top__DOT__controlor_inst__DOT__cpu_cstate;
         CData/*0:0*/ top__DOT__controlor_inst__DOT__store_en;
@@ -103,9 +102,9 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT__imm_gen_inst__DOT__immU_num;
         QData/*63:0*/ top__DOT__imm_gen_inst__DOT__immJ_num;
         QData/*63:0*/ top__DOT__alu_inst__DOT__opdata1;
+        QData/*63:0*/ top__DOT__alu_inst__DOT__opdata2;
     };
     struct {
-        QData/*63:0*/ top__DOT__alu_inst__DOT__opdata2;
         QData/*63:0*/ top__DOT__alu_inst__DOT__lgc_result;
         QData/*63:0*/ top__DOT__alu_inst__DOT__mlgc_result;
         QData/*63:0*/ top__DOT__memory_inst__DOT__lb_data;
@@ -167,7 +166,6 @@ VL_MODULE(Vtop___024root) {
         CData/*0:0*/ top__DOT____Vtogcov__instr_en;
         CData/*0:0*/ top__DOT__pc_gen_inst__DOT____Vtogcov__snxt_en;
         CData/*0:0*/ top__DOT__alu_inst__DOT____Vtogcov__br_result;
-        CData/*0:0*/ top__DOT__controlor_inst__DOT____Vtogcov__first_pc_ld;
         CData/*1:0*/ top__DOT__controlor_inst__DOT____Vtogcov__cpu_nstate;
         CData/*1:0*/ top__DOT__controlor_inst__DOT____Vtogcov__cpu_cstate;
         CData/*0:0*/ top__DOT__controlor_inst__DOT____Vtogcov__lui_en;
@@ -181,9 +179,9 @@ VL_MODULE(Vtop___024root) {
         CData/*0:0*/ top__DOT__controlor_inst__DOT____Vtogcov__R_type;
         CData/*0:0*/ __Vclklast__TOP__clk;
         IData/*31:0*/ top__DOT____Vtogcov__instr;
+        VlWide<4>/*127:0*/ top__DOT__alu_inst__DOT____Vtogcov__multu;
     };
     struct {
-        VlWide<4>/*127:0*/ top__DOT__alu_inst__DOT____Vtogcov__multu;
         IData/*31:0*/ top__DOT__alu_inst__DOT____Vtogcov__wmlgc_result;
         IData/*31:0*/ top__DOT__alu_inst__DOT____Vtogcov__wlgc_result;
         QData/*63:0*/ top__DOT____Vtogcov__pc;
