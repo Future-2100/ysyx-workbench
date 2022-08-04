@@ -140,7 +140,7 @@ void run_step(Decode *s, CPU_state *cpu) {
       if( top->ifu_ARVALID == 1 && top->ifu_ARPORT == 4) {
         fetch_req  = true;
         fetch_addr = top->ifu_ARADDR ;
-        printf("1 : fetch_addr = %lx\n", fetch_addr);
+        //printf("1 : fetch_addr = %lx\n", fetch_addr);
 
         /*
         if( top->ifu_ARPORT == 4 ) {
@@ -160,7 +160,7 @@ void run_step(Decode *s, CPU_state *cpu) {
           fetch_req = false;
           top->ifu_ARREADY = 0;
           top->ifu_RVALID  = 1 ;
-          printf("2 : fetch_addr = %lx\n", fetch_addr);
+          //printf("2 : fetch_addr = %lx\n", fetch_addr);
           top->ifu_RDATA   = inst_fetch(&fetch_addr,4);
           top->ifu_RRESP   = 0 ;
         }
