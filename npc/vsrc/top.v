@@ -42,7 +42,6 @@ module top
   wire                br_asrt  ;
   wire                jalr_en  ;
   wire                jal_en   ;
-  wire                dnpc_en  ;
 
   pc_gen pc_gen_inst(
     .clk      (clk) ,
@@ -56,7 +55,6 @@ module top
     .dnxt_pc  ( dnxt_pc    ),
     .snxt_pc  ( snxt_pc    ),
     .pc       ( pc         ),
-    .dnpc_en  ( dnpc_en    ),
     .pc_ld    ( pc_ld      )
   );
 
@@ -195,9 +193,6 @@ memory memory_inst
 );
 
 
-wire           fetch_en  ;
-wire  [IW-1:0] instr_in  ;
-wire  [IW-1:0] instr_out ;
 wire           instr_en  ;
 
 controlor controlor_inst 
@@ -205,11 +200,19 @@ controlor controlor_inst
     .clk         ( clk        ) ,
     .rstn        ( rstn       ) ,
 
-    .instr_in    ( instr_in   ) , 
-    .instr_out   ( instr      ) ,
+    .ifu_ARVALID ( ifu_ARVALID ) ,
+    .ifu_ARREADY ( ifu_ARREADY ) ,
+    .ifu_ARADDR  ( ifu_ARADDR  ) ,
+    .ifu_ARPORT  ( ifu_ARPORT  ) ,
+
+    .ifu_RVALID  ( ifu_RVALID ) , 
+    .ifu_RREADY  ( ifu_RREADY ) , 
+    .ifu_RDATA   ( ifu_RDATA  ) , 
+    .ifu_RRESP   ( ifu_RRESP  ) , 
+
+    .dnxt_pc     ( dnxt_pc    ) ,
+    .instr       ( instr      ) ,
     .instr_en    ( instr_en   ) ,
-    .fetch_en    ( fetch_en   ) ,
-    .dnpc_en     (  dnpc_en   ) ,
     .pc_ld       (  pc_ld     ) ,
 
     .wb_en       ( wb_en      ) ,     
@@ -250,29 +253,6 @@ controlor controlor_inst
     .sd          ( sd         ) ,
 
     .ebreak      ( ebreak     )
-
-);
-
-
-ifu ifu_inst (
-
-   .clk          ( clk          )  , 
-   .rstn         ( rstn         )  , 
-
-   .dnxt_pc      ( dnxt_pc      )  , 
-   .fetch_en     ( fetch_en     )  , 
-   .instr        ( instr_in     )  , 
-   .instr_en     ( instr_en     )  , 
-
-   .ifu_ARVALID  ( ifu_ARVALID  )  , 
-   .ifu_ARREADY  ( ifu_ARREADY  )  , 
-   .ifu_ARADDR   ( ifu_ARADDR   )  , 
-   .ifu_ARPORT   ( ifu_ARPORT   )  , 
-
-   .ifu_RVALID   ( ifu_RVALID   )  , 
-   .ifu_RREADY   ( ifu_RREADY   )  , 
-   .ifu_RDATA    ( ifu_RDATA    )  , 
-   .ifu_RRESP    ( ifu_RRESP    ) 
 
 );
 

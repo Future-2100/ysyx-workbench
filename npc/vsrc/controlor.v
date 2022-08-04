@@ -6,12 +6,20 @@ module controlor
   input  wire            clk        ,
   input  wire            rstn       ,
 
-  input  wire  [IW-1:0]  instr_in   ,
-  output reg   [IW-1:0]  instr_out  ,
-  input  wire            instr_en   ,
-  output wire            fetch_en   ,
-  output wire               pc_ld   ,
-  output wire             dnpc_en   ,
+  output  reg             ifu_ARVALID  ,
+  input   wire            ifu_ARREADY  ,
+  output  reg   [63:0]    ifu_ARADDR   ,
+  output  reg   [2:0]     ifu_ARPORT   ,
+
+  input   wire            ifu_RVALID   ,
+  output  wire            ifu_RREADY   ,
+  input   wire  [63:0]    ifu_RDATA    ,
+  input   wire  [1:0]     ifu_RRESP    ,
+  
+  input  wire   [63:0]    dnxt_pc    ,
+  output wire   [IW-1:0]  instr      ,
+  output wire             instr_en   ,
+  output wire                pc_ld   ,
 
   output  wire  wb_en   ,
   output  wire  wb_load ,
@@ -59,58 +67,52 @@ module controlor
   output  wire  ebreak
 );
 
+assign  pc_ld      = ( ifu_ARVALID && ifu_ARREADY ) ? 1'b1 : 1'b0 ;
+assign  instr_en   = ( ifu_RVALID  && ifu_RREADY && (ifu_RRESP == 2'b00) ) ? 1'b1 : 1'b0 ;
+assign  ifu_RREADY = 1'b1;
+assign  instr      = { 32{instr_en} } & ifu_RDATA[31:0] ;
 
-wire  [31:0]  instr = instr_out;
+parameter IDLE  = 2'b00;
+parameter FETCH = 2'b01;
+parameter EXEC  = 2'b10;
 
-assign dnpc_en = ( instr == 32'b0 ) ? 1'b0 : 1'b1 ;
-
+reg [1:0] cpu_nstate;
+reg [1:0] cpu_cstate;
 always@(posedge clk) begin
   if(!rstn)
-    instr_out <= 32'b0   ;
-  else if(instr_en)
-    instr_out <= instr_in;
+    cpu_cstate <= IDLE;
   else
-    instr_out <= 32'b0   ;
-end
-
-parameter IDLE  = 3'b000;
-parameter FETCH = 3'b001;
-parameter WAIT  = 3'b010;
-parameter EXEC  = 3'b100;
-
-
-reg [2:0] state_now;
-reg [2:0] state_next;
-always@(posedge clk) begin
-  if(!rstn)
-    state_now <= IDLE;
-  else
-    state_now <= state_next;
+    cpu_cstate <= cpu_nstate;
 end
 
 always@(*) begin
-  state_next = IDLE;
-  fetch_en   = 1'b0;
-  case(state_now)
-    IDLE : state_next = FETCH;
-    FETCH: begin
-           state_next = WAIT ;
-           fetch_en   = 1'b1 ;
-         end
-    WAIT : state_next = ( instr_en ) ? EXEC : WAIT;
-    EXEC : state_next = FETCH;
-    default : state_next = IDLE;
+  ifu_ARPORT  =  3'b0 ;
+  ifu_ARADDR  = 64'b0 ;
+  ifu_ARVALID =  1'b0 ;
+  cpu_nstate  =  IDLE ;
+  case (cpu_cstate)
+    IDLE  : cpu_nstate = FETCH;
+    FETCH : begin
+      ifu_ARPORT  = 3'b100 ;
+      ifu_ARADDR  = dnxt_pc;
+      ifu_ARVALID = 1'b1   ;
+      cpu_nstate  = ( ifu_ARREADY ) ? EXEC : FETCH;
+    end
+    EXEC  : begin
+      if( ifu_RVALID && ifu_RRESP==2'b00 ) begin
+        ifu_ARPORT  = 3'b100         ;
+        ifu_ARADDR  = dnxt_pc        ;
+        ifu_ARVALID = 1'b1           ;
+        cpu_nstate  = ( ifu_ARREADY ) ? EXEC : FETCH;
+      end
+      else begin
+        cpu_nstate  =  EXEC          ;
+      end
+    end
+    default : cpu_nstate = FETCH ;
   endcase
 end
 
-always@(posedge clk) begin
-  if(!rstn)
-    pc_ld <= 1'b0;
-  else if (state_now == FETCH)
-    pc_ld <= 1'b1;
-  else
-    pc_ld <= 1'b0;
-end
 
 
   wire  [6:0] opcode  = instr[6:0] ;

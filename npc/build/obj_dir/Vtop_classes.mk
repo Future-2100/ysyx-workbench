@@ -29,13 +29,11 @@ VM_CLASSES_FAST += \
 	Vtop__Dpi_Export_0 \
 	Vtop___024root \
 	Vtop___024root__1 \
-	Vtop___024root__2 \
 
 # Generated module classes, non-fast-path, compile with low/medium optimization
 VM_CLASSES_SLOW += \
 	Vtop___024root__Slow \
 	Vtop___024root__1__Slow \
-	Vtop___024root__2__Slow \
 
 # Generated support classes, fast-path, compile with highest optimization
 VM_SUPPORT_FAST += \
