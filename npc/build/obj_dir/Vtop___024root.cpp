@@ -54,7 +54,7 @@ void Vtop___024root____Vdpiexp_top__DOT__end_sim_TOP(Vtop__Syms* __restrict vlSy
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root____Vdpiexp_top__DOT__end_sim_TOP\n"); );
     // Variables
     // Body
-    VL_FINISH_MT("/home/grand/ysyx-workbench/npc/vsrc/top.v", 292, "");
+    VL_FINISH_MT("/home/grand/ysyx-workbench/npc/vsrc/Single_Cycle/top.v", 292, "");
     ++(vlSymsp->__Vcoverage[867]);
 }
 
