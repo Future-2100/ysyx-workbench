@@ -139,7 +139,7 @@ end
   assign     jal_en = ( opcode == 7'b1101111 )  ;
   assign    jalr_en = ( opcode == 7'b1100111 )  ;
   assign      br_en = ( opcode == 7'b1100011 )  ;
-  wire      load_en = ( opcode == 7'b0000011 ) & instr_en ;
+  wire      load_en = ( opcode == 7'b0000011 )  ;
   wire     store_en = ( opcode == 7'b0100011 ) & instr_en ;
 
   wire     immop_en = ( opcode == 7'b0010011 ) & ( funct3[1:0] != 2'b01 )  ;
