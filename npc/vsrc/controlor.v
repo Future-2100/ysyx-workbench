@@ -81,7 +81,7 @@ assign  pc_ld = instr_en | first_pc_ld;
 
 assign  instr_en   = ( ifu_RVALID  && ifu_RREADY && (ifu_RRESP == 2'b00) ) ? 1'b1 : 1'b0 ;
 assign  ifu_RREADY = 1'b1;
-assign  instr      = { 32{instr_en} } & ifu_RDATA[31:0] ;
+assign  instr      =  ifu_RDATA[31:0] ;
 
 parameter IDLE  = 2'b00;
 parameter FETCH = 2'b01;
@@ -134,22 +134,22 @@ end
 
   assign  ebreak = ( opcode==7'b1110011 ) & ( funct7==7'b0 ) & ( instr[24:20]==5'b00001 ) ;
 
-  wire       lui_en = ( opcode == 7'b0110111 ) ;
-  wire     auipc_en = ( opcode == 7'b0010111 ) ;
-  assign     jal_en = ( opcode == 7'b1101111 ) ;
-  assign    jalr_en = ( opcode == 7'b1100111 ) ;
-  assign      br_en = ( opcode == 7'b1100011 ) ;
-  wire      load_en = ( opcode == 7'b0000011 ) ;
-  wire     store_en = ( opcode == 7'b0100011 ) ;
+  wire       lui_en = ( opcode == 7'b0110111 )  ;
+  wire     auipc_en = ( opcode == 7'b0010111 )  ;
+  assign     jal_en = ( opcode == 7'b1101111 )  ;
+  assign    jalr_en = ( opcode == 7'b1100111 )  ;
+  assign      br_en = ( opcode == 7'b1100011 )  ;
+  wire      load_en = ( opcode == 7'b0000011 )  ;
+  wire     store_en = ( opcode == 7'b0100011 )  ;
 
-  wire     immop_en = ( opcode == 7'b0010011 ) & ( funct3[1:0] != 2'b01 ) ;
-  wire     immsf_en = ( opcode == 7'b0010011 ) & ( funct3[1:0] == 2'b01 ) ;
-  wire    wimmop_en = ( opcode == 7'b0011011 ) & ( funct3[1:0] != 2'b01 ) ;
-  wire    wimmsf_en = ( opcode == 7'b0011011 ) & ( funct3[1:0] == 2'b01 ) ;
-  wire      rsop_en = ( opcode == 7'b0110011 ) & ( funct7[0]   == 1'b0  ) ;
-  wire     wrsop_en = ( opcode == 7'b0111011 ) & ( funct7[0]   == 1'b0  ) ;
-  wire     mrsop_en = ( opcode == 7'b0110011 ) & ( funct7[0]   == 1'b1  ) ;
-  wire    wmrsop_en = ( opcode == 7'b0111011 ) & ( funct7[0]   == 1'b1  ) ;
+  wire     immop_en = ( opcode == 7'b0010011 ) & ( funct3[1:0] != 2'b01 )  ;
+  wire     immsf_en = ( opcode == 7'b0010011 ) & ( funct3[1:0] == 2'b01 )  ;
+  wire    wimmop_en = ( opcode == 7'b0011011 ) & ( funct3[1:0] != 2'b01 )  ;
+  wire    wimmsf_en = ( opcode == 7'b0011011 ) & ( funct3[1:0] == 2'b01 )  ;
+  wire      rsop_en = ( opcode == 7'b0110011 ) & ( funct7[0]   == 1'b0  )  ;
+  wire     wrsop_en = ( opcode == 7'b0111011 ) & ( funct7[0]   == 1'b0  )  ;
+  wire     mrsop_en = ( opcode == 7'b0110011 ) & ( funct7[0]   == 1'b1  )  ;
+  wire    wmrsop_en = ( opcode == 7'b0111011 ) & ( funct7[0]   == 1'b1  )  ;
 
   assign  I_type = jalr_en | load_en | immop_en | immsf_en | wimmop_en | wimmsf_en ;
   assign  S_type = store_en  ;
@@ -186,18 +186,18 @@ end
   assign  mlgc_en =  mrsop_en ;
   assign wmlgc_en = wmrsop_en ;
 
-  assign  lb  = load_en & ( funct3 == 3'b000 ) ;
-  assign  lh  = load_en & ( funct3 == 3'b001 ) ;
-  assign  lw  = load_en & ( funct3 == 3'b010 ) ;
-  assign  ld  = load_en & ( funct3 == 3'b011 ) ;
-  assign  lbu = load_en & ( funct3 == 3'b100 ) ;
-  assign  lhu = load_en & ( funct3 == 3'b101 ) ;
-  assign  lwu = load_en & ( funct3 == 3'b110 ) ;
+  assign  lb  = load_en & ( funct3 == 3'b000 ) & instr_en ;
+  assign  lh  = load_en & ( funct3 == 3'b001 ) & instr_en ;
+  assign  lw  = load_en & ( funct3 == 3'b010 ) & instr_en ;
+  assign  ld  = load_en & ( funct3 == 3'b011 ) & instr_en ;
+  assign  lbu = load_en & ( funct3 == 3'b100 ) & instr_en ;
+  assign  lhu = load_en & ( funct3 == 3'b101 ) & instr_en ;
+  assign  lwu = load_en & ( funct3 == 3'b110 ) & instr_en ;
 
-  assign  sb  = store_en & ( funct3 == 3'b000 ) ;
-  assign  sh  = store_en & ( funct3 == 3'b001 ) ;
-  assign  sw  = store_en & ( funct3 == 3'b010 ) ;
-  assign  sd  = store_en & ( funct3 == 3'b011 ) ;
+  assign  sb  = store_en & ( funct3 == 3'b000 ) & instr_en ;
+  assign  sh  = store_en & ( funct3 == 3'b001 ) & instr_en ;
+  assign  sw  = store_en & ( funct3 == 3'b010 ) & instr_en ;
+  assign  sd  = store_en & ( funct3 == 3'b011 ) & instr_en ;
 
   assign  wb_load = load_en;
   assign  wb_pc   = jal_en | jalr_en ;
@@ -205,7 +205,7 @@ end
                     immsf_en | wimmop_en | wimmsf_en | wrsop_en |
                     mrsop_en | wmrsop_en ;
 
-  assign wb_en = wb_load | wb_pc | wb_alu ;
+  assign wb_en = ( wb_load | wb_pc | wb_alu ) & instr_en ;
 
 endmodule
 

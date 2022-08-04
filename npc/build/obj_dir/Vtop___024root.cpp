@@ -2866,10 +2866,10 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__5(Vtop___024root* vlSelf) {
     }
 }
 
-VL_INLINE_OPT void Vtop___024root___combo__TOP__8(Vtop___024root* vlSelf) {
+VL_INLINE_OPT void Vtop___024root___combo__TOP__7(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___combo__TOP__8\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___combo__TOP__7\n"); );
     // Variables
     VlWide<4>/*127:0*/ __Vtemp5;
     VlWide<4>/*127:0*/ __Vtemp6;
@@ -2930,8 +2930,7 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__8(Vtop___024root* vlSelf) {
             }
         }
     }
-    vlSelf->instr = ((- (IData)((IData)(vlSelf->top__DOT__instr_en))) 
-                     & (IData)(vlSelf->ifu_RDATA));
+    vlSelf->instr = (IData)(vlSelf->ifu_RDATA);
     if (((IData)(vlSelf->top__DOT__pc_ld) ^ (IData)(vlSelf->top__DOT____Vtogcov__pc_ld))) {
         ++(vlSymsp->__Vcoverage[364]);
         vlSelf->top__DOT____Vtogcov__pc_ld = vlSelf->top__DOT__pc_ld;
@@ -3401,28 +3400,39 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__8(Vtop___024root* vlSelf) {
     }
     vlSelf->top__DOT__wb_pc = ((0x6fU == (0x7fU & vlSelf->instr)) 
                                | (0x67U == (0x7fU & vlSelf->instr)));
-    vlSelf->top__DOT__lb = (IData)((3U == (0x707fU 
-                                           & vlSelf->instr)));
-    vlSelf->top__DOT__lh = (IData)((0x1003U == (0x707fU 
-                                                & vlSelf->instr)));
-    vlSelf->top__DOT__lw = (IData)((0x2003U == (0x707fU 
-                                                & vlSelf->instr)));
-    vlSelf->top__DOT__ld = (IData)((0x3003U == (0x707fU 
-                                                & vlSelf->instr)));
-    vlSelf->top__DOT__lbu = (IData)((0x4003U == (0x707fU 
-                                                 & vlSelf->instr)));
-    vlSelf->top__DOT__lhu = (IData)((0x5003U == (0x707fU 
-                                                 & vlSelf->instr)));
-    vlSelf->top__DOT__lwu = (IData)((0x6003U == (0x707fU 
-                                                 & vlSelf->instr)));
-    vlSelf->top__DOT__sb = (IData)((0x23U == (0x707fU 
-                                              & vlSelf->instr)));
-    vlSelf->top__DOT__sh = (IData)((0x1023U == (0x707fU 
-                                                & vlSelf->instr)));
-    vlSelf->top__DOT__sw = (IData)((0x2023U == (0x707fU 
-                                                & vlSelf->instr)));
-    vlSelf->top__DOT__sd = (IData)((0x3023U == (0x707fU 
-                                                & vlSelf->instr)));
+    vlSelf->top__DOT__lb = ((IData)((3U == (0x707fU 
+                                            & vlSelf->instr))) 
+                            & (IData)(vlSelf->top__DOT__instr_en));
+    vlSelf->top__DOT__lh = ((IData)((0x1003U == (0x707fU 
+                                                 & vlSelf->instr))) 
+                            & (IData)(vlSelf->top__DOT__instr_en));
+    vlSelf->top__DOT__lw = ((IData)((0x2003U == (0x707fU 
+                                                 & vlSelf->instr))) 
+                            & (IData)(vlSelf->top__DOT__instr_en));
+    vlSelf->top__DOT__ld = ((IData)((0x3003U == (0x707fU 
+                                                 & vlSelf->instr))) 
+                            & (IData)(vlSelf->top__DOT__instr_en));
+    vlSelf->top__DOT__lbu = ((IData)((0x4003U == (0x707fU 
+                                                  & vlSelf->instr))) 
+                             & (IData)(vlSelf->top__DOT__instr_en));
+    vlSelf->top__DOT__lhu = ((IData)((0x5003U == (0x707fU 
+                                                  & vlSelf->instr))) 
+                             & (IData)(vlSelf->top__DOT__instr_en));
+    vlSelf->top__DOT__lwu = ((IData)((0x6003U == (0x707fU 
+                                                  & vlSelf->instr))) 
+                             & (IData)(vlSelf->top__DOT__instr_en));
+    vlSelf->top__DOT__sb = ((IData)((0x23U == (0x707fU 
+                                               & vlSelf->instr))) 
+                            & (IData)(vlSelf->top__DOT__instr_en));
+    vlSelf->top__DOT__sh = ((IData)((0x1023U == (0x707fU 
+                                                 & vlSelf->instr))) 
+                            & (IData)(vlSelf->top__DOT__instr_en));
+    vlSelf->top__DOT__sw = ((IData)((0x2023U == (0x707fU 
+                                                 & vlSelf->instr))) 
+                            & (IData)(vlSelf->top__DOT__instr_en));
+    vlSelf->top__DOT__sd = ((IData)((0x3023U == (0x707fU 
+                                                 & vlSelf->instr))) 
+                            & (IData)(vlSelf->top__DOT__instr_en));
     vlSelf->top__DOT__pc_en = ((0x17U == (0x7fU & vlSelf->instr)) 
                                | (0x6fU == (0x7fU & vlSelf->instr)));
     vlSelf->top__DOT__rd_data1 = ((0U == (0x1fU & (vlSelf->instr 
@@ -9615,9 +9625,10 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__8(Vtop___024root* vlSelf) {
         ++(vlSymsp->__Vcoverage[634]);
         vlSelf->top__DOT____Vtogcov__wb_alu = vlSelf->top__DOT__wb_alu;
     }
-    vlSelf->top__DOT__wb_en = (((3U == (0x7fU & vlSelf->instr)) 
-                                | (IData)(vlSelf->top__DOT__wb_pc)) 
-                               | (IData)(vlSelf->top__DOT__wb_alu));
+    vlSelf->top__DOT__wb_en = ((((3U == (0x7fU & vlSelf->instr)) 
+                                 | (IData)(vlSelf->top__DOT__wb_pc)) 
+                                | (IData)(vlSelf->top__DOT__wb_alu)) 
+                               & (IData)(vlSelf->top__DOT__instr_en));
     if (((IData)(vlSelf->top__DOT__lgc_en) ^ (IData)(vlSelf->top__DOT____Vtogcov__lgc_en))) {
         ++(vlSymsp->__Vcoverage[834]);
         vlSelf->top__DOT____Vtogcov__lgc_en = vlSelf->top__DOT__lgc_en;
@@ -21218,33 +21229,5 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__8(Vtop___024root* vlSelf) {
                                                                                 (vlSelf->ifu_ARADDR 
                                                                                 >> 0x1dU))))) 
                                                       << 0x1dU));
-    }
-    if ((1U & ((IData)((vlSelf->ifu_ARADDR >> 0x1eU)) 
-               ^ (IData)((vlSelf->top__DOT____Vtogcov__ifu_ARADDR 
-                          >> 0x1eU))))) {
-        ++(vlSymsp->__Vcoverage[258]);
-        vlSelf->top__DOT____Vtogcov__ifu_ARADDR = (
-                                                   (0xffffffffbfffffffULL 
-                                                    & vlSelf->top__DOT____Vtogcov__ifu_ARADDR) 
-                                                   | ((QData)((IData)(
-                                                                      (1U 
-                                                                       & (IData)(
-                                                                                (vlSelf->ifu_ARADDR 
-                                                                                >> 0x1eU))))) 
-                                                      << 0x1eU));
-    }
-    if ((1U & ((IData)((vlSelf->ifu_ARADDR >> 0x1fU)) 
-               ^ (IData)((vlSelf->top__DOT____Vtogcov__ifu_ARADDR 
-                          >> 0x1fU))))) {
-        ++(vlSymsp->__Vcoverage[259]);
-        vlSelf->top__DOT____Vtogcov__ifu_ARADDR = (
-                                                   (0xffffffff7fffffffULL 
-                                                    & vlSelf->top__DOT____Vtogcov__ifu_ARADDR) 
-                                                   | ((QData)((IData)(
-                                                                      (1U 
-                                                                       & (IData)(
-                                                                                (vlSelf->ifu_ARADDR 
-                                                                                >> 0x1fU))))) 
-                                                      << 0x1fU));
     }
 }

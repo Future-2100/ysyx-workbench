@@ -7,11 +7,39 @@
 
 #include "verilated_dpi.h"
 
-VL_INLINE_OPT void Vtop___024root___combo__TOP__9(Vtop___024root* vlSelf) {
+VL_INLINE_OPT void Vtop___024root___combo__TOP__8(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___combo__TOP__9\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___combo__TOP__8\n"); );
     // Body
+    if ((1U & ((IData)((vlSelf->ifu_ARADDR >> 0x1eU)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__ifu_ARADDR 
+                          >> 0x1eU))))) {
+        ++(vlSymsp->__Vcoverage[258]);
+        vlSelf->top__DOT____Vtogcov__ifu_ARADDR = (
+                                                   (0xffffffffbfffffffULL 
+                                                    & vlSelf->top__DOT____Vtogcov__ifu_ARADDR) 
+                                                   | ((QData)((IData)(
+                                                                      (1U 
+                                                                       & (IData)(
+                                                                                (vlSelf->ifu_ARADDR 
+                                                                                >> 0x1eU))))) 
+                                                      << 0x1eU));
+    }
+    if ((1U & ((IData)((vlSelf->ifu_ARADDR >> 0x1fU)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__ifu_ARADDR 
+                          >> 0x1fU))))) {
+        ++(vlSymsp->__Vcoverage[259]);
+        vlSelf->top__DOT____Vtogcov__ifu_ARADDR = (
+                                                   (0xffffffff7fffffffULL 
+                                                    & vlSelf->top__DOT____Vtogcov__ifu_ARADDR) 
+                                                   | ((QData)((IData)(
+                                                                      (1U 
+                                                                       & (IData)(
+                                                                                (vlSelf->ifu_ARADDR 
+                                                                                >> 0x1fU))))) 
+                                                      << 0x1fU));
+    }
     if ((1U & ((IData)((vlSelf->ifu_ARADDR >> 0x20U)) 
                ^ (IData)((vlSelf->top__DOT____Vtogcov__ifu_ARADDR 
                           >> 0x20U))))) {
@@ -3865,7 +3893,7 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__9(Vtop___024root* vlSelf) {
 void Vtop___024root___combo__TOP__3(Vtop___024root* vlSelf);
 void Vtop___024root___sequent__TOP__4(Vtop___024root* vlSelf);
 void Vtop___024root___sequent__TOP__5(Vtop___024root* vlSelf);
-void Vtop___024root___combo__TOP__8(Vtop___024root* vlSelf);
+void Vtop___024root___combo__TOP__7(Vtop___024root* vlSelf);
 
 void Vtop___024root___eval(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -3881,8 +3909,8 @@ void Vtop___024root___eval(Vtop___024root* vlSelf) {
         Vtop___024root___sequent__TOP__5(vlSelf);
         vlSelf->__Vm_traceActivity[2U] = 1U;
     }
+    Vtop___024root___combo__TOP__7(vlSelf);
     Vtop___024root___combo__TOP__8(vlSelf);
-    Vtop___024root___combo__TOP__9(vlSelf);
     // Final
     vlSelf->__Vclklast__TOP__clk = vlSelf->clk;
 }
