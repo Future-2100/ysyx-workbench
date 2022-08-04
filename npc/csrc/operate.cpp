@@ -163,11 +163,10 @@ void run_step(Decode *s, CPU_state *cpu) {
           //printf("2 : fetch_addr = %lx\n", fetch_addr);
           top->ifu_RDATA   = inst_fetch(&fetch_addr,4);
           top->ifu_RRESP   = 0 ;
+          if( top->ifu_RREADY==1 ) {
+            top->ifu_ARREADY = 1;
+          }
         }
-      }
-
-      if( top->ifu_RREADY==1 && top->ifu_RVALID==1 ) {
-        top->ifu_ARREADY = 1;
       }
 
       s->snpc = top->snxt_pc;
