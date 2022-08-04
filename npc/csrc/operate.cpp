@@ -116,14 +116,15 @@ extern "C" void vmem_read(long long raddr, long long *rdata , char ren) {
   }
 }
 
+bool fetch_req = false;
+
 void run_step(Decode *s, CPU_state *cpu) {
 
 //  int j=2;
 //  while ( j-- && ( !contextp->gotFinish() ) ) {
 
-  //int i = 5;
-  //while( i-- ) {
-      uintptr_t ifu_addr ;
+  
+  vaddr_t *fetch_addr = 0;
       top->clk  = !top->clk;   //posedge clk
       //top->inst = inst_fetch(&top->dnxt_pc, 4);
       top->eval();
@@ -136,7 +137,10 @@ void run_step(Decode *s, CPU_state *cpu) {
       contextp->timeInc(10);
 
       //if(top->instr != 0) {
-      if(top->ifu_ARVALID == 1 ) {
+      if( top->ifu_ARVALID == 1 && top->ifu_ARPORT == 4) {
+        fetch_req  = true;
+        fetch_addr = (vaddr_t *)top->ifu_ARADDR ;
+        /*
         if( top->ifu_ARPORT == 4 ) {
           top->ifu_ARREADY = 0 ;
           top->ifu_RVALID  = (rand()%2) ;
@@ -146,6 +150,17 @@ void run_step(Decode *s, CPU_state *cpu) {
         else {
           printf(" ARPORT code error : %d \n", top->ifu_ARPORT);
         } 
+        */
+      }
+      if( fetch_req == true ) {
+        int ready = rand()%2;
+        if(ready == 1) {
+          fetch_req = false;
+          top->ifu_ARREADY = 0;
+          top->ifu_RVALID  = 1 ;
+          top->ifu_RDATA   = inst_fetch(fetch_addr,4);
+          top->ifu_RRESP   = 0 ;
+        }
       }
 
       if( top->ifu_RREADY==1 && top->ifu_RVALID==1 ) {
