@@ -12,6 +12,20 @@ void Vtop___024root___settle__TOP__7(Vtop___024root* vlSelf) {
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___settle__TOP__7\n"); );
     // Body
+    if ((1U & ((IData)((vlSelf->ifu_ARADDR >> 0x31U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__ifu_ARADDR 
+                          >> 0x31U))))) {
+        ++(vlSymsp->__Vcoverage[277]);
+        vlSelf->top__DOT____Vtogcov__ifu_ARADDR = (
+                                                   (0xfffdffffffffffffULL 
+                                                    & vlSelf->top__DOT____Vtogcov__ifu_ARADDR) 
+                                                   | ((QData)((IData)(
+                                                                      (1U 
+                                                                       & (IData)(
+                                                                                (vlSelf->ifu_ARADDR 
+                                                                                >> 0x31U))))) 
+                                                      << 0x31U));
+    }
     if ((1U & ((IData)((vlSelf->ifu_ARADDR >> 0x32U)) 
                ^ (IData)((vlSelf->top__DOT____Vtogcov__ifu_ARADDR 
                           >> 0x32U))))) {
@@ -3807,6 +3821,7 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__memory_inst__DOT____Vtogcov__lbu_data = 0;
     vlSelf->top__DOT__memory_inst__DOT____Vtogcov__lhu_data = 0;
     vlSelf->top__DOT__memory_inst__DOT____Vtogcov__lwu_data = 0;
+    vlSelf->top__DOT__controlor_inst__DOT__first_pc_ld = 0;
     vlSelf->top__DOT__controlor_inst__DOT__cpu_nstate = 0;
     vlSelf->top__DOT__controlor_inst__DOT__cpu_cstate = 0;
     vlSelf->top__DOT__controlor_inst__DOT__immop_en = 0;
@@ -3818,6 +3833,7 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__controlor_inst__DOT__mrsop_en = 0;
     vlSelf->top__DOT__controlor_inst__DOT__wmrsop_en = 0;
     vlSelf->top__DOT__controlor_inst__DOT__R_type = 0;
+    vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__first_pc_ld = 0;
     vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__cpu_nstate = 0;
     vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__cpu_cstate = 0;
     vlSelf->top__DOT__controlor_inst__DOT____Vtogcov__lui_en = 0;
@@ -8632,48 +8648,53 @@ void Vtop___024root___configure_coverage(Vtop___024root* vlSelf, bool first) {
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[861]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 64, 17, ".top.controlor_inst", "v_toggle/controlor", "sw", "");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[862]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 65, 17, ".top.controlor_inst", "v_toggle/controlor", "sd", "");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[363]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 67, 17, ".top.controlor_inst", "v_toggle/controlor", "ebreak", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2268]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 79, 11, ".top.controlor_inst", "v_toggle/controlor", "cpu_nstate[0]", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2269]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 79, 11, ".top.controlor_inst", "v_toggle/controlor", "cpu_nstate[1]", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2270]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 80, 11, ".top.controlor_inst", "v_toggle/controlor", "cpu_cstate[0]", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2271]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 80, 11, ".top.controlor_inst", "v_toggle/controlor", "cpu_cstate[1]", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2272]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 82, 3, ".top.controlor_inst", "v_branch/controlor", "if", "82-83");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2273]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 82, 4, ".top.controlor_inst", "v_branch/controlor", "else", "85");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2274]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 81, 1, ".top.controlor_inst", "v_line/controlor", "block", "81");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2275]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 94, 11, ".top.controlor_inst", "v_line/controlor", "case", "94");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2276]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 95, 11, ".top.controlor_inst", "v_line/controlor", "case", "95-99");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2277]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 102, 7, ".top.controlor_inst", "v_branch/controlor", "if", "102-106");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2278]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 102, 8, ".top.controlor_inst", "v_branch/controlor", "else", "108-109");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2279]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 101, 11, ".top.controlor_inst", "v_line/controlor", "case", "101");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2280]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 112, 5, ".top.controlor_inst", "v_line/controlor", "case", "112");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2281]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 88, 1, ".top.controlor_inst", "v_line/controlor", "block", "88-93");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[194]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 118, 15, ".top.controlor_inst", "v_toggle/controlor", "opcode[0]", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[195]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 118, 15, ".top.controlor_inst", "v_toggle/controlor", "opcode[1]", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[196]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 118, 15, ".top.controlor_inst", "v_toggle/controlor", "opcode[2]", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[197]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 118, 15, ".top.controlor_inst", "v_toggle/controlor", "opcode[3]", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[198]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 118, 15, ".top.controlor_inst", "v_toggle/controlor", "opcode[4]", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[199]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 118, 15, ".top.controlor_inst", "v_toggle/controlor", "opcode[5]", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[200]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 118, 15, ".top.controlor_inst", "v_toggle/controlor", "opcode[6]", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[206]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 120, 15, ".top.controlor_inst", "v_toggle/controlor", "funct3[0]", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[207]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 120, 15, ".top.controlor_inst", "v_toggle/controlor", "funct3[1]", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[208]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 120, 15, ".top.controlor_inst", "v_toggle/controlor", "funct3[2]", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[219]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 122, 15, ".top.controlor_inst", "v_toggle/controlor", "funct7[0]", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[220]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 122, 15, ".top.controlor_inst", "v_toggle/controlor", "funct7[1]", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[221]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 122, 15, ".top.controlor_inst", "v_toggle/controlor", "funct7[2]", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[222]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 122, 15, ".top.controlor_inst", "v_toggle/controlor", "funct7[3]", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[223]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 122, 15, ".top.controlor_inst", "v_toggle/controlor", "funct7[4]", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[224]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 122, 15, ".top.controlor_inst", "v_toggle/controlor", "funct7[5]", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[225]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 122, 15, ".top.controlor_inst", "v_toggle/controlor", "funct7[6]", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2282]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 126, 14, ".top.controlor_inst", "v_toggle/controlor", "lui_en", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2283]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 127, 12, ".top.controlor_inst", "v_toggle/controlor", "auipc_en", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[632]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 131, 13, ".top.controlor_inst", "v_toggle/controlor", "load_en", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[828]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 132, 12, ".top.controlor_inst", "v_toggle/controlor", "store_en", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2284]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 134, 12, ".top.controlor_inst", "v_toggle/controlor", "immop_en", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2285]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 135, 12, ".top.controlor_inst", "v_toggle/controlor", "immsf_en", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2286]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 136, 11, ".top.controlor_inst", "v_toggle/controlor", "wimmop_en", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2287]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 137, 11, ".top.controlor_inst", "v_toggle/controlor", "wimmsf_en", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2288]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 138, 13, ".top.controlor_inst", "v_toggle/controlor", "rsop_en", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2289]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 139, 12, ".top.controlor_inst", "v_toggle/controlor", "wrsop_en", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[845]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 140, 12, ".top.controlor_inst", "v_toggle/controlor", "mrsop_en", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[846]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 141, 11, ".top.controlor_inst", "v_toggle/controlor", "wmrsop_en", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2290]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 148, 11, ".top.controlor_inst", "v_toggle/controlor", "R_type", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2268]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 70, 5, ".top.controlor_inst", "v_toggle/controlor", "first_pc_ld", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2269]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 74, 8, ".top.controlor_inst", "v_line/controlor", "if", "74-75");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2270]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 74, 9, ".top.controlor_inst", "v_line/controlor", "else", "77");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2271]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 72, 3, ".top.controlor_inst", "v_line/controlor", "elsif", "72-73");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2272]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 71, 1, ".top.controlor_inst", "v_line/controlor", "block", "71");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2273]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 90, 11, ".top.controlor_inst", "v_toggle/controlor", "cpu_nstate[0]", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2274]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 90, 11, ".top.controlor_inst", "v_toggle/controlor", "cpu_nstate[1]", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2275]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 91, 11, ".top.controlor_inst", "v_toggle/controlor", "cpu_cstate[0]", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2276]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 91, 11, ".top.controlor_inst", "v_toggle/controlor", "cpu_cstate[1]", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2277]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 93, 3, ".top.controlor_inst", "v_branch/controlor", "if", "93-94");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2278]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 93, 4, ".top.controlor_inst", "v_branch/controlor", "else", "96");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2279]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 92, 1, ".top.controlor_inst", "v_line/controlor", "block", "92");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2280]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 105, 11, ".top.controlor_inst", "v_line/controlor", "case", "105");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2281]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 106, 11, ".top.controlor_inst", "v_line/controlor", "case", "106-110");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2282]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 113, 7, ".top.controlor_inst", "v_branch/controlor", "if", "113-117");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2283]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 113, 8, ".top.controlor_inst", "v_branch/controlor", "else", "119-120");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2284]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 112, 11, ".top.controlor_inst", "v_line/controlor", "case", "112");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2285]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 123, 5, ".top.controlor_inst", "v_line/controlor", "case", "123");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2286]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 99, 1, ".top.controlor_inst", "v_line/controlor", "block", "99-104");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[194]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 129, 15, ".top.controlor_inst", "v_toggle/controlor", "opcode[0]", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[195]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 129, 15, ".top.controlor_inst", "v_toggle/controlor", "opcode[1]", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[196]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 129, 15, ".top.controlor_inst", "v_toggle/controlor", "opcode[2]", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[197]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 129, 15, ".top.controlor_inst", "v_toggle/controlor", "opcode[3]", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[198]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 129, 15, ".top.controlor_inst", "v_toggle/controlor", "opcode[4]", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[199]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 129, 15, ".top.controlor_inst", "v_toggle/controlor", "opcode[5]", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[200]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 129, 15, ".top.controlor_inst", "v_toggle/controlor", "opcode[6]", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[206]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 131, 15, ".top.controlor_inst", "v_toggle/controlor", "funct3[0]", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[207]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 131, 15, ".top.controlor_inst", "v_toggle/controlor", "funct3[1]", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[208]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 131, 15, ".top.controlor_inst", "v_toggle/controlor", "funct3[2]", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[219]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 133, 15, ".top.controlor_inst", "v_toggle/controlor", "funct7[0]", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[220]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 133, 15, ".top.controlor_inst", "v_toggle/controlor", "funct7[1]", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[221]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 133, 15, ".top.controlor_inst", "v_toggle/controlor", "funct7[2]", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[222]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 133, 15, ".top.controlor_inst", "v_toggle/controlor", "funct7[3]", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[223]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 133, 15, ".top.controlor_inst", "v_toggle/controlor", "funct7[4]", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[224]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 133, 15, ".top.controlor_inst", "v_toggle/controlor", "funct7[5]", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[225]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 133, 15, ".top.controlor_inst", "v_toggle/controlor", "funct7[6]", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2287]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 137, 14, ".top.controlor_inst", "v_toggle/controlor", "lui_en", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2288]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 138, 12, ".top.controlor_inst", "v_toggle/controlor", "auipc_en", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[632]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 142, 13, ".top.controlor_inst", "v_toggle/controlor", "load_en", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[828]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 143, 12, ".top.controlor_inst", "v_toggle/controlor", "store_en", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2289]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 145, 12, ".top.controlor_inst", "v_toggle/controlor", "immop_en", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2290]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 146, 12, ".top.controlor_inst", "v_toggle/controlor", "immsf_en", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2291]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 147, 11, ".top.controlor_inst", "v_toggle/controlor", "wimmop_en", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2292]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 148, 11, ".top.controlor_inst", "v_toggle/controlor", "wimmsf_en", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2293]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 149, 13, ".top.controlor_inst", "v_toggle/controlor", "rsop_en", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2294]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 150, 12, ".top.controlor_inst", "v_toggle/controlor", "wrsop_en", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[845]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 151, 12, ".top.controlor_inst", "v_toggle/controlor", "mrsop_en", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[846]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 152, 11, ".top.controlor_inst", "v_toggle/controlor", "wmrsop_en", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2295]), first, "/home/grand/ysyx-workbench/npc/vsrc/controlor.v", 159, 11, ".top.controlor_inst", "v_toggle/controlor", "R_type", "");
 }
