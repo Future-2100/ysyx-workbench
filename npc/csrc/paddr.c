@@ -30,9 +30,11 @@ static void pmem_write(paddr_t addr, int len, word_t data) {
 #endif
 }
 
+/*
 void delete_module();
 extern Vtop* top;
 extern VerilatedContext* contextp;
+*/
 static void out_of_bound(paddr_t addr) {
 
   /*
@@ -42,11 +44,11 @@ static void out_of_bound(paddr_t addr) {
   top->clk = !top->clk;
   top->eval();
   delete_module();
+  */
 
     panic("address = " FMT_PADDR " is out of bound of pmem [" FMT_PADDR ", " FMT_PADDR "] at pc = " FMT_WORD,
               addr, (paddr_t)CONFIG_MBASE, (paddr_t)CONFIG_MBASE + CONFIG_MSIZE - 1, cpu.pc);
 
-  */
 }
 
 void init_mem() {
