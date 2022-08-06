@@ -114,22 +114,22 @@ module alu(
   wire   [31:0]  opmw_remw   = (   $signed(wopdata_1) %   $signed(wopdata_2) ) ;
   wire   [31:0]  opmw_remuw  = ( $unsigned(wopdata_1) % $unsigned(wopdata_2) ) ;
 
-  wire   [31:0]  opmw_result = ( { 32{ opcode == 4'b0000 } } & opiw_mulw ) |
-                               ( { 32{ opcode == 4'b0100 } } & opiw_divw ) |
-                               ( { 32{ opcode == 4'b0101 } } & opiw_divuw) |
-                               ( { 32{ opcode == 4'b0110 } } & opiw_remw ) |
-                               ( { 32{ opcode == 4'b0111 } } & opiw_remuw) ;
+  wire   [31:0]  opmw_result = ( { 32{ opcode == 4'b0000 } } & opmw_mulw ) |
+                               ( { 32{ opcode == 4'b0100 } } & opmw_divw ) |
+                               ( { 32{ opcode == 4'b0101 } } & opmw_divuw) |
+                               ( { 32{ opcode == 4'b0110 } } & opmw_remw ) |
+                               ( { 32{ opcode == 4'b0111 } } & opmw_remuw) ;
 
-  assign  alu_result =  {64{opid_en}} & opid_result | 
-                        {64{opmd_en}} & opmd_result | 
-                        {64{opiw_en}} & { 32{opiw_result[31]}, opiw_result } | 
-                        {64{opmw_en}} & { 32{opmw_result[31]}, opmw_result } ;
+  assign  alu_result =  ( {64{opid_en}} & opid_result ) | 
+                        ( {64{opmd_en}} & opmd_result ) | 
+                        ( {64{opiw_en}} & { {32{opiw_result[31]}}, opiw_result } ) | 
+                        ( {64{opmw_en}} & { {32{opmw_result[31]}}, opmw_result } ) ;
 
 
-  assign  branch_result = ( (branch_opcode == 3'b000) & (   $singed(opdata_1) ==   $signed(opdata_2) ) ) |
-                          ( (branch_opcode == 3'b001) & (   $singed(opdata_1) !=   $signed(opdata_2) ) ) |
-                          ( (branch_opcode == 3'b100) & (   $singed(opdata_1) >    $signed(opdata_2) ) ) |
-                          ( (branch_opcode == 3'b101) & (   $singed(opdata_1) <=   $signed(opdata_2) ) ) |
+  assign  branch_result = ( (branch_opcode == 3'b000) & (   $signed(opdata_1) ==   $signed(opdata_2) ) ) |
+                          ( (branch_opcode == 3'b001) & (   $signed(opdata_1) !=   $signed(opdata_2) ) ) |
+                          ( (branch_opcode == 3'b100) & (   $signed(opdata_1) >    $signed(opdata_2) ) ) |
+                          ( (branch_opcode == 3'b101) & (   $signed(opdata_1) <=   $signed(opdata_2) ) ) |
                           ( (branch_opcode == 3'b110) & ( $unsigned(opdata_1) >  $unsigned(opdata_2) ) ) |
                           ( (branch_opcode == 3'b111) & ( $unsigned(opdata_1) <= $unsigned(opdata_2) ) ) ;
 

@@ -59,7 +59,7 @@ static void single_cycle() {
 
 void reset(int n) {
   top->rstn = 0;
-  top->ifu_ARREADY = 0;
+  //top->ifu_ARREADY = 0;
   while( n-- > 0) single_cycle();
   top->rstn = 1;
   top->clk = !top->clk;

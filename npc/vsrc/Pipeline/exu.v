@@ -39,24 +39,25 @@ module exu(
   input   wire         idu_wb_en         ,
   input   wire  [2:0]  idu_wb_choose     ,
 
-  output  wire  [4:0]  exu_index_rd      ,
-  output  wire  [4:0]  exu_index_rs1     ,
-  output  wire  [4:0]  exu_index_rs2     ,
+  output  reg   [4:0]  exu_index_rd      ,
+  output  reg   [4:0]  exu_index_rs1     ,
+  output  reg   [4:0]  exu_index_rs2     ,
 
-  output  wire         exu_jump_en       ,
-  output  wire         exu_branch_en     ,
+  output  reg          exu_jump_en       ,
+  output  reg          exu_branch_en     ,
 
-  output  wire  [63:0] exu_branch_pc      ,
-  output  wire         exu_branch_result  ,
-  output  wire  [63:0] exu_alu_result     ,
-  output  wire  [63:0] exu_gpr_data2      ,
+  output  reg   [63:0] exu_branch_pc      ,
+  output  reg          exu_branch_result  ,
+  output  reg   [63:0] exu_alu_result     ,
+  output  reg   [63:0] exu_gpr_data2      ,
+  output  reg   [63:0] exu_imm            ,
 
-  output  wire         exu_load_en        ,
-  output  wire  [2:0]  exu_load_opcode    ,
-  output  wire         exu_store_en       ,
-  output  wire  [3:0]  exu_store_len      ,
-  output  wire         exu_wb_en          ,
-  output  wire  [2:0]  exu_wb_choose      
+  output  reg          exu_load_en        ,
+  output  reg   [2:0]  exu_load_opcode    ,
+  output  reg          exu_store_en       ,
+  output  reg   [3:0]  exu_store_len      ,
+  output  reg          exu_wb_en          ,
+  output  reg   [2:0]  exu_wb_choose      
 
 );
 
@@ -68,7 +69,7 @@ alu alu_inst(
      .fw_en1          (     fw_en1         ),
      .fw_data         (     fw_data        ),
      .gpr_data1       ( idu_gpr_data1      ),
-     .imm_en          ( idu_imm_en         ),
+     .imm_en          ( idu_alu_imm_en     ),
      .imm             ( idu_imm            ),
      .fw_en2          (     fw_en2         ),
      .gpr_data2       ( idu_gpr_data2      ),
@@ -99,6 +100,7 @@ branch_pc_adder branch_pc_adder_inst(
          exu_branch_result  <=   'b0  ; 
          exu_alu_result     <=   'b0  ; 
          exu_gpr_data2      <=   'b0  ; 
+         exu_imm            <=   'b0  ;
          exu_load_en        <=   'b0  ; 
          exu_load_opcode    <=   'b0  ; 
          exu_store_en       <=   'b0  ; 
@@ -112,10 +114,11 @@ branch_pc_adder branch_pc_adder_inst(
          exu_index_rs2      <=   idu_index_rs2      ; 
          exu_jump_en        <=             'b0      ; 
          exu_branch_en      <=             'b0      ; 
-         exu_branch_pc      <=   idu_branch_pc      ; 
+         exu_branch_pc      <=       branch_pc      ; 
          exu_branch_result  <=             'b0      ; 
-         exu_alu_result     <=   idu_alu_result     ; 
+         exu_alu_result     <=       alu_result     ; 
          exu_gpr_data2      <=   idu_gpr_data2      ; 
+         exu_imm            <=   idu_imm            ;
          exu_load_en        <=             'b0      ; 
          exu_load_opcode    <=   idu_load_opcode    ; 
          exu_store_en       <=             'b0      ; 
@@ -133,6 +136,7 @@ branch_pc_adder branch_pc_adder_inst(
          exu_branch_result  <=       branch_result  ; 
          exu_alu_result     <=       alu_result     ; 
          exu_gpr_data2      <=   idu_gpr_data2      ; 
+         exu_imm            <=   idu_imm            ;
          exu_load_en        <=   idu_load_en        ; 
          exu_load_opcode    <=   idu_load_opcode    ; 
          exu_store_en       <=   idu_store_en       ; 

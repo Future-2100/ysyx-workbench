@@ -1,4 +1,7 @@
 module mmu(
+  input   wire            clk                 ,
+  input   wire            rstn                ,
+
   input   wire    [4:0]   exu_index_rd        ,
   input   wire    [4:0]   exu_index_rs1       ,
   input   wire    [4:0]   exu_index_rs2       ,
@@ -35,7 +38,7 @@ module mmu(
   output  wire    [3:0]   mm_wlen             , 
   output  wire            mm_wen              , 
   output  wire            mm_ren              , 
-  output  wire    [63:0]  mm_rdata            
+  input   wire    [63:0]  mm_rdata            
 
 );
 
@@ -81,7 +84,7 @@ memory memory_inst(
   reg     [2:0]   mmu_wb_choose       ;
 
   always@(posedge clk) begin
-    if(!rsnt) begin
+    if(!rstn) begin
       mmu_index_rd  <=   'b0  ;
       mmu_alu_data  <=   'b0  ;
       mmu_load_data <=   'b0  ;
@@ -92,7 +95,7 @@ memory memory_inst(
       mmu_index_rd  <= exu_index_rd    ;
       mmu_alu_data  <= exu_alu_result  ;
       mmu_load_data <= load_data       ;
-      mmu_imm_data  <= exu_umm         ;
+      mmu_imm_data  <= exu_imm         ;
       mmu_wb_choose <= exu_wb_choose   ;
       mmu_wb_en     <= exu_wb_en       ;
     end

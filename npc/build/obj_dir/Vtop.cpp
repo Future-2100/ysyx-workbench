@@ -14,18 +14,10 @@ Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     , clk{vlSymsp->TOP.clk}
     , rstn{vlSymsp->TOP.rstn}
     , pc{vlSymsp->TOP.pc}
+    , instr{vlSymsp->TOP.instr}
+    , ebreak{vlSymsp->TOP.ebreak}
     , snxt_pc{vlSymsp->TOP.snxt_pc}
     , dnxt_pc{vlSymsp->TOP.dnxt_pc}
-    , instr{vlSymsp->TOP.instr}
-    , ifu_ARVALID{vlSymsp->TOP.ifu_ARVALID}
-    , ifu_ARREADY{vlSymsp->TOP.ifu_ARREADY}
-    , ifu_ARADDR{vlSymsp->TOP.ifu_ARADDR}
-    , ifu_ARPORT{vlSymsp->TOP.ifu_ARPORT}
-    , ifu_RVALID{vlSymsp->TOP.ifu_RVALID}
-    , ifu_RREADY{vlSymsp->TOP.ifu_RREADY}
-    , ifu_RDATA{vlSymsp->TOP.ifu_RDATA}
-    , ifu_RRESP{vlSymsp->TOP.ifu_RRESP}
-    , ebreak{vlSymsp->TOP.ebreak}
     , rootp{&(vlSymsp->TOP)}
 {
 }
@@ -72,7 +64,7 @@ static void _eval_initial_loop(Vtop__Syms* __restrict vlSymsp) {
             Verilated::debug(1);
             __Vchange = Vtop___024root___change_request(&(vlSymsp->TOP));
             Verilated::debug(__Vsaved_debug);
-            VL_FATAL_MT("/home/grand/ysyx-workbench/npc/vsrc/Single_Cycle/top.v", 1, "",
+            VL_FATAL_MT("/home/grand/ysyx-workbench/npc/vsrc/Pipeline/top.v", 1, "",
                 "Verilated model didn't DC converge\n"
                 "- See https://verilator.org/warn/DIDNOTCONVERGE");
         } else {
@@ -103,7 +95,7 @@ void Vtop::eval_step() {
             Verilated::debug(1);
             __Vchange = Vtop___024root___change_request(&(vlSymsp->TOP));
             Verilated::debug(__Vsaved_debug);
-            VL_FATAL_MT("/home/grand/ysyx-workbench/npc/vsrc/Single_Cycle/top.v", 1, "",
+            VL_FATAL_MT("/home/grand/ysyx-workbench/npc/vsrc/Pipeline/top.v", 1, "",
                 "Verilated model didn't converge\n"
                 "- See https://verilator.org/warn/DIDNOTCONVERGE");
         } else {

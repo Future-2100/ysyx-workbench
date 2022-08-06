@@ -11,36 +11,36 @@ module idu(
   input   wire    [31:0]    ifu_instr        ,
   input   wire    [63:0]    ifu_pc           ,
 
-  output  wire    [4:0]     idu_index_rs1    ,
-  output  wire    [4:0]     idu_index_rs2    ,
-  output  wire    [4:0]     idu_index_rd     ,
+  output  reg     [4:0]     idu_index_rs1    ,
+  output  reg     [4:0]     idu_index_rs2    ,
+  output  reg     [4:0]     idu_index_rd     ,
 
 //  ******** operation data for alu ********  //
-  output  wire    [63:0]    idu_pc           ,
-  output  wire    [63:0]    idu_gpr_data1    ,
-  output  wire    [63:0]    idu_imm          ,
-  output  wire    [63:0]    idu_gpr_data2    ,
+  output  reg     [63:0]    idu_pc           ,
+  output  reg     [63:0]    idu_gpr_data1    ,
+  output  reg     [63:0]    idu_imm          ,
+  output  reg     [63:0]    idu_gpr_data2    ,
 
 //  ******** control signal for alu ********  //
-  output  wire    [4:0]     idu_alu_opcode    ,
-  output  wire              idu_alu_en        ,
-  output  wire              idu_alu_imm_en    ,
-  output  wire              idu_alu_pc_en     ,
-  output  wire    [2:0]     idu_branch_opcode ,
-  output  wire              idu_alu_halfop    ,
-  //output  wire              idu_branch_en     ,
+  output  reg     [4:0]     idu_alu_opcode    ,
+  output  reg               idu_alu_en        ,
+  output  reg               idu_alu_imm_en    ,
+  output  reg               idu_alu_pc_en     ,
+  output  reg     [2:0]     idu_branch_opcode ,
+  output  reg               idu_alu_halfop    ,
+  //output  reg               idu_branch_en     ,
 
 //  ******** control signal for memory stage ********  //
-  output  wire              idu_jump_en       ,
-  output  wire              idu_branch_en     ,
-  output  wire              idu_load_en       ,
-  output  wire    [2:0]     idu_load_opcode   ,
-  output  wire              idu_store_en      ,
-  output  wire    [3:0]     idu_store_len     ,
+  output  reg               idu_jump_en       ,
+  output  reg               idu_branch_en     ,
+  output  reg               idu_load_en       ,
+  output  reg     [2:0]     idu_load_opcode   ,
+  output  reg               idu_store_en      ,
+  output  reg     [3:0]     idu_store_len     ,
 
 //  ******** control signal for write back stage ********  //
-  output  wire              idu_wb_en         ,
-  output  wire    [2:0]     idu_wb_choose     ,
+  output  reg               idu_wb_en         ,
+  output  reg     [2:0]     idu_wb_choose     ,
 
 //  ******** control signal from write back stage ********  //
   input   wire    [63:0]    mmu_wb_data       ,
@@ -57,7 +57,7 @@ wire  [63:0]       pc   = ifu_pc ;
 
 wire  [63:0]  gpr_data1 ;
 wire  [63:0]  gpr_data2 ;
-reg_file reg_regfile_inst (
+regfile regfile_inst (
   .clk  ( clk  ) ,
   .rstn ( rstn ) ,
 
@@ -68,7 +68,7 @@ reg_file reg_regfile_inst (
 
   .wb_en     ( mmu_wb_en    ) ,
   .index_rd  ( mmu_index_rd ) ,
-  .data_rd   ( mmu_wb_data  ) ,
+  .data_rd   ( mmu_wb_data  ) 
 );
 
 
@@ -118,13 +118,13 @@ decoder decoder_inst (
 
 wire  [63:0]  imm;
 imm_gen imm_gen_inst (
-    .instr   ( instr   )  , 
+    .instr   ( ifu_instr   )  , 
     .I_type  ( I_type  )  , 
     .S_type  ( S_type  )  , 
     .U_type  ( U_type  )  , 
     .B_type  ( B_type  )  , 
     .J_type  ( J_type  )  , 
-    .imm     ( imm     )  ,
+    .imm     ( imm     )
 );
 
 

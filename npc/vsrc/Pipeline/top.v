@@ -3,18 +3,20 @@ module top(
   input wire    rstn  ,
 
   output  wire  [63:0]    pc        ,
-  input   wire  [63:0]    instr     ,
+  input   wire  [31:0]    instr     ,
   output  wire            ebreak    ,
-
-  output  wire  [63:0]    mm_addr   ,
-  output  wire  [63:0]    mm_wdata  ,
-  output  wire  [3:0]     mm_wlen   ,
-  output  wire            mm_wen    ,
-
-  input   wire  [63:0]    mm_rdata  ,
-  output  wire            mm_ren    
+  output  wire  [63:0]    snxt_pc   ,
+  output  wire  [63:0]    dnxt_pc
 
 );
+
+
+  wire  [63:0]    mm_addr   ;
+  wire  [63:0]    mm_wdata  ;
+  wire  [3:0]     mm_wlen   ;
+  wire            mm_wen    ;
+  wire  [63:0]    mm_rdata  ;
+  wire            mm_ren    ;
 
 wire            exu_jump_en     ;
 wire            exu_branch_en   ;
@@ -28,9 +30,12 @@ wire    [63:0]  mmu_dnpc           ;
 wire            mmu_jump_en        ; 
 wire            mmu_branch_en      ; 
 
+
 ifu ifu_inst(
   .clk            ( clk             )  ,
   .rstn           ( rstn            )  ,
+  .snxt_pc        ( snxt_pc         )  ,
+  .dnxt_pc        ( dnxt_pc         )  ,
   .mmu_jump_en    ( mmu_jump_en     )  ,
   .mmu_branch_en  ( mmu_branch_en   )  ,
   .dnpc           ( mmu_dnpc        )  ,
@@ -116,6 +121,7 @@ wire  [63:0] exu_branch_pc      ;
 wire         exu_branch_result  ;  
 wire  [63:0] exu_alu_result     ;
 wire  [63:0] exu_gpr_data2      ;
+wire  [63:0] exu_imm            ;
 wire         exu_load_en        ;
 wire  [2:0]  exu_load_opcode    ;
 wire         exu_store_en       ;
@@ -161,6 +167,7 @@ exu exu_inst(
   .exu_branch_result ( exu_branch_result  )   ,
   .exu_alu_result    ( exu_alu_result     )   ,
   .exu_gpr_data2     ( exu_gpr_data2      )   ,
+  .exu_imm           ( exu_imm            )   ,
   .exu_load_en       ( exu_load_en        )   ,
   .exu_load_opcode   ( exu_load_opcode    )   ,
   .exu_store_en      ( exu_store_en       )   ,
@@ -171,6 +178,8 @@ exu exu_inst(
 
 
 mmu mmu_inst(
+  .clk  ( clk  ) ,
+  .rstn ( rstn ) ,
   .exu_index_rd       ( exu_index_rd      ) ,
   .exu_index_rs1      ( exu_index_rs1     ) ,
   .exu_index_rs2      ( exu_index_rs2     ) ,
@@ -254,8 +263,8 @@ forward  forward_inst(
   );
 
   always@(*) begin
-    vmem_read ( addr, mm_rdata, {7'b0, mm_ren });
-    vmem_write( addr, mm_wdata, {4'b0, mm_wlen}, {7'b0, mm_wen} );
+    vmem_read ( mm_addr, mm_rdata, {7'b0, mm_ren } );
+    vmem_write( mm_addr, mm_wdata, {4'b0, mm_wlen}, {7'b0, mm_wen} );
   end
 
   export "DPI-C" task end_sim;

@@ -6,17 +6,23 @@ module ifu(
   input   wire  mmu_branch_en   ,
 
   input   wire  [63:0]    dnpc  ,
+  output  wire  [63:0]  dnxt_pc ,
+  output  wire  [63:0]  snxt_pc ,
 
   output  reg   [63:0]    pc    ,
 
-  input   wire  [63:0]    instr ,
+  input   wire  [31:0]    instr ,
 
   output  reg   [63:0]       ifu_pc,
-  output  reg   [63:0]    ifu_instr,
+  output  reg   [31:0]    ifu_instr,
 
   input   wire            ld_hz_stop,
   input   wire            flush_nop
 );
+
+
+assign  snxt_pc = pc + 4;
+assign  dnxt_pc = dnpc  ;
 
 always@(posedge clk) begin
   if(!rstn)
@@ -26,7 +32,7 @@ always@(posedge clk) begin
   else if( ld_hz_stop )
     pc <= pc ;
   else
-    pc <= pc + 4;
+    pc <= snxt_pc;
 end
 
 always@(posedge clk) begin
@@ -39,7 +45,6 @@ always@(posedge clk) begin
   end else if (flush_nop) begin
     ifu_pc    <= pc    ;
     ifu_instr <= 32'h13;
-  end
   end else begin
     ifu_pc    <= pc    ;
     ifu_instr <= instr ;

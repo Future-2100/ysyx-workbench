@@ -9,8 +9,7 @@ module regfile(
 
   input   wire               wb_en    ,
   input   wire    [4:0]   index_rd    ,
-  input   wire    [63:0]   data_rd    ,
-
+  input   wire    [63:0]   data_rd    
 );
 
   reg  [63:0]  gpr [31:0] ;
