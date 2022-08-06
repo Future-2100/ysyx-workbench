@@ -36,7 +36,7 @@ class Vtop__Syms final : public VerilatedSyms {
     Vtop___024root                 TOP;
 
     // COVERAGE
-    uint32_t __Vcoverage[3668];
+    uint32_t __Vcoverage[3667];
 
     // SCOPE NAMES
     VerilatedScope __Vscope_top;

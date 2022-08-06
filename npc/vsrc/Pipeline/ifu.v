@@ -5,9 +5,9 @@ module ifu(
   input   wire    mmu_jump_en   ,
   input   wire  mmu_branch_en   ,
 
-  input   wire  [63:0]    dnpc  ,
-  output  wire  [63:0]  dnxt_pc ,
+  input   wire  [63:0]  jump_pc ,
   output  wire  [63:0]  snxt_pc ,
+  output  wire  [63:0]  dnxt_pc ,
 
   output  reg   [63:0]    pc    ,
 
@@ -22,17 +22,15 @@ module ifu(
 
 
 assign  snxt_pc = pc + 4;
-assign  dnxt_pc = dnpc  ;
+assign  dnxt_pc = (mmu_jump_en | mmu_branch_en) ? jump_pc : snxt_pc ;
 
 always@(posedge clk) begin
   if(!rstn)
-    pc <= 64'h80000000;
-  else if( mmu_jump_en | mmu_branch_en )
-    pc <= dnpc;
+    pc <= 64'h80000000 - 4;
   else if( ld_hz_stop )
     pc <= pc ;
   else
-    pc <= snxt_pc;
+    pc <= dnxt_pc;
 end
 
 always@(posedge clk) begin
