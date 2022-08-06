@@ -121,10 +121,13 @@ uintptr_t fetch_addr = 0;
 void run_step(Decode *s, CPU_state *cpu) {
 
       top->clk  = !top->clk;   //posedge clk
+      top->instr = inst_fetch(&top->pc, 4);
       top->eval();
+      /**************  AXI4-lite   *********************
       if( top->ifu_ARVALID == 1 ) {
         top->ifu_ARREADY = rand()%2;
       }
+      */
       contextp->timeInc(10);
 
       top->clk = !top->clk;   //negedge clk 
@@ -132,6 +135,7 @@ void run_step(Decode *s, CPU_state *cpu) {
       top->eval();
       contextp->timeInc(10);
 
+      /**************  AXI4-lite   *********************
       if( top->ifu_ARVALID == 1 && top->ifu_ARREADY == 1 && top->ifu_ARPORT == 4) {
         fetch_req  = true;
         fetch_addr = top->ifu_ARADDR ;
@@ -156,6 +160,7 @@ void run_step(Decode *s, CPU_state *cpu) {
           top->ifu_RVALID = 0;
       }
       top->ifu_ARREADY = 0;
+      */
 
       s->snpc = top->snxt_pc;
       s->dnpc = top->dnxt_pc;
