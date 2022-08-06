@@ -17,7 +17,7 @@
 uint64_t get_time();
 
 static VerilatedContext* contextp = new VerilatedContext;
-static Vtop* top = new Vtop;
+Vtop* top = new Vtop;
 
 //-----  extern function ------//
 void npc_trap(int state, vaddr_t pc, int halt_ret);
