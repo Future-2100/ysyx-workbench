@@ -121,7 +121,6 @@ uintptr_t fetch_addr = 0;
 void run_step(Decode *s, CPU_state *cpu) {
 
       top->clk  = !top->clk;   //posedge clk
-      top->instr = inst_fetch(&top->pc, 4);
       top->eval();
       /**************  AXI4-lite   *********************
       if( top->ifu_ARVALID == 1 ) {
@@ -134,6 +133,8 @@ void run_step(Decode *s, CPU_state *cpu) {
       
       top->eval();
       contextp->timeInc(10);
+
+      top->instr = inst_fetch(&top->pc, 4);
 
       /**************  AXI4-lite   *********************
       if( top->ifu_ARVALID == 1 && top->ifu_ARREADY == 1 && top->ifu_ARPORT == 4) {
