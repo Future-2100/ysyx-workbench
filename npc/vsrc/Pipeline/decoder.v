@@ -68,7 +68,7 @@ assign     store_en  = opcode6_5__01 & opcode4_2__000 & opcode1_0__11 ;
 
   assign  alu_pc_en  = auipc_en | jal_en  ;
 
-  wire    alu_adder_en = auipc_en | jal_en | jalr_en ;
+  wire    alu_adder_en = auipc_en | jal_en | jalr_en | load_en | store_en ;
   assign  alu_opcode = ( {5{ alu_adder_en}} &  5'b00000 ) |
                        ( {5{!alu_adder_en}} & { funct7[5], funct7[0], funct3 } ) ;
   assign  alu_halfop = iwoperate_en | woperate_en ;
