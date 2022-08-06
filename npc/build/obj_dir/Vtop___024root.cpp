@@ -573,7 +573,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__5(Vtop___024root* vlSelf) {
         vlSelf->top__DOT__exu_branch_pc = 0ULL;
         vlSelf->top__DOT__exu_jump_en = 0U;
         vlSelf->top__DOT__exu_load_en = 0U;
-        vlSelf->pc = 0x7ffffffcULL;
+        vlSelf->pc = 0x80000000ULL;
         vlSelf->top__DOT__exu_branch_result = 0U;
         vlSelf->top__DOT__idu_alu_halfop = 0U;
         vlSelf->top__DOT__idu_alu_en = 0U;
