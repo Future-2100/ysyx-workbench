@@ -16,7 +16,7 @@
 
 uint64_t get_time();
 
-static VerilatedContext* contextp = new VerilatedContext;
+VerilatedContext* contextp = new VerilatedContext;
 Vtop* top = new Vtop;
 
 //-----  extern function ------//
