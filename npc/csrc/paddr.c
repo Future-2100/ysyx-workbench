@@ -36,6 +36,9 @@ extern VerilatedContext* contextp;
 static void out_of_bound(paddr_t addr) {
 
  // top->eval();
+ // contextp->timeInc(10);
+  top->clk = !top->clk;
+  top->eval();
   contextp->timeInc(10);
   top->clk = !top->clk;
   top->eval();
