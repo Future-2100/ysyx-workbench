@@ -2974,8 +2974,10 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__7(Vtop___024root* vlSelf) {
                                                       & (- (IData)((IData)(vlSelf->top__DOT__idu_inst__DOT__load_en))))) 
                                                   | (8U 
                                                      & (- (IData)(
-                                                                  ((IData)(vlSelf->top__DOT__idu_inst__DOT__alu_en) 
-                                                                   & (~ (IData)(vlSelf->top__DOT__idu_inst__DOT__branch_en)))))));
+                                                                  ((((IData)(vlSelf->top__DOT__idu_inst__DOT__alu_en) 
+                                                                     & (~ (IData)(vlSelf->top__DOT__idu_inst__DOT__branch_en))) 
+                                                                    & (~ (IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__jal_en))) 
+                                                                   & (~ (IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__jalr_en)))))));
     if (((IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__alu_adder_en) 
          ^ (IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT____Vtogcov__alu_adder_en))) {
         ++(vlSymsp->__Vcoverage[1821]);
@@ -17748,12 +17750,5 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__7(Vtop___024root* vlSelf) {
         vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__opiw_result 
             = ((0xfff7ffffU & vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__opiw_result) 
                | (0x80000U & vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__opiw_result));
-    }
-    if ((0x100000U & (vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__opiw_result 
-                      ^ vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__opiw_result))) {
-        ++(vlSymsp->__Vcoverage[3524]);
-        vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__opiw_result 
-            = ((0xffefffffU & vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__opiw_result) 
-               | (0x100000U & vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__opiw_result));
     }
 }

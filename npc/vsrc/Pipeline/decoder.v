@@ -95,7 +95,7 @@ assign     store_en  = opcode6_5__01 & opcode4_2__000 & opcode1_0__11 ;
   assign  wb_choose = ( { 4{ jal_en | jalr_en} } & ( 4'b0001 ) ) | 
                       ( { 4{ lui_en} } & ( 4'b0010 ) ) |
                       ( { 4{load_en} } & ( 4'b0100 ) ) |
-                      ( { 4{ alu_en & !branch_en} } & ( 4'b1000 ) ) ;
+                      ( { 4{ alu_en & !branch_en & !jal_en & !jalr_en} } & ( 4'b1000 ) ) ;
 
   assign  U_type = lui_en | auipc_en ;
   assign  J_type = jal_en ;
