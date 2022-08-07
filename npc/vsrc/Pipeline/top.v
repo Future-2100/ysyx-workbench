@@ -33,7 +33,6 @@ wire    [63:0]  mmu_dnpc           ;
 wire            mmu_jump_en        ; 
 wire            mmu_branch_en      ; 
 
-
 ifu ifu_inst(
   .clk            ( clk             )  ,
   .rstn           ( rstn            )  ,
@@ -195,7 +194,7 @@ exu exu_inst(
   .exu_wb_choose     ( exu_wb_choose      ) 
 );
 
-wire  [63:0] mmu_snxt_pc        ;
+wire  [63:0] mmu_snxt_pc   ;
 wire  mmu_ebreak;
 mmu mmu_inst(
   .clk  ( clk  ) ,
