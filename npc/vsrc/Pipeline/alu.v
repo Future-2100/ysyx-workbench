@@ -31,11 +31,11 @@ module alu(
 
   assign  opdata_1 =     ( { 64{gpr_en1} } & gpr_data1 ) |
                          ( { 64{ pc_en } } & pc        ) |
-                         ( { 64{ fw_en1} } & fw_data1  ) ;
+                         ( { 64{ fw_en1 & !pc_en} } & fw_data1  ) ;
 
   assign  opdata_2 =     ( { 64{gpr_en2} } & gpr_data2 ) |
                          ( { 64{imm_en } } & imm       ) |
-                         ( { 64{ fw_en2} } & fw_data2  ) ;
+                         ( { 64{ fw_en2 & !imm_en} } & fw_data2  ) ;
 
   // ************************** RV64I-d **************************************** //
   wire   opid_en = alu_en & (!alu_halfop) & (!alu_opcode[3]) ;

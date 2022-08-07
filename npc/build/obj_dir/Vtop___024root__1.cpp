@@ -22,6 +22,12 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__6(Vtop___024root* vlSelf) {
     VlWide<4>/*127:0*/ __Vtemp29;
     VlWide<4>/*127:0*/ __Vtemp30;
     // Body
+    if (((IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__alu_adder_en) 
+         ^ (IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT____Vtogcov__alu_adder_en))) {
+        ++(vlSymsp->__Vcoverage[1562]);
+        vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT____Vtogcov__alu_adder_en 
+            = vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__alu_adder_en;
+    }
     vlSelf->top__DOT__idu_inst__DOT__alu_opcode = (
                                                    (- (IData)(
                                                               (1U 
