@@ -119,6 +119,8 @@ endif
 
 all : default
 
+wave : 
+	gtkwave build/logs/top.vcd
 
 run : sim
 
