@@ -3317,10 +3317,10 @@ void Vtop___024root___configure_coverage(Vtop___024root* vlSelf, bool first) {
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1560]), first, "/home/grand/ysyx-workbench/npc/vsrc/Pipeline/decoder.v", 59, 8, ".top.idu_inst.decoder_inst", "v_toggle/decoder", "iwoperate_en", "");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1561]), first, "/home/grand/ysyx-workbench/npc/vsrc/Pipeline/decoder.v", 60, 9, ".top.idu_inst.decoder_inst", "v_toggle/decoder", "woperate_en", "");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1562]), first, "/home/grand/ysyx-workbench/npc/vsrc/Pipeline/decoder.v", 71, 11, ".top.idu_inst.decoder_inst", "v_toggle/decoder", "alu_adder_en", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1563]), first, "/home/grand/ysyx-workbench/npc/vsrc/Pipeline/decoder.v", 78, 11, ".top.idu_inst.decoder_inst", "v_toggle/decoder", "funct3_1_0___05F00", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1564]), first, "/home/grand/ysyx-workbench/npc/vsrc/Pipeline/decoder.v", 79, 11, ".top.idu_inst.decoder_inst", "v_toggle/decoder", "funct3_1_0___05F01", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1565]), first, "/home/grand/ysyx-workbench/npc/vsrc/Pipeline/decoder.v", 80, 11, ".top.idu_inst.decoder_inst", "v_toggle/decoder", "funct3_1_0___05F10", "");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1566]), first, "/home/grand/ysyx-workbench/npc/vsrc/Pipeline/decoder.v", 81, 11, ".top.idu_inst.decoder_inst", "v_toggle/decoder", "funct3_1_0___05F11", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1563]), first, "/home/grand/ysyx-workbench/npc/vsrc/Pipeline/decoder.v", 80, 11, ".top.idu_inst.decoder_inst", "v_toggle/decoder", "funct3_1_0___05F00", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1564]), first, "/home/grand/ysyx-workbench/npc/vsrc/Pipeline/decoder.v", 81, 11, ".top.idu_inst.decoder_inst", "v_toggle/decoder", "funct3_1_0___05F01", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1565]), first, "/home/grand/ysyx-workbench/npc/vsrc/Pipeline/decoder.v", 82, 11, ".top.idu_inst.decoder_inst", "v_toggle/decoder", "funct3_1_0___05F10", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1566]), first, "/home/grand/ysyx-workbench/npc/vsrc/Pipeline/decoder.v", 83, 11, ".top.idu_inst.decoder_inst", "v_toggle/decoder", "funct3_1_0___05F11", "");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[555]), first, "/home/grand/ysyx-workbench/npc/vsrc/Pipeline/imm_gen.v", 2, 25, ".top.idu_inst.imm_gen_inst", "v_toggle/imm_gen", "instr[0]", "");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[556]), first, "/home/grand/ysyx-workbench/npc/vsrc/Pipeline/imm_gen.v", 2, 25, ".top.idu_inst.imm_gen_inst", "v_toggle/imm_gen", "instr[1]", "");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[557]), first, "/home/grand/ysyx-workbench/npc/vsrc/Pipeline/imm_gen.v", 2, 25, ".top.idu_inst.imm_gen_inst", "v_toggle/imm_gen", "instr[2]", "");

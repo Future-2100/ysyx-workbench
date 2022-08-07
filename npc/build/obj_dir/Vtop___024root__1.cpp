@@ -29,18 +29,45 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__6(Vtop___024root* vlSelf) {
             = vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__alu_adder_en;
     }
     vlSelf->top__DOT__idu_inst__DOT__alu_opcode = (
-                                                   (- (IData)(
-                                                              (1U 
-                                                               & (~ (IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__alu_adder_en))))) 
-                                                   & ((0x10U 
-                                                       & (vlSelf->top__DOT__ifu_instr 
-                                                          >> 0x1aU)) 
-                                                      | ((8U 
+                                                   ((7U 
+                                                     & ((- (IData)(
+                                                                   (((IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__ioperate_en) 
+                                                                     | (IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__iwoperate_en)) 
+                                                                    & (1U 
+                                                                       != 
+                                                                       (3U 
+                                                                        & (vlSelf->top__DOT__ifu_instr 
+                                                                           >> 0xcU)))))) 
+                                                        & (vlSelf->top__DOT__ifu_instr 
+                                                           >> 0xcU))) 
+                                                    | ((- (IData)(
+                                                                  (((IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__ioperate_en) 
+                                                                    | (IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__iwoperate_en)) 
+                                                                   & (1U 
+                                                                      == 
+                                                                      (3U 
+                                                                       & (vlSelf->top__DOT__ifu_instr 
+                                                                          >> 0xcU)))))) 
+                                                       & ((0x10U 
+                                                           & (vlSelf->top__DOT__ifu_instr 
+                                                              >> 0x1aU)) 
+                                                          | (7U 
+                                                             & (vlSelf->top__DOT__ifu_instr 
+                                                                >> 0xcU))))) 
+                                                   | ((- (IData)(
+                                                                 (1U 
+                                                                  & (((~ (IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__alu_adder_en)) 
+                                                                      & (~ (IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__ioperate_en))) 
+                                                                     & (~ (IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__iwoperate_en)))))) 
+                                                      & ((0x10U 
                                                           & (vlSelf->top__DOT__ifu_instr 
-                                                             >> 0x16U)) 
-                                                         | (7U 
-                                                            & (vlSelf->top__DOT__ifu_instr 
-                                                               >> 0xcU)))));
+                                                             >> 0x1aU)) 
+                                                         | ((8U 
+                                                             & (vlSelf->top__DOT__ifu_instr 
+                                                                >> 0x16U)) 
+                                                            | (7U 
+                                                               & (vlSelf->top__DOT__ifu_instr 
+                                                                  >> 0xcU))))));
     if (((IData)(vlSelf->top__DOT__idu_inst__DOT__I_type) 
          ^ (IData)(vlSelf->top__DOT__idu_inst__DOT____Vtogcov__I_type))) {
         ++(vlSymsp->__Vcoverage[1465]);
