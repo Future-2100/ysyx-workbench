@@ -13,8 +13,9 @@ module ifu(
 
   input   wire  [31:0]    instr ,
 
-  output  reg   [63:0]       ifu_pc,
-  output  reg   [31:0]    ifu_instr,
+  output  reg   [63:0]    ifu_pc     ,
+  output  reg   [31:0]    ifu_instr  ,
+  output  reg   [63:0]    ifu_snxt_pc,
 
   input   wire            ld_hz_stop,
   input   wire            flush_nop
@@ -35,17 +36,21 @@ end
 
 always@(posedge clk) begin
   if(!rstn) begin
-    ifu_pc    <= 64'b0;
-    ifu_instr <= 32'b0;
+    ifu_pc       <= 64'b0;
+    ifu_instr    <= 32'b0;
+    ifu_snxt_pc  <= 64'b0;
   end else if (ld_hz_stop) begin
     ifu_pc    <= ifu_pc   ;
     ifu_instr <= ifu_instr;
+    ifu_snxt_pc  <= ifu_snxt_pc;
   end else if (flush_nop) begin
     ifu_pc    <= pc    ;
     ifu_instr <= 32'h13;
+    ifu_snxt_pc  <= snxt_pc;
   end else begin
     ifu_pc    <= pc    ;
     ifu_instr <= instr ;
+    ifu_snxt_pc  <= snxt_pc;
   end
 end
 

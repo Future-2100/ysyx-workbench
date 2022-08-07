@@ -23,8 +23,9 @@ module mmu(
 
   input   wire    [2:0]   exu_load_opcode     ,
   input   wire            exu_wb_en           ,
-  input   wire    [2:0]   exu_wb_choose       ,
+  input   wire    [3:0]   exu_wb_choose       ,
   input   wire            exu_ebreak          ,
+  input   wire    [63:0]  exu_snxt_pc         ,
 
   output  reg     [4:0]   mmu_index_rd        ,
   output  reg             mmu_wb_en           ,
@@ -83,7 +84,8 @@ memory memory_inst(
   reg     [63:0]  mmu_alu_data        ;
   reg     [63:0]  mmu_load_data       ;
   reg     [63:0]  mmu_imm_data        ;
-  reg     [2:0]   mmu_wb_choose       ;
+  reg     [3:0]   mmu_wb_choose       ;
+  reg     [63:0]  mmu_snxt_pc         ;
 
   always@(posedge clk) begin
     if(!rstn) begin
@@ -94,6 +96,7 @@ memory memory_inst(
       mmu_wb_choose <=   'b0  ;
       mmu_wb_en     <=   'b0  ;
       mmu_ebreak    <=   'b0  ;
+      mmu_snxt_pc   <=   'b0  ;
     end else begin
       mmu_index_rd  <= exu_index_rd    ;
       mmu_alu_data  <= exu_alu_result  ;
@@ -102,13 +105,15 @@ memory memory_inst(
       mmu_wb_choose <= exu_wb_choose   ;
       mmu_wb_en     <= exu_wb_en       ;
       mmu_ebreak    <= exu_ebreak      ;
+      mmu_snxt_pc   <= exu_snxt_pc     ;
     end
   end 
 
 
-  assign  mmu_wb_data = ( {64{mmu_wb_choose==3'b100}} &  mmu_alu_data ) | 
-                        ( {64{mmu_wb_choose==3'b010}} & mmu_load_data ) |
-                        ( {64{mmu_wb_choose==3'b001}} &  mmu_imm_data ) ;
+  assign  mmu_wb_data = ( {64{mmu_wb_choose==4'b1000}} &  mmu_alu_data ) | 
+                        ( {64{mmu_wb_choose==4'b0100}} & mmu_load_data ) |
+                        ( {64{mmu_wb_choose==4'b0010}} &  mmu_imm_data ) |
+                        ( {64{mmu_wb_choose==4'b0001}} &  mmu_snxt_pc  ) ;
 
 
 endmodule

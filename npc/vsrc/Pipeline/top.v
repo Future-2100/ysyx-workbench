@@ -22,6 +22,7 @@ wire            exu_branch_en   ;
 wire  [63:0]    dnpc            ;
 wire  [63:0]    ifu_pc          ;
 wire  [31:0]    ifu_instr       ;
+wire  [63:0]    ifu_snxt_pc     ;
 wire            ld_hz_stop      ;
 wire            flush_nop       ;
 
@@ -42,6 +43,7 @@ ifu ifu_inst(
   .instr          ( instr           )  ,
   .ifu_pc         ( ifu_pc          )  ,
   .ifu_instr      ( ifu_instr       )  ,
+  .ifu_snxt_pc    ( ifu_snxt_pc     )  ,
   .ld_hz_stop     ( ld_hz_stop      )  ,
   .flush_nop      ( flush_nop       )
 );
@@ -68,8 +70,9 @@ wire    [2:0]     idu_load_opcode    ;
 wire              idu_store_en       ; 
 wire    [3:0]     idu_store_len      ; 
 wire              idu_wb_en          ; 
-wire    [2:0]     idu_wb_choose      ; 
+wire    [3:0]     idu_wb_choose      ; 
 wire              idu_ebreak         ;
+wire    [63:0]    idu_snxt_pc        ;
 wire    [63:0]    mmu_wb_data        ; 
 wire    [4:0]     mmu_index_rd       ; 
 wire              mmu_wb_en          ; 
@@ -82,6 +85,7 @@ idu idu_inst(
   .decoder_alu_en    ( decoder_alu_en     )  ,
   .ifu_instr         ( ifu_instr          )  ,
   .ifu_pc            ( ifu_pc             )  ,
+  .ifu_snxt_pc       ( ifu_snxt_pc        )  ,
   .idu_index_rs1     ( idu_index_rs1      )  ,
   .idu_index_rs2     ( idu_index_rs2      )  ,
   .idu_index_rd      ( idu_index_rd       )  ,
@@ -104,6 +108,7 @@ idu idu_inst(
   .idu_wb_en         ( idu_wb_en          )  ,
   .idu_wb_choose     ( idu_wb_choose      )  ,
   .idu_ebreak        ( idu_ebreak         )  ,
+  .idu_snxt_pc       ( idu_snxt_pc        )  ,
   .mmu_wb_data       ( mmu_wb_data        )  ,
   .mmu_index_rd      ( mmu_index_rd       )  ,
   .mmu_wb_en         ( mmu_wb_en          )  
@@ -128,8 +133,9 @@ wire  [2:0]  exu_load_opcode    ;
 wire         exu_store_en       ;
 wire  [3:0]  exu_store_len      ;
 wire         exu_wb_en          ;
-wire  [2:0]  exu_wb_choose      ;
+wire  [3:0]  exu_wb_choose      ;
 wire         exu_ebreak         ;
+wire  [63:0] exu_snxt_pc        ;
 
 
 exu exu_inst(
@@ -162,6 +168,7 @@ exu exu_inst(
   .idu_wb_en         ( idu_wb_en          )   ,
   .idu_wb_choose     ( idu_wb_choose      )   ,
   .idu_ebreak        ( idu_ebreak         )   ,
+  .idu_snxt_pc       ( idu_snxt_pc        )   ,
   .exu_index_rd      ( exu_index_rd       )   ,
   .exu_index_rs1     ( exu_index_rs1      )   ,
   .exu_index_rs2     ( exu_index_rs2      )   ,
@@ -178,9 +185,11 @@ exu exu_inst(
   .exu_store_len     ( exu_store_len      )   ,
   .exu_wb_en         ( exu_wb_en          )   ,
   .exu_ebreak        ( exu_ebreak         )   ,
+  .exu_snxt_pc       ( exu_snxt_pc        )   ,
   .exu_wb_choose     ( exu_wb_choose      ) 
 );
 
+wire  [63:0] mmu_snxt_pc        ;
 wire  mmu_ebreak;
 mmu mmu_inst(
   .clk  ( clk  ) ,
@@ -202,6 +211,7 @@ mmu mmu_inst(
   .exu_wb_en          ( exu_wb_en         ) ,
   .exu_wb_choose      ( exu_wb_choose     ) ,
   .exu_ebreak         ( exu_ebreak        ) ,
+  .exu_snxt_pc        ( exu_snxt_pc       ) ,
   .mmu_index_rd       ( mmu_index_rd      ) ,
   .mmu_wb_en          ( mmu_wb_en         ) ,
   .mmu_wb_data        ( mmu_wb_data       ) ,

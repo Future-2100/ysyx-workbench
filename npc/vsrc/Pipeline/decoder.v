@@ -16,7 +16,7 @@ module decoder (
   output  wire            store_en      ,
   output  wire    [3:0]   store_len     ,
   output  wire            wb_en         ,
-  output  wire    [2:0]   wb_choose     ,
+  output  wire    [3:0]   wb_choose     ,
 
   output  wire            I_type        ,
   output  wire            S_type        ,
@@ -92,9 +92,10 @@ assign     store_en  = opcode6_5__01 & opcode4_2__000 & opcode1_0__11 ;
                  load_en | ioperate_en |   operate_en | iwoperate_en | 
              woperate_en ;
 
-  assign  wb_choose = ( { 3{ lui_en} } & ( 3'b001 ) ) |
-                      ( { 3{load_en} } & ( 3'b010 ) ) |
-                      ( { 3{ alu_en & !branch_en} } & ( 3'b100 ) ) ;
+  assign  wb_choose = ( { 4{ jal_en | jalr_en} } & ( 4'b0001 ) ) | 
+                      ( { 4{ lui_en} } & ( 4'b0010 ) ) |
+                      ( { 4{load_en} } & ( 4'b0100 ) ) |
+                      ( { 4{ alu_en & !branch_en} } & ( 4'b1000 ) ) ;
 
   assign  U_type = lui_en | auipc_en ;
   assign  J_type = jal_en ;

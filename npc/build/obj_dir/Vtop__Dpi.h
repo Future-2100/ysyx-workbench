@@ -13,15 +13,15 @@ extern "C" {
 
 
     // DPI EXPORTS
-    // DPI export at /home/grand/ysyx-workbench/npc/vsrc/Pipeline/top.v:282:8
+    // DPI export at /home/grand/ysyx-workbench/npc/vsrc/Pipeline/top.v:292:8
     extern void end_sim();
 
     // DPI IMPORTS
-    // DPI import at /home/grand/ysyx-workbench/npc/vsrc/Pipeline/top.v:260:32
+    // DPI import at /home/grand/ysyx-workbench/npc/vsrc/Pipeline/top.v:270:32
     extern void set_gpr_ptr(const svOpenArrayHandle a);
-    // DPI import at /home/grand/ysyx-workbench/npc/vsrc/Pipeline/top.v:263:32
+    // DPI import at /home/grand/ysyx-workbench/npc/vsrc/Pipeline/top.v:273:32
     extern void vmem_read(long long raddr, long long* rdata, char ren);
-    // DPI import at /home/grand/ysyx-workbench/npc/vsrc/Pipeline/top.v:269:32
+    // DPI import at /home/grand/ysyx-workbench/npc/vsrc/Pipeline/top.v:279:32
     extern void vmem_write(long long waddr, long long wdata, char wlen, char wen);
 
 #ifdef __cplusplus
