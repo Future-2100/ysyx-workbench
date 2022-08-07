@@ -25,7 +25,7 @@ module ifu(
 assign  snxt_pc = pc + 4;
 assign  dnxt_pc = (mmu_jump_en | mmu_branch_en) ? jump_pc : snxt_pc ;
 
-always@(posedge clk) begin
+always@(negedge clk) begin
   if(!rstn)
     pc <= 64'h80000000 ;
   else if( ld_hz_stop )
