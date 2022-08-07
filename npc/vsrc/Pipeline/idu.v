@@ -60,6 +60,11 @@ wire  [63:0]       pc   = ifu_pc ;
 
 wire  [63:0]  gpr_data1 ;
 wire  [63:0]  gpr_data2 ;
+wire  [63:0]  reg_gpr_data1 ;
+wire  [63:0]  reg_gpr_data2 ;
+
+wire  wb_forward_1 = mmu_wb_en & ( mmu_index_rd == index_rs1 );
+wire  wb_forward_2 = mmu_wb_en & ( mmu_index_rd == index_rs2 );
 
 regfile regfile_inst (
   .clk  ( clk  ) ,
@@ -67,13 +72,16 @@ regfile regfile_inst (
 
   .index_rs1 ( index_rs1 ) ,
   .index_rs2 ( index_rs2 ) ,
-  .data_rs1  ( gpr_data1    ) ,
-  .data_rs2  ( gpr_data2    ) ,
+  .data_rs1  ( reg_gpr_data1    ) ,
+  .data_rs2  ( reg_gpr_data2    ) ,
 
   .wb_en     ( mmu_wb_en    ) ,
   .index_rd  ( mmu_index_rd ) ,
   .data_rd   ( mmu_wb_data  ) 
 );
+
+assign  gpr_data1 = wb_forward_1 ? mmu_wb_data : reg_gpr_data1;
+assign  gpr_data2 = wb_forward_2 ? mmu_wb_data : reg_gpr_data2;
 
 
 wire            branch_en     ;
