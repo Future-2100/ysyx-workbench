@@ -45,10 +45,10 @@ static void out_of_bound(paddr_t addr) {
   contextp->timeInc(10);
   delete_module();
  
-/*
+
     panic("address = " FMT_PADDR " is out of bound of pmem [" FMT_PADDR ", " FMT_PADDR "] at pc = " FMT_WORD,
               addr, (paddr_t)CONFIG_MBASE, (paddr_t)CONFIG_MBASE + CONFIG_MSIZE - 1, cpu.pc);
-*/
+
 }
 
 void init_mem() {
