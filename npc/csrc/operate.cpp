@@ -10,12 +10,17 @@
 #include "Vtop__Dpi.h"
 #include "cpu.h"
 
-static VerilatedContext* contextp = new VerilatedContext;
-static Vtop* top = new Vtop;
+#define RTC_ADDR1   0xa0000048
+#define RTC_ADDR2   0xa000004c
+#define SERIAL_ADDR 0xa00003f8
+
+uint64_t get_time();
+
+VerilatedContext* contextp = new VerilatedContext;
+Vtop* top = new Vtop;
 
 //-----  extern function ------//
 void npc_trap(int state, vaddr_t pc, int halt_ret);
-
 
 void init_verilator(int argc, char** argv, char** env) {
 
@@ -54,6 +59,7 @@ static void single_cycle() {
 
 void reset(int n) {
   top->rstn = 0;
+  //top->ifu_ARREADY = 0;
   while( n-- > 0) single_cycle();
   top->rstn = 1;
   top->clk = !top->clk;
@@ -65,82 +71,116 @@ void init_module() {
 
   reset(10);
   printf("pc = %lx\n",top->pc);
-  printf(ANSI_FMT_GREEN "---------- module reseted ----------\n" ANSI_FMT_NONE );
-  printf("pc = %lx\n",top->pc);
+  printf(ANSI_FMT_GREEN "---------- module reseted ----------" ANSI_FMT_NONE "\n");
+  //printf("pc = %lx\n",top->pc);
   return ;
 
 }
 
 uint64_t *cpu_gpr = NULL;
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
-//void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 
-/*
-void vmem_write(long long waddr, long long wdata, char wlen, char wen) {
-  if( wen == 1 )
-    paddr_write(waddr, wlen, wdata);
+extern "C" void vmem_write(long long waddr, long long wdata, char wlen, char wen) {
+  if(wen && top->clk ){
+#ifdef CONFIG_MTRACE
+    printf("waddr = 0x%llx, wdata = 0x%llx, wlen = %d\n", waddr, wdata, wlen);
+#endif
+    long long align_addr = waddr ;//& ~0x7ull;
+    if(align_addr == SERIAL_ADDR) {
+      putc((char)(wdata), stderr);
+    }
+    else {
+      paddr_write((paddr_t)(align_addr), wlen, wdata);
+    }
+#ifdef CONFIG_MTRACE
+    printf("-----finished write data-----\n");
+#endif
+  }
 }
 
-void vmem_read(long long raddr, long long *rdata ) {
-  *rdata = paddr_read(raddr, 8);
+extern "C" void vmem_read(long long raddr, long long *rdata , char ren) {
+  if(ren && top->clk ){
+#ifdef CONFIG_MTRACE
+    printf("raddr = 0x%llx, rdata = 0x%llx\n", raddr, *rdata);
+#endif
+    long long align_addr = raddr ; //& ~0x7ull;
+    if( align_addr == RTC_ADDR1 ){
+      uint64_t us = get_time();
+      *rdata = (uint32_t)us;
+    }
+    else if( align_addr == RTC_ADDR2 ) {
+      uint64_t us = get_time() >> 32;
+      *rdata = (uint32_t)us;
+    }
+    else {
+      *rdata = paddr_read((paddr_t)(align_addr),8);
+    }
+#ifdef CONFIG_MTRACE
+    printf("-----finished read data-----\n");
+#endif
+  }
 }
-*/
 
-#define RTC_ADDR    0xa0000048
-#define SERIAL_ADDR 0xa00003f8
-uint64_t get_time();
+bool fetch_req = false;
+uintptr_t fetch_addr = 0;
 
 void run_step(Decode *s, CPU_state *cpu) {
 
-//  int j=2;
-//  while ( j-- && ( !contextp->gotFinish() ) ) {
-
-      top->clk = !top->clk;   //posedge clk
-      top->inst = inst_fetch(&top->dnxt_pc, 4);
+      top->clk  = !top->clk;   //posedge clk
+      top->instr = inst_fetch(&top->pc, 4);
       top->eval();
-      contextp->timeInc(5);
-      if( top->ren ) {
-        if( top->addr == RTC_ADDR ) {
-          uint64_t us = get_time();
-          top->rdata = (uint32_t)us;
-        }
-        else if( top->addr == RTC_ADDR + 4 ) {
-          uint64_t us = get_time() >> 32;
-          top->rdata = (uint32_t)us;
-        }
-        else {
-        top->rdata = paddr_read((paddr_t)(top->addr),8);
-        }
-       } 
-      top->eval();
-      contextp->timeInc(5);
-
+      /**************  AXI4-lite   *********************
+      if( top->ifu_ARVALID == 1 ) {
+        top->ifu_ARREADY = rand()%2;
+      }
+      */
+      contextp->timeInc(10);
 
       top->clk = !top->clk;   //negedge clk 
-      if( top->wen ) {
-        if(top->addr == SERIAL_ADDR) {
-          putc((char)(top->wdata), stderr);
-        }
-        else {
-          paddr_write((paddr_t)(top->addr), top->wlen, top->wdata);
-        }
-      }
+      
       top->eval();
       contextp->timeInc(10);
+
+
+      /**************  AXI4-lite   *********************
+      if( top->ifu_ARVALID == 1 && top->ifu_ARREADY == 1 && top->ifu_ARPORT == 4) {
+        fetch_req  = true;
+        fetch_addr = top->ifu_ARADDR ;
+      }
+      if( fetch_req == true ) {
+        int ready = rand()%2;
+        if(ready == 1) {
+          fetch_req = false;
+          top->ifu_ARREADY = 0;
+          top->ifu_RVALID  = 1 ;
+          top->ifu_RDATA   = inst_fetch(&fetch_addr,4);
+          top->ifu_RRESP   = 0 ;
+          if( top->ifu_RREADY==1 ) {
+            top->ifu_ARREADY = 1;
+          }
+        }
+        else {
+          top->ifu_RVALID = 0;
+        }
+      }
+      else {
+          top->ifu_RVALID = 0;
+      }
+      top->ifu_ARREADY = 0;
+      */
 
       s->snpc = top->snxt_pc;
       s->dnpc = top->dnxt_pc;
       s->pc   = top->pc;
-      s->isa.inst.val = top->inst;
+      s->isa.inst.val = top->instr;
       for (int i=0; i<32; i++) {
         cpu->gpr[i] = cpu_gpr[i];
       }
 
       if(top->ebreak)  { 
-        npc_trap(NPC_END , top->pc, top->a);
-       // end_sim(); 
+        npc_trap(NPC_END , top->pc, cpu_gpr[10]);
         for(int i=0; i<30; i++) printf(ANSI_FMT_BLUE "-");
         printf(" program end ");
         for(int i=0; i<30; i++) printf("-");

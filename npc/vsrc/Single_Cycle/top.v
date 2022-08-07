@@ -7,28 +7,41 @@ module top
   input   wire  clk  ,
   input   wire  rstn ,
 
-  output  wire  [DW-1:0]       a  ,
-  output  wire            ebreak  ,
-  output  wire  [DW-1:0]  dnxt_pc ,
-  output  wire  [DW-1:0]  snxt_pc ,
-  output  wire  [DW-1:0]       pc ,
-  input   wire  [IW-1:0]    inst  ,
+  output  wire  [DW-1:0]       pc    ,
+  output  wire  [DW-1:0]  snxt_pc    ,
+  output  wire  [DW-1:0]  dnxt_pc    ,
+  output  wire  [IW-1:0]    instr    ,
 
-  output  wire  [DW-1:0]  wdata   ,
-  output  wire  [3:0]     wlen    ,
-  output  wire            wen     ,
-  output wire                ren     ,
-  input  wire    [DW-1:0]    rdata   ,
-  output  wire  [DW-1:0]  addr    
+
+  output  wire            ifu_ARVALID ,
+  input   wire            ifu_ARREADY ,
+  output  wire  [DW-1:0]  ifu_ARADDR  ,
+  output  wire  [2:0]     ifu_ARPORT  ,
+
+  input   wire            ifu_RVALID  ,
+  output  wire            ifu_RREADY  ,
+  input   wire  [DW-1:0]  ifu_RDATA   ,
+  input   wire  [1:0]     ifu_RRESP   ,
+
+  output  wire            ebreak      
 
 );
 
+  wire                 pc_ld ;
+  wire                 pc_en ;
 
-wire    [DW-1:0]    imm      ; 
-wire    [DW-1:0]    result   ;
-wire                br_asrt  ;
-wire                jalr_en  ;
-wire                jal_en   ;
+  wire  [DW-1:0]    rdata    ;
+  wire  [DW-1:0]    addr     ;
+  wire  [DW-1:0]    wdata    ;
+  wire  [3:0]       wlen     ;
+  wire              wen      ;
+  wire              ren      ;
+
+  wire    [DW-1:0]    imm      ; 
+  wire    [DW-1:0]    result   ;
+  wire                br_asrt  ;
+  wire                jalr_en  ;
+  wire                jal_en   ;
 
   pc_gen pc_gen_inst(
     .clk      (clk) ,
@@ -41,7 +54,8 @@ wire                jal_en   ;
     .jal_en   ( jal_en     ),
     .dnxt_pc  ( dnxt_pc    ),
     .snxt_pc  ( snxt_pc    ),
-    .pc       ( pc         )
+    .pc       ( pc         ),
+    .pc_ld    ( pc_ld      )
   );
 
   wire              wb_en      ; 
@@ -60,16 +74,15 @@ regfile regfile_inst
   .wb_load   ( wb_load   )   ,
   .wb_pc     ( wb_pc     )   ,
   .wb_alu    ( wb_alu    )   ,
-  .wb_addr   ( inst[11:7])   ,
+  .wb_addr   ( instr[11:7])  ,
   .load_data ( load_data )   , // data read from memory
   .pc_data   ( snxt_pc   )   , // next pc
   .alu_data  ( result    )   , // result from alu
   
-  .rd_addr1  (inst[19:15])   ,
-  .rd_addr2  (inst[24:20])   ,
+  .rd_addr1  (instr[19:15])  ,
+  .rd_addr2  (instr[24:20])  ,
   .rd_data1  ( rd_data1  )   ,
-  .rd_data2  ( rd_data2  )   ,
-  .a         (      a    )
+  .rd_data2  ( rd_data2  )   
 );
 
 
@@ -86,7 +99,7 @@ imm_gen imm_gen_inst
   .B_type ( B_type ),
   .U_type ( U_type ),
   .J_type ( J_type ),
-  .inst   (   inst ),
+  .instr  (  instr ),
   .imm    (    imm )
 );
 
@@ -179,9 +192,28 @@ memory memory_inst
     .addr     ( addr       ) 
 );
 
+
+wire           instr_en  ;
+
 controlor controlor_inst 
 (
-    .inst        ( inst       ) , 
+    .clk         ( clk        ) ,
+    .rstn        ( rstn       ) ,
+
+    .ifu_ARVALID ( ifu_ARVALID ) ,
+    .ifu_ARREADY ( ifu_ARREADY ) ,
+    .ifu_ARADDR  ( ifu_ARADDR  ) ,
+    .ifu_ARPORT  ( ifu_ARPORT  ) ,
+
+    .ifu_RVALID  ( ifu_RVALID ) , 
+    .ifu_RREADY  ( ifu_RREADY ) , 
+    .ifu_RDATA   ( ifu_RDATA  ) , 
+    .ifu_RRESP   ( ifu_RRESP  ) , 
+
+    .dnxt_pc     ( dnxt_pc    ) ,
+    .instr       ( instr      ) ,
+    .instr_en    ( instr_en   ) ,
+    .pc_ld       (  pc_ld     ) ,
 
     .wb_en       ( wb_en      ) ,     
     .wb_load     ( wb_load    ) ,
@@ -193,7 +225,6 @@ controlor controlor_inst
     .U_type      ( U_type     ) , 
     .J_type      ( J_type     ) , 
     .rs1_en      (  rs1_en    ) ,
-    . pc_en      (   pc_en    ) ,  
     .rs2_en      (  rs2_en    ) ,
     .imm_en      (  imm_en    ) ,
     .lgc_en      ( lgc_en     ) , 
@@ -205,6 +236,7 @@ controlor controlor_inst
     .wmlgc_en    ( wmlgc_en   ) ,
     .wmlgc_op    ( wmlgc_op   ) ,
     .br_en       ( br_en      ) ,
+    .pc_en       ( pc_en      ) ,
     .br_op       ( br_op      ) , 
     .jal_en      ( jal_en     ) , 
     .jalr_en     ( jalr_en    ) , 
@@ -224,6 +256,7 @@ controlor controlor_inst
 
 );
 
+
   initial begin
 //    if($test$plusargs("trace") != 0) begin
       $display("[%0t] Tracing to build/logs/top.vcd...\n",$time);
@@ -236,18 +269,23 @@ controlor controlor_inst
   import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
   initial set_gpr_ptr(regfile_inst.gpr);
 
-  /*
   import "DPI-C" function void vmem_read(
-    input longint raddr, output longint rdata );
+    input  longint raddr, 
+    output longint rdata,
+    input  byte    ren 
+  );
 
   import "DPI-C" function void vmem_write(
-    input longint waddr, input longint wdata, input byte wlen, input byte wen);
+    input longint waddr, 
+    input longint wdata, 
+    input byte wlen, 
+    input byte wen
+  );
 
   always@(*) begin
-    vmem_read(addr, rdata);
-    vmem_write(addr, wdata, {4'b0, wlen}, {7'b0, wen} );
+    vmem_read ( addr, rdata, {7'b0, ren });
+    vmem_write( addr, wdata, {4'b0, wlen}, {7'b0, wen} );
   end
-*/
 
   export "DPI-C" task end_sim;
   task end_sim;

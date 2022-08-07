@@ -1,6 +1,9 @@
 #include <common.h>
 #include <isa.h>
 #include <paddr.h>
+#include <Vtop.h>
+#include "svdpi.h"
+#include "Vtop__Dpi.h"
 
 #define PG_ALIGN __attribute((aligned(4096))) 
 
@@ -12,11 +15,10 @@ static uint8_t pmem[CONFIG_MSIZE] PG_ALIGN = {};
 uint8_t* guest_to_host(paddr_t paddr) { return pmem + paddr - CONFIG_MBASE; }
 paddr_t host_to_guest(uint8_t *haddr) { return haddr - pmem + CONFIG_MBASE; }
 
-
 static word_t pmem_read(paddr_t addr, int len) {
     word_t ret = host_read(guest_to_host(addr), len);
 #ifdef CONFIG_MTRACE
-      printf("Read : (%08x) = %08lx  \n", addr, ret);
+//      printf("Read : (%08x) = %08lx  \n", addr, ret);
 #endif
     return ret;
 }
@@ -24,14 +26,27 @@ static word_t pmem_read(paddr_t addr, int len) {
 static void pmem_write(paddr_t addr, int len, word_t data) {
     host_write(guest_to_host(addr), len, data);
 #ifdef CONFIG_MTRACE
-      printf("Write: (%08x) = %08lx  \n", addr, data);
+//      printf("Write: (%08x) = %08lx  \n", addr, data);
 #endif
-
 }
 
+void delete_module();
+extern Vtop* top;
+extern VerilatedContext* contextp;
+
 static void out_of_bound(paddr_t addr) {
+
+  //top->clk = !top->clk;
+  top->eval();
+  contextp->timeInc(10);
+  top->clk = !top->clk;
+  top->eval();
+  contextp->timeInc(10);
+  delete_module();
+
     panic("address = " FMT_PADDR " is out of bound of pmem [" FMT_PADDR ", " FMT_PADDR "] at pc = " FMT_WORD,
               addr, (paddr_t)CONFIG_MBASE, (paddr_t)CONFIG_MBASE + CONFIG_MSIZE - 1, cpu.pc);
+
 }
 
 void init_mem() {
