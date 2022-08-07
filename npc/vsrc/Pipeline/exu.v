@@ -38,6 +38,7 @@ module exu(
   input   wire  [3:0]  idu_store_len     ,
   input   wire         idu_wb_en         ,
   input   wire  [2:0]  idu_wb_choose     ,
+  input   wire         idu_ebreak        ,
 
   output  reg   [4:0]  exu_index_rd      ,
   output  reg   [4:0]  exu_index_rs1     ,
@@ -57,7 +58,8 @@ module exu(
   output  reg          exu_store_en       ,
   output  reg   [3:0]  exu_store_len      ,
   output  reg          exu_wb_en          ,
-  output  reg   [2:0]  exu_wb_choose      
+  output  reg   [2:0]  exu_wb_choose      ,
+  output  reg          exu_ebreak         
 
 );
 
@@ -108,6 +110,7 @@ branch_pc_adder branch_pc_adder_inst(
          exu_store_len      <=   'b0  ; 
          exu_wb_en          <=   'b0  ; 
          exu_wb_choose      <=   'b0  ; 
+         exu_ebreak         <=   'b0  ;
     end
     else if(flush_nop) begin
          exu_index_rd       <=   idu_index_rd       ; 
@@ -126,6 +129,7 @@ branch_pc_adder branch_pc_adder_inst(
          exu_store_len      <=   idu_store_len      ; 
          exu_wb_en          <=             'b0      ; 
          exu_wb_choose      <=   idu_wb_choose      ; 
+         exu_ebreak         <=   'b0  ;
     end
     else begin
          exu_index_rd       <=   idu_index_rd       ; 
@@ -144,6 +148,7 @@ branch_pc_adder branch_pc_adder_inst(
          exu_store_len      <=   idu_store_len      ; 
          exu_wb_en          <=   idu_wb_en          ; 
          exu_wb_choose      <=   idu_wb_choose      ; 
+         exu_ebreak         <=   idu_ebreak         ;
     end
   end
 

@@ -6,7 +6,6 @@ module idu(
   input   wire              ld_hz_nop        ,
 
   output  wire              decoder_alu_en   ,
-  output  wire              ebreak           ,
 
   input   wire    [31:0]    ifu_instr        ,
   input   wire    [63:0]    ifu_pc           ,
@@ -41,6 +40,7 @@ module idu(
 //  ******** control signal for write back stage ********  //
   output  reg               idu_wb_en         ,
   output  reg     [2:0]     idu_wb_choose     ,
+  output  reg               idu_ebreak        ,
 
 //  ******** control signal from write back stage ********  //
   input   wire    [63:0]    mmu_wb_data       ,
@@ -91,6 +91,7 @@ wire            S_type        ;
 wire            B_type        ;
 wire            U_type        ;
 wire            J_type        ;
+wire            ebreak        ;
 
 decoder decoder_inst (
     .instr        ( ifu_instr      )  , 
@@ -151,6 +152,7 @@ always@(posedge clk) begin
      idu_store_len      <=  'b0 ;  
      idu_wb_en          <=  'b0 ;   
      idu_wb_choose      <=  'b0 ;  
+     idu_ebreak         <=  'b0 ;
   end
   else if ( flush_nop | ld_hz_nop ) begin
       idu_index_rs1      <=  index_rs1      ;  
@@ -174,6 +176,7 @@ always@(posedge clk) begin
       idu_store_len      <=  store_len      ;
       idu_wb_en          <=  'b0            ;
       idu_wb_choose      <=  wb_choose      ;
+      idu_ebreak         <=  'b0            ;
   end
   else begin
       idu_index_rs1      <=  index_rs1      ;  
@@ -197,6 +200,7 @@ always@(posedge clk) begin
       idu_store_len      <=  store_len      ;
       idu_wb_en          <=  wb_en          ;
       idu_wb_choose      <=  wb_choose      ;
+      idu_ebreak         <=  ebreak         ;
   end
 end
 

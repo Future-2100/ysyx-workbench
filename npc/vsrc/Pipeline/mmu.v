@@ -24,6 +24,7 @@ module mmu(
   input   wire    [2:0]   exu_load_opcode     ,
   input   wire            exu_wb_en           ,
   input   wire    [2:0]   exu_wb_choose       ,
+  input   wire            exu_ebreak          ,
 
   output  reg     [4:0]   mmu_index_rd        ,
   output  reg             mmu_wb_en           ,
@@ -32,6 +33,7 @@ module mmu(
   output  wire    [63:0]  mmu_dnpc            ,
   output  wire            mmu_jump_en         ,
   output  wire            mmu_branch_en       ,
+  output  reg             mmu_ebreak          ,
 
   output  wire    [63:0]  mm_addr             , 
   output  wire    [63:0]  mm_wdata            , 
@@ -91,6 +93,7 @@ memory memory_inst(
       mmu_imm_data  <=   'b0  ;
       mmu_wb_choose <=   'b0  ;
       mmu_wb_en     <=   'b0  ;
+      mmu_ebreak    <=   'b0  ;
     end else begin
       mmu_index_rd  <= exu_index_rd    ;
       mmu_alu_data  <= exu_alu_result  ;
@@ -98,6 +101,7 @@ memory memory_inst(
       mmu_imm_data  <= exu_imm         ;
       mmu_wb_choose <= exu_wb_choose   ;
       mmu_wb_en     <= exu_wb_en       ;
+      mmu_ebreak    <= exu_ebreak      ;
     end
   end 
 

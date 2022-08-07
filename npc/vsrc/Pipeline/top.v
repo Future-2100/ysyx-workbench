@@ -70,6 +70,7 @@ wire              idu_store_en       ;
 wire    [3:0]     idu_store_len      ; 
 wire              idu_wb_en          ; 
 wire    [2:0]     idu_wb_choose      ; 
+wire              idu_ebreak         ;
 wire    [63:0]    mmu_wb_data        ; 
 wire    [4:0]     mmu_index_rd       ; 
 wire              mmu_wb_en          ; 
@@ -77,7 +78,6 @@ wire              mmu_wb_en          ;
 idu idu_inst(
   .clk               ( clk                )  ,
   .rstn              ( rstn               )  ,
-  .ebreak            ( ebreak             )  ,
   .flush_nop         ( flush_nop          )  ,
   .ld_hz_nop         ( ld_hz_nop          )  ,
   .decoder_alu_en    ( decoder_alu_en     )  ,
@@ -104,6 +104,7 @@ idu idu_inst(
   .idu_store_len     ( idu_store_len      )  ,
   .idu_wb_en         ( idu_wb_en          )  ,
   .idu_wb_choose     ( idu_wb_choose      )  ,
+  .idu_ebreak        ( idu_ebreak         )  ,
   .mmu_wb_data       ( mmu_wb_data        )  ,
   .mmu_index_rd      ( mmu_index_rd       )  ,
   .mmu_wb_en         ( mmu_wb_en          )  
@@ -129,6 +130,7 @@ wire         exu_store_en       ;
 wire  [3:0]  exu_store_len      ;
 wire         exu_wb_en          ;
 wire  [2:0]  exu_wb_choose      ;
+wire         exu_ebreak         ;
 
 
 exu exu_inst(
@@ -160,6 +162,7 @@ exu exu_inst(
   .idu_store_len     ( idu_store_len      )   ,
   .idu_wb_en         ( idu_wb_en          )   ,
   .idu_wb_choose     ( idu_wb_choose      )   ,
+  .idu_ebreak        ( idu_ebreak         )   ,
   .exu_index_rd      ( exu_index_rd       )   ,
   .exu_index_rs1     ( exu_index_rs1      )   ,
   .exu_index_rs2     ( exu_index_rs2      )   ,
@@ -175,10 +178,11 @@ exu exu_inst(
   .exu_store_en      ( exu_store_en       )   ,
   .exu_store_len     ( exu_store_len      )   ,
   .exu_wb_en         ( exu_wb_en          )   ,
+  .exu_ebreak        ( exu_ebreak         )   ,
   .exu_wb_choose     ( exu_wb_choose      ) 
 );
 
-
+wire  mmu_ebreak;
 mmu mmu_inst(
   .clk  ( clk  ) ,
   .rstn ( rstn ) ,
@@ -198,12 +202,14 @@ mmu mmu_inst(
   .exu_load_opcode    ( exu_load_opcode   ) ,
   .exu_wb_en          ( exu_wb_en         ) ,
   .exu_wb_choose      ( exu_wb_choose     ) ,
+  .exu_ebreak         ( exu_ebreak        ) ,
   .mmu_index_rd       ( mmu_index_rd      ) ,
   .mmu_wb_en          ( mmu_wb_en         ) ,
   .mmu_wb_data        ( mmu_wb_data       ) ,
   .mmu_dnpc           ( mmu_dnpc          ) ,
   .mmu_jump_en        ( mmu_jump_en       ) ,
   .mmu_branch_en      ( mmu_branch_en     ) ,
+  .mmu_ebreak         ( mmu_ebreak        ) ,
   .mm_addr            ( mm_addr           ) , 
   .mm_wdata           ( mm_wdata          ) , 
   .mm_wlen            ( mm_wlen           ) , 
@@ -211,6 +217,7 @@ mmu mmu_inst(
   .mm_ren             ( mm_ren            ) , 
   .mm_rdata           ( mm_rdata          ) 
 );
+assign  ebreak = mmu_ebreak;
 
 hazard hazard_inst(
   .decoder_alu_en ( decoder_alu_en ) ,
