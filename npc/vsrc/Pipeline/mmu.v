@@ -89,7 +89,7 @@ memory memory_inst(
   reg     [3:0]   mmu_wb_choose       ;
   reg     [63:0]  mmu_snxt_pc         ;
 
-  always@(posedge clk) begin
+  always@(negedge clk) begin
     if(!rstn) begin
       mmu_index_rd  <=   'b0  ;
       mmu_alu_data  <=   'b0  ;

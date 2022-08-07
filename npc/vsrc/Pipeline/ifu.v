@@ -34,7 +34,7 @@ always@(posedge clk) begin
     pc <= dnxt_pc;
 end
 
-always@(posedge clk) begin
+always@(negedge clk) begin
   if(!rstn) begin
     ifu_pc       <= 64'b0;
     ifu_instr    <= 32'b0;

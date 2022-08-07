@@ -60,6 +60,7 @@ wire  [63:0]       pc   = ifu_pc ;
 
 wire  [63:0]  gpr_data1 ;
 wire  [63:0]  gpr_data2 ;
+
 regfile regfile_inst (
   .clk  ( clk  ) ,
   .rstn ( rstn ) ,
@@ -132,7 +133,7 @@ imm_gen imm_gen_inst (
 );
 
 
-always@(posedge clk) begin
+always@(negedge clk) begin
   if(!rstn) begin
      idu_index_rs1      <=  'b0 ;
      idu_index_rs2      <=  'b0 ;
