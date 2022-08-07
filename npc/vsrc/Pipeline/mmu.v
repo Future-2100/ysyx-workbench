@@ -106,9 +106,9 @@ memory memory_inst(
   end 
 
 
-  assign  mmu_wb_data = ( {64{mmu_wb_choose==3'b001}} &  mmu_alu_data ) | 
+  assign  mmu_wb_data = ( {64{mmu_wb_choose==3'b100}} &  mmu_alu_data ) | 
                         ( {64{mmu_wb_choose==3'b010}} & mmu_load_data ) |
-                        ( {64{mmu_wb_choose==3'b100}} &  mmu_imm_data ) ;
+                        ( {64{mmu_wb_choose==3'b001}} &  mmu_imm_data ) ;
 
 
 endmodule

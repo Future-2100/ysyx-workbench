@@ -7861,7 +7861,7 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
         = ((8U & ((IData)(vlSelf->top__DOT__idu_alu_opcode) 
                   >> 1U)) | (7U & (IData)(vlSelf->top__DOT__idu_alu_opcode)));
     vlSelf->top__DOT__mmu_wb_data = ((((- (QData)((IData)(
-                                                          (1U 
+                                                          (4U 
                                                            == (IData)(vlSelf->top__DOT__mmu_inst__DOT__mmu_wb_choose))))) 
                                        & vlSelf->top__DOT__mmu_inst__DOT__mmu_alu_data) 
                                       | ((- (QData)((IData)(
@@ -7869,7 +7869,7 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                                                              == (IData)(vlSelf->top__DOT__mmu_inst__DOT__mmu_wb_choose))))) 
                                          & vlSelf->top__DOT__mmu_inst__DOT__mmu_load_data)) 
                                      | ((- (QData)((IData)(
-                                                           (4U 
+                                                           (1U 
                                                             == (IData)(vlSelf->top__DOT__mmu_inst__DOT__mmu_wb_choose))))) 
                                         & vlSelf->top__DOT__mmu_inst__DOT__mmu_imm_data));
     if (((IData)(vlSelf->top__DOT__idu_jump_en) ^ (IData)(vlSelf->top__DOT____Vtogcov__idu_jump_en))) {

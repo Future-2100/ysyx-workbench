@@ -7359,7 +7359,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__5(Vtop___024root* vlSelf) {
                   << 0x3fU));
     }
     vlSelf->top__DOT__mmu_wb_data = ((((- (QData)((IData)(
-                                                          (1U 
+                                                          (4U 
                                                            == (IData)(vlSelf->top__DOT__mmu_inst__DOT__mmu_wb_choose))))) 
                                        & vlSelf->top__DOT__mmu_inst__DOT__mmu_alu_data) 
                                       | ((- (QData)((IData)(
@@ -7367,7 +7367,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__5(Vtop___024root* vlSelf) {
                                                              == (IData)(vlSelf->top__DOT__mmu_inst__DOT__mmu_wb_choose))))) 
                                          & vlSelf->top__DOT__mmu_inst__DOT__mmu_load_data)) 
                                      | ((- (QData)((IData)(
-                                                           (4U 
+                                                           (1U 
                                                             == (IData)(vlSelf->top__DOT__mmu_inst__DOT__mmu_wb_choose))))) 
                                         & vlSelf->top__DOT__mmu_inst__DOT__mmu_imm_data));
     vlSelf->top__DOT__exu_alu_result = ((IData)(vlSelf->rstn)
