@@ -96,7 +96,7 @@ branch_pc_adder branch_pc_adder_inst(
   .branch_pc ( branch_pc )
 );
 
-  always@(negedge clk) begin
+  always@(posedge clk) begin
     if(!rstn) begin
          exu_index_rd       <=   'b0  ; 
          exu_index_rs1      <=   'b0  ; 

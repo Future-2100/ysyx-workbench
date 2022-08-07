@@ -349,7 +349,7 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT__mmu_inst__DOT____Vtogcov__mmu_imm_data;
         QData/*63:0*/ top__DOT__mmu_inst__DOT____Vtogcov__mmu_snxt_pc;
         QData/*63:0*/ __Vtask_top__DOT__vmem_read__1__rdata;
-        VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
+        VlUnpacked<CData/*0:0*/, 2> __Vm_traceActivity;
     };
 
     // INTERNAL VARIABLES

@@ -2367,7 +2367,6 @@ void Vtop___024root___eval_settle(Vtop___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval_settle\n"); );
     // Body
     Vtop___024root___settle__TOP__1(vlSelf);
-    vlSelf->__Vm_traceActivity[2U] = 1U;
     vlSelf->__Vm_traceActivity[1U] = 1U;
     vlSelf->__Vm_traceActivity[0U] = 1U;
     Vtop___024root___settle__TOP__2(vlSelf);
@@ -2698,7 +2697,7 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__forward_inst__DOT____Vtogcov__mm_forward_1 = 0;
     vlSelf->top__DOT__forward_inst__DOT____Vtogcov__mm_forward_2 = 0;
     vlSelf->__Vtask_top__DOT__vmem_read__1__rdata = 0;
-    for (int __Vi0=0; __Vi0<3; ++__Vi0) {
+    for (int __Vi0=0; __Vi0<2; ++__Vi0) {
         vlSelf->__Vm_traceActivity[__Vi0] = 0;
     }
 }

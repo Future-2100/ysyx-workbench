@@ -133,7 +133,7 @@ imm_gen imm_gen_inst (
 );
 
 
-always@(negedge clk) begin
+always@(posedge clk) begin
   if(!rstn) begin
      idu_index_rs1      <=  'b0 ;
      idu_index_rs2      <=  'b0 ;
