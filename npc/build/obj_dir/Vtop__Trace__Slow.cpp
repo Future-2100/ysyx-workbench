@@ -111,7 +111,7 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declQuad(c+12,"top ifu_inst ifu_pc", false,-1, 63,0);
         tracep->declBus(c+14,"top ifu_inst ifu_instr", false,-1, 31,0);
         tracep->declBit(c+15,"top ifu_inst ld_hz_stop", false,-1);
-        tracep->declBit(c+291,"top ifu_inst flush_nop", false,-1);
+        tracep->declBit(c+16,"top ifu_inst flush_nop", false,-1);
         tracep->declBit(c+279,"top idu_inst clk", false,-1);
         tracep->declBit(c+280,"top idu_inst rstn", false,-1);
         tracep->declBit(c+16,"top idu_inst flush_nop", false,-1);
@@ -711,6 +711,5 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->fullQData(oldp+285,(vlSelf->snxt_pc),64);
         tracep->fullQData(oldp+287,(vlSelf->dnxt_pc),64);
         tracep->fullQData(oldp+289,(vlSelf->top__DOT__dnpc),64);
-        tracep->fullBit(oldp+291,(0U));
     }
 }

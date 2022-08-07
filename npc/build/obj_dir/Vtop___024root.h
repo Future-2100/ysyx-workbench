@@ -214,7 +214,6 @@ VL_MODULE(Vtop___024root) {
         CData/*2:0*/ top__DOT____Vtogcov__exu_wb_choose;
         CData/*0:0*/ top__DOT____Vtogcov__exu_ebreak;
         CData/*0:0*/ top__DOT____Vtogcov__mmu_ebreak;
-        CData/*0:0*/ top__DOT__ifu_inst__DOT____Vtogcov__flush_nop;
         CData/*0:0*/ top__DOT__idu_inst__DOT____Vtogcov__branch_en;
         CData/*0:0*/ top__DOT__idu_inst__DOT____Vtogcov__alu_pc_en;
         CData/*0:0*/ top__DOT__idu_inst__DOT____Vtogcov__alu_imm_en;
@@ -236,9 +235,9 @@ VL_MODULE(Vtop___024root) {
         CData/*0:0*/ top__DOT__idu_inst__DOT__decoder_inst__DOT____Vtogcov__opcode4_2___05F010;
         CData/*0:0*/ top__DOT__idu_inst__DOT__decoder_inst__DOT____Vtogcov__opcode4_2___05F011;
         CData/*0:0*/ top__DOT__idu_inst__DOT__decoder_inst__DOT____Vtogcov__opcode4_2___05F100;
+        CData/*0:0*/ top__DOT__idu_inst__DOT__decoder_inst__DOT____Vtogcov__opcode4_2___05F101;
     };
     struct {
-        CData/*0:0*/ top__DOT__idu_inst__DOT__decoder_inst__DOT____Vtogcov__opcode4_2___05F101;
         CData/*0:0*/ top__DOT__idu_inst__DOT__decoder_inst__DOT____Vtogcov__opcode4_2___05F110;
         CData/*0:0*/ top__DOT__idu_inst__DOT__decoder_inst__DOT____Vtogcov__opcode4_2___05F111;
         CData/*0:0*/ top__DOT__idu_inst__DOT__decoder_inst__DOT____Vtogcov__opcode6_5___05F00;
@@ -302,9 +301,9 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT____Vtogcov__idu_imm;
         QData/*63:0*/ top__DOT____Vtogcov__idu_gpr_data2;
         QData/*63:0*/ top__DOT____Vtogcov__mmu_wb_data;
+        QData/*63:0*/ top__DOT____Vtogcov__fw_data1;
     };
     struct {
-        QData/*63:0*/ top__DOT____Vtogcov__fw_data1;
         QData/*63:0*/ top__DOT____Vtogcov__fw_data2;
         QData/*63:0*/ top__DOT____Vtogcov__exu_branch_pc;
         QData/*63:0*/ top__DOT____Vtogcov__exu_imm;
