@@ -22,6 +22,9 @@ wire            exu_branch_en   ;
 wire  [63:0]    dnpc            ;
 wire  [63:0]    ifu_pc          ;
 wire  [31:0]    ifu_instr       ;
+wire  [31:0]    idu_instr       ;
+wire  [31:0]    exu_instr       ;
+wire  [31:0]    mmu_instr       ;
 wire  [63:0]    ifu_snxt_pc     ;
 wire            ld_hz_stop      ;
 wire            flush_nop       ;
@@ -109,6 +112,7 @@ idu idu_inst(
   .idu_wb_choose     ( idu_wb_choose      )  ,
   .idu_ebreak        ( idu_ebreak         )  ,
   .idu_snxt_pc       ( idu_snxt_pc        )  ,
+  .idu_instr         ( idu_instr          )  ,
   .mmu_wb_data       ( mmu_wb_data        )  ,
   .mmu_index_rd      ( mmu_index_rd       )  ,
   .mmu_wb_en         ( mmu_wb_en          )  
@@ -169,6 +173,8 @@ exu exu_inst(
   .idu_wb_choose     ( idu_wb_choose      )   ,
   .idu_ebreak        ( idu_ebreak         )   ,
   .idu_snxt_pc       ( idu_snxt_pc        )   ,
+  .idu_instr         ( idu_instr          )  ,
+  .exu_instr         ( exu_instr          )  ,
   .exu_index_rd      ( exu_index_rd       )   ,
   .exu_index_rs1     ( exu_index_rs1      )   ,
   .exu_index_rs2     ( exu_index_rs2      )   ,
@@ -212,6 +218,8 @@ mmu mmu_inst(
   .exu_wb_choose      ( exu_wb_choose     ) ,
   .exu_ebreak         ( exu_ebreak        ) ,
   .exu_snxt_pc        ( exu_snxt_pc       ) ,
+  .exu_instr          ( exu_instr         ) ,
+  .mmu_instr          ( mmu_instr         ) ,
   .mmu_index_rd       ( mmu_index_rd      ) ,
   .mmu_wb_en          ( mmu_wb_en         ) ,
   .mmu_wb_data        ( mmu_wb_data       ) ,

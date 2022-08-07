@@ -109,6 +109,9 @@ VL_MODULE(Vtop___024root) {
         CData/*0:0*/ top__DOT__forward_inst__DOT__mm_forward_1;
         CData/*0:0*/ top__DOT__forward_inst__DOT__mm_forward_2;
         IData/*31:0*/ top__DOT__ifu_instr;
+        IData/*31:0*/ top__DOT__idu_instr;
+        IData/*31:0*/ top__DOT__exu_instr;
+        IData/*31:0*/ top__DOT__mmu_instr;
         IData/*31:0*/ top__DOT__idu_inst__DOT__regfile_inst__DOT__i;
         VlWide<4>/*127:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__mul_ss;
         VlWide<4>/*127:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__mul_uu;
@@ -158,11 +161,11 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__opid_xor;
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__opid_srl;
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__opid_or;
+    };
+    struct {
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__opid_and;
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__opid_result;
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__opmd_div;
-    };
-    struct {
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__opmd_divu;
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__opmd_rem;
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__opmd_result;
@@ -277,6 +280,9 @@ VL_MODULE(Vtop___024root) {
         CData/*0:0*/ __Vclklast__TOP__clk;
         IData/*31:0*/ top__DOT____Vtogcov__instr;
         IData/*31:0*/ top__DOT____Vtogcov__ifu_instr;
+        IData/*31:0*/ top__DOT____Vtogcov__idu_instr;
+        IData/*31:0*/ top__DOT____Vtogcov__exu_instr;
+        IData/*31:0*/ top__DOT____Vtogcov__mmu_instr;
         VlWide<4>/*127:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__mul_ss;
         VlWide<4>/*127:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__mul_uu;
         VlWide<4>/*127:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__mul_su;
@@ -304,11 +310,11 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT____Vtogcov__mmu_dnpc;
         QData/*63:0*/ top__DOT____Vtogcov__idu_pc;
         QData/*63:0*/ top__DOT____Vtogcov__idu_gpr_data1;
+    };
+    struct {
         QData/*63:0*/ top__DOT____Vtogcov__idu_imm;
         QData/*63:0*/ top__DOT____Vtogcov__idu_gpr_data2;
         QData/*63:0*/ top__DOT____Vtogcov__idu_snxt_pc;
-    };
-    struct {
         QData/*63:0*/ top__DOT____Vtogcov__mmu_wb_data;
         QData/*63:0*/ top__DOT____Vtogcov__fw_data1;
         QData/*63:0*/ top__DOT____Vtogcov__fw_data2;

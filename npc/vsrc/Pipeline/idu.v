@@ -43,6 +43,7 @@ module idu(
   output  reg     [3:0]     idu_wb_choose     ,
   output  reg               idu_ebreak        ,
   output  wire    [63:0]    idu_snxt_pc       ,
+  output  reg     [31:0]    idu_instr         ,
 
 //  ******** control signal from write back stage ********  //
   input   wire    [63:0]    mmu_wb_data       ,
@@ -156,6 +157,7 @@ always@(posedge clk) begin
      idu_wb_choose      <=  'b0 ;  
      idu_ebreak         <=  'b0 ;
      idu_snxt_pc        <=  'b0 ;
+     idu_instr          <=  'b0 ;
   end
   else if ( flush_nop | ld_hz_nop ) begin
       idu_index_rs1      <=  index_rs1      ;  
@@ -181,6 +183,7 @@ always@(posedge clk) begin
       idu_wb_choose      <=  wb_choose      ;
       idu_ebreak         <=  'b0            ;
       idu_snxt_pc        <=  ifu_snxt_pc    ;
+      idu_instr          <=  ifu_instr      ;
   end
   else begin
       idu_index_rs1      <=  index_rs1      ;  
@@ -206,6 +209,7 @@ always@(posedge clk) begin
       idu_wb_choose      <=  wb_choose      ;
       idu_ebreak         <=  ebreak         ;
       idu_snxt_pc        <=  ifu_snxt_pc    ;
+      idu_instr          <=  ifu_instr      ;
   end
 end
 

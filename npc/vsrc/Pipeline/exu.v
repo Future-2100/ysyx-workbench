@@ -40,6 +40,7 @@ module exu(
   input   wire  [3:0]  idu_wb_choose     ,
   input   wire         idu_ebreak        ,
   input   wire  [63:0] idu_snxt_pc       ,
+  input   wire  [31:0] idu_instr         ,
 
   output  reg   [4:0]  exu_index_rd      ,
   output  reg   [4:0]  exu_index_rs1     ,
@@ -53,6 +54,7 @@ module exu(
   output  reg   [63:0] exu_alu_result     ,
   output  reg   [63:0] exu_gpr_data2      ,
   output  reg   [63:0] exu_imm            ,
+  output  reg   [31:0] exu_instr          ,
 
   output  reg          exu_load_en        ,
   output  reg   [2:0]  exu_load_opcode    ,
@@ -114,6 +116,7 @@ branch_pc_adder branch_pc_adder_inst(
          exu_wb_choose      <=   'b0  ; 
          exu_ebreak         <=   'b0  ;
          exu_snxt_pc        <=   'b0  ;
+         exu_instr          <=   'b0  ;
     end
     else if(flush_nop) begin
          exu_index_rd       <=   idu_index_rd       ; 
@@ -134,6 +137,7 @@ branch_pc_adder branch_pc_adder_inst(
          exu_wb_choose      <=   idu_wb_choose      ; 
          exu_ebreak         <=             'b0      ;
          exu_snxt_pc        <=   idu_snxt_pc        ;
+         exu_instr          <=   idu_instr          ;
     end
     else begin
          exu_index_rd       <=   idu_index_rd       ; 
@@ -154,6 +158,7 @@ branch_pc_adder branch_pc_adder_inst(
          exu_wb_choose      <=   idu_wb_choose      ; 
          exu_ebreak         <=   idu_ebreak         ;
          exu_snxt_pc        <=   idu_snxt_pc        ;
+         exu_instr          <=   idu_instr          ;
     end
   end
 

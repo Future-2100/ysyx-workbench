@@ -13,6 +13,7 @@ module mmu(
   input   wire            exu_branch_result   ,
 
   input   wire    [63:0]  exu_alu_result      ,
+  input   wire    [31:0]  exu_instr           ,
 
   input   wire            exu_load_en         ,
   input   wire            exu_store_en        ,
@@ -34,6 +35,7 @@ module mmu(
   output  wire    [63:0]  mmu_dnpc            ,
   output  wire            mmu_jump_en         ,
   output  wire            mmu_branch_en       ,
+  output  reg     [31:0]  mmu_instr           ,
   output  reg             mmu_ebreak          ,
 
   output  wire    [63:0]  mm_addr             , 
@@ -97,6 +99,7 @@ memory memory_inst(
       mmu_wb_en     <=   'b0  ;
       mmu_ebreak    <=   'b0  ;
       mmu_snxt_pc   <=   'b0  ;
+      mmu_instr     <=   'b0  ;
     end else begin
       mmu_index_rd  <= exu_index_rd    ;
       mmu_alu_data  <= exu_alu_result  ;
@@ -106,6 +109,7 @@ memory memory_inst(
       mmu_wb_en     <= exu_wb_en       ;
       mmu_ebreak    <= exu_ebreak      ;
       mmu_snxt_pc   <= exu_snxt_pc     ;
+      mmu_instr     <= exu_instr       ;
     end
   end 
 
