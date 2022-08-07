@@ -4972,10 +4972,12 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__7(Vtop___024root* vlSelf) {
                                                       & (- (IData)((IData)(vlSelf->top__DOT__idu_inst__DOT__load_en))))) 
                                                   | (8U 
                                                      & (- (IData)(
-                                                                  ((((IData)(vlSelf->top__DOT__idu_inst__DOT__alu_en) 
-                                                                     & (~ (IData)(vlSelf->top__DOT__idu_inst__DOT__branch_en))) 
-                                                                    & (~ (IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__jal_en))) 
-                                                                   & (~ (IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__jalr_en)))))));
+                                                                  ((((((IData)(vlSelf->top__DOT__idu_inst__DOT__alu_en) 
+                                                                       & (~ (IData)(vlSelf->top__DOT__idu_inst__DOT__branch_en))) 
+                                                                      & (~ (IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__jal_en))) 
+                                                                     & (~ (IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__jalr_en))) 
+                                                                    & (~ (IData)(vlSelf->top__DOT__idu_inst__DOT__load_en))) 
+                                                                   & (~ (IData)(vlSelf->top__DOT__idu_inst__DOT__store_en)))))));
     if (((IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__alu_adder_en) 
          ^ (IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT____Vtogcov__alu_adder_en))) {
         ++(vlSymsp->__Vcoverage[2047]);
