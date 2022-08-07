@@ -40,10 +40,10 @@ module idu(
 
 //  ******** control signal for write back stage ********  //
   output  reg               idu_wb_en         ,
-  output  reg     [3:0]     idu_wb_choose     ,
-  output  wire              idu_ebreak        ,
-  output  wire    [63:0]    idu_snxt_pc       ,
-  output  wire    [31:0]    idu_instr         ,
+  output  wire    [3:0]     idu_wb_choose     ,
+  output  reg               idu_ebreak        ,
+  output  reg     [63:0]    idu_snxt_pc       ,
+  output  reg     [31:0]    idu_instr         ,
 
 //  ******** control signal from write back stage ********  //
   input   wire    [63:0]    mmu_wb_data       ,
