@@ -7,7 +7,6 @@ module top(
   output  wire            ebreak    ,
   output  wire  [63:0]    snxt_pc   ,
   output  wire  [63:0]    dnxt_pc
-
 );
   
   wire  [63:0]    mm_addr   ;
@@ -299,7 +298,6 @@ forward  forward_inst(
   task end_sim;
     $finish;
   endtask
-
 
 
 endmodule
