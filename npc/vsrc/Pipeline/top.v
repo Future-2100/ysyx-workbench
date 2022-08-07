@@ -110,8 +110,9 @@ idu idu_inst(
 );
 
 wire         fw_en1             ;
-wire  [63:0] fw_data            ;
+wire  [63:0] fw_data1           ;
 wire         fw_en2             ;
+wire  [63:0] fw_data2           ;
 wire  [4:0]  exu_index_rd       ;
 wire  [4:0]  exu_index_rs1      ;
 wire  [4:0]  exu_index_rs2      ;
@@ -140,11 +141,12 @@ exu exu_inst(
   .idu_jump_en       ( idu_jump_en        )   ,
   .idu_branch_en     ( idu_branch_en      )   ,
   .fw_en1            ( fw_en1             )   ,
+  .fw_data1          ( fw_data1           )   ,
   .idu_alu_pc_en     ( idu_alu_pc_en      )   ,
   .idu_pc            ( idu_pc             )   ,
   .idu_gpr_data1     ( idu_gpr_data1      )   ,
-  .fw_data           ( fw_data            )   ,
   .fw_en2            ( fw_en2             )   ,
+  .fw_data2          ( fw_data2           )   ,
   .idu_alu_imm_en    ( idu_alu_imm_en     )   ,
   .idu_imm           ( idu_imm            )   ,
   .idu_gpr_data2     ( idu_gpr_data2      )   ,
@@ -233,9 +235,12 @@ forward  forward_inst(
   .mmu_index_rd    ( mmu_index_rd    )  ,
   .exu_alu_result  ( exu_alu_result  )  ,
   .mmu_wb_data     ( mmu_wb_data     )  ,
+  .exu_wb_en       ( exu_wb_en       )  ,
+  .mmu_wb_en       ( mmu_wb_en       )  ,
   .fw_en1          ( fw_en1          )  ,
   .fw_en2          ( fw_en2          )  ,
-  .fw_data         ( fw_data         )    
+  .fw_data1        ( fw_data1        )  ,
+  .fw_data2        ( fw_data2        )    
 );
 
 

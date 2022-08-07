@@ -2,13 +2,13 @@ module alu(
   input   wire              pc_en        ,
   input   wire    [63:0]    pc           ,
   input   wire              fw_en1       ,
-  input   wire    [63:0]    fw_data      ,
+  input   wire    [63:0]    fw_data1     ,
   input   wire    [63:0]    gpr_data1    ,
 
   input   wire              imm_en       ,
   input   wire    [63:0]    imm          ,
   input   wire              fw_en2       ,
-//input   wire    [63:0]    fw_data      ,
+  input   wire    [63:0]    fw_data2     ,
   input   wire    [63:0]    gpr_data2    ,
 
   input   wire              alu_en       ,
@@ -31,11 +31,11 @@ module alu(
 
   assign  opdata_1 =     ( { 64{gpr_en1} } & gpr_data1 ) |
                          ( { 64{ pc_en } } & pc        ) |
-                         ( { 64{ fw_en1} } & fw_data   ) ;
+                         ( { 64{ fw_en1} } & fw_data1  ) ;
 
   assign  opdata_2 =     ( { 64{gpr_en2} } & gpr_data2 ) |
                          ( { 64{imm_en } } & imm       ) |
-                         ( { 64{ fw_en2} } & fw_data   ) ;
+                         ( { 64{ fw_en2} } & fw_data2  ) ;
 
   // ************************** RV64I-d **************************************** //
   wire   opid_en = alu_en & (!alu_halfop) & (!alu_opcode[3]) ;

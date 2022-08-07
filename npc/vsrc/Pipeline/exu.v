@@ -16,14 +16,14 @@ module exu(
   input   wire         idu_alu_pc_en  ,
   input   wire  [63:0] idu_pc         ,
   input   wire  [63:0] idu_gpr_data1  ,
-  input   wire  [63:0] fw_data        ,
+  input   wire  [63:0] fw_data1       ,
 
   //alu operate data 2
   input   wire         fw_en2         ,
   input   wire         idu_alu_imm_en ,
   input   wire  [63:0] idu_imm        ,
   input   wire  [63:0] idu_gpr_data2  ,
-//input   wire  [63:0] fw_data        ,
+  input   wire  [63:0] fw_data2       ,
 
   //alu control signals
   input   wire         idu_alu_en        ,
@@ -67,11 +67,12 @@ alu alu_inst(
      .pc_en           ( idu_alu_pc_en      ),
      .pc              ( idu_pc             ),
      .fw_en1          (     fw_en1         ),
-     .fw_data         (     fw_data        ),
+     .fw_data1        (     fw_data1       ),
      .gpr_data1       ( idu_gpr_data1      ),
      .imm_en          ( idu_alu_imm_en     ),
      .imm             ( idu_imm            ),
      .fw_en2          (     fw_en2         ),
+     .fw_data2        (     fw_data2       ),
      .gpr_data2       ( idu_gpr_data2      ),
      .alu_en          ( idu_alu_en         ),
      .alu_opcode      ( idu_alu_opcode     ),
