@@ -44,7 +44,8 @@ ifu ifu_inst(
   .ifu_pc         ( ifu_pc          )  ,
   .ifu_instr      ( ifu_instr       )  ,
   .ld_hz_stop     ( ld_hz_stop      )  ,
-  .flush_nop      ( flush_nop       )
+//.flush_nop      ( flush_nop       )
+  .flush_nop      ( 1'b0            )
 );
 
 wire              ld_hz_nop          ; 
