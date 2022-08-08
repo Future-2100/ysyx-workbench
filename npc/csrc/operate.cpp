@@ -126,7 +126,9 @@ extern "C" void vmem_read(long long raddr, long long *rdata , char ren) {
 bool fetch_req = false;
 uintptr_t fetch_addr = 0;
 
-void run_step(Decode *s, CPU_state *cpu) {
+void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
+
+      *diff_en = false;
 
       top->clk  = !top->clk;   //posedge clk
       top->instr = inst_fetch(&top->pc, 4);
@@ -171,12 +173,15 @@ void run_step(Decode *s, CPU_state *cpu) {
       top->ifu_ARREADY = 0;
       */
 
-      s->snpc = top->snxt_pc;
+      if( top->execute_en ) {
+        *diff_en = true ;
+      s->snpc = top->execute_pc + 4;
       s->dnpc = top->dnxt_pc;
-      s->pc   = top->pc;
-      s->isa.inst.val = top->instr;
-      for (int i=0; i<32; i++) {
-        cpu->gpr[i] = cpu_gpr[i];
+      s->pc   = top->execute_pc;
+      s->isa.inst.val = top->execute_instr;
+        for (int i=0; i<32; i++) {
+          cpu->gpr[i] = cpu_gpr[i];
+        }
       }
 
       if(top->ebreak)  { 

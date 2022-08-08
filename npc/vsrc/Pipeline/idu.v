@@ -10,7 +10,9 @@ module idu(
   input   wire    [31:0]    ifu_instr        ,
   input   wire    [63:0]    ifu_pc           ,
   input   wire    [63:0]    ifu_snxt_pc      ,
+  input   wire              ifu_execute_en   ,
 
+  output  reg               idu_execute_en   ,
   output  reg     [4:0]     idu_index_rs1    ,
   output  reg     [4:0]     idu_index_rs2    ,
   output  reg     [4:0]     idu_index_rd     ,
@@ -63,8 +65,8 @@ wire  [63:0]  gpr_data2 ;
 wire  [63:0]  reg_gpr_data1 ;
 wire  [63:0]  reg_gpr_data2 ;
 
-wire  wb_forward_1 = mmu_wb_en & ( mmu_index_rd == index_rs1 );
-wire  wb_forward_2 = mmu_wb_en & ( mmu_index_rd == index_rs2 );
+wire  wb_forward_1 = mmu_wb_en & ( mmu_index_rd == index_rs1 ) & ( mmu_index_rd != 0 );
+wire  wb_forward_2 = mmu_wb_en & ( mmu_index_rd == index_rs2 ) & ( mmu_index_rd != 0 );
 
 regfile regfile_inst (
   .clk  ( clk  ) ,
@@ -167,6 +169,7 @@ always@(posedge clk) begin
      idu_ebreak         <=  'b0 ;
      idu_snxt_pc        <=  'b0 ;
      idu_instr          <=  'b0 ;
+     idu_execute_en     <=  'b0 ;
   end
   else if ( flush_nop | ld_hz_nop ) begin
       idu_index_rs1      <=  index_rs1      ;  
@@ -193,6 +196,7 @@ always@(posedge clk) begin
       idu_ebreak         <=  'b0            ;
       idu_snxt_pc        <=  ifu_snxt_pc    ;
       idu_instr          <=  ifu_instr      ;
+      idu_execute_en     <=  'b0            ;
   end
   else begin
       idu_index_rs1      <=  index_rs1      ;  
@@ -219,6 +223,7 @@ always@(posedge clk) begin
       idu_ebreak         <=  ebreak         ;
       idu_snxt_pc        <=  ifu_snxt_pc    ;
       idu_instr          <=  ifu_instr      ;
+      idu_execute_en     <=  ifu_execute_en ;
   end
 end
 

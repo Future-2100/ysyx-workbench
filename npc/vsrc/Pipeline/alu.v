@@ -47,7 +47,7 @@ module alu(
   wire   [63:0]  opid_sltu = (  { 63'b0, ($unsigned(opdata_1) <  $unsigned(opdata_2)) }  )  ;
   wire   [63:0]  opid_xor  = (  opdata_1 ^   opdata_2                      )  ;
   wire   [63:0]  opid_srl  = (  opdata_1 >>  opdata_2[5:0]                 )  ;
-  wire   [63:0]  opid_sra  = (  opdata_1 >>> opdata_2[5:0]                 )  ;
+  wire   [63:0]  opid_sra  = (  $signed(opdata_1) >>> opdata_2[5:0]                 )  ;
   wire   [63:0]  opid_or   = (  opdata_1 | opdata_2                        )  ;
   wire   [63:0]  opid_and  = (  opdata_1 & opdata_2                        )  ;
 
@@ -63,11 +63,11 @@ module alu(
                                ( { 64{ opcode ==  4'b0111 } } &  opid_and ) ;
 
   // ************************** RV64M-d **************************************** //
+  wire   opmd_en = alu_en & (!alu_halfop) & (alu_opcode[3]) ;
+
   wire   [127:0]  mul_ss =   $signed(opdata_1) *   $signed(opdata_2) ;
   wire   [127:0]  mul_uu = $unsigned(opdata_1) * $unsigned(opdata_2) ;
   wire   [127:0]  mul_su =   $signed(opdata_1) * $unsigned(opdata_2) ;
-
-  wire   opmd_en = alu_en & (!alu_halfop) & (alu_opcode[3]) ;
 
   wire   [63:0]  opmd_mul    = mul_ss[63:0]   ;
   wire   [63:0]  opmd_mulh   = mul_ss[127:64] ;
@@ -88,16 +88,16 @@ module alu(
                                ( { 64{ opcode == 4'b0111 } } & opmd_remu    ) ;
 
   // ************************** RV64I-w **************************************** //
+  wire   opiw_en   = alu_en & alu_halfop & (!alu_opcode[3] ) ;
+
   wire   [31:0]  wopdata_1 = opdata_1[31:0] ;
   wire   [31:0]  wopdata_2 = opdata_2[31:0] ;
-
-  wire   opiw_en   = alu_en & alu_halfop & (!alu_opcode[3] ) ;
 
   wire   [31:0]  opiw_sum  = ( $signed(wopdata_1) + $signed(wopdata_2)   ) ;
   wire   [31:0]  opiw_dif  = ( $signed(wopdata_1) - $signed(wopdata_2)   ) ;
   wire   [31:0]  opiw_sll  = ( wopdata_1 <<  wopdata_2[4:0] ) ;
   wire   [31:0]  opiw_srl  = ( wopdata_1 >>  wopdata_2[4:0] ) ;
-  wire   [31:0]  opiw_sra  = ( wopdata_1 >>> wopdata_2[4:0] ) ;
+  wire   [31:0]  opiw_sra  = ( $signed(wopdata_1) >>> wopdata_2[4:0] ) ;
 
   wire   [31:0]  opiw_result = ( { 32{ opcode == 4'b0000 } } & opiw_sum ) |
                                ( { 32{ opcode == 4'b1000 } } & opiw_dif ) |
@@ -128,10 +128,10 @@ module alu(
 
   assign  branch_result = ( (branch_opcode == 3'b000) & (   $signed(opdata_1) ==   $signed(opdata_2) ) ) |
                           ( (branch_opcode == 3'b001) & (   $signed(opdata_1) !=   $signed(opdata_2) ) ) |
-                          ( (branch_opcode == 3'b100) & (   $signed(opdata_1) >    $signed(opdata_2) ) ) |
-                          ( (branch_opcode == 3'b101) & (   $signed(opdata_1) <=   $signed(opdata_2) ) ) |
-                          ( (branch_opcode == 3'b110) & ( $unsigned(opdata_1) >  $unsigned(opdata_2) ) ) |
-                          ( (branch_opcode == 3'b111) & ( $unsigned(opdata_1) <= $unsigned(opdata_2) ) ) ;
+                          ( (branch_opcode == 3'b100) & (   $signed(opdata_1) <    $signed(opdata_2) ) ) |
+                          ( (branch_opcode == 3'b101) & (   $signed(opdata_1) >=   $signed(opdata_2) ) ) |
+                          ( (branch_opcode == 3'b110) & ( $unsigned(opdata_1) <  $unsigned(opdata_2) ) ) |
+                          ( (branch_opcode == 3'b111) & ( $unsigned(opdata_1) >= $unsigned(opdata_2) ) ) ;
 
 endmodule
 

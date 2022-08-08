@@ -20,7 +20,7 @@ module forward(
   wire   ex_forward_2 = exu_wb_en & ( exu_index_rd !=0 ) & ( exu_index_rd == idu_index_rs2 ) ;
 
   wire   mm_forward_1 = mmu_wb_en & ( mmu_index_rd !=0 ) & !( exu_wb_en & ( exu_index_rd != 0 ) & ( exu_index_rd == idu_index_rs1 )) & ( mmu_index_rd == idu_index_rs1 ) ;
-  wire   mm_forward_2 = mmu_wb_en & ( mmu_index_rd !=0 ) & !( exu_wb_en & ( exu_index_rd != 0 ) & ( exu_index_rd == idu_index_rs2 )) & ( mmu_index_rd == idu_index_rs1 ) ;
+  wire   mm_forward_2 = mmu_wb_en & ( mmu_index_rd !=0 ) & !( exu_wb_en & ( exu_index_rd != 0 ) & ( exu_index_rd == idu_index_rs2 )) & ( mmu_index_rd == idu_index_rs2 ) ;
 
   assign fw_en1   = ex_forward_1 | mm_forward_1;
   assign fw_data1 = ex_forward_1 ? exu_alu_result :

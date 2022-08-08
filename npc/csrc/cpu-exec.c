@@ -14,23 +14,25 @@ NPCState npc_state = { .state = NPC_STOP };
 void difftest_step(vaddr_t pc, vaddr_t npc);
 uint64_t get_time();
 
-static void trace_and_difftest(Decode *_this, vaddr_t dnpc){
+static void trace_and_difftest(Decode *_this, vaddr_t dnpc, bool diff){
 #ifdef CONFIG_ITRACE
    log_write("%s\n", _this->logbuf);
   if( g_print_step ) { puts(_this->logbuf); }
 #endif
 #ifdef CONFIG_DIFFTEST
-  difftest_step(_this->pc, dnpc);
+  if( diff == true ) {
+    difftest_step(_this->pc, dnpc);
+  }
 #endif
 }
 
-void run_step(Decode *s, CPU_state *cpu);
+void run_step(Decode *s, CPU_state *cpu, bool *diff);
 
-static void exec_once(Decode *s, vaddr_t pc){
+static void exec_once(Decode *s, vaddr_t pc, bool *diff){
 
   s->pc = pc;
   s->snpc = pc;
-  run_step(s, &cpu);
+  run_step(s, &cpu, diff);
   cpu.pc = s->dnpc;
 
 #ifdef CONFIG_ITRACE
@@ -67,10 +69,11 @@ static void exec_once(Decode *s, vaddr_t pc){
 
 static void execute(uint64_t n) {
   Decode s;
+  bool diff = false;
   for(; n>0; n--) {
-    exec_once(&s,cpu.pc);
+    exec_once(&s,cpu.pc, &diff);
     g_nr_guest_inst ++;
-    trace_and_difftest(&s, cpu.pc);
+    trace_and_difftest(&s, cpu.pc, diff);
     if(npc_state.state != NPC_RUNNING) {
       break;
     }

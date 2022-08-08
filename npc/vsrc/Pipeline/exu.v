@@ -11,6 +11,9 @@ module exu(
   input   wire         idu_jump_en    ,
   input   wire         idu_branch_en  ,
 
+  input   wire         idu_execute_en ,
+  output  reg          exu_execute_en ,
+
   //alu operate data 1
   input   wire         fw_en1         ,
   input   wire         idu_alu_pc_en  ,
@@ -42,6 +45,7 @@ module exu(
   input   wire  [63:0] idu_snxt_pc       ,
   input   wire  [31:0] idu_instr         ,
 
+  output  wire  [63:0] exu_pc            ,
   output  reg   [4:0]  exu_index_rd      ,
   output  reg   [4:0]  exu_index_rs1     ,
   output  reg   [4:0]  exu_index_rs2     ,
@@ -96,6 +100,9 @@ branch_pc_adder branch_pc_adder_inst(
   .branch_pc ( branch_pc )
 );
 
+wire   [63:0] store_data ;
+assign store_data = fw_en2 ? fw_data2 : idu_gpr_data2  ;
+
   always@(posedge clk) begin
     if(!rstn) begin
          exu_index_rd       <=   'b0  ; 
@@ -117,6 +124,8 @@ branch_pc_adder branch_pc_adder_inst(
          exu_ebreak         <=   'b0  ;
          exu_snxt_pc        <=   'b0  ;
          exu_instr          <=   'b0  ;
+         exu_execute_en     <=   'b0  ;   
+         exu_pc             <=   'b0  ;
     end
     else if(flush_nop) begin
          exu_index_rd       <=   idu_index_rd       ; 
@@ -127,7 +136,7 @@ branch_pc_adder branch_pc_adder_inst(
          exu_branch_pc      <=       branch_pc      ; 
          exu_branch_result  <=             'b0      ; 
          exu_alu_result     <=       alu_result     ; 
-         exu_gpr_data2      <=   idu_gpr_data2      ; 
+         exu_gpr_data2      <=   store_data         ; 
          exu_imm            <=   idu_imm            ;
          exu_load_en        <=             'b0      ; 
          exu_load_opcode    <=   idu_load_opcode    ; 
@@ -138,6 +147,8 @@ branch_pc_adder branch_pc_adder_inst(
          exu_ebreak         <=             'b0      ;
          exu_snxt_pc        <=   idu_snxt_pc        ;
          exu_instr          <=   idu_instr          ;
+         exu_execute_en     <=             'b0      ;   
+         exu_pc             <=   idu_pc             ;
     end
     else begin
          exu_index_rd       <=   idu_index_rd       ; 
@@ -148,7 +159,7 @@ branch_pc_adder branch_pc_adder_inst(
          exu_branch_pc      <=       branch_pc      ; 
          exu_branch_result  <=       branch_result  ; 
          exu_alu_result     <=       alu_result     ; 
-         exu_gpr_data2      <=   idu_gpr_data2      ; 
+         exu_gpr_data2      <=   store_data         ; 
          exu_imm            <=   idu_imm            ;
          exu_load_en        <=   idu_load_en        ; 
          exu_load_opcode    <=   idu_load_opcode    ; 
@@ -159,6 +170,8 @@ branch_pc_adder branch_pc_adder_inst(
          exu_ebreak         <=   idu_ebreak         ;
          exu_snxt_pc        <=   idu_snxt_pc        ;
          exu_instr          <=   idu_instr          ;
+         exu_execute_en     <=   idu_execute_en     ;   
+         exu_pc             <=   idu_pc             ;
     end
   end
 

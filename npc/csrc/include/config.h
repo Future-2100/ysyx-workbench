@@ -1,8 +1,8 @@
 #ifndef __CONFIG_H_
 #define __CONFIG_H_
 
-#define CONFIG_MTRACE
-#define CONFIG_TRACE
+//#define CONFIG_MTRACE
+//#define CONFIG_TRACE
 //-------------------------some parameter related to the CONFIG_TRACE-----------------------
 #ifdef CONFIG_TRACE
     #define CONFIG_TRACE_START 0
