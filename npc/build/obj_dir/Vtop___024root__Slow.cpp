@@ -16059,7 +16059,7 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                   & ((IData)(vlSelf->top__DOT__exu_index_rd) 
                      == (IData)(vlSelf->top__DOT__idu_index_rs2))))) 
            & ((IData)(vlSelf->top__DOT__mmu_index_rd) 
-              == (IData)(vlSelf->top__DOT__idu_index_rs1)));
+              == (IData)(vlSelf->top__DOT__idu_index_rs2)));
     if (((IData)(vlSelf->top__DOT__ifu_execute_en) 
          ^ (IData)(vlSelf->top__DOT____Vtogcov__ifu_execute_en))) {
         ++(vlSymsp->__Vcoverage[522]);

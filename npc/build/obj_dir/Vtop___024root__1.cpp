@@ -145,7 +145,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__7(Vtop___024root* vlSelf) {
                   & ((IData)(vlSelf->top__DOT__exu_index_rd) 
                      == (IData)(vlSelf->top__DOT__idu_index_rs2))))) 
            & ((IData)(vlSelf->top__DOT__mmu_index_rd) 
-              == (IData)(vlSelf->top__DOT__idu_index_rs1)));
+              == (IData)(vlSelf->top__DOT__idu_index_rs2)));
     vlSelf->top__DOT__ifu_execute_en = vlSelf->__Vdly__top__DOT__ifu_execute_en;
     vlSelf->top__DOT__ifu_pc = vlSelf->__Vdly__top__DOT__ifu_pc;
     vlSelf->top__DOT__flush_nop = ((IData)(vlSelf->top__DOT__exu_jump_en) 
