@@ -286,12 +286,15 @@ flush flush_inst(
   .flush_nop     ( flush_nop      )  
 );
 
+
+wire [63:0] exu_fwd_data = ( exu_wb_choose == 4'b0010 ) ? exu_imm : exu_alu_result;
+
 forward  forward_inst(
   .idu_index_rs1   ( idu_index_rs1   )  ,
   .idu_index_rs2   ( idu_index_rs2   )  ,
   .exu_index_rd    ( exu_index_rd    )  ,
   .mmu_index_rd    ( mmu_index_rd    )  ,
-  .exu_alu_result  ( exu_alu_result  )  ,
+  .exu_alu_result  ( exu_fwd_data    )  ,
   .mmu_wb_data     ( mmu_wb_data     )  ,
   .exu_wb_en       ( exu_wb_en       )  ,
   .mmu_wb_en       ( mmu_wb_en       )  ,
