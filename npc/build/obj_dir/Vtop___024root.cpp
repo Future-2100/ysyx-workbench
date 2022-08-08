@@ -9061,7 +9061,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__6(Vtop___024root* vlSelf) {
     }
     if (((IData)(vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__opmd_en) 
          ^ (IData)(vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__opmd_en))) {
-        ++(vlSymsp->__Vcoverage[3640]);
+        ++(vlSymsp->__Vcoverage[3256]);
         vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__opmd_en 
             = vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__opmd_en;
     }

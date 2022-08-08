@@ -63,11 +63,11 @@ module alu(
                                ( { 64{ opcode ==  4'b0111 } } &  opid_and ) ;
 
   // ************************** RV64M-d **************************************** //
+  wire   opmd_en = alu_en & (!alu_halfop) & (alu_opcode[3]) ;
+
   wire   [127:0]  mul_ss =   $signed(opdata_1) *   $signed(opdata_2) ;
   wire   [127:0]  mul_uu = $unsigned(opdata_1) * $unsigned(opdata_2) ;
   wire   [127:0]  mul_su =   $signed(opdata_1) * $unsigned(opdata_2) ;
-
-  wire   opmd_en = alu_en & (!alu_halfop) & (alu_opcode[3]) ;
 
   wire   [63:0]  opmd_mul    = mul_ss[63:0]   ;
   wire   [63:0]  opmd_mulh   = mul_ss[127:64] ;
@@ -88,10 +88,10 @@ module alu(
                                ( { 64{ opcode == 4'b0111 } } & opmd_remu    ) ;
 
   // ************************** RV64I-w **************************************** //
+  wire   opiw_en   = alu_en & alu_halfop & (!alu_opcode[3] ) ;
+
   wire   [31:0]  wopdata_1 = opdata_1[31:0] ;
   wire   [31:0]  wopdata_2 = opdata_2[31:0] ;
-
-  wire   opiw_en   = alu_en & alu_halfop & (!alu_opcode[3] ) ;
 
   wire   [31:0]  opiw_sum  = ( $signed(wopdata_1) + $signed(wopdata_2)   ) ;
   wire   [31:0]  opiw_dif  = ( $signed(wopdata_1) - $signed(wopdata_2)   ) ;
