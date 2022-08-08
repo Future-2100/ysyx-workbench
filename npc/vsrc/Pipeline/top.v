@@ -6,6 +6,8 @@ module top(
   input   wire  [31:0]    instr     ,
   output  wire            ebreak    ,
   output  wire  [63:0]    snxt_pc   ,
+  output  reg             execute_en,
+  output  reg   [63:0]    execute_pc,
   output  wire  [63:0]    dnxt_pc
 );
   
@@ -15,6 +17,24 @@ module top(
   wire            mm_wen    ;
   wire  [63:0]    mm_rdata  ;
   wire            mm_ren    ;
+
+  wire          ifu_execute_en  ;
+  wire          idu_execute_en  ;
+  wire          exu_execute_en  ;
+  wire          mmu_execute_en  ;
+
+wire  [63:0] mmu_pc        ;
+
+  always@(posedge clk) begin
+    if(!rstn) begin
+      execute_en <=  1'b0;
+      execute_pc <= 64'b0;
+    end
+    else begin
+      execute_en <= mmu_execute_en;
+      execute_pc <= mmu_pc        ;
+    end
+  end
 
 wire            exu_jump_en     ;
 wire            exu_branch_en   ;
@@ -37,6 +57,7 @@ ifu ifu_inst(
   .rstn           ( rstn            )  ,
   .mmu_jump_en    ( mmu_jump_en     )  ,
   .mmu_branch_en  ( mmu_branch_en   )  ,
+  .ifu_execute_en ( ifu_execute_en  )  ,
   .jump_pc        ( mmu_dnpc        )  ,
   .snxt_pc        ( snxt_pc         )  ,
   .dnxt_pc        ( dnxt_pc         )  ,
@@ -87,6 +108,8 @@ idu idu_inst(
   .ifu_instr         ( ifu_instr          )  ,
   .ifu_pc            ( ifu_pc             )  ,
   .ifu_snxt_pc       ( ifu_snxt_pc        )  ,
+  .ifu_execute_en    ( ifu_execute_en     )  ,
+  .idu_execute_en    ( idu_execute_en     )  ,
   .idu_index_rs1     ( idu_index_rs1      )  ,
   .idu_index_rs2     ( idu_index_rs2      )  ,
   .idu_index_rd      ( idu_index_rd       )  ,
@@ -138,6 +161,7 @@ wire         exu_wb_en          ;
 wire  [3:0]  exu_wb_choose      ;
 wire         exu_ebreak         ;
 wire  [63:0] exu_snxt_pc        ;
+wire  [63:0] exu_pc             ;
 
 
 exu exu_inst(
@@ -154,6 +178,8 @@ exu exu_inst(
   .idu_alu_pc_en     ( idu_alu_pc_en      )   ,
   .idu_pc            ( idu_pc             )   ,
   .idu_gpr_data1     ( idu_gpr_data1      )   ,
+  .idu_execute_en    ( idu_execute_en     )   ,
+  .exu_execute_en    ( exu_execute_en     )   ,
   .fw_en2            ( fw_en2             )   ,
   .fw_data2          ( fw_data2           )   ,
   .idu_alu_imm_en    ( idu_alu_imm_en     )   ,
@@ -171,8 +197,9 @@ exu exu_inst(
   .idu_wb_choose     ( idu_wb_choose      )   ,
   .idu_ebreak        ( idu_ebreak         )   ,
   .idu_snxt_pc       ( idu_snxt_pc        )   ,
-  .idu_instr         ( idu_instr          )  ,
-  .exu_instr         ( exu_instr          )  ,
+  .idu_instr         ( idu_instr          )   ,
+  .exu_pc            ( exu_pc             )   ,
+  .exu_instr         ( exu_instr          )   ,
   .exu_index_rd      ( exu_index_rd       )   ,
   .exu_index_rs1     ( exu_index_rs1      )   ,
   .exu_index_rs2     ( exu_index_rs2      )   ,
@@ -195,6 +222,7 @@ exu exu_inst(
 
 wire  [63:0] mmu_snxt_pc   ;
 wire  mmu_ebreak;
+
 mmu mmu_inst(
   .clk  ( clk  ) ,
   .rstn ( rstn ) ,
@@ -217,6 +245,10 @@ mmu mmu_inst(
   .exu_ebreak         ( exu_ebreak        ) ,
   .exu_snxt_pc        ( exu_snxt_pc       ) ,
   .exu_instr          ( exu_instr         ) ,
+  .exu_execute_en     ( exu_execute_en    ) ,
+  .exu_pc             ( exu_pc            ) ,
+  .mmu_pc             ( mmu_pc            ) ,
+  .mmu_execute_en     ( mmu_execute_en    ) ,
   .mmu_instr          ( mmu_instr         ) ,
   .mmu_index_rd       ( mmu_index_rd      ) ,
   .mmu_wb_en          ( mmu_wb_en         ) ,
@@ -232,6 +264,7 @@ mmu mmu_inst(
   .mm_ren             ( mm_ren            ) , 
   .mm_rdata           ( mm_rdata          ) 
 );
+
 assign  ebreak = mmu_ebreak;
 
 hazard hazard_inst(
