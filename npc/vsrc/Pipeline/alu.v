@@ -128,10 +128,10 @@ module alu(
 
   assign  branch_result = ( (branch_opcode == 3'b000) & (   $signed(opdata_1) ==   $signed(opdata_2) ) ) |
                           ( (branch_opcode == 3'b001) & (   $signed(opdata_1) !=   $signed(opdata_2) ) ) |
-                          ( (branch_opcode == 3'b100) & (   $signed(opdata_1) >    $signed(opdata_2) ) ) |
-                          ( (branch_opcode == 3'b101) & (   $signed(opdata_1) <=   $signed(opdata_2) ) ) |
-                          ( (branch_opcode == 3'b110) & ( $unsigned(opdata_1) >  $unsigned(opdata_2) ) ) |
-                          ( (branch_opcode == 3'b111) & ( $unsigned(opdata_1) <= $unsigned(opdata_2) ) ) ;
+                          ( (branch_opcode == 3'b100) & (   $signed(opdata_1) <    $signed(opdata_2) ) ) |
+                          ( (branch_opcode == 3'b101) & (   $signed(opdata_1) >=   $signed(opdata_2) ) ) |
+                          ( (branch_opcode == 3'b110) & ( $unsigned(opdata_1) <  $unsigned(opdata_2) ) ) |
+                          ( (branch_opcode == 3'b111) & ( $unsigned(opdata_1) >= $unsigned(opdata_2) ) ) ;
 
 endmodule
 

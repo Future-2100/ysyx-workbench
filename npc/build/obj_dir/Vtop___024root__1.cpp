@@ -9153,15 +9153,15 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__7(Vtop___024root* vlSelf) {
                   & (vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__opdata_1 
                      != vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__opdata_2))) 
               | ((4U == (IData)(vlSelf->top__DOT__idu_branch_opcode)) 
-                 & VL_GTS_IQQ(1,64,64, vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__opdata_1, vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__opdata_2))) 
+                 & VL_LTS_IQQ(1,64,64, vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__opdata_1, vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__opdata_2))) 
              | ((5U == (IData)(vlSelf->top__DOT__idu_branch_opcode)) 
-                & VL_LTES_IQQ(1,64,64, vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__opdata_1, vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__opdata_2))) 
+                & VL_GTES_IQQ(1,64,64, vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__opdata_1, vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__opdata_2))) 
             | ((6U == (IData)(vlSelf->top__DOT__idu_branch_opcode)) 
                & (vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__opdata_1 
-                  > vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__opdata_2))) 
+                  < vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__opdata_2))) 
            | ((7U == (IData)(vlSelf->top__DOT__idu_branch_opcode)) 
               & (vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__opdata_1 
-                 <= vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__opdata_2)));
+                 >= vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__opdata_2)));
     if ((1U & ((IData)(vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__opdata_2) 
                ^ (IData)(vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__opdata_2)))) {
         ++(vlSymsp->__Vcoverage[2545]);
