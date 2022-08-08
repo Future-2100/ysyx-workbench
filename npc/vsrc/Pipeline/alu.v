@@ -47,7 +47,7 @@ module alu(
   wire   [63:0]  opid_sltu = (  { 63'b0, ($unsigned(opdata_1) <  $unsigned(opdata_2)) }  )  ;
   wire   [63:0]  opid_xor  = (  opdata_1 ^   opdata_2                      )  ;
   wire   [63:0]  opid_srl  = (  opdata_1 >>  opdata_2[5:0]                 )  ;
-  wire   [63:0]  opid_sra  = (  opdata_1 >>> opdata_2[5:0]                 )  ;
+  wire   [63:0]  opid_sra  = (  $signed(opdata_1) >>> opdata_2[5:0]                 )  ;
   wire   [63:0]  opid_or   = (  opdata_1 | opdata_2                        )  ;
   wire   [63:0]  opid_and  = (  opdata_1 & opdata_2                        )  ;
 
@@ -97,7 +97,7 @@ module alu(
   wire   [31:0]  opiw_dif  = ( $signed(wopdata_1) - $signed(wopdata_2)   ) ;
   wire   [31:0]  opiw_sll  = ( wopdata_1 <<  wopdata_2[4:0] ) ;
   wire   [31:0]  opiw_srl  = ( wopdata_1 >>  wopdata_2[4:0] ) ;
-  wire   [31:0]  opiw_sra  = ( wopdata_1 >>> wopdata_2[4:0] ) ;
+  wire   [31:0]  opiw_sra  = ( $signed(wopdata_1) >>> wopdata_2[4:0] ) ;
 
   wire   [31:0]  opiw_result = ( { 32{ opcode == 4'b0000 } } & opiw_sum ) |
                                ( { 32{ opcode == 4'b1000 } } & opiw_dif ) |
