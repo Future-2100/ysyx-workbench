@@ -41,16 +41,16 @@ always@(posedge clk) begin
     ifu_instr       <= 32'b0;
     ifu_snxt_pc     <= 64'b0;
     ifu_execute_en  <=  1'b0;
-  end else if (ld_hz_stop) begin
-    ifu_pc          <= ifu_pc   ;
-    ifu_instr       <= ifu_instr;
-    ifu_snxt_pc     <= ifu_snxt_pc;
-    ifu_execute_en  <= ifu_execute_en  ;
   end else if (flush_nop) begin
     ifu_pc          <= pc     ;
     ifu_instr       <= 32'h13 ;
     ifu_snxt_pc     <= snxt_pc;
     ifu_execute_en  <=  1'b0  ;
+  end else if (ld_hz_stop) begin
+    ifu_pc          <= ifu_pc   ;
+    ifu_instr       <= ifu_instr;
+    ifu_snxt_pc     <= ifu_snxt_pc;
+    ifu_execute_en  <= ifu_execute_en  ;
   end else begin
     ifu_pc          <= pc     ;
     ifu_instr       <= instr  ;

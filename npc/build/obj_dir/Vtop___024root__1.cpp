@@ -25,6 +25,19 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__7(Vtop___024root* vlSelf) {
     VlWide<4>/*127:0*/ __Vtemp29;
     VlWide<4>/*127:0*/ __Vtemp30;
     // Body
+    if ((1U & ((IData)((vlSelf->dnxt_pc >> 0x3cU)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__dnxt_pc 
+                          >> 0x3cU))))) {
+        ++(vlSymsp->__Vcoverage[320]);
+        vlSelf->top__DOT____Vtogcov__dnxt_pc = ((0xefffffffffffffffULL 
+                                                 & vlSelf->top__DOT____Vtogcov__dnxt_pc) 
+                                                | ((QData)((IData)(
+                                                                   (1U 
+                                                                    & (IData)(
+                                                                              (vlSelf->dnxt_pc 
+                                                                               >> 0x3cU))))) 
+                                                   << 0x3cU));
+    }
     if ((1U & ((IData)((vlSelf->dnxt_pc >> 0x3dU)) 
                ^ (IData)((vlSelf->top__DOT____Vtogcov__dnxt_pc 
                           >> 0x3dU))))) {
@@ -18880,15 +18893,5 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__7(Vtop___024root* vlSelf) {
                | ((QData)((IData)((1U & (IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__opid_srl 
                                                  >> 0x37U))))) 
                   << 0x37U));
-    }
-    if ((1U & ((IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__opid_srl 
-                        >> 0x38U)) ^ (IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__opid_srl 
-                                              >> 0x38U))))) {
-        ++(vlSymsp->__Vcoverage[3056]);
-        vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__opid_srl 
-            = ((0xfeffffffffffffffULL & vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__opid_srl) 
-               | ((QData)((IData)((1U & (IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__opid_srl 
-                                                 >> 0x38U))))) 
-                  << 0x38U));
     }
 }
