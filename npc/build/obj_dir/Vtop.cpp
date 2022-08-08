@@ -19,6 +19,7 @@ Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     , snxt_pc{vlSymsp->TOP.snxt_pc}
     , execute_en{vlSymsp->TOP.execute_en}
     , execute_pc{vlSymsp->TOP.execute_pc}
+    , execute_instr{vlSymsp->TOP.execute_instr}
     , dnxt_pc{vlSymsp->TOP.dnxt_pc}
     , rootp{&(vlSymsp->TOP)}
 {

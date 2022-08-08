@@ -25,6 +25,7 @@ VL_MODULE(Vtop___024root) {
     VL_OUT8(ebreak,0,0);
     VL_OUT8(execute_en,0,0);
     VL_IN(instr,31,0);
+    VL_OUT(execute_instr,31,0);
     VL_OUT64(pc,63,0);
     VL_OUT64(snxt_pc,63,0);
     VL_OUT64(execute_pc,63,0);
@@ -299,6 +300,7 @@ VL_MODULE(Vtop___024root) {
         CData/*0:0*/ __Vdly__top__DOT__ifu_execute_en;
         CData/*0:0*/ __Vclklast__TOP__clk;
         IData/*31:0*/ top__DOT____Vtogcov__instr;
+        IData/*31:0*/ top__DOT____Vtogcov__execute_instr;
         IData/*31:0*/ top__DOT____Vtogcov__ifu_instr;
         IData/*31:0*/ top__DOT____Vtogcov__idu_instr;
         IData/*31:0*/ top__DOT____Vtogcov__exu_instr;
@@ -321,9 +323,9 @@ VL_MODULE(Vtop___024root) {
         IData/*31:0*/ __Vdly__top__DOT__ifu_instr;
         QData/*63:0*/ top__DOT____Vtogcov__pc;
         QData/*63:0*/ top__DOT____Vtogcov__snxt_pc;
-        QData/*63:0*/ top__DOT____Vtogcov__execute_pc;
     };
     struct {
+        QData/*63:0*/ top__DOT____Vtogcov__execute_pc;
         QData/*63:0*/ top__DOT____Vtogcov__dnxt_pc;
         QData/*63:0*/ top__DOT____Vtogcov__mm_addr;
         QData/*63:0*/ top__DOT____Vtogcov__mm_wdata;

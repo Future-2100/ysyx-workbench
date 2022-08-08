@@ -178,7 +178,7 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       s->snpc = top->execute_pc + 4;
       s->dnpc = top->dnxt_pc;
       s->pc   = top->execute_pc;
-      s->isa.inst.val = top->instr;
+      s->isa.inst.val = top->execute_instr;
         for (int i=0; i<32; i++) {
           cpu->gpr[i] = cpu_gpr[i];
         }

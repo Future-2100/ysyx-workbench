@@ -8,6 +8,7 @@ module top(
   output  wire  [63:0]    snxt_pc   ,
   output  reg             execute_en,
   output  reg   [63:0]    execute_pc,
+  output  reg   [31:0]    execute_instr,
   output  wire  [63:0]    dnxt_pc
 );
   
@@ -29,10 +30,12 @@ wire  [63:0] mmu_pc        ;
     if(!rstn) begin
       execute_en <=  1'b0;
       execute_pc <= 64'b0;
+      execute_instr<= 32'b0;
     end
     else begin
-      execute_en <= mmu_execute_en;
-      execute_pc <= mmu_pc        ;
+      execute_en   <= mmu_execute_en;
+      execute_pc   <= mmu_pc        ;
+      execute_instr<= mmu_instr     ;
     end
   end
 
