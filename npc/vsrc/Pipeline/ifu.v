@@ -29,7 +29,7 @@ assign  dnxt_pc = (mmu_jump_en | mmu_branch_en) ? jump_pc : snxt_pc ;
 always@(posedge clk) begin
   if(!rstn)
     pc <= 64'h80000000 ;
-  else if( ld_hz_stop )
+  else if( ld_hz_stop & !( mmu_jump_en | mmu_branch_en ) )
     pc <= pc ;
   else
     pc <= dnxt_pc;

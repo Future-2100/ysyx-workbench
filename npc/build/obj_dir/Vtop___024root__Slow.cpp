@@ -1763,10 +1763,6 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
         ++(vlSymsp->__Vcoverage[521]);
         vlSelf->top__DOT____Vtogcov__mm_ren = vlSelf->top__DOT__exu_load_en;
     }
-    if (((IData)(vlSelf->top__DOT__exu_jump_en) ^ (IData)(vlSelf->top__DOT____Vtogcov__exu_jump_en))) {
-        ++(vlSymsp->__Vcoverage[593]);
-        vlSelf->top__DOT____Vtogcov__exu_jump_en = vlSelf->top__DOT__exu_jump_en;
-    }
     if (((IData)(vlSelf->top__DOT__exu_branch_en) ^ (IData)(vlSelf->top__DOT____Vtogcov__exu_branch_en))) {
         ++(vlSymsp->__Vcoverage[594]);
         vlSelf->top__DOT____Vtogcov__exu_branch_en 
@@ -9234,9 +9230,9 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
         vlSelf->top__DOT____Vtogcov__mmu_execute_en 
             = vlSelf->top__DOT__mmu_execute_en;
     }
-    if (((IData)(vlSelf->top__DOT__idu_jump_en) ^ (IData)(vlSelf->top__DOT____Vtogcov__idu_jump_en))) {
-        ++(vlSymsp->__Vcoverage[1266]);
-        vlSelf->top__DOT____Vtogcov__idu_jump_en = vlSelf->top__DOT__idu_jump_en;
+    if (((IData)(vlSelf->top__DOT__exu_jump_en) ^ (IData)(vlSelf->top__DOT____Vtogcov__exu_jump_en))) {
+        ++(vlSymsp->__Vcoverage[593]);
+        vlSelf->top__DOT____Vtogcov__exu_jump_en = vlSelf->top__DOT__exu_jump_en;
     }
     if (((IData)(vlSelf->top__DOT__idu_branch_en) ^ (IData)(vlSelf->top__DOT____Vtogcov__idu_branch_en))) {
         ++(vlSymsp->__Vcoverage[1267]);
@@ -12800,6 +12796,10 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
         ++(vlSymsp->__Vcoverage[524]);
         vlSelf->top__DOT____Vtogcov__exu_execute_en 
             = vlSelf->top__DOT__exu_execute_en;
+    }
+    if (((IData)(vlSelf->top__DOT__idu_jump_en) ^ (IData)(vlSelf->top__DOT____Vtogcov__idu_jump_en))) {
+        ++(vlSymsp->__Vcoverage[1266]);
+        vlSelf->top__DOT____Vtogcov__idu_jump_en = vlSelf->top__DOT__idu_jump_en;
     }
     if (((IData)(vlSelf->top__DOT__idu_ebreak) ^ (IData)(vlSelf->top__DOT____Vtogcov__idu_ebreak))) {
         ++(vlSymsp->__Vcoverage[1279]);
