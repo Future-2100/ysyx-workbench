@@ -12,6 +12,13 @@ void Vtop___024root___settle__TOP__3(Vtop___024root* vlSelf) {
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___settle__TOP__3\n"); );
     // Body
+    if ((0x800U & (vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__mul_ss[1U] 
+                   ^ vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__mul_ss[1U]))) {
+        ++(vlSymsp->__Vcoverage[3235]);
+        vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__mul_ss[1U] 
+            = ((0xfffff7ffU & vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__mul_ss[1U]) 
+               | (0x800U & vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__mul_ss[1U]));
+    }
     if ((0x1000U & (vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__mul_ss[1U] 
                     ^ vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__mul_ss[1U]))) {
         ++(vlSymsp->__Vcoverage[3236]);

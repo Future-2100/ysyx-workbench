@@ -18407,17 +18407,19 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__exu_inst__DOT__branch_pc_adder_inst__DOT__sum[2U] 
         = (1U & __Vtemp4[2U]);
     vlSelf->top__DOT__idu_inst__DOT__wb_forward_1 = 
-        ((IData)(vlSelf->top__DOT__mmu_wb_en) & ((IData)(vlSelf->top__DOT__mmu_index_rd) 
-                                                 == 
-                                                 (0x1fU 
-                                                  & (vlSelf->top__DOT__ifu_instr 
-                                                     >> 0xfU))));
+        (((IData)(vlSelf->top__DOT__mmu_wb_en) & ((IData)(vlSelf->top__DOT__mmu_index_rd) 
+                                                  == 
+                                                  (0x1fU 
+                                                   & (vlSelf->top__DOT__ifu_instr 
+                                                      >> 0xfU)))) 
+         & (0U != (IData)(vlSelf->top__DOT__mmu_index_rd)));
     vlSelf->top__DOT__idu_inst__DOT__wb_forward_2 = 
-        ((IData)(vlSelf->top__DOT__mmu_wb_en) & ((IData)(vlSelf->top__DOT__mmu_index_rd) 
-                                                 == 
-                                                 (0x1fU 
-                                                  & (vlSelf->top__DOT__ifu_instr 
-                                                     >> 0x14U))));
+        (((IData)(vlSelf->top__DOT__mmu_wb_en) & ((IData)(vlSelf->top__DOT__mmu_index_rd) 
+                                                  == 
+                                                  (0x1fU 
+                                                   & (vlSelf->top__DOT__ifu_instr 
+                                                      >> 0x14U)))) 
+         & (0U != (IData)(vlSelf->top__DOT__mmu_index_rd)));
     vlSelf->top__DOT__idu_inst__DOT__branch_en = (IData)(
                                                          (0x63U 
                                                           == 
@@ -21272,14 +21274,5 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
             = ((0xffffffff7fffffffULL & vlSelf->top__DOT__exu_inst__DOT____Vtogcov__branch_pc) 
                | ((QData)((IData)((vlSelf->top__DOT__exu_inst__DOT__branch_pc_adder_inst__DOT__sum[0U] 
                                    >> 0x1fU))) << 0x1fU));
-    }
-    if ((1U & (vlSelf->top__DOT__exu_inst__DOT__branch_pc_adder_inst__DOT__sum[1U] 
-               ^ (IData)((vlSelf->top__DOT__exu_inst__DOT____Vtogcov__branch_pc 
-                          >> 0x20U))))) {
-        ++(vlSymsp->__Vcoverage[2381]);
-        vlSelf->top__DOT__exu_inst__DOT____Vtogcov__branch_pc 
-            = ((0xfffffffeffffffffULL & vlSelf->top__DOT__exu_inst__DOT____Vtogcov__branch_pc) 
-               | ((QData)((IData)((1U & vlSelf->top__DOT__exu_inst__DOT__branch_pc_adder_inst__DOT__sum[1U]))) 
-                  << 0x20U));
     }
 }

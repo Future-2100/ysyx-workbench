@@ -65,8 +65,8 @@ wire  [63:0]  gpr_data2 ;
 wire  [63:0]  reg_gpr_data1 ;
 wire  [63:0]  reg_gpr_data2 ;
 
-wire  wb_forward_1 = mmu_wb_en & ( mmu_index_rd == index_rs1 );
-wire  wb_forward_2 = mmu_wb_en & ( mmu_index_rd == index_rs2 );
+wire  wb_forward_1 = mmu_wb_en & ( mmu_index_rd == index_rs1 ) & ( mmu_index_rd != 0 );
+wire  wb_forward_2 = mmu_wb_en & ( mmu_index_rd == index_rs2 ) & ( mmu_index_rd != 0 );
 
 regfile regfile_inst (
   .clk  ( clk  ) ,
