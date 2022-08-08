@@ -166,6 +166,7 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_result;
     };
     struct {
+        QData/*63:0*/ top__DOT__exu_inst__DOT__store_data;
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__opdata_1;
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__opdata_2;
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__opid_sum;
@@ -355,6 +356,7 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT__idu_inst__DOT____Vtogcov__imm;
         QData/*63:0*/ top__DOT__exu_inst__DOT____Vtogcov__alu_result;
         QData/*63:0*/ top__DOT__exu_inst__DOT____Vtogcov__branch_pc;
+        QData/*63:0*/ top__DOT__exu_inst__DOT____Vtogcov__store_data;
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__opdata_1;
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__opdata_2;
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__opid_sum;

@@ -100,6 +100,9 @@ branch_pc_adder branch_pc_adder_inst(
   .branch_pc ( branch_pc )
 );
 
+wire   [63:0] store_data ;
+assign store_data = fw_en2 ? fw_data2 : idu_gpr_data2  ;
+
   always@(posedge clk) begin
     if(!rstn) begin
          exu_index_rd       <=   'b0  ; 
@@ -133,7 +136,7 @@ branch_pc_adder branch_pc_adder_inst(
          exu_branch_pc      <=       branch_pc      ; 
          exu_branch_result  <=             'b0      ; 
          exu_alu_result     <=       alu_result     ; 
-         exu_gpr_data2      <=   idu_gpr_data2      ; 
+         exu_gpr_data2      <=   store_data         ; 
          exu_imm            <=   idu_imm            ;
          exu_load_en        <=             'b0      ; 
          exu_load_opcode    <=   idu_load_opcode    ; 
@@ -156,7 +159,7 @@ branch_pc_adder branch_pc_adder_inst(
          exu_branch_pc      <=       branch_pc      ; 
          exu_branch_result  <=       branch_result  ; 
          exu_alu_result     <=       alu_result     ; 
-         exu_gpr_data2      <=   idu_gpr_data2      ; 
+         exu_gpr_data2      <=   store_data         ; 
          exu_imm            <=   idu_imm            ;
          exu_load_en        <=   idu_load_en        ; 
          exu_load_opcode    <=   idu_load_opcode    ; 
