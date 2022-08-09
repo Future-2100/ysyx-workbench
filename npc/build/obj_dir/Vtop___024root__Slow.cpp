@@ -52,6 +52,7 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
     VlWide<3>/*95:0*/ __Vtemp2;
     VlWide<3>/*95:0*/ __Vtemp3;
     VlWide<3>/*95:0*/ __Vtemp4;
+    QData/*63:0*/ top__DOT__mm_rdata;
     // Body
     ++(vlSymsp->__Vcoverage[1956]);
     if ((1U & ((IData)(vlSelf->top__DOT__dnpc) ^ (IData)(vlSelf->top__DOT____Vtogcov__dnpc)))) {
@@ -12789,7 +12790,7 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                 << 0x3fU));
     }
     Vtop___024root____Vdpiimwrap_top__DOT__vmem_read_TOP(vlSelf->top__DOT__exu_alu_result, vlSelf->__Vtask_top__DOT__vmem_read__1__rdata, (IData)(vlSelf->top__DOT__exu_load_en));
-    vlSelf->top__DOT__mm_rdata = vlSelf->__Vtask_top__DOT__vmem_read__1__rdata;
+    top__DOT__mm_rdata = vlSelf->__Vtask_top__DOT__vmem_read__1__rdata;
     Vtop___024root____Vdpiimwrap_top__DOT__vmem_write_TOP(vlSelf->top__DOT__exu_alu_result, vlSelf->top__DOT__exu_gpr_data2, (IData)(vlSelf->top__DOT__exu_store_len), vlSelf->top__DOT__exu_store_en);
     vlSelf->top__DOT__exu_fwd_data = ((2U == (IData)(vlSelf->top__DOT__exu_wb_choose))
                                        ? vlSelf->top__DOT__exu_imm
@@ -19988,831 +19989,830 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                                                >> 0x3fU))))) 
                 << 0x3fU));
     }
-    if ((1U & ((IData)(vlSelf->top__DOT__mm_rdata) 
-               ^ (IData)(vlSelf->top__DOT____Vtogcov__mm_rdata)))) {
+    if ((1U & ((IData)(top__DOT__mm_rdata) ^ (IData)(vlSelf->top__DOT____Vtogcov__mm_rdata)))) {
         ++(vlSymsp->__Vcoverage[457]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffffffffffffffeULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | (IData)((IData)(
                                                                    (1U 
-                                                                    & (IData)(vlSelf->top__DOT__mm_rdata)))));
+                                                                    & (IData)(top__DOT__mm_rdata)))));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 1U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                           >> 1U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 1U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 1U))))) {
         ++(vlSymsp->__Vcoverage[458]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffffffffffffffdULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 1U))))) 
                                                     << 1U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 2U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                           >> 2U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 2U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 2U))))) {
         ++(vlSymsp->__Vcoverage[459]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffffffffffffffbULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 2U))))) 
                                                     << 2U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 3U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                           >> 3U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 3U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 3U))))) {
         ++(vlSymsp->__Vcoverage[460]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffffffffffffff7ULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 3U))))) 
                                                     << 3U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 4U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                           >> 4U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 4U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 4U))))) {
         ++(vlSymsp->__Vcoverage[461]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xffffffffffffffefULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 4U))))) 
                                                     << 4U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 5U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                           >> 5U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 5U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 5U))))) {
         ++(vlSymsp->__Vcoverage[462]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xffffffffffffffdfULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 5U))))) 
                                                     << 5U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 6U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                           >> 6U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 6U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 6U))))) {
         ++(vlSymsp->__Vcoverage[463]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xffffffffffffffbfULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 6U))))) 
                                                     << 6U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 7U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                           >> 7U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 7U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 7U))))) {
         ++(vlSymsp->__Vcoverage[464]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xffffffffffffff7fULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 7U))))) 
                                                     << 7U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 8U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                           >> 8U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 8U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 8U))))) {
         ++(vlSymsp->__Vcoverage[465]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffffffffffffeffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 8U))))) 
                                                     << 8U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 9U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                           >> 9U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 9U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 9U))))) {
         ++(vlSymsp->__Vcoverage[466]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffffffffffffdffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 9U))))) 
                                                     << 9U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0xaU)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                             >> 0xaU))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0xaU)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0xaU))))) {
         ++(vlSymsp->__Vcoverage[467]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffffffffffffbffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0xaU))))) 
                                                     << 0xaU));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0xbU)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                             >> 0xbU))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0xbU)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0xbU))))) {
         ++(vlSymsp->__Vcoverage[468]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffffffffffff7ffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0xbU))))) 
                                                     << 0xbU));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0xcU)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                             >> 0xcU))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0xcU)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0xcU))))) {
         ++(vlSymsp->__Vcoverage[469]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xffffffffffffefffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0xcU))))) 
                                                     << 0xcU));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0xdU)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                             >> 0xdU))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0xdU)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0xdU))))) {
         ++(vlSymsp->__Vcoverage[470]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xffffffffffffdfffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0xdU))))) 
                                                     << 0xdU));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0xeU)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                             >> 0xeU))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0xeU)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0xeU))))) {
         ++(vlSymsp->__Vcoverage[471]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xffffffffffffbfffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0xeU))))) 
                                                     << 0xeU));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0xfU)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                             >> 0xfU))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0xfU)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0xfU))))) {
         ++(vlSymsp->__Vcoverage[472]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xffffffffffff7fffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0xfU))))) 
                                                     << 0xfU));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x10U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x10U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x10U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x10U))))) {
         ++(vlSymsp->__Vcoverage[473]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffffffffffeffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x10U))))) 
                                                     << 0x10U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x11U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x11U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x11U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x11U))))) {
         ++(vlSymsp->__Vcoverage[474]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffffffffffdffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x11U))))) 
                                                     << 0x11U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x12U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x12U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x12U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x12U))))) {
         ++(vlSymsp->__Vcoverage[475]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffffffffffbffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x12U))))) 
                                                     << 0x12U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x13U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x13U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x13U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x13U))))) {
         ++(vlSymsp->__Vcoverage[476]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffffffffff7ffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x13U))))) 
                                                     << 0x13U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x14U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x14U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x14U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x14U))))) {
         ++(vlSymsp->__Vcoverage[477]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xffffffffffefffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x14U))))) 
                                                     << 0x14U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x15U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x15U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x15U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x15U))))) {
         ++(vlSymsp->__Vcoverage[478]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xffffffffffdfffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x15U))))) 
                                                     << 0x15U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x16U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x16U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x16U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x16U))))) {
         ++(vlSymsp->__Vcoverage[479]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xffffffffffbfffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x16U))))) 
                                                     << 0x16U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x17U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x17U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x17U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x17U))))) {
         ++(vlSymsp->__Vcoverage[480]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xffffffffff7fffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x17U))))) 
                                                     << 0x17U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x18U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x18U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x18U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x18U))))) {
         ++(vlSymsp->__Vcoverage[481]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffffffffeffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x18U))))) 
                                                     << 0x18U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x19U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x19U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x19U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x19U))))) {
         ++(vlSymsp->__Vcoverage[482]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffffffffdffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x19U))))) 
                                                     << 0x19U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x1aU)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x1aU))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x1aU)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x1aU))))) {
         ++(vlSymsp->__Vcoverage[483]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffffffffbffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x1aU))))) 
                                                     << 0x1aU));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x1bU)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x1bU))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x1bU)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x1bU))))) {
         ++(vlSymsp->__Vcoverage[484]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffffffff7ffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x1bU))))) 
                                                     << 0x1bU));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x1cU)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x1cU))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x1cU)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x1cU))))) {
         ++(vlSymsp->__Vcoverage[485]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xffffffffefffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x1cU))))) 
                                                     << 0x1cU));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x1dU)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x1dU))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x1dU)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x1dU))))) {
         ++(vlSymsp->__Vcoverage[486]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xffffffffdfffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x1dU))))) 
                                                     << 0x1dU));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x1eU)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x1eU))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x1eU)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x1eU))))) {
         ++(vlSymsp->__Vcoverage[487]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xffffffffbfffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x1eU))))) 
                                                     << 0x1eU));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x1fU)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x1fU))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x1fU)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x1fU))))) {
         ++(vlSymsp->__Vcoverage[488]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xffffffff7fffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x1fU))))) 
                                                     << 0x1fU));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x20U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x20U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x20U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x20U))))) {
         ++(vlSymsp->__Vcoverage[489]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffffffeffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x20U))))) 
                                                     << 0x20U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x21U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x21U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x21U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x21U))))) {
         ++(vlSymsp->__Vcoverage[490]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffffffdffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x21U))))) 
                                                     << 0x21U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x22U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x22U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x22U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x22U))))) {
         ++(vlSymsp->__Vcoverage[491]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffffffbffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x22U))))) 
                                                     << 0x22U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x23U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x23U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x23U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x23U))))) {
         ++(vlSymsp->__Vcoverage[492]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffffff7ffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x23U))))) 
                                                     << 0x23U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x24U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x24U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x24U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x24U))))) {
         ++(vlSymsp->__Vcoverage[493]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xffffffefffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x24U))))) 
                                                     << 0x24U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x25U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x25U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x25U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x25U))))) {
         ++(vlSymsp->__Vcoverage[494]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xffffffdfffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x25U))))) 
                                                     << 0x25U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x26U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x26U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x26U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x26U))))) {
         ++(vlSymsp->__Vcoverage[495]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xffffffbfffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x26U))))) 
                                                     << 0x26U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x27U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x27U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x27U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x27U))))) {
         ++(vlSymsp->__Vcoverage[496]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xffffff7fffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x27U))))) 
                                                     << 0x27U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x28U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x28U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x28U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x28U))))) {
         ++(vlSymsp->__Vcoverage[497]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffffeffffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x28U))))) 
                                                     << 0x28U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x29U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x29U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x29U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x29U))))) {
         ++(vlSymsp->__Vcoverage[498]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffffdffffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x29U))))) 
                                                     << 0x29U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x2aU)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x2aU))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x2aU)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x2aU))))) {
         ++(vlSymsp->__Vcoverage[499]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffffbffffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x2aU))))) 
                                                     << 0x2aU));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x2bU)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x2bU))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x2bU)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x2bU))))) {
         ++(vlSymsp->__Vcoverage[500]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffff7ffffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x2bU))))) 
                                                     << 0x2bU));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x2cU)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x2cU))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x2cU)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x2cU))))) {
         ++(vlSymsp->__Vcoverage[501]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xffffefffffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x2cU))))) 
                                                     << 0x2cU));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x2dU)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x2dU))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x2dU)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x2dU))))) {
         ++(vlSymsp->__Vcoverage[502]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xffffdfffffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x2dU))))) 
                                                     << 0x2dU));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x2eU)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x2eU))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x2eU)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x2eU))))) {
         ++(vlSymsp->__Vcoverage[503]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xffffbfffffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x2eU))))) 
                                                     << 0x2eU));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x2fU)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x2fU))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x2fU)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x2fU))))) {
         ++(vlSymsp->__Vcoverage[504]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xffff7fffffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x2fU))))) 
                                                     << 0x2fU));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x30U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x30U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x30U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x30U))))) {
         ++(vlSymsp->__Vcoverage[505]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffeffffffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x30U))))) 
                                                     << 0x30U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x31U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x31U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x31U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x31U))))) {
         ++(vlSymsp->__Vcoverage[506]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffdffffffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x31U))))) 
                                                     << 0x31U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x32U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x32U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x32U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x32U))))) {
         ++(vlSymsp->__Vcoverage[507]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffbffffffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x32U))))) 
                                                     << 0x32U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x33U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x33U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x33U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x33U))))) {
         ++(vlSymsp->__Vcoverage[508]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfff7ffffffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x33U))))) 
                                                     << 0x33U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x34U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x34U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x34U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x34U))))) {
         ++(vlSymsp->__Vcoverage[509]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xffefffffffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x34U))))) 
                                                     << 0x34U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x35U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x35U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x35U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x35U))))) {
         ++(vlSymsp->__Vcoverage[510]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xffdfffffffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x35U))))) 
                                                     << 0x35U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x36U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x36U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x36U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x36U))))) {
         ++(vlSymsp->__Vcoverage[511]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xffbfffffffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x36U))))) 
                                                     << 0x36U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x37U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x37U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x37U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x37U))))) {
         ++(vlSymsp->__Vcoverage[512]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xff7fffffffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x37U))))) 
                                                     << 0x37U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x38U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x38U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x38U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x38U))))) {
         ++(vlSymsp->__Vcoverage[513]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfeffffffffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x38U))))) 
                                                     << 0x38U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x39U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x39U))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x39U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x39U))))) {
         ++(vlSymsp->__Vcoverage[514]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfdffffffffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x39U))))) 
                                                     << 0x39U));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x3aU)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x3aU))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x3aU)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x3aU))))) {
         ++(vlSymsp->__Vcoverage[515]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfbffffffffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x3aU))))) 
                                                     << 0x3aU));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x3bU)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x3bU))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x3bU)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x3bU))))) {
         ++(vlSymsp->__Vcoverage[516]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xf7ffffffffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x3bU))))) 
                                                     << 0x3bU));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x3cU)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x3cU))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x3cU)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x3cU))))) {
         ++(vlSymsp->__Vcoverage[517]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xefffffffffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x3cU))))) 
                                                     << 0x3cU));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x3dU)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x3dU))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x3dU)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x3dU))))) {
         ++(vlSymsp->__Vcoverage[518]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xdfffffffffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x3dU))))) 
                                                     << 0x3dU));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x3eU)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x3eU))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x3eU)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x3eU))))) {
         ++(vlSymsp->__Vcoverage[519]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xbfffffffffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x3eU))))) 
                                                     << 0x3eU));
     }
-    if ((1U & ((IData)((vlSelf->top__DOT__mm_rdata 
-                        >> 0x3fU)) ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
-                                              >> 0x3fU))))) {
+    if ((1U & ((IData)((top__DOT__mm_rdata >> 0x3fU)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__mm_rdata 
+                          >> 0x3fU))))) {
         ++(vlSymsp->__Vcoverage[520]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0x7fffffffffffffffULL 
                                                   & vlSelf->top__DOT____Vtogcov__mm_rdata) 
                                                  | ((QData)((IData)(
                                                                     (1U 
                                                                      & (IData)(
-                                                                               (vlSelf->top__DOT__mm_rdata 
+                                                                               (top__DOT__mm_rdata 
                                                                                 >> 0x3fU))))) 
                                                     << 0x3fU));
     }
@@ -20823,24 +20823,24 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                                                         & (((- (QData)((IData)(
                                                                                (1U 
                                                                                 & (IData)(
-                                                                                (vlSelf->top__DOT__mm_rdata 
+                                                                                (top__DOT__mm_rdata 
                                                                                 >> 7U)))))) 
                                                             << 8U) 
                                                            | (QData)((IData)(
                                                                              (0xffU 
-                                                                              & (IData)(vlSelf->top__DOT__mm_rdata)))))) 
+                                                                              & (IData)(top__DOT__mm_rdata)))))) 
                                                        | ((- (QData)((IData)(
                                                                              (1U 
                                                                               == (IData)(vlSelf->top__DOT__exu_load_opcode))))) 
                                                           & (((- (QData)((IData)(
                                                                                 (1U 
                                                                                 & (IData)(
-                                                                                (vlSelf->top__DOT__mm_rdata 
+                                                                                (top__DOT__mm_rdata 
                                                                                 >> 0xfU)))))) 
                                                               << 0x10U) 
                                                              | (QData)((IData)(
                                                                                (0xffffU 
-                                                                                & (IData)(vlSelf->top__DOT__mm_rdata))))))) 
+                                                                                & (IData)(top__DOT__mm_rdata))))))) 
                                                       | ((- (QData)((IData)(
                                                                             (2U 
                                                                              == (IData)(vlSelf->top__DOT__exu_load_opcode))))) 
@@ -20848,30 +20848,30 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                                                                              (- (IData)(
                                                                                 (1U 
                                                                                 & (IData)(
-                                                                                (vlSelf->top__DOT__mm_rdata 
+                                                                                (top__DOT__mm_rdata 
                                                                                 >> 0x1fU))))))) 
                                                              << 0x20U) 
-                                                            | (QData)((IData)(vlSelf->top__DOT__mm_rdata))))) 
+                                                            | (QData)((IData)(top__DOT__mm_rdata))))) 
                                                      | ((- (QData)((IData)(
                                                                            (3U 
                                                                             == (IData)(vlSelf->top__DOT__exu_load_opcode))))) 
-                                                        & vlSelf->top__DOT__mm_rdata)) 
+                                                        & top__DOT__mm_rdata)) 
                                                     | ((- (QData)((IData)(
                                                                           (4U 
                                                                            == (IData)(vlSelf->top__DOT__exu_load_opcode))))) 
                                                        & (QData)((IData)(
                                                                          (0xffU 
-                                                                          & (IData)(vlSelf->top__DOT__mm_rdata)))))) 
+                                                                          & (IData)(top__DOT__mm_rdata)))))) 
                                                    | ((- (QData)((IData)(
                                                                          (5U 
                                                                           == (IData)(vlSelf->top__DOT__exu_load_opcode))))) 
                                                       & (QData)((IData)(
                                                                         (0xffffU 
-                                                                         & (IData)(vlSelf->top__DOT__mm_rdata)))))) 
+                                                                         & (IData)(top__DOT__mm_rdata)))))) 
                                                   | ((- (QData)((IData)(
                                                                         (6U 
                                                                          == (IData)(vlSelf->top__DOT__exu_load_opcode))))) 
-                                                     & (QData)((IData)(vlSelf->top__DOT__mm_rdata))));
+                                                     & (QData)((IData)(top__DOT__mm_rdata))));
     if ((1U & ((IData)(vlSelf->top__DOT__exu_fwd_data) 
                ^ (IData)(vlSelf->top__DOT____Vtogcov__exu_fwd_data)))) {
         ++(vlSymsp->__Vcoverage[1890]);

@@ -20,7 +20,6 @@ void Vtop___024root___eval(Vtop___024root* vlSelf) {
     Vtop___024root___combo__TOP__5(vlSelf);
     if (((IData)(vlSelf->clk) & (~ (IData)(vlSelf->__Vclklast__TOP__clk)))) {
         Vtop___024root___sequent__TOP__6(vlSelf);
-        vlSelf->__Vm_traceActivity[1U] = 1U;
         Vtop___024root___sequent__TOP__7(vlSelf);
         Vtop___024root___sequent__TOP__8(vlSelf);
     }
