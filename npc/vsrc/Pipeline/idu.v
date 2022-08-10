@@ -3,70 +3,64 @@ module idu(
   input   wire              rstn    ,
 
   input   wire              flush_nop        ,
-  input   wire              ld_hz_nop        ,
-
-  output  wire              decoder_alu_en   ,
+  input   wire              hazard_nop       ,
+  output  wire              need_rs1         ,
+  output  wire              need_rs2         ,
 
   input   wire    [31:0]    ifu_instr        ,
   input   wire    [63:0]    ifu_pc           ,
   input   wire    [63:0]    ifu_snxt_pc      ,
-  input   wire              ifu_execute_en   ,
+  input   wire              ifu_valid        ,
 
-  output  reg               idu_execute_en   ,
+  input   wire    [63:0]    mmu_wb_data      ,
+  input   wire    [4:0]     mmu_index_rd     ,
+  input   wire              mmu_wb_en        ,
+
   output  reg     [4:0]     idu_index_rs1    ,
   output  reg     [4:0]     idu_index_rs2    ,
   output  reg     [4:0]     idu_index_rd     ,
-
-//  ******** operation data for alu ********  //
+  output  reg     [31:0]    idu_instr        ,
+  output  reg     [2:0]     idu_funct3       ,
+  output  reg     [6:0]     idu_funct7       ,
+  output  reg               idu_valid        ,
+  output  reg     [63:0]    idu_snxt_pc      ,
   output  reg     [63:0]    idu_pc           ,
-  output  reg     [63:0]    idu_gpr_data1    ,
+  output  reg     [63:0]    idu_data_rs1     ,
   output  reg     [63:0]    idu_imm          ,
-  output  reg     [63:0]    idu_gpr_data2    ,
-
-//  ******** control signal for alu ********  //
-  output  reg     [4:0]     idu_alu_opcode    ,
-  output  reg               idu_alu_en        ,
-  output  reg               idu_alu_imm_en    ,
-  output  reg               idu_alu_pc_en     ,
-  output  reg     [2:0]     idu_branch_opcode ,
-  output  reg               idu_alu_halfop    ,
-  //output  reg               idu_branch_en     ,
-
-//  ******** control signal for memory stage ********  //
-  output  reg               idu_jump_en       ,
-  output  reg               idu_branch_en     ,
-  output  reg               idu_load_en       ,
-  output  reg     [2:0]     idu_load_opcode   ,
-  output  reg               idu_store_en      ,
-  output  reg     [3:0]     idu_store_len     ,
-
-//  ******** control signal for write back stage ********  //
-  output  reg               idu_wb_en         ,
-  output  reg     [3:0]     idu_wb_choose     ,
-  output  reg               idu_ebreak        ,
-  output  reg     [63:0]    idu_snxt_pc       ,
-  output  reg     [31:0]    idu_instr         ,
-
-//  ******** control signal from write back stage ********  //
-  input   wire    [63:0]    mmu_wb_data       ,
-  input   wire    [4:0]     mmu_index_rd      ,
-  input   wire              mmu_wb_en         
+  output  reg     [63:0]    idu_data_rs2     ,
+  output  reg               idu_add_pc_en    ,
+  output  reg               idu_add_rs1_en   ,
+  output  reg               idu_add_zero_en  ,
+  output  reg               idu_imm_en       ,
+  output  reg               idu_rs2_en       ,
+  output  reg               idu_addop_en     ,
+  output  reg               idu_iop_en       ,
+  output  reg               idu_rop_en       ,
+  output  reg               idu_mop_en       ,
+  output  reg               idu_iwop_en      ,
+  output  reg               idu_rwop_en      ,
+  output  reg               idu_mwop_en      ,
+  output  reg               idu_jal_en       ,
+  output  reg               idu_jalr_en      ,
+  output  reg               idu_branch_en    ,
+  output  reg               idu_load_en      ,
+  output  reg               idu_store_en     ,
+  output  reg               idu_wb_alu_en    ,
+  output  reg               idu_ebreak_en      
 
 );
-
 
 wire  [4:0]   index_rs1 = ifu_instr[19:15];
 wire  [4:0]   index_rs2 = ifu_instr[24:20];
 wire  [4:0]   index_rd  = ifu_instr[11: 7];
-wire  [63:0]       pc   = ifu_pc ;
 
-wire  [63:0]  gpr_data1 ;
-wire  [63:0]  gpr_data2 ;
-wire  [63:0]  reg_gpr_data1 ;
-wire  [63:0]  reg_gpr_data2 ;
+wire  [63:0]  gpr_data_rs1 ;
+wire  [63:0]  gpr_data_rs2 ;
+wire  [63:0]  data_rs1 ;
+wire  [63:0]  data_rs2 ;
 
-wire  wb_forward_1 = mmu_wb_en & ( mmu_index_rd == index_rs1 ) & ( mmu_index_rd != 0 );
-wire  wb_forward_2 = mmu_wb_en & ( mmu_index_rd == index_rs2 ) & ( mmu_index_rd != 0 );
+wire  wbfwd_en1 = mmu_wb_en & ( mmu_index_rd == index_rs1 ) & ( mmu_index_rd != 0 );
+wire  wbfwd_en2 = mmu_wb_en & ( mmu_index_rd == index_rs2 ) & ( mmu_index_rd != 0 );
 
 regfile regfile_inst (
   .clk  ( clk  ) ,
@@ -74,62 +68,74 @@ regfile regfile_inst (
 
   .index_rs1 ( index_rs1 ) ,
   .index_rs2 ( index_rs2 ) ,
-  .data_rs1  ( reg_gpr_data1    ) ,
-  .data_rs2  ( reg_gpr_data2    ) ,
 
-  .wb_en     ( mmu_wb_en    ) ,
+  .gpr_data_rs1  ( gpr_data_rs1 ) ,
+  .gpr_data_rs2  ( gpr_data_rs2 ) ,
+
+  .wr_en     ( mmu_wb_en    ) ,
   .index_rd  ( mmu_index_rd ) ,
   .data_rd   ( mmu_wb_data  ) 
 );
 
-assign  gpr_data1 = wb_forward_1 ? mmu_wb_data : reg_gpr_data1;
-assign  gpr_data2 = wb_forward_2 ? mmu_wb_data : reg_gpr_data2;
+assign  data_rs1 = wbfwd_en1 ? mmu_wb_data : gpr_data_rs1;
+assign  data_rs2 = wbfwd_en2 ? mmu_wb_data : gpr_data_rs2;
 
-
-wire            branch_en     ;
-wire    [2:0]   branch_opcode ;
-wire            alu_en        ;
-wire            alu_pc_en     ;
-wire            alu_imm_en    ;
-wire    [4:0]   alu_opcode    ;
-wire            alu_halfop    ;
-wire            jump_en       ;
-wire            load_en       ;
-wire    [2:0]   load_opcode   ;
-wire            store_en      ;
-wire    [3:0]   store_len     ;
-wire            wb_en         ;
-wire    [3:0]   wb_choose     ;
 wire            I_type        ;
 wire            S_type        ;
 wire            B_type        ;
 wire            U_type        ;
 wire            J_type        ;
-wire            ebreak        ;
+wire            add_pc_en     ;
+wire            add_rs1_en    ;
+wire            add_zero_en   ;
+wire            imm_en        ;
+wire            rs2_en        ;
+wire            addop_en      ;
+wire              iop_en      ;
+wire             iwop_en      ;
+wire              rop_en      ;
+wire             rwop_en      ;
+wire              mop_en      ;
+wire             mwop_en      ;
+wire              jal_en      ;
+wire             jalr_en      ;
+wire            branch_en     ;
+wire            load_en       ;
+wire            store_en      ;
+wire            wb_alu_en     ;
+wire            ebreak_en     ; 
 
 decoder decoder_inst (
-    .instr        ( ifu_instr      )  , 
-    .branch_en    ( branch_en      )  , 
-    .branch_opcode( branch_opcode  )  , 
-    .alu_en       ( alu_en         )  , 
-    .alu_pc_en    ( alu_pc_en      )  , 
-    .alu_imm_en   ( alu_imm_en     )  , 
-    .alu_opcode   ( alu_opcode     )  , 
-    .alu_halfop   ( alu_halfop     )  ,
-    .jump_en      ( jump_en        )  , 
-    .load_en      ( load_en        )  , 
-    .load_opcode  ( load_opcode    )  , 
-    .store_en     ( store_en       )  , 
-    .store_len    ( store_len      )  , 
-    .wb_en        ( wb_en          )  , 
-    .wb_choose    ( wb_choose      )  , 
-    .I_type       ( I_type         )  , 
-    .S_type       ( S_type         )  , 
-    .B_type       ( B_type         )  , 
-    .U_type       ( U_type         )  , 
-    .J_type       ( J_type         )  , 
-    .ebreak       ( ebreak         )
+  .instr        ( ifu_instr    ) ,
+  .need_rs1     ( need_rs1         ) ,
+  .need_rs2     ( need_rs2         ) ,
+  .I_type       ( I_type       ) ,
+  .S_type       ( S_type       ) ,
+  .B_type       ( B_type       ) ,
+  .U_type       ( U_type       ) ,
+  .J_type       ( J_type       ) ,
+  .add_pc_en    ( add_pc_en    ) ,
+  .add_rs1_en   ( add_rs1_en   ) ,
+  .add_zero_en  ( add_zero_en  ) ,
+  .imm_en       ( imm_en       ) ,
+  .rs2_en       ( rs2_en       ) ,
+  .addop_en     ( addop_en     ) ,
+  .  iop_en     (   iop_en     ) ,
+  . iwop_en     (  iwop_en     ) ,
+  .  rop_en     (   rop_en     ) ,
+  . rwop_en     (  rwop_en     ) ,
+  .  mop_en     (   mop_en     ) ,
+  . mwop_en     (  mwop_en     ) ,
+  .  jal_en     (   jal_en     ) ,
+  . jalr_en     (  jalr_en     ) ,
+  .branch_en    ( branch_en    ) ,
+  .load_en      ( load_en      ) ,
+  .store_en     ( store_en     ) ,
+  .wb_alu_en    ( wb_alu_en    ) ,
+
+  .ebreak_en    ( ebreak_en    )    
 );
+
 
 wire  [63:0]  imm;
 imm_gen imm_gen_inst (
@@ -145,89 +151,106 @@ imm_gen imm_gen_inst (
 
 always@(posedge clk) begin
   if(!rstn) begin
-     idu_index_rs1      <=  'b0 ;
-     idu_index_rs2      <=  'b0 ;
-     idu_index_rd       <=  'b0 ;
-     idu_pc             <=  'b0 ;
-     idu_gpr_data1      <=  'b0 ;
-     idu_imm            <=  'b0 ;
-     idu_gpr_data2      <=  'b0 ;
-     idu_alu_opcode     <=  'b0 ;   
-     idu_alu_en         <=  'b0 ;  
-     idu_alu_imm_en     <=  'b0 ;  
-     idu_alu_pc_en      <=  'b0 ;  
-     idu_alu_halfop     <=  'b0 ;
-     idu_branch_opcode  <=  'b0 ;  
-     idu_jump_en        <=  'b0 ;   
-     idu_branch_en      <=  'b0 ;  
-     idu_load_en        <=  'b0 ;  
-     idu_load_opcode    <=  'b0 ;  
-     idu_store_en       <=  'b0 ;  
-     idu_store_len      <=  'b0 ;  
-     idu_wb_en          <=  'b0 ;   
-     idu_wb_choose      <=  'b0 ;  
-     idu_ebreak         <=  'b0 ;
-     idu_snxt_pc        <=  'b0 ;
-     idu_instr          <=  'b0 ;
-     idu_execute_en     <=  'b0 ;
+      idu_index_rs1    <=  'b0 ; 
+      idu_index_rs2    <=  'b0 ; 
+      idu_index_rd     <=  'b0 ; 
+      idu_instr        <=  'b0 ; 
+      idu_funct3       <=  'b0 ; 
+      idu_funct7       <=  'b0 ; 
+      idu_valid        <=  'b0 ; 
+      idu_snxt_pc      <=  'b0 ; 
+      idu_pc           <=  'b0 ; 
+      idu_data_rs1     <=  'b0 ; 
+      idu_imm          <=  'b0 ; 
+      idu_data_rs2     <=  'b0 ; 
+      idu_add_pc_en    <=  'b0 ; 
+      idu_add_rs1_en   <=  'b0 ; 
+      idu_add_zero_en  <=  'b0 ; 
+      idu_imm_en       <=  'b0 ; 
+      idu_rs2_en       <=  'b0 ; 
+      idu_addop_en     <=  'b0 ; 
+      idu_iop_en       <=  'b0 ; 
+      idu_rop_en       <=  'b0 ; 
+      idu_mop_en       <=  'b0 ; 
+      idu_iwop_en      <=  'b0 ; 
+      idu_rwop_en      <=  'b0 ; 
+      idu_mwop_en      <=  'b0 ; 
+      idu_jal_en       <=  'b0 ; 
+      idu_jalr_en      <=  'b0 ; 
+      idu_branch_en    <=  'b0 ; 
+      idu_load_en      <=  'b0 ; 
+      idu_store_en     <=  'b0 ; 
+      idu_wb_alu_en    <=  'b0 ; 
+      idu_ebreak_en    <=  'b0 ; 
   end
-  else if ( flush_nop | ld_hz_nop ) begin
-      idu_index_rs1      <=  index_rs1      ;  
-      idu_index_rs2      <=  index_rs2      ;
-      idu_index_rd       <=  index_rd       ;
-      idu_pc             <=  pc             ;
-      idu_gpr_data1      <=  gpr_data1      ;
-      idu_imm            <=  imm            ;
-      idu_gpr_data2      <=  gpr_data2      ;
-      idu_alu_opcode     <=  alu_opcode     ;
-      idu_alu_en         <=  alu_en         ;
-      idu_alu_imm_en     <=  alu_imm_en     ;
-      idu_alu_pc_en      <=  alu_pc_en      ;
-      idu_alu_halfop     <=  alu_halfop     ;
-      idu_branch_opcode  <=  branch_opcode  ;
-      idu_jump_en        <=  'b0            ;
-      idu_branch_en      <=  'b0            ;
-      idu_load_en        <=  'b0            ;
-      idu_load_opcode    <=  load_opcode    ;
-      idu_store_en       <=  'b0            ;
-      idu_store_len      <=  store_len      ;
-      idu_wb_en          <=  'b0            ;
-      idu_wb_choose      <=  wb_choose      ;
-      idu_ebreak         <=  'b0            ;
-      idu_snxt_pc        <=  ifu_snxt_pc    ;
-      idu_instr          <=  ifu_instr      ;
-      idu_execute_en     <=  'b0            ;
+  else if ( flush_nop | hazard_nop ) begin
+      idu_index_rs1    <=  'b0 ; 
+      idu_index_rs2    <=  'b0 ; 
+      idu_index_rd     <=  'b0 ; 
+      idu_instr        <=  'b0 ; 
+      idu_funct3       <=  'b0 ; 
+      idu_funct7       <=  'b0 ; 
+      idu_valid        <=  'b0 ; 
+      idu_snxt_pc      <=  'b0 ; 
+      idu_pc           <=  'b0 ; 
+      idu_data_rs1     <=  'b0 ; 
+      idu_imm          <=  'b0 ; 
+      idu_data_rs2     <=  'b0 ; 
+      idu_add_pc_en    <=  'b0 ; 
+      idu_add_rs1_en   <=  'b0 ; 
+      idu_add_zero_en  <=  'b0 ; 
+      idu_imm_en       <=  'b0 ; 
+      idu_rs2_en       <=  'b0 ; 
+      idu_addop_en     <=  'b0 ; 
+      idu_iop_en       <=  'b0 ; 
+      idu_rop_en       <=  'b0 ; 
+      idu_mop_en       <=  'b0 ; 
+      idu_iwop_en      <=  'b0 ; 
+      idu_rwop_en      <=  'b0 ; 
+      idu_mwop_en      <=  'b0 ; 
+      idu_jal_en       <=  'b0 ; 
+      idu_jalr_en      <=  'b0 ; 
+      idu_branch_en    <=  'b0 ; 
+      idu_load_en      <=  'b0 ; 
+      idu_store_en     <=  'b0 ; 
+      idu_wb_alu_en    <=  'b0 ; 
+      idu_ebreak_en    <=  'b0 ; 
   end
   else begin
-      idu_index_rs1      <=  index_rs1      ;  
-      idu_index_rs2      <=  index_rs2      ;
-      idu_index_rd       <=  index_rd       ;
-      idu_pc             <=  pc             ;
-      idu_gpr_data1      <=  gpr_data1      ;
-      idu_imm            <=  imm            ;
-      idu_gpr_data2      <=  gpr_data2      ;
-      idu_alu_opcode     <=  alu_opcode     ;
-      idu_alu_en         <=  alu_en         ;
-      idu_alu_imm_en     <=  alu_imm_en     ;
-      idu_alu_pc_en      <=  alu_pc_en      ;
-      idu_alu_halfop     <=  alu_halfop     ;
-      idu_branch_opcode  <=  branch_opcode  ;
-      idu_jump_en        <=  jump_en        ;
-      idu_branch_en      <=  branch_en      ;
-      idu_load_en        <=  load_en        ;
-      idu_load_opcode    <=  load_opcode    ;
-      idu_store_en       <=  store_en       ;
-      idu_store_len      <=  store_len      ;
-      idu_wb_en          <=  wb_en          ;
-      idu_wb_choose      <=  wb_choose      ;
-      idu_ebreak         <=  ebreak         ;
-      idu_snxt_pc        <=  ifu_snxt_pc    ;
-      idu_instr          <=  ifu_instr      ;
-      idu_execute_en     <=  ifu_execute_en ;
+      idu_index_rs1    <= index_rs1         ; 
+      idu_index_rs2    <= index_rs2         ; 
+      idu_index_rd     <= index_rd          ; 
+      idu_instr        <= ifu_instr         ; 
+      idu_funct3       <= ifu_instr[14:12]  ; 
+      idu_funct7       <= ifu_instr[31:25]  ; 
+      idu_valid        <= ifu_valid         ; 
+      idu_snxt_pc      <= ifu_snxt_pc       ; 
+      idu_pc           <= ifu_pc            ; 
+      idu_data_rs1     <= data_rs1          ; 
+      idu_imm          <= imm               ; 
+      idu_data_rs2     <= data_rs2         ; 
+      idu_add_pc_en    <= add_pc_en         ; 
+      idu_add_rs1_en   <= add_rs1_en        ; 
+      idu_add_zero_en  <= add_zero_en       ; 
+      idu_imm_en       <= imm_en            ; 
+      idu_rs2_en       <= rs2_en            ; 
+      idu_addop_en     <= addop_en          ; 
+      idu_iop_en       <= iop_en            ; 
+      idu_rop_en       <= rop_en            ; 
+      idu_mop_en       <= mop_en            ; 
+      idu_iwop_en      <= iwop_en           ; 
+      idu_rwop_en      <= rwop_en           ; 
+      idu_mwop_en      <= mwop_en           ; 
+      idu_jal_en       <= jal_en            ; 
+      idu_jalr_en      <= jalr_en           ; 
+      idu_branch_en    <= branch_en         ; 
+      idu_load_en      <= load_en           ; 
+      idu_store_en     <= store_en          ; 
+      idu_wb_alu_en    <= wb_alu_en         ; 
+      idu_ebreak_en    <= ebreak_en         ; 
+
   end
 end
-
-assign  decoder_alu_en = alu_en ;
 
 endmodule
 

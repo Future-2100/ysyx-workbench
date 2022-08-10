@@ -9,10 +9,10 @@ module forward(
   input   wire          exu_wb_en       ,
   input   wire          mmu_wb_en       ,
 
-  output  wire          fw_en1          ,
-  output  wire          fw_en2          ,
-  output  wire  [63:0]  fw_data1        ,
-  output  wire  [63:0]  fw_data2        
+  output  wire          fwd_en_1          ,
+  output  wire          fwd_en_2          ,
+  output  wire  [63:0]  fwd_data_rs1     ,
+  output  wire  [63:0]  fwd_data_rs2        
 
 );
 
@@ -22,12 +22,12 @@ module forward(
   wire   mm_forward_1 = mmu_wb_en & ( mmu_index_rd !=0 ) & !( exu_wb_en & ( exu_index_rd != 0 ) & ( exu_index_rd == idu_index_rs1 )) & ( mmu_index_rd == idu_index_rs1 ) ;
   wire   mm_forward_2 = mmu_wb_en & ( mmu_index_rd !=0 ) & !( exu_wb_en & ( exu_index_rd != 0 ) & ( exu_index_rd == idu_index_rs2 )) & ( mmu_index_rd == idu_index_rs2 ) ;
 
-  assign fw_en1   = ex_forward_1 | mm_forward_1;
-  assign fw_data1 = ex_forward_1 ? exu_alu_result :
+  assign fwd_en_1   = ex_forward_1 | mm_forward_1;
+  assign fwd_data_rs1 = ex_forward_1 ? exu_alu_result :
                   ( mm_forward_1 ? mmu_wb_data : 64'b0 ) ;
 
-  assign fw_en2   = ex_forward_2 | mm_forward_2;
-  assign fw_data2 = ex_forward_2 ? exu_alu_result :
+  assign fwd_en_2   = ex_forward_2 | mm_forward_2;
+  assign fwd_data_rs2 = ex_forward_2 ? exu_alu_result :
                   ( mm_forward_2 ? mmu_wb_data : 64'b0 ) ;
 
 

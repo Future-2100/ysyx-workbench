@@ -2,46 +2,42 @@ module mmu(
   input   wire            clk                 ,
   input   wire            rstn                ,
 
-  input   wire    [4:0]   exu_index_rd        ,
-  input   wire    [4:0]   exu_index_rs1       ,
-  input   wire    [4:0]   exu_index_rs2       ,
-
-  input   wire            exu_jump_en         ,
+  input   wire            exu_jal_en          ,
+  input   wire            exu_jalr_en         ,
   input   wire            exu_branch_en       ,
+  input   wire            exu_br_result       ,
 
-  input   wire    [63:0]  exu_branch_pc       ,
-  input   wire            exu_branch_result   ,
-
+  input   wire    [63:0]  exu_snxt_pc         ,
   input   wire    [63:0]  exu_alu_result      ,
-  input   wire    [31:0]  exu_instr           ,
 
   input   wire            exu_load_en         ,
   input   wire            exu_store_en        ,
-  input   wire    [3:0]   exu_store_len       ,
+  input   wire    [2:0]   exu_funct3          ,
+  input   wire    [63:0]  exu_data_rs2        ,
 
-  input   wire    [63:0]  exu_gpr_data2       ,
-  input   wire    [63:0]  exu_imm             ,
-
-  input   wire    [2:0]   exu_load_opcode     ,
+  input   wire            exu_wb_alu_en       ,
+  input   wire            exu_wb_spc_en       ,
   input   wire            exu_wb_en           ,
-  input   wire    [3:0]   exu_wb_choose       ,
-  input   wire            exu_ebreak          ,
-  input   wire    [63:0]  exu_snxt_pc         ,
 
-  input   wire            exu_execute_en      ,
-  output  reg             mmu_execute_en      ,
+  input   wire            exu_ebreak_en       ,
+
+  input   wire    [4:0]   exu_index_rd        ,
   input   wire    [63:0]  exu_pc              ,
-  output  reg     [63:0]  mmu_pc              ,
+  input   wire    [31:0]  exu_instr           ,
+  input   wire            exu_valid           ,
+
+  output  wire            jump_en             ,
+  output  wire    [63:0]  jump_pc             ,
 
   output  reg     [4:0]   mmu_index_rd        ,
   output  reg             mmu_wb_en           ,
   output  wire    [63:0]  mmu_wb_data         ,
 
-  output  wire    [63:0]  mmu_dnpc            ,
-  output  wire            mmu_jump_en         ,
-  output  wire            mmu_branch_en       ,
+  output  reg             mmu_valid           ,
+  output  reg             mmu_ebreak_en       ,
+
+  output  reg     [63:0]  mmu_pc              ,
   output  reg     [31:0]  mmu_instr           ,
-  output  reg             mmu_ebreak          ,
 
   output  wire    [63:0]  mm_addr             , 
   output  wire    [63:0]  mm_wdata            , 
@@ -52,21 +48,12 @@ module mmu(
 
 );
 
-
-  wire    jump_en = exu_jump_en;
-  wire  branch_en = exu_branch_en & exu_branch_result;
-
-  assign  mmu_jump_en   =   jump_en;
-  assign  mmu_branch_en = branch_en;
-
-  wire  [63:0]  branch_pc = exu_branch_pc;
-  wire  [63:0]  jump_pc   = exu_alu_result;
-
-  assign  mmu_dnpc = ( { 64{jump_en   }} &   jump_pc ) |
-                     ( { 64{branch_en }} & branch_pc ) ;
+  
+  assign  jump_en = exu_jal_en | exu_jalr_en | ( exu_branch_en & exu_br_result ) ;
+  assign  jump_pc = exu_alu_result;
 
   wire  [63:0]     address = exu_alu_result ;
-  wire  [63:0]  store_data = exu_gpr_data2  ;
+  wire  [63:0]  store_data = exu_data_rs2   ;
 
   wire  [63:0]  load_data ;
 
@@ -74,8 +61,7 @@ memory memory_inst(
 
   .load_en     ( exu_load_en     )  ,
   .store_en    ( exu_store_en    )  ,
-  .store_len   ( exu_store_len   )  ,
-  .load_opcode ( exu_load_opcode )  ,
+  .funct3      ( exu_funct3      )  ,
   .store_data  (     store_data  )  ,
   .address     (     address     )  ,
   .load_data   (     load_data   )  ,
@@ -88,44 +74,47 @@ memory memory_inst(
 
 );
 
-  reg     [63:0]  mmu_alu_data        ;
-  reg     [63:0]  mmu_load_data       ;
-  reg     [63:0]  mmu_imm_data        ;
-  reg     [3:0]   mmu_wb_choose       ;
+  reg     [63:0]  mmu_alu_result      ;
   reg     [63:0]  mmu_snxt_pc         ;
+  reg     [63:0]  mmu_load_data       ;
+
+  reg       mmu_wb_alu_en       ;
+  reg       mmu_wb_spc_en       ;
+  reg       mmu_load_en         ;
 
   always@(posedge clk) begin
     if(!rstn) begin
-      mmu_index_rd  <=   'b0  ;
-      mmu_alu_data  <=   'b0  ;
-      mmu_load_data <=   'b0  ;
-      mmu_imm_data  <=   'b0  ;
-      mmu_wb_choose <=   'b0  ;
-      mmu_wb_en     <=   'b0  ;
-      mmu_ebreak    <=   'b0  ;
-      mmu_snxt_pc   <=   'b0  ;
-      mmu_instr     <=   'b0  ;
-      mmu_execute_en<=   'b0  ;        
-      mmu_pc        <=   'b0  ;
+       mmu_alu_result    <=   'b0 ;  
+       mmu_snxt_pc       <=   'b0 ; 
+       mmu_load_data     <=   'b0 ; 
+       mmu_wb_alu_en     <=   'b0 ; 
+       mmu_wb_spc_en     <=   'b0 ; 
+       mmu_load_en       <=   'b0 ; 
+       mmu_index_rd      <=   'b0 ;
+       mmu_wb_en         <=   'b0 ;
+       mmu_valid         <=   'b0 ;
+       mmu_ebreak_en     <=   'b0 ;
+       mmu_pc            <=   'b0 ;
+       mmu_instr         <=   'b0 ;
     end else begin
-      mmu_index_rd  <= exu_index_rd    ;
-      mmu_alu_data  <= exu_alu_result  ;
-      mmu_load_data <= load_data       ;
-      mmu_imm_data  <= exu_imm         ;
-      mmu_wb_choose <= exu_wb_choose   ;
-      mmu_wb_en     <= exu_wb_en       ;
-      mmu_ebreak    <= exu_ebreak      ;
-      mmu_snxt_pc   <= exu_snxt_pc     ;
-      mmu_instr     <= exu_instr       ;
-      mmu_execute_en<= exu_execute_en  ;        
-      mmu_pc        <= exu_pc          ;
+       mmu_alu_result    <=   exu_alu_result  ;  
+       mmu_snxt_pc       <=   exu_snxt_pc     ; 
+       mmu_load_data     <=   load_data   ; 
+       mmu_wb_alu_en     <=   exu_wb_alu_en   ; 
+       mmu_wb_spc_en     <=   exu_wb_spc_en   ; 
+       mmu_load_en       <=   exu_load_en     ; 
+       mmu_index_rd      <=   exu_index_rd    ;
+       mmu_wb_en         <=   exu_wb_en       ;
+       mmu_valid         <=   exu_valid       ;
+       mmu_ebreak_en     <=   exu_ebreak_en   ;
+       mmu_pc            <=   exu_pc          ;
+       mmu_instr         <=   exu_instr       ;
     end
   end 
 
-  assign  mmu_wb_data = ( {64{mmu_wb_choose==4'b1000}} &  mmu_alu_data ) | 
-                        ( {64{mmu_wb_choose==4'b0100}} & mmu_load_data ) |
-                        ( {64{mmu_wb_choose==4'b0010}} &  mmu_imm_data ) |
-                        ( {64{mmu_wb_choose==4'b0001}} &  mmu_snxt_pc  ) ;
+  assign  mmu_wb_data = ( {64{ mmu_wb_alu_en }} &  mmu_alu_result ) | 
+                        ( {64{ mmu_wb_spc_en }} &  mmu_snxt_pc    ) |
+                        ( {64{ mmu_load_en   }} &  mmu_load_data  ) ;
 
 
 endmodule

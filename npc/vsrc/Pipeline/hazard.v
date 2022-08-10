@@ -1,16 +1,21 @@
 module hazard (
-  input   wire           decoder_alu_en  ,
   input   wire    [4:0]  index_rs1       ,
   input   wire    [4:0]  index_rs2       ,
   input   wire    [4:0]  index_rd        ,
+  input   wire           need_rs1        ,
+  input   wire           need_rs2        ,
   input   wire           load_en         ,
 
-  output  wire         ld_hz_nop         ,
-  output  wire         ld_hz_stop        
+  output  wire           hazard_nop      ,
+  output  wire           hazard_stop        
 );
 
-  assign  ld_hz_nop = load_en & decoder_alu_en & ( ( index_rd == index_rs1 ) | ( index_rd == index_rs2 ) ) ;
-  assign  ld_hz_stop = ld_hz_nop ;
+  wire    hazard_rs1 = ( index_rd == index_rs1 ) & need_rs1 ;
+  wire    hazard_rs2 = ( index_rd == index_rs2 ) & need_rs2 ;
+
+  assign  hazard_nop  = load_en & ( hazard_rs1 | hazard_rs2 ) ;
+
+  assign  hazard_stop = hazard_nop ;
 
 endmodule
 

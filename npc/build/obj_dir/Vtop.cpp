@@ -14,12 +14,12 @@ Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     , rstn{vlSymsp->TOP.rstn}
     , pc{vlSymsp->TOP.pc}
     , instr{vlSymsp->TOP.instr}
-    , ebreak{vlSymsp->TOP.ebreak}
     , snxt_pc{vlSymsp->TOP.snxt_pc}
-    , execute_en{vlSymsp->TOP.execute_en}
-    , execute_pc{vlSymsp->TOP.execute_pc}
-    , execute_instr{vlSymsp->TOP.execute_instr}
     , dnxt_pc{vlSymsp->TOP.dnxt_pc}
+    , this_ebreak{vlSymsp->TOP.this_ebreak}
+    , this_valid{vlSymsp->TOP.this_valid}
+    , this_pc{vlSymsp->TOP.this_pc}
+    , this_instr{vlSymsp->TOP.this_instr}
     , rootp{&(vlSymsp->TOP)}
 {
 }

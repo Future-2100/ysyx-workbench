@@ -173,19 +173,19 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       top->ifu_ARREADY = 0;
       */
 
-      if( top->execute_en ) {
+      if( top->this_valid ) {
         *diff_en = true ;
-      s->snpc = top->execute_pc + 4;
+      s->snpc = top->this_pc + 4;
       s->dnpc = top->dnxt_pc;
-      s->pc   = top->execute_pc;
-      s->isa.inst.val = top->execute_instr;
+      s->pc   = top->this_pc;
+      s->isa.inst.val = top->this_instr;
         for (int i=0; i<32; i++) {
           cpu->gpr[i] = cpu_gpr[i];
         }
       }
 
-      if(top->ebreak)  { 
-        npc_trap(NPC_END , top->pc, cpu_gpr[10]);
+      if(top->this_ebreak)  { 
+        npc_trap(NPC_END , top->this_pc, cpu_gpr[10]);
         for(int i=0; i<30; i++) printf(ANSI_FMT_BLUE "-");
         printf(" program end ");
         for(int i=0; i<30; i++) printf("-");

@@ -1,31 +1,38 @@
 module decoder (
   input   wire    [31:0]  instr         ,
 
-  output  wire            branch_en     ,
-  output  wire    [2:0]   branch_opcode ,
-
-  output  wire            alu_en        ,
-  output  wire            alu_pc_en     ,
-  output  wire            alu_imm_en    ,
-  output  wire    [4:0]   alu_opcode    ,
-  output  wire            alu_halfop    ,
-
-  output  wire            jump_en       ,
-  output  wire            load_en       ,
-  output  wire    [2:0]   load_opcode   ,
-  output  wire            store_en      ,
-  output  wire    [3:0]   store_len     ,
-  output  wire            wb_en         ,
-  output  wire    [3:0]   wb_choose     ,
-
   output  wire            I_type        ,
   output  wire            S_type        ,
   output  wire            B_type        ,
   output  wire            U_type        ,
   output  wire            J_type        ,
-  output  wire            ebreak      
-);
 
+  output  wire            need_rs1      ,
+  output  wire            need_rs2      ,
+
+  output  wire            add_pc_en     ,
+  output  wire            add_rs1_en    ,
+  output  wire            add_zero_en   ,
+  output  wire            imm_en    ,
+  output  wire            rs2_en    ,
+  output  wire            addop_en      ,
+  output  wire              iop_en      ,
+  output  wire             iwop_en      ,
+  output  wire              rop_en      ,
+  output  wire             rwop_en      ,
+  output  wire              mop_en      ,
+  output  wire             mwop_en      ,
+
+  output  wire              jal_en      ,
+  output  wire             jalr_en      ,
+  output  wire            branch_en     ,
+  output  wire            load_en       ,
+  output  wire            store_en      ,
+
+  output  wire            wb_alu_en     ,
+
+  output  wire            ebreak_en
+);
 
   wire  [6:0]   opcode  =   instr[6:0]    ;
   wire  [2:0]   funct3  =   instr[14:12]  ;
@@ -49,63 +56,48 @@ module decoder (
 
   wire       lui_en  = opcode6_5__01 & opcode4_2__101 & opcode1_0__11 ;
   wire     auipc_en  = opcode6_5__00 & opcode4_2__101 & opcode1_0__11 ;
-  wire       jal_en  = opcode6_5__11 & opcode4_2__011 & opcode1_0__11 ;
-  wire      jalr_en  = opcode6_5__11 & opcode4_2__001 & opcode1_0__11 ;
+assign       jal_en  = opcode6_5__11 & opcode4_2__011 & opcode1_0__11 ;
+assign      jalr_en  = opcode6_5__11 & opcode4_2__001 & opcode1_0__11 ;
 assign    branch_en  = opcode6_5__11 & opcode4_2__000 & opcode1_0__11 ;
 assign      load_en  = opcode6_5__00 & opcode4_2__000 & opcode1_0__11 ;
 assign     store_en  = opcode6_5__01 & opcode4_2__000 & opcode1_0__11 ;
-  wire  ioperate_en  = opcode6_5__00 & opcode4_2__100 & opcode1_0__11 ;
-  wire   operate_en  = opcode6_5__01 & opcode4_2__100 & opcode1_0__11 ;
-  wire iwoperate_en  = opcode6_5__00 & opcode4_2__110 & opcode1_0__11 ;
-  wire  woperate_en  = opcode6_5__01 & opcode4_2__110 & opcode1_0__11 ;
+  wire      addi_en  = opcode6_5__00 & opcode4_2__100 & opcode1_0__11 & ( funct3 == 3'b000 );
+  wire       add_en  = opcode6_5__01 & opcode4_2__100 & opcode1_0__11 & ( funct3 == 3'b000 ) & ( funct7[5] == 1'b0 ) & ( funct7[0] == 1'b0 ) ;
+assign       iop_en  = opcode6_5__00 & opcode4_2__100 & opcode1_0__11 & ( funct3 != 3'b000 );
+assign       rop_en  = opcode6_5__01 & opcode4_2__100 & opcode1_0__11 & !add_en ;
+assign       mop_en  = opcode6_5__01 & opcode4_2__100 & opcode1_0__11 & ( funct7[0] == 1'b1 );
+assign      iwop_en  = opcode6_5__00 & opcode4_2__110 & opcode1_0__11 ;
+assign      rwop_en  = opcode6_5__01 & opcode4_2__110 & opcode1_0__11 & ( funct7[0] == 1'b0 );
+assign      mwop_en  = opcode6_5__01 & opcode4_2__110 & opcode1_0__11 & ( funct7[0] == 1'b1 );
+assign    ebreak_en  = opcode6_5__11 & opcode4_2__100 & opcode1_0__11 & instr[20] & ( {instr[31:21], instr[19:7]} == 0 ) ;
 
-  assign     alu_en  = jal_en |      jalr_en |     branch_en |  load_en      |  
-                     store_en |  ioperate_en |    operate_en |  iwoperate_en |  
-                  woperate_en |     auipc_en ;
+assign  add_pc_en = auipc_en | jal_en | branch_en;
+assign  add_rs1_en = jalr_en | load_en | store_en | addi_en | add_en;
+assign  add_zero_en = lui_en ;
+assign  imm_en = lui_en | auipc_en | jal_en  | jalr_en | branch_en | 
+                load_en | store_en | addi_en | iop_en  | iwop_en   ;
+assign  rs2_en = add_en | rop_en | rwop_en ;
 
-  assign  alu_imm_en = auipc_en |   jal_en |     jalr_en | 
-                        load_en | store_en | ioperate_en | iwoperate_en ;
+assign addop_en = add_pc_en | add_rs1_en | add_zero_en ;
+  wire     op_en =  rop_en |  iop_en ;
+  wire    wop_en = rwop_en | iwop_en ;
 
-  assign  alu_pc_en  = auipc_en | jal_en  ;
+  assign  wb_alu_en = lui_en  | auipc_en | addi_en |  add_en | 
+                      iop_en  | rop_en   | mop_en  | iwop_en | 
+                      rwop_en | mwop_en  ;
 
-  wire    alu_adder_en = auipc_en | jal_en | jalr_en | load_en | store_en ;
-  assign  alu_opcode = ( {5{ alu_adder_en}} &  5'b00000 ) |
-                       ( {5{ (ioperate_en|iwoperate_en)  & !funct3_1_0__01 }} & { 2'b0, funct3 }) |
-                       ( {5{ (ioperate_en|iwoperate_en)  &  funct3_1_0__01 }} & { funct7[5], 1'b0, funct3 }) |
-                       ( {5{!alu_adder_en & !ioperate_en & !iwoperate_en   }} & { funct7[5], funct7[0], funct3 } ) ;
-  assign  alu_halfop = iwoperate_en | woperate_en ;
 
-  assign  branch_opcode = funct3;
+assign  need_rs1 = jalr_en | branch_en | load_en | store_en | addi_en | iop_en  |
+                   add_en  | rop_en    | iwop_en | rwop_en  | mop_en  | mwop_en ;
 
-  wire    funct3_1_0__00 = ( funct3[1:0] == 2'b00 ) ;
-  wire    funct3_1_0__01 = ( funct3[1:0] == 2'b01 ) ;
-  wire    funct3_1_0__10 = ( funct3[1:0] == 2'b10 ) ;
-  wire    funct3_1_0__11 = ( funct3[1:0] == 2'b11 ) ;
-
-  assign  load_opcode = funct3 ;
-  assign  store_len   = ( { 4{funct3_1_0__00} } & ( 4'b0001 ) ) |
-                        ( { 4{funct3_1_0__01} } & ( 4'b0010 ) ) |
-                        ( { 4{funct3_1_0__10} } & ( 4'b0100 ) ) |
-                        ( { 4{funct3_1_0__11} } & ( 4'b1000 ) ) ;
-
-  assign  wb_en = lui_en |    auipc_en |       jal_en |      jalr_en | 
-                 load_en | ioperate_en |   operate_en | iwoperate_en | 
-             woperate_en ;
-
-  assign  wb_choose = ( { 4{ jal_en | jalr_en} } & ( 4'b0001 ) ) | 
-                      ( { 4{ lui_en} } & ( 4'b0010 ) ) |
-                      ( { 4{load_en} } & ( 4'b0100 ) ) |
-                      ( { 4{ alu_en & !branch_en & !jal_en & !jalr_en & !load_en & !store_en} } & ( 4'b1000 ) ) ;
+assign  need_rs2 = branch_en | store_en | add_en  | rop_en | 
+                     rwop_en | mop_en   | mwop_en ;
 
   assign  U_type = lui_en | auipc_en ;
   assign  J_type = jal_en ;
-  assign  I_type = jalr_en | load_en | ioperate_en | iwoperate_en ;
+  assign  I_type = jalr_en | load_en | iop_en | iwop_en | addi_en ;
   assign  B_type = branch_en ;
-  assign  S_type =  store_en ;
-
-  assign  jump_en = jal_en | jalr_en ;
-
-  assign  ebreak = opcode6_5__11 & opcode4_2__100 & opcode1_0__11 & instr[20] & ( {instr[31:21], instr[19:7]} == 0 ) ;
+  assign  S_type = store_en  ;
 
 endmodule
 
