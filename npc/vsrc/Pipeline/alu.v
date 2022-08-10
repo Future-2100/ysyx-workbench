@@ -125,7 +125,6 @@ module alu(
   wire  addw_en  = rwop_en & funct3_000 & !funct7_5;
   wire  subw_en  = rwop_en & funct3_000 &  funct7_5;
 
-
   wire   [31:0]  riwop_result = ( { 32{ addiw_en | addw_en } } & riwop_add ) |
                                 ( { 32{  subw_en } } & riwop_sub ) |
                                 ( { 32{ funct3_001 } } & riwop_sll ) |
