@@ -42,7 +42,7 @@ VERILATOR_FLAGS += --MMD
 # VERILATOR_FLAGS += -Os -x-assign 0
 
 #Make waveforms
-#VERILATOR_FLAGS += --trace
+VERILATOR_FLAGS += --trace
 VERILATOR_FLAGS += --coverage
 
 # Check SystemVerilog assertions
