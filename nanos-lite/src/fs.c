@@ -70,7 +70,7 @@ int fs_open(const char *pathname, int flags, int mode){
       return i ;
     }
   }
-  printf("should not achieve here!!\n");
+  printf("fs_open : should not achieve here!!\n");
   assert(0);
   return 0 ;
 }
