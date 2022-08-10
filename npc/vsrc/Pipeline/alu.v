@@ -127,13 +127,11 @@ module alu(
                                 ( { 32{ funct3_101 & !funct7_5} } & riwop_srl ) |
                                 ( { 32{ funct3_101 &  funct7_5} } & riwop_sra ) ;
 
-                              
-
   assign  alu_result =  ( {64{addop_en}} & sum ) | 
                         ( {64{  mop_en}} & m_result) | 
-                        ( {64{  iop_en &  rop_en }} & riop_result ) | 
+                        ( {64{  iop_en |  rop_en }} & riop_result ) | 
                         ( {64{ mwop_en}} & { {32{wm_result[31]}}, wm_result } ) | 
-                        ( {64{ iwop_en & rwop_en }} & { {32{ riwop_result[31]}}, riwop_result } ) ;
+                        ( {64{ iwop_en | rwop_en }} & { {32{ riwop_result[31]}}, riwop_result } ) ;
 
   // ************************** branch **************************************** //
   assign  br_result = ( funct3_000 & (   $signed(data_rs1) ==   $signed(data_rs2) ) ) |

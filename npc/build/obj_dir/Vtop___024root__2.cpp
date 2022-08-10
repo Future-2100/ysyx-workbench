@@ -4333,7 +4333,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__8(Vtop___024root* vlSelf) {
                                                          & vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__m_result)) 
                                                      | ((- (QData)((IData)(
                                                                            ((IData)(vlSelf->top__DOT__idu_iop_en) 
-                                                                            & (IData)(vlSelf->top__DOT__idu_rop_en))))) 
+                                                                            | (IData)(vlSelf->top__DOT__idu_rop_en))))) 
                                                         & vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_result)) 
                                                     | ((- (QData)((IData)(vlSelf->top__DOT__idu_mwop_en))) 
                                                        & (((QData)((IData)(
@@ -4344,7 +4344,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__8(Vtop___024root* vlSelf) {
                                                           | (QData)((IData)(vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__wm_result))))) 
                                                    | ((- (QData)((IData)(
                                                                          ((IData)(vlSelf->top__DOT__idu_iwop_en) 
-                                                                          & (IData)(vlSelf->top__DOT__idu_rwop_en))))) 
+                                                                          | (IData)(vlSelf->top__DOT__idu_rwop_en))))) 
                                                       & (((QData)((IData)(
                                                                           (- (IData)(
                                                                                 (vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riwop_result 
