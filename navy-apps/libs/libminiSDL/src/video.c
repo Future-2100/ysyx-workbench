@@ -13,6 +13,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
+  NDL_OpenCanvas(&w, &h) ;
   NDL_DrawRect( s->pixels, x, y, w, h);
 }
 
