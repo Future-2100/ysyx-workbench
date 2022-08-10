@@ -121,8 +121,13 @@ module alu(
   wire   [31:0]  riwop_srl  = ( wdata_rs1 >>  wopdata_2[4:0] ) ;
   wire   [31:0]  riwop_sra  = ( $signed(wdata_rs1) >>> wopdata_2[4:0] ) ;
 
-  wire   [31:0]  riwop_result = ( { 32{ funct3_000 & !funct7_5} } & riwop_add ) |
-                                ( { 32{ funct3_000 &  funct7_5} } & riwop_sub ) |
+  wire  addiw_en = iwop_en & funct3_000 ;
+  wire  addw_en  = rwop_en & funct3_000 & !funct7_5;
+  wire  subw_en  = rwop_en & funct3_000 &  funct7_5;
+
+
+  wire   [31:0]  riwop_result = ( { 32{ addiw_en | addw_en } } & riwop_add ) |
+                                ( { 32{  subw_en } } & riwop_sub ) |
                                 ( { 32{ funct3_001 } } & riwop_sll ) |
                                 ( { 32{ funct3_101 & !funct7_5} } & riwop_srl ) |
                                 ( { 32{ funct3_101 &  funct7_5} } & riwop_sra ) ;
