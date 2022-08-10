@@ -64,7 +64,7 @@ assign     store_en  = opcode6_5__01 & opcode4_2__000 & opcode1_0__11 ;
   wire      addi_en  = opcode6_5__00 & opcode4_2__100 & opcode1_0__11 & ( funct3 == 3'b000 );
   wire       add_en  = opcode6_5__01 & opcode4_2__100 & opcode1_0__11 & ( funct3 == 3'b000 ) & ( funct7[5] == 1'b0 ) & ( funct7[0] == 1'b0 ) ;
 assign       iop_en  = opcode6_5__00 & opcode4_2__100 & opcode1_0__11 & ( funct3 != 3'b000 );
-assign       rop_en  = opcode6_5__01 & opcode4_2__100 & opcode1_0__11 & ( funct7[5] == 1'b0)  & !add_en  ;
+assign       rop_en  = opcode6_5__01 & opcode4_2__100 & opcode1_0__11 & ( funct7[0] == 1'b0) & !add_en  ;
 assign       mop_en  = opcode6_5__01 & opcode4_2__100 & opcode1_0__11 & ( funct7[0] == 1'b1);
 assign      iwop_en  = opcode6_5__00 & opcode4_2__110 & opcode1_0__11 ;
 assign      rwop_en  = opcode6_5__01 & opcode4_2__110 & opcode1_0__11 & ( funct7[0] == 1'b0 );

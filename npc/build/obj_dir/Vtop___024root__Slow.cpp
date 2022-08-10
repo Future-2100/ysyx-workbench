@@ -16247,7 +16247,7 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__idu_inst__DOT__rop_en = ((IData)(
                                                        (0x33U 
                                                         == 
-                                                        (0x4000007fU 
+                                                        (0x200007fU 
                                                          & vlSelf->top__DOT__ifu_instr))) 
                                                & (~ (IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__add_en)));
     if (((IData)(vlSelf->top__DOT__idu_inst__DOT__wbfwd_en1) 
