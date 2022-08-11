@@ -81,13 +81,7 @@ int main(int argc, char *argv[], char *envp[]) {
 
     SDL_Event e;
     do {
-      printf("wait keyboard\n");
-      if (e.type == SDL_KEYDOWN) {
-        printf("key down\n");
-      }
-      else {
-        printf("key up\n");
-      }
+
       SDL_WaitEvent(&e);
     } while (e.type != SDL_KEYDOWN);
 
@@ -181,7 +175,7 @@ static void display_menu(int n) {
   draw_text_row(buf, i);
   i ++;
 
-  SDL_UpdateRect(screen, 0, 0, 0, 0);
+  //SDL_UpdateRect(screen, 0, 0, 0, 0);
 
   printf("========================================\n");
   printf("Please Choose.\n");
