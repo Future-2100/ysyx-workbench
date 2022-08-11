@@ -108,7 +108,7 @@ int NDL_Init(uint32_t flags) {
     }
     *width_p = '\0';
     screen_w = atoi(WIDTH);
-    printf("screen_w = %d\n", screen_w);
+    printf("init : screen_w = %d\n", screen_w);
     for( ; (i < sizeof(buf)) && (*(buf+i)!='\0') ; i++) {
       if( *(buf+i) >= '0' && *(buf+i) <= '9' ){
         *height_p = *(buf+i);
@@ -117,7 +117,7 @@ int NDL_Init(uint32_t flags) {
     }
     *height_p = '\0';
     screen_h = atoi(HEIGHT);
-    printf("screen_h = %d\n", screen_h);
+    printf("init : screen_h = %d\n", screen_h);
 
   if (getenv("NWM_APP")) {
     evtdev = 3;
