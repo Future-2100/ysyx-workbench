@@ -18,7 +18,53 @@ int SDL_PushEvent(SDL_Event *ev) {
 
 int SDL_PollEvent(SDL_Event *ev) {
   //assert(0);
-  return 0;
+  char buf[64];
+  int rt;
+  if( NDL_PollEvent(buf, sizeof(buf))==0 ) {
+    return 0;
+  }
+  else {
+    char *src = buf;
+    char keydown[5];
+    char keycode[10];
+    int i = 0;
+    while( *src != ' ' ) {
+      keydown[i] = *src ;
+      i ++ ;
+      src++;
+    }
+    keydown[i] = '\0';
+    src++;  //jump the ' '
+    if( strcmp( keydown, "kd" )==0 ) ev->type = SDL_KEYDOWN;
+    if( strcmp( keydown, "ku" )==0 ) ev->type = SDL_KEYUP;
+    
+    i=0;
+    while( *src != '\0' ) {
+      keycode[i] = *src ;
+      i++;
+      src ++ ;
+    }
+    keycode[i] = '\0';
+
+    if( strcmp( keycode, "0" )==0 )    ev->key.keysym.sym = SDLK_0;
+    if( strcmp( keycode, "1" )==0 )    ev->key.keysym.sym = SDLK_1;
+    if( strcmp( keycode, "2" )==0 )    ev->key.keysym.sym = SDLK_2;
+    if( strcmp( keycode, "3" )==0 )    ev->key.keysym.sym = SDLK_3;
+    if( strcmp( keycode, "4" )==0 )    ev->key.keysym.sym = SDLK_4;
+    if( strcmp( keycode, "5" )==0 )    ev->key.keysym.sym = SDLK_5;
+    if( strcmp( keycode, "6" )==0 )    ev->key.keysym.sym = SDLK_6;
+    if( strcmp( keycode, "7" )==0 )    ev->key.keysym.sym = SDLK_7;
+    if( strcmp( keycode, "8" )==0 )    ev->key.keysym.sym = SDLK_8;
+    if( strcmp( keycode, "9" )==0 )    ev->key.keysym.sym = SDLK_9;
+    if( strcmp( keycode, "J" )==0 )    ev->key.keysym.sym = SDLK_J;
+    if( strcmp( keycode, "K" )==0 )    ev->key.keysym.sym = SDLK_K;
+    if( strcmp( keycode, "DOWN" )==0 ) ev->key.keysym.sym = SDLK_DOWN;
+    if( strcmp( keycode, "UP" )==0 )   ev->key.keysym.sym = SDLK_UP;
+    if( strcmp( keycode, "LEFT" )==0 ) ev->key.keysym.sym = SDLK_LEFT;
+    if( strcmp( keycode, "RIGHT" )==0 )ev->key.keysym.sym = SDLK_RIGHT;
+  }
+
+  return 1;
 }
 
 int SDL_WaitEvent(SDL_Event *event) {
