@@ -24,7 +24,7 @@ int SDL_PollEvent(SDL_Event *ev) {
 int SDL_WaitEvent(SDL_Event *event) {
   char buf[64];
   int rt;
-  while (  NDL_PollEvent(buf, sizeof(buf)) ) ;
+  while (  NDL_PollEvent(buf, sizeof(buf))==0 ) ;
   printf("catch a event\n");
 
   char *src = buf;
@@ -63,8 +63,8 @@ int SDL_WaitEvent(SDL_Event *event) {
   if( strcmp( keycode, "K" )==0 )    event->key.keysym.sym = SDLK_K;
   if( strcmp( keycode, "DOWN" )==0 ) event->key.keysym.sym = SDLK_DOWN;
   if( strcmp( keycode, "UP" )==0 )   event->key.keysym.sym = SDLK_UP;
-  if( strcmp( keycode, "LEFT" )==0 )   event->key.keysym.sym = SDLK_LEFT;
-  if( strcmp( keycode, "RIGHT" )==0 )   event->key.keysym.sym = SDLK_RIGHT;
+  if( strcmp( keycode, "LEFT" )==0 ) event->key.keysym.sym = SDLK_LEFT;
+  if( strcmp( keycode, "RIGHT" )==0 )event->key.keysym.sym = SDLK_RIGHT;
 
  // assert(0);
   return 1;
