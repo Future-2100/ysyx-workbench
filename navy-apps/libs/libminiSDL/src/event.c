@@ -1,6 +1,7 @@
 #include <NDL.h>
 #include <SDL.h>
 #include <string.h>
+#include <assert.h>
 
 #define keyname(k) #k,
 
@@ -23,6 +24,8 @@ int SDL_PollEvent(SDL_Event *ev) {
 int SDL_WaitEvent(SDL_Event *event) {
   char buf[64];
   while ( NDL_PollEvent(buf, sizeof(buf)) == 0 ) ;
+  printf("should not reached here");
+  assert(0);
   char *src = buf;
   char keydown[5];
   char keycode[10];
