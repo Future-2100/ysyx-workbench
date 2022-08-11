@@ -55,7 +55,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   int i , j;
   for( j=0; j<h; j++ ) {
     for( i=0; i<w; i++ ) {
-      *( dst->pixels + (y+j)*dst->w + (x+i) ) = color ;
+      *( (uint32_t *)dst->pixels + (y+j)*dst->w + (x+i) ) = color ;
     }
   }
 
