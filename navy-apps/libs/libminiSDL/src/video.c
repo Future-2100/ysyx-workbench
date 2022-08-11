@@ -47,11 +47,12 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   }
 
   printf(" w = %d , h = %d\n ",w , h);
-  uint32_t pixels[w * h];
-  uint32_t *ret = pixels;
+  uint32_t pixels[w * h] ;
+  uint32_t *ret = pixels ;
   for( int i = 0 ; i < (w * h); i++ ) {
     *ret = color;
     ret ++;
+    printf( "i = %d\n", i);
   } 
 
   printf("error : begin \n");
