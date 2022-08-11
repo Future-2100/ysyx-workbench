@@ -34,8 +34,14 @@ int SDL_WaitEvent(SDL_Event *event) {
   }
   keydown[i] = '\0';
   src++;  //jump the ' '
-  if( strcmp( keydown, "kd" )==0 ) event->type == SDL_KEYDOWN;
-  if( strcmp( keydown, "ku" )==0 ) event->type == SDL_KEYUP;
+  if( strcmp( keydown, "kd" )==0 ) {
+    printf("key down");
+    event->type == SDL_KEYDOWN;
+  }
+  if( strcmp( keydown, "ku" )==0 ) {
+    printf("key up");
+    event->type == SDL_KEYUP;
+  }
   i=0;
   while( *src != '\0' ) {
     keycode[i] = *src ;
