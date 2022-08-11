@@ -9,31 +9,35 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
   
-  int x,y,w,h;
+  int sx,sy,w,h,dx,dy;
   if( srcrect == NULL ) {
     w = src->w;
     h = src->h;
+    sx = 0;
+    sy = 0;
   }
   else {
     w = srcrect->w;
     h = srcrect->h;
+    sx = srcrect->x;
+    sy = srcrect->y;
   }
 
   if( dstrect == NULL ) {
-    x = 0;
-    y = 0;
+    dx = 0;
+    dy = 0;
   }
   else {
-    x = dstrect->x;
-    y = dstrect->y;
+    dx = dstrect->x;
+    dy = dstrect->y;
   }
   int i,j;
   for( j = 0; j < h; j++) {
     for( i = 0; i < w; i++) {
-      * ((uint32_t *)dst->pixels + (j+y)*dst->w + i+x )  = * ((uint32_t *)src->pixels + (j)*src->w + i )  ;
+      * ((uint32_t *)dst->pixels + (j+dy)*dst->w + i+dx )  = * ((uint32_t *)src->pixels + (j+sy)*src->w + i +sx)  ;
     }
   }
-  NDL_DrawRect( (uint32_t *)src->pixels, x, y, w, h);
+  //NDL_DrawRect( (uint32_t *)src->pixels, x, y, w, h);
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
