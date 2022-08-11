@@ -37,6 +37,14 @@ size_t events_read(void *buf, size_t offset, size_t len) {
       return 0;
     }
     else {
+      if( ev.keydown ) {
+        strcpy( dst, "DOWN " );
+        dst = dst + 5;
+      }
+      else {
+        strcpy( dst, "UP " );
+        dst = dst + 3;
+      }
       strcpy( dst, keyname[ev.keycode] );
       return 1;
     }
