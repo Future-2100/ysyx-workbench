@@ -25,12 +25,9 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 
 size_t events_read(void *buf, size_t offset, size_t len) {
   //bool has_kbd = io_read(AM_INPUT_CONFIG).present;
-  //size_t real_len = 0 ;
 
-  //char *src = keyname[ev.keycode];
   char *dst = buf;
   AM_INPUT_KEYBRD_T ev ;
-  //ev.keycode = AM_KEY_NONE;
   ev = io_read(AM_INPUT_KEYBRD);
 //  for( int i=0; i < len; i++ ) {
     if( ev.keycode == AM_KEY_NONE )  {
@@ -50,31 +47,6 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     }
   //}
 }
-
-  /*
-    while( ev.keycode == AM_KEY_NONE || ev.keydown == 0 ) {
-       ev = io_read(AM_INPUT_KEYBRD);
-    }
-    if( ev.keycode == AM_KEY_RETURN ) {
-      *dst = '\n';
-      *(dst++) = '\0';
-      real_len ++ ;
-      return real_len;
-    }
-    else if( ev.keycode == AM_KEY_SPACE ) {
-        *dst = ' ';
-    }
-    else {
-      *dst = *keyname[ev.keycode];
-    }
-    real_len ++ ;
-    dst ++;
-    ev.keycode = AM_KEY_NONE;
-  }
-  *dst = '\n';
-  *(dst++) = '\0';
-  return real_len;
-*/
 
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
