@@ -34,25 +34,27 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   
     int w = 0;
     int h = 0;
-    NDL_OpenCanvas(&w, &h) ;
+    int x = 0;
+    int y = 0;
   if( dstrect == NULL ) {
-    uint32_t pixels[w * h];
-    uint32_t *ret = pixels;
-    for( int i = 0 ; i < (w * h); i++ ) {
-      *ret = color;
-      ret ++;
-    } 
-    NDL_DrawRect( (uint32_t *)pixels, 0, 0, w, h);
+    NDL_OpenCanvas(&w, &h) ;
   }
   else {
-    uint32_t pixels[dstrect->w * dstrect->h];
-    uint32_t *ret = pixels;
-    for( int i = 0 ; i < (dstrect->w * dstrect->h); i++ ) {
-      *ret = color;
-      ret ++;
-    } 
-    NDL_DrawRect( (uint32_t *)pixels, dstrect->x, dstrect->y, dstrect->w, dstrect->h ) ;
+    w = dstrect->w;
+    h = dstrect->h;
+    x = dstrect->x;
+    y = dstrect->y;
   }
+
+  uint32_t pixels[w * h];
+  uint32_t *ret = pixels;
+  for( int i = 0 ; i < (w * h); i++ ) {
+    *ret = color;
+    ret ++;
+  } 
+
+  NDL_DrawRect( (uint32_t *)pixels, x, y, w, h);
+
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
