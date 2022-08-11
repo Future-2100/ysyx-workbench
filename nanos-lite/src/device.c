@@ -36,12 +36,11 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     else {
       if( ev.keydown ) {
         strcpy( dst, "kd " );
-        dst = dst + 5;
       }
       else {
         strcpy( dst, "ku " );
-        dst = dst + 3;
       }
+      dst = dst + 3;
       strcpy( dst, keyname[ev.keycode] );
       return 1;
     }
