@@ -25,7 +25,7 @@ int SDL_WaitEvent(SDL_Event *event) {
   char buf[64];
   int rt;
   while ( rt = NDL_PollEvent(buf, sizeof(buf)) == 0 ) ;
-  printf("should not reached here : return value = %d\n, rt");
+  printf("should not reached here : return value = %d\n", rt);
   assert(0);
   char *src = buf;
   char keydown[5];
