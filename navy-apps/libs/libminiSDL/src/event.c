@@ -37,11 +37,11 @@ int SDL_WaitEvent(SDL_Event *event) {
   src++;  //jump the ' '
   if( strcmp( keydown, "kd" )==0 ) {
     printf("key down\n");
-    event->type == SDL_KEYDOWN;
+    event->type = SDL_KEYDOWN;
   }
   if( strcmp( keydown, "ku" )==0 ) {
     printf("key up\n");
-    event->type == SDL_KEYUP;
+    event->type = SDL_KEYUP;
   }
   i=0;
   while( *src != '\0' ) {
@@ -63,8 +63,14 @@ int SDL_WaitEvent(SDL_Event *event) {
   if( strcmp( keycode, "9" )==0 )    event->key.keysym.sym = SDLK_9;
   if( strcmp( keycode, "J" )==0 )    event->key.keysym.sym = SDLK_J;
   if( strcmp( keycode, "K" )==0 )    event->key.keysym.sym = SDLK_K;
-  if( strcmp( keycode, "DOWN" )==0 ) event->key.keysym.sym = SDLK_DOWN;
-  if( strcmp( keycode, "UP" )==0 )   event->key.keysym.sym = SDLK_UP;
+  if( strcmp( keycode, "DOWN" )==0 ) {
+    event->key.keysym.sym = SDLK_DOWN;
+    printf("key down\n");
+  }
+  if( strcmp( keycode, "UP" )==0 ) {
+    event->key.keysym.sym = SDLK_UP;
+    printf("key down\n");
+  }
 
  // assert(0);
   return 1;
