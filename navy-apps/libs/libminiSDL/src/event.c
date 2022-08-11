@@ -59,6 +59,8 @@ int SDL_WaitEvent(SDL_Event *event) {
   if( strcmp( keycode, "K" )==0 )    event->key.keysym.sym = SDLK_K;
   if( strcmp( keycode, "DOWN" )==0 ) event->key.keysym.sym = SDLK_DOWN;
   if( strcmp( keycode, "UP" )==0 )   event->key.keysym.sym = SDLK_UP;
+  if( strcmp( keycode, "LEFT" )==0 )   event->key.keysym.sym = SDLK_LEFT;
+  if( strcmp( keycode, "RIGHT" )==0 )   event->key.keysym.sym = SDLK_RIGHT;
 
  // assert(0);
   return 1;
