@@ -23,6 +23,7 @@ int SDL_PollEvent(SDL_Event *ev) {
 int SDL_WaitEvent(SDL_Event *event) {
   char buf[64];
   while ( NDL_PollEvent(buf, sizeof(buf)) == 0 ) ;
+  printf("reached here\n");
   char *src = buf;
   char keydown[5];
   char keycode[10];
@@ -35,11 +36,11 @@ int SDL_WaitEvent(SDL_Event *event) {
   keydown[i] = '\0';
   src++;  //jump the ' '
   if( strcmp( keydown, "kd" )==0 ) {
-    printf("key down");
+    printf("key down\n");
     event->type == SDL_KEYDOWN;
   }
   if( strcmp( keydown, "ku" )==0 ) {
-    printf("key up");
+    printf("key up\n");
     event->type == SDL_KEYUP;
   }
   i=0;
