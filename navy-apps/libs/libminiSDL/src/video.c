@@ -38,7 +38,6 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     int y = 0;
   if( dstrect == NULL ) {
     NDL_OpenCanvas(&w, &h) ;
-    printf(" w = %d, h = %d\n", w, h);
   }
   else {
     w = dstrect->w;
@@ -54,7 +53,9 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     ret ++;
   } 
 
+  printf("error : begin \n");
   NDL_DrawRect( pixels, x, y, w, h);
+  printf("error : end\n ");
 
 }
 
