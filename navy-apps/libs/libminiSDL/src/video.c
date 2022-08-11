@@ -46,18 +46,14 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     y = dstrect->y;
   }
 
-  printf(" w = %d , h = %d\n ",w , h);
-  uint32_t pixels[w * h] ;
-  uint32_t *ret = pixels ;
-  for( int i = 0 ; i < (w * h); i++ ) {
-    *ret = color;
-    ret ++;
-    printf( "i = %d\n", i);
-  } 
-
-  printf("error : begin \n");
-  NDL_DrawRect( pixels, x, y, w, h);
-  printf("error : end\n ");
+  int i = 0;
+  uint32_t pixels[w] ;
+  for( i = 0; i< w; i++) {
+    pixels[i] = color;
+  }
+  for ( i = 0 ; i < h; i++) {
+      NDL_DrawRect( &color, x, y+i, w, 1);
+    }
 
 }
 
