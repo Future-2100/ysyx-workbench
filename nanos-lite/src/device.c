@@ -28,12 +28,10 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 
   char *dst = buf;
   AM_INPUT_KEYBRD_T ev ;
-  ev.keycode = AM_KEY_NONE;
   ev = io_read(AM_INPUT_KEYBRD);
-  //ioe_read  
   //  for( int i=0; i < len; i++ ) {
     if( ev.keycode == AM_KEY_NONE )  {
-      printf( " keycode =  KEY_NONE\n" );
+    //  printf( " keycode =  KEY_NONE\n" );
       return 0;
     }
     else { 
@@ -45,10 +43,8 @@ size_t events_read(void *buf, size_t offset, size_t len) {
       }
       dst = dst + 3;
       strcpy( dst, keyname[ev.keycode] );
-      printf( " keycode =  %s\n" , dst);
       return 1;
     }
-  //}
 }
 
 
