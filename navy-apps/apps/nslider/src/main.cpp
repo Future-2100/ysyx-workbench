@@ -51,15 +51,11 @@ int main() {
 
   int rep = 0, g = 0;
 
-  printf(">>>>>>>>>>\n");
   render();
-  printf(">>>>>>>>>>\n");
 
   while (1) {
     SDL_Event e;
-    printf("waiting\n");
     SDL_WaitEvent(&e);
-    printf("wait end\n");
 
     if (e.type == SDL_KEYDOWN) {
       switch(e.key.keysym.sym) {
