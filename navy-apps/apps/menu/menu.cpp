@@ -83,10 +83,10 @@ int main(int argc, char *argv[], char *envp[]) {
     do {
       printf("wait keyboard\n");
       if (e.type == SDL_KEYDOWN) {
-        printf("key down");
+        printf("key down\n");
       }
       else {
-        printf("key up");
+        printf("key up\n");
       }
       SDL_WaitEvent(&e);
     } while (e.type != SDL_KEYDOWN);
