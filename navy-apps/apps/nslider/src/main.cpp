@@ -54,6 +54,7 @@ int main() {
 
   while (1) {
     SDL_Event e;
+    printf("waiting\n");
     SDL_WaitEvent(&e);
     printf("wait end\n");
 
