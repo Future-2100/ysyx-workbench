@@ -34,7 +34,8 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
       printf("i = %d, j = %d\n",i, j);
       printf("w = %d, h = %d, x = %d, y = %d\n",w,h,x,y);
       printf(" dst->pixels = %p, src->pixels = %p\n ", dst->pixels, src->pixels );
-      //printf("dst->w = %d, dst->h = %d, srcrect->y = %d, srcrect->x = %d\n",dst->w , dst->h , srcrect->y , srcrect->x );
+      printf("dst->w = %d, dst->h = %dn",dst->w , dst->h );
+      printf("srcrect->y = %d, srcrect->x = %d\\n", srcrect->y , srcrect->x );
       printf("src->w = %d, src->h = %d\n",src->w , src->h );
       *( (uint32_t *)dst->pixels + (j+y)*(dst->w) + (i+x) ) = *( (uint32_t *)src->pixels + (j+srcrect->y)*src->w + (i+srcrect->x) ) ;
       printf("reached here?\n");
