@@ -51,7 +51,9 @@ int main() {
 
   int rep = 0, g = 0;
 
+  printf(">>>>>>>>>>\n");
   render();
+  printf(">>>>>>>>>>\n");
 
   while (1) {
     SDL_Event e;
