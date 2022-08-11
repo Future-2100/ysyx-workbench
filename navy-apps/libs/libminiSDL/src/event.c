@@ -25,6 +25,7 @@ int SDL_WaitEvent(SDL_Event *event) {
   char buf[64];
   int rt;
   while (  NDL_PollEvent(buf, sizeof(buf)) ) ;
+  printf("catch a event\n");
 
   char *src = buf;
   char keydown[5];
