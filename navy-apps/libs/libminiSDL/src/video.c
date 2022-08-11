@@ -33,10 +33,10 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
-  if( dstrect == NULL ) {
     int w = 0;
     int h = 0;
     NDL_OpenCanvas(&w, &h) ;
+  if( dstrect == NULL ) {
     NDL_DrawRect( (uint32_t *)dst->pixels, 0, 0, w, h);
   }
   else {
