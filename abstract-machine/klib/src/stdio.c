@@ -265,6 +265,7 @@ int snprintf(char *out, size_t n, const char *fmt, ...) {
       fmt++;
 
   }
+  *out_offset = '\0';
   va_end(valist);
   return 0;
   panic("Not implemented");
