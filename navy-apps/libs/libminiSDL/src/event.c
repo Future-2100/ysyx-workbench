@@ -24,8 +24,10 @@ int SDL_PollEvent(SDL_Event *ev) {
 int SDL_WaitEvent(SDL_Event *event) {
   char buf[64];
   int rt;
-  while ( NDL_PollEvent(buf, sizeof(buf)) == 0 ) {
-    printf("in waiting\n");
+  while ( 1 ) {
+    rt = NDL_PollEvent(buf, sizeof(buf));
+      printf("return value = %d\n", rt);
+      if( rt != 0 )  break;
   }
 
   printf("should not reached here : return value = %d\n", rt);
