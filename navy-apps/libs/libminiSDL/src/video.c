@@ -44,8 +44,8 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     for( j = 0; j < h; j++) {
       for( i = 0; i < w; i++) {
         //printf("convert 8 to 8 \n");
-        * (dst->pixels + (j+dy)*dst->w + i+dx )  = 
-        * (src->pixels + (j+sy)*src->w + i +sx)  ;
+        * (dst->pixels + (j+dy)*dst->w + i + dx )  = 
+        * (src->pixels + (j+sy)*src->w + i + sx )  ;
       }
     }
   }
@@ -88,15 +88,6 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     printf("SDL_FillRect : BitsPerPixel = %d\n", dst->format->BitsPerPixel);
     assert(0);
   }
-  /*
-  else if ( dst->format.BitsPerPixel == 8 ){
-    for( j=0; j<h; j++ ) {
-      for( i=0; i<w; i++ ) {
-        *( dst->pixels + (y+j)*dst->w + x + i ) = color ;
-      }
-    }
-  }
-  */
 }
 
 uint32_t SDL_MapRGB( SDL_PixelFormat *fmt, uint8_t r, uint8_t g, uint8_t b , uint8_t a){
@@ -107,7 +98,7 @@ uint32_t SDL_MapRGB( SDL_PixelFormat *fmt, uint8_t r, uint8_t g, uint8_t b , uin
   uint32_t bdata = b;
   //uint32_t adata = a;
   //p = (adata << 24 ) | (rdata << 16 ) | (gdata << 8) | (bdata) ;
-  p =  (rdata << 24 ) | (gdata << 16) | (bdata << 8) ;
+  p =  (rdata ) | (gdata << 8) | (bdata << 16) ;
   return p ;
 }
 
