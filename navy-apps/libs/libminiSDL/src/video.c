@@ -93,7 +93,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
         memcpy(buf + (i * w + j) * 4, s->format->palette->colors + *(char *)(s->pixels + i * w + j), 4 );
       }
     }
-    NDL_DrawRect((uint32_t *)buf, 0, 0, w, h);
+    NDL_DrawRect(buf, 0, 0, w, h);
     free(buf);
   }
 
