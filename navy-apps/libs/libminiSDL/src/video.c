@@ -40,6 +40,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
       }
     }
   }
+
   else if (( src->format->BitsPerPixel == 8 ) && ( dst->format->BitsPerPixel == 8 )) {
     for( j = 0; j < h; j++) {
       for( i = 0; i < w; i++) {
@@ -49,15 +50,6 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
       }
     }
     printf("end of the convert in 8 to 8\n");
-  }
-  else if (( src->format->BitsPerPixel == 8 ) && ( dst->format->BitsPerPixel == 32 )) {
-    printf("in convert palette\n");
-    for( j = 0; j < h; j++) {
-      for( i = 0; i < w; i++) {
-        * (dst->pixels + (j+dy)*dst->w + i+dx )  = 
-        * ((uint32_t *)src->format->palette->colors + (uintptr_t)*(src->pixels + (j+sy)*src->w + i +sx) )  ;
-      }
-    }
   }
 }
 
@@ -98,13 +90,9 @@ uint32_t SDL_MapRGB( SDL_PixelFormat *fmt, uint8_t r, uint8_t g, uint8_t b , uin
   uint32_t gdata = g;
   uint32_t bdata = b;
   uint32_t adata = a;
-  assert(adata==0);
+  //assert(adata==0);
   p =  (adata << 24) | (rdata << 16) | (gdata << 8) | (bdata ) ;
-  /*
-  if( p != 0) {
-    printf(" p = %x, r = %d, g = %d, b = %d\n", p, r,g,b);
-  }
-  */
+
   return p ;
 }
 
@@ -129,6 +117,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   }
 
   else if( s->format->BitsPerPixel == 8 ) {
+    SDL_Surface *display = SDL_SetVideoMode(320,200,32,SDL_HWSURFACE);
     for( j = 0; j < h; j++) {
       for( i = 0; i < w; i++) {
         uint8_t index = *(s->pixels + (j+y)*s->w + i + x);
@@ -141,7 +130,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
         //printf(" b = %d\n", b);
         uint8_t a = s->format->palette->colors[index].a ;
         //printf(" a = %d\n", a);
-        color[i] = SDL_MapRGB(s->format, r, g, b, a );
+        color[i] = SDL_MapRGBA(display->format, r, g, b, a );
         //printf("color = %x\n", color[i]);
         //color[i] = *((uint32_t *)s->format->palette->colors + (uintptr_t)*(s->pixels + (j+y)*s->w + i + x ) );
       }
