@@ -131,14 +131,13 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     for( j = 0; j < h; j++) {
       for( i = 0; i < w; i++) {
         uint8_t index = *(s->pixels + (j+y)*s->w + i + x);
-        printf("index[%d][%d] = %d\n",i,j,*(s->pixels + i+x + (j+y)*s->w ));
-        printf("pixels[%d][%d] = %d\n",i,j,s->pixels[i+x+(j+y)*s->w]);
-
+        printf("index[%d][%d] = %d\n", i, j, index);
         uint8_t r = s->format->palette->colors[index].r ;
         uint8_t g = s->format->palette->colors[index].g ;
         uint8_t b = s->format->palette->colors[index].b ;
         uint8_t a = s->format->palette->colors[index].a ;
         color[i] = SDL_MapRGB(s->format, r, g, b, a );
+        printf("color = %x\n", color[i]);
         //color[i] = *((uint32_t *)s->format->palette->colors + (uintptr_t)*(s->pixels + (j+y)*s->w + i + x ) );
       }
       NDL_DrawRect( color, x, y + j , w, 1 );
