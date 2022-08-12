@@ -52,7 +52,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     for( j = 0; j < h; j++) {
       for( i = 0; i < w; i++) {
         * (dst->pixels + (j+dy)*dst->w + i+dx )  = 
-        * ((uint32_t *)src->format->palette + ((long long int)src->pixels + (j+sy)*src->w + i +sx) )  ;
+        * ((uint32_t *)src->format->palette + ((uintptr_t)src->pixels + (j+sy)*src->w + i +sx) )  ;
       }
     }
   }
@@ -105,23 +105,18 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   }
   if( s->format->BitsPerPixel == 32 ) {
     pixels = (uint32_t *)s->pixels;
+    NDL_DrawRect( pixels, x, y, s->w, s->h);
   }
-  /*
-  else if ( dst->format.BitsPerPixel == 8 ){
-    uint32_t color[s->w, s->h];
+  else if( s->format->BitsPerPixel == 8 ) {
     int i,j;
-    for( i=0; i<s->w; i++ ){
-      for( j=0; j<s->h; j++ ) {
-
+    uint32_t color[s->w];
+    for( j = 0; j < s->h; j++) {
+      for( i = 0; i < s->w; i++) {
+        color[i] = *((uint32_t *)s->format->palette + (uintptr_t)s->pixels + (j+y)*s->w + i + x);
       }
+      NDL_DrawRect( color, x, y+j, s->w, 1 );
     }
   }
-  */
-  else {
-    printf("error : BitsPerPixel = %d\n", s->format->BitsPerPixel ) ;
-  }
-  assert(pixels);
-  NDL_DrawRect( pixels, x, y, s->w, s->h);
 }
 
 // APIs below are already implemented.
