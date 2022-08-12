@@ -99,6 +99,16 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   */
 }
 
+uint32_t SDL_MapRGB( SDL_PixelFormat *fmt, uint8_t r, uint8_t g, uint8_t b , uint8_t a){
+  assert( fmt->BitsPerPixel == 8 );
+  uint32_t p = 0;
+  uint32_t rdata = r;
+  uint32_t gdata = g;
+  uint32_t bdata = b;
+  uint32_t adata = a;
+  p = (adata << 24 ) | (rdata << 16 ) | (gdata << 8) | (bdata) ;
+}
+
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   assert(s);
   uint32_t *pixels = NULL;
@@ -119,8 +129,13 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     uint32_t color[w];
     for( j = 0; j < h; j++) {
       for( i = 0; i < w; i++) {
-        color[i] = *((uint32_t *)s->format->palette->colors + (uintptr_t)*(s->pixels + (j+y)*s->w + i + x ) );
-        printf("color[%d][%d] = %x\n",i,j,color[i]);
+        uint8_t index = *(s->pixels + (j+y)*s->w + i + x);
+        uint8_t r = s->format->palette->colors[index]->r ;
+        uint8_t g = s->format->palette->colors[index]->g ;
+        uint8_t b = s->format->palette->colors[index]->b ;
+        uint8_t a = s->format->palette->colors[index]->a ;
+        color[i] = SDL_MapRGB(s->format->BitsPerPixel, r, g, b, a );
+        //color[i] = *((uint32_t *)s->format->palette->colors + (uintptr_t)*(s->pixels + (j+y)*s->w + i + x ) );
       }
       NDL_DrawRect( color, x, y + j , w, 1 );
     }
