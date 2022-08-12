@@ -107,7 +107,7 @@ uint32_t SDL_MapRGB( SDL_PixelFormat *fmt, uint8_t r, uint8_t g, uint8_t b , uin
   uint32_t bdata = b;
   //uint32_t adata = a;
   //p = (adata << 24 ) | (rdata << 16 ) | (gdata << 8) | (bdata) ;
-  p =  (rdata << 16 ) | (gdata << 8) | (bdata) ;
+  p =  (rdata << 24 ) | (gdata << 16) | (bdata << 8) ;
   return p ;
 }
 
@@ -254,7 +254,7 @@ void SDL_SoftStretch(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     SDL_BlitSurface(src, &rect, dst, dstrect);
   }
   else {
-    assert(0);
+    //assert(0);
   }
 }
 
