@@ -96,9 +96,9 @@ uint32_t SDL_MapRGB( SDL_PixelFormat *fmt, uint8_t r, uint8_t g, uint8_t b , uin
   uint32_t rdata = r;
   uint32_t gdata = g;
   uint32_t bdata = b;
-  //uint32_t adata = a;
+  uint32_t adata = a;
   //p = (adata << 24 ) | (rdata << 16 ) | (gdata << 8) | (bdata) ;
-  p =  (rdata ) | (gdata << 8) | (bdata << 16) ;
+  p =  (rdata ) | (gdata << 8) | (bdata << 16) | (adata << 24);
   return p ;
 }
 
