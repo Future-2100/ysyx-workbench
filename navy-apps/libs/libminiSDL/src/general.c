@@ -1,12 +1,10 @@
 #include <NDL.h>
 
 int SDL_Init(uint32_t flags) {
- // assert(0);
   return NDL_Init(flags);
 }
 
 void SDL_Quit() {
-//  assert(0);
   NDL_Quit();
 }
 
