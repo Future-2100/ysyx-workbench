@@ -105,8 +105,9 @@ uint32_t SDL_MapRGB( SDL_PixelFormat *fmt, uint8_t r, uint8_t g, uint8_t b , uin
   uint32_t rdata = r;
   uint32_t gdata = g;
   uint32_t bdata = b;
-  uint32_t adata = a;
-  p = (adata << 24 ) | (rdata << 16 ) | (gdata << 8) | (bdata) ;
+  //uint32_t adata = a;
+  //p = (adata << 24 ) | (rdata << 16 ) | (gdata << 8) | (bdata) ;
+  p = (rdata << 16 ) | (gdata << 8) | (bdata) ;
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
