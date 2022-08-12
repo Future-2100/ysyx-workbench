@@ -130,6 +130,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     uint32_t color[w];
     for( j = 0; j < h; j++) {
       for( i = 0; i < w; i++) {
+        printf("pixels[%d][%d] = %d\n",i,j,s->pixels);
         uint8_t index = *(s->pixels + (j+y)*s->w + i + x);
         uint8_t r = s->format->palette->colors[index].r ;
         uint8_t g = s->format->palette->colors[index].g ;
