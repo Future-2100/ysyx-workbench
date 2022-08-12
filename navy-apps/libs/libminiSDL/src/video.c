@@ -103,20 +103,23 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   assert(s);
   uint32_t *pixels = NULL;
   if( w==0 && h==0 ) {
-    NDL_OpenCanvas(&w, &h) ;
+    w = s->w;
+    h = s->h;
   }
+  assert( x+w <= s->w );
+  assert( y+h <= s->h );
 
   if( s->format->BitsPerPixel == 32 ) {
     pixels = (uint32_t *)s->pixels;
-    NDL_DrawRect( pixels, x, y, s->w, s->h);
+    NDL_DrawRect( pixels, x, y, w, h);
   }
 
   else if( s->format->BitsPerPixel == 8 ) {
     int i,j;
-    uint32_t color[s->w];
-    for( j = 0; j < s->h; j++) {
-      for( i = 0; i < s->w; i++) {
-        color[i] = *((uint32_t *)s->format->palette->colors + (uintptr_t)*(s->pixels + (j+y)*s->w + i + x) );
+    uint32_t color[w];
+    for( j = 0; j < h; j++) {
+      for( i = 0; i < w; i++) {
+        color[i] = *((uint32_t *)s->format->palette->colors + (uintptr_t)*(s->pixels + (j+y)*s->w + i + x ) );
         //color[i] = (uint32_t)s->format->palette->colors[ s->pixels[i+x, (j+y)*s->w] ];
       }
       NDL_DrawRect( color, x, y+j, s->w, 1 );
