@@ -49,6 +49,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     }
   }
   else if (( src->format->BitsPerPixel == 8 ) && ( dst->format->BitsPerPixel == 32 )) {
+    printf("in convert palette\n");
     for( j = 0; j < h; j++) {
       for( i = 0; i < w; i++) {
         * (dst->pixels + (j+dy)*dst->w + i+dx )  = 
