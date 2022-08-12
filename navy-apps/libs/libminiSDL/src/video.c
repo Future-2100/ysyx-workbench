@@ -84,25 +84,6 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
-  //-----------------other version----------------
-
-  if(s->format->BytesPerPixel == 1) {
-    char *buf = (char *)malloc(w * h * 4);
-    for(int i=0; i<h; i++) {
-      for(int j=0; j<w; j++) {
-        memcpy(buf + (i * w + j) * 4, s->format->palette->colors + *(char *)(s->pixels + i * w + j), 4 );
-      }
-    }
-    NDL_DrawRect(buf, 0, 0, w, h);
-    free(buf);
-  }
-
-
-
-
-
-
-  /*-------------------my version----------------------------------------------
   assert(s);
   int i,j;
   if( w==0 && h==0 ) {
@@ -137,7 +118,6 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
       NDL_DrawRect( color, 0, j,  w, 1 );
     }
   }
-  -------------------my version----------------------------------------------*/
 }
 
 // APIs below are already implemented.
