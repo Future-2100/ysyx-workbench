@@ -32,7 +32,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     dy = dstrect->y;
   }
   int i,j;
-  if( (src->format.BitsPerPixel==32) && (dst->format.BitsPerPixel==32) ) {
+  if( (src->format->BitsPerPixel==32) && (dst->format->BitsPerPixel==32) ) {
     for( j = 0; j < h; j++) {
       for( i = 0; i < w; i++) {
         * ((uint32_t *)dst->pixels + (j+dy)*dst->w + i+dx )  = 
@@ -40,7 +40,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
       }
     }
   }
-  else if (( src->format.BitsPerPixel == 8 ) && ( dst->format.BitsPerPixel == 8 )) {
+  else if (( src->format->BitsPerPixel == 8 ) && ( dst->format->BitsPerPixel == 8 )) {
     for( j = 0; j < h; j++) {
       for( i = 0; i < w; i++) {
         * (dst->pixels + (j+dy)*dst->w + i+dx )  = 
@@ -48,11 +48,11 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
       }
     }
   }
-  else if (( src->format.BitsPerPixel == 8 ) && ( dst->format.BitsPerPixel == 32 )) {
+  else if (( src->format->BitsPerPixel == 8 ) && ( dst->format->BitsPerPixel == 32 )) {
     for( j = 0; j < h; j++) {
       for( i = 0; i < w; i++) {
         * (dst->pixels + (j+dy)*dst->w + i+dx )  = 
-        * ( src->format.palette + (pixels + (j+sy)*src->w + i +sx) )  ;
+        * ((uint32_t *)src->format->palette + ((long long int)src->pixels + (j+sy)*src->w + i +sx) )  ;
       }
     }
   }
@@ -75,7 +75,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   }
 
   int i , j;
-  if( dst->format.BitsPerPixel == 32 ) {
+  if( dst->format->BitsPerPixel == 32 ) {
     for( j=0; j<h; j++ ) {
       for( i=0; i<w; i++ ) {
         *( (uint32_t *)dst->pixels + (y+j)*dst->w + x + i ) = color ;
@@ -83,7 +83,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     }
   }
   else {
-    printf("SDL_FillRect : BitsPerPixel = %d\n", dst->format.BitsPerPixel);
+    printf("SDL_FillRect : BitsPerPixel = %d\n", dst->format->BitsPerPixel);
     assert(0);
   }
   /*
@@ -103,7 +103,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   if( w==0 && h==0 ) {
     NDL_OpenCanvas(&w, &h) ;
   }
-  if( dst->format.BitsPerPixel == 32 ) {
+  if( s->format->BitsPerPixel == 32 ) {
     pixels = (uint32_t *)s->pixels;
   }
   /*
