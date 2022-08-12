@@ -100,9 +100,11 @@ uint32_t SDL_MapRGB( SDL_PixelFormat *fmt, uint8_t r, uint8_t g, uint8_t b , uin
   uint32_t adata = a;
   assert(adata==0);
   p =  (rdata << 16) | (gdata << 8) | (bdata ) ;
+  /*
   if( p != 0) {
     printf(" p = %x, r = %d, g = %d, b = %d\n", p, r,g,b);
   }
+  */
   return p ;
 }
 
