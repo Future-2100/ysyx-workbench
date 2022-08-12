@@ -117,6 +117,9 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     }
   }
   */
+  else {
+    printf("error : BitsPerPixel = %d\n", s->format->BitsPerPixel ) ;
+  }
   assert(pixels);
   NDL_DrawRect( pixels, x, y, s->w, s->h);
 }
