@@ -142,7 +142,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
         //printf("color = %x\n", color[i]);
         //color[i] = *((uint32_t *)s->format->palette->colors + (uintptr_t)*(s->pixels + (j+y)*s->w + i + x ) );
       }
-      NDL_DrawRect( color, 0, 0,  w, 1 );
+      NDL_DrawRect( color, 0, j,  w, 1 );
     }
   }
 }
