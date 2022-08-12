@@ -100,6 +100,9 @@ uint32_t SDL_MapRGB( SDL_PixelFormat *fmt, uint8_t r, uint8_t g, uint8_t b , uin
   uint32_t adata = a;
   assert(adata==0);
   p =  (rdata << 16) | (gdata << 8) | (bdata ) ;
+  if( p != 0) {
+    printf(" p = %x, r = %d, g = %d, b = %d\n", p, r,g,b);
+  }
   return p ;
 }
 
@@ -115,7 +118,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
 
   if( s->format->BitsPerPixel == 32 ) {
     pixels = (uint32_t *)s->pixels;
-    NDL_DrawRect( pixels, x, y, w, h);
+    NDL_DrawRect( pixels, 0, 0, w, h);
   }
 
   else if( s->format->BitsPerPixel == 8 ) {
@@ -137,7 +140,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
         //printf("color = %x\n", color[i]);
         //color[i] = *((uint32_t *)s->format->palette->colors + (uintptr_t)*(s->pixels + (j+y)*s->w + i + x ) );
       }
-      NDL_DrawRect( color, x, y + j , w, 1 );
+      NDL_DrawRect( color, 0, 0,  w, 1 );
     }
   }
 }
