@@ -48,6 +48,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
         * (src->pixels + (j+sy)*src->w + i + sx )  ;
       }
     }
+    printf("end of the convert in 8 to 8\n");
   }
   else if (( src->format->BitsPerPixel == 8 ) && ( dst->format->BitsPerPixel == 32 )) {
     printf("in convert palette\n");
@@ -98,8 +99,7 @@ uint32_t SDL_MapRGB( SDL_PixelFormat *fmt, uint8_t r, uint8_t g, uint8_t b , uin
   uint32_t bdata = b;
   uint32_t adata = a;
   assert(adata==0);
-  //p = (adata << 24 ) | (rdata << 16 ) | (gdata << 8) | (bdata) ;
-  p =  (rdata ) | (gdata << 8) | (bdata << 16) | (adata << 24);
+  p =  (rdata << 16) | (gdata << 8) | (bdata ) ;
   return p ;
 }
 
