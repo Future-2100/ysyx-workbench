@@ -84,6 +84,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     printf("SDL_FillRect : BitsPerPixel = %d\n", dst->format->BitsPerPixel);
     assert(0);
   }
+  printf("end of SDL_FileRect\n");
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
@@ -120,7 +121,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
       }
       NDL_DrawRect( color, 0, j,  w, 1 );
     }
-    //printf("finished 8 bits SDL_UpdateRect display\n");
+    printf("finished 8 bits SDL_UpdateRect display\n");
   }
 }
 
