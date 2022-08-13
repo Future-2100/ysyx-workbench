@@ -18,12 +18,11 @@ static int SDLK_keycode[] = {
 
 
 int SDL_PushEvent(SDL_Event *ev) {
- // assert(0);
+  assert(0);
   return 0;
 }
 
 int SDL_PollEvent(SDL_Event *ev) {
-  //assert(0);
   char buf[64];
   int rt;
   if( NDL_PollEvent(buf, sizeof(buf))==0 ) {
@@ -95,7 +94,7 @@ int SDL_WaitEvent(SDL_Event *event) {
 }
 
 int SDL_PeepEvents(SDL_Event *ev, int numevents, int action, uint32_t mask) {
- // assert(0);
+  assert(0);
   return 0;
 }
 
