@@ -26,10 +26,14 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   if( dstrect == NULL ) {
     dx = 0;
     dy = 0;
+    assert( dst->w == w );
+    assert( dst->h == h );
   }
   else {
     dx = dstrect->x;
     dy = dstrect->y;
+    assert( dstrect->w == w );
+    assert( dstrect->h == h );
   }
   int i,j;
   if( (src->format->BitsPerPixel==32) && (dst->format->BitsPerPixel==32) ) {
