@@ -116,6 +116,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
       }
       NDL_DrawRect( color, 0, j,  w, 1 );
     }
+    printf("finished 8 bits SDL_UpdateRect display\n");
   }
 }
 
