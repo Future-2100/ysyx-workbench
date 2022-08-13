@@ -8,7 +8,6 @@
 static const char *keyname[] = {
   "NONE",
   _KEYS(keyname)
-//  assert(0);
 };
 
 static int SDLK_keycode[] = {
