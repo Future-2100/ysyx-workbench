@@ -52,7 +52,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
         * (src->pixels + (j+sy)*src->w + i + sx )  ;
       }
     }
-    //printf("end of the convert in 8 to 8\n");
+    printf("end of the convert in 8 to 8\n");
   }
 }
 
