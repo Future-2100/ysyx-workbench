@@ -25,5 +25,5 @@ int SDL_ShowCursor(int toggle) {
 }
 
 void SDL_WM_SetCaption(const char *title, const char *icon) {
-  assert(0);
+  //assert(0);
 }
