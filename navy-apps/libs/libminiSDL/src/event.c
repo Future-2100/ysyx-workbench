@@ -11,6 +11,12 @@ static const char *keyname[] = {
 //  assert(0);
 };
 
+static int SDLK_keycode[] = {
+  SDLK_NONE ,
+  _KEYS(enumdef)
+};
+
+
 int SDL_PushEvent(SDL_Event *ev) {
  // assert(0);
   return 0;
@@ -46,6 +52,10 @@ int SDL_PollEvent(SDL_Event *ev) {
     }
     keycode[i] = '\0';
 
+    for(int i=0; i<83; i++) {
+      if( strcmp( keycode, keyname[i])==0 ) ev->key.keysym.sym = SDLK_keycode[i];
+    }
+    /*
     if( strcmp( keycode, "0" )==0 )    ev->key.keysym.sym = SDLK_0;
     if( strcmp( keycode, "1" )==0 )    ev->key.keysym.sym = SDLK_1;
     if( strcmp( keycode, "2" )==0 )    ev->key.keysym.sym = SDLK_2;
@@ -62,6 +72,7 @@ int SDL_PollEvent(SDL_Event *ev) {
     if( strcmp( keycode, "UP" )==0 )   ev->key.keysym.sym = SDLK_UP;
     if( strcmp( keycode, "LEFT" )==0 ) ev->key.keysym.sym = SDLK_LEFT;
     if( strcmp( keycode, "RIGHT" )==0 )ev->key.keysym.sym = SDLK_RIGHT;
+    */
   }
 
   return 1;
@@ -94,6 +105,10 @@ int SDL_WaitEvent(SDL_Event *event) {
   }
   keycode[i] = '\0';
 
+  for(int i=0; i<83; i++) {
+    if( strcmp( keycode, keyname[i])==0  ) event->key.keysym.sym = SDLK_keycode[i];
+  }
+  /*
   if( strcmp( keycode, "0" )==0 )    event->key.keysym.sym = SDLK_0;
   if( strcmp( keycode, "1" )==0 )    event->key.keysym.sym = SDLK_1;
   if( strcmp( keycode, "2" )==0 )    event->key.keysym.sym = SDLK_2;
@@ -110,6 +125,7 @@ int SDL_WaitEvent(SDL_Event *event) {
   if( strcmp( keycode, "UP" )==0 )   event->key.keysym.sym = SDLK_UP;
   if( strcmp( keycode, "LEFT" )==0 ) event->key.keysym.sym = SDLK_LEFT;
   if( strcmp( keycode, "RIGHT" )==0 )event->key.keysym.sym = SDLK_RIGHT;
+  */
 
  // assert(0);
   return 1;
