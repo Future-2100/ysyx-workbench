@@ -44,12 +44,11 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   else if (( src->format->BitsPerPixel == 8 ) && ( dst->format->BitsPerPixel == 8 )) {
     for( j = 0; j < h; j++) {
       for( i = 0; i < w; i++) {
-        //printf("convert 8 to 8 \n");
         * (dst->pixels + (j+dy)*dst->w + i + dx )  = 
         * (src->pixels + (j+sy)*src->w + i + sx )  ;
       }
     }
-    printf("end of the convert in 8 to 8\n");
+    //printf("end of the convert in 8 to 8\n");
   }
 }
 
