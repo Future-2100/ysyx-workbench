@@ -106,6 +106,7 @@ int NDL_Init(uint32_t flags) {
     char *height_p = HEIGHT;
     //read(fp, buf, sizeof(buf));
     read( fp->_file, buf, sizeof(buf) );
+    //fread
     int i;
     for( i = 0; (i < sizeof(buf)) && (*(buf+i)!='\n') ; i++) {
       if( *(buf+i) >= '0' && *(buf+i) <= '9' ){
@@ -129,7 +130,7 @@ int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
-  assert(0);
+  //assert(0);
   return 0;
 
 }
