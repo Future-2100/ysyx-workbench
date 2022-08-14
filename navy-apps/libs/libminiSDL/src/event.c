@@ -98,7 +98,7 @@ int SDL_PeepEvents(SDL_Event *ev, int numevents, int action, uint32_t mask) {
 }
 
 
-uint8_t keyState[83];
+uint8_t keyState[82];
 uint8_t* SDL_GetKeyState(int *numkeys) {
   SDL_Event *ev;
   while ( SDL_PollEvent(ev)  ) {
