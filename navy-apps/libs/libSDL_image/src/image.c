@@ -18,7 +18,7 @@ SDL_Surface* IMG_Load(const char *filename) {
   FILE *fp = fopen(filename, "r");
   if(!fp) return NULL;
   fseek(fp, 0, SEEK_END);
-  size_t size = ftell(fp) + 1 ;
+  size_t size = ftell(fp) ;
   uint8_t *pixels = malloc( size );
   fseek(fp,0, SEEK_SET);
   fread( pixels, 1, size, fp);

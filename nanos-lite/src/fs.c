@@ -113,18 +113,17 @@ size_t fs_write(int fd, void *buf, size_t len){
 
 size_t fs_lseek(int fd, size_t offset, int whence){
   if( fd > 2 ) {
-  switch (whence) {
-    case SEEK_SET :  file_table[fd].open_offset = offset;
-                     break;
-    case SEEK_CUR :  file_table[fd].open_offset = file_table[fd].open_offset + offset;
-                     break;
-    case SEEK_END :  file_table[fd].open_offset = file_table[fd].size + offset;
-                     break;
-    default       :  file_table[fd].open_offset = file_table[fd].open_offset ;
-                     break;
-  }
-
-  return file_table[fd].open_offset ;
+    switch (whence) {
+      case SEEK_SET :  file_table[fd].open_offset = offset;
+                       break;
+      case SEEK_CUR :  file_table[fd].open_offset = file_table[fd].open_offset + offset;
+                       break;
+      case SEEK_END :  file_table[fd].open_offset = file_table[fd].size + offset;
+                       break;
+      default       :  file_table[fd].open_offset = file_table[fd].open_offset ;
+                       break;
+    }
+    return file_table[fd].open_offset ;
   }
   else {
     printf("fs_lseek error : should not reach here \n");
@@ -135,5 +134,6 @@ size_t fs_lseek(int fd, size_t offset, int whence){
 
 
 int fs_close(int fd){
+  file_table[fd].open_offset = 0 ;
   return 0;
 }
