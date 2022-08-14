@@ -26,10 +26,10 @@ uint32_t NDL_GetTicks() {
 }
 
 int NDL_PollEvent(char *buf, int len) {
-  int fp = open("/dev/events", 0, 0);
-  //FILE *fp = fopen("/dev/events", "r");
+  //int fp = open("/dev/events", 0, 0);
+  FILE *fp = fopen("/dev/events", "r");
   //return  fread(fp, buf, len);
-  return read(fp, buf, len);
+  return read(fp->_file, buf, len);
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
@@ -66,16 +66,18 @@ void NDL_OpenCanvas(int *w, int *h) {
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
-  //int fp = open("/dev/fb");
-  FILE *fp = fopen("/dev/fb","r+");
+  FILE *file = fopen("/dev/fb","r+");
+  int fp = file->_file;
+  //int fp = _open("/dev/fb", 0, 0);
   int i , j ;
   
   uint32_t *ret = pixels;
+  //lseek(fp, (y+i)*screen_w + x, SEEK_SET);
   for( int i = 0; i < h; i++ ) {
-    //lseek(fp, (y+i)*screen_w + x, SEEK_SET);
-    fseek(fp, (y+i)*screen_w + x, SEEK_SET);
-    //write(fp, ret, w);
-    fwrite(ret, 4, w, fp);
+    //fseek(fp, (y+i)*screen_w + x, SEEK_SET);
+    lseek(fp, ((y+i)*screen_w + x), SEEK_SET);
+    write(fp, ret , w);
+  //fwrite(ret, 4, w, fp);
     ret = ret + w ;
   }
 }
@@ -96,9 +98,10 @@ int NDL_QueryAudio() {
 
 int NDL_Init(uint32_t flags) {
 
-    int fp = open("/proc/dispinfo", 0);
-    //FILE *fp = fopen("/proc/dispinfo", "r+");
-    assert(fp);
+    //int fp = open("/proc/dispinfo", 0);
+    FILE *file = fopen("/proc/dispinfo", "r+");
+    assert(file);
+    int fp = file->_file;
     char buf[128];
     char WIDTH[5];
     char HEIGHT[5];
