@@ -60,6 +60,7 @@ void _exit(int status) {
 
 int _open(const char *path, int flags, mode_t mode) {
 //  printf("in function _open\n");
+  printf("path = %s, flags = %d, mode = %d\n", path, flags, mode);
   return _syscall_(SYS_open, (intptr_t)path, flags, mode);
 }
 
