@@ -128,7 +128,6 @@ void *memmove(void *dst, const void *src, size_t n) {
 }
 
 void *memcpy(void *out, const void *in, size_t n) {
-  printf("in memcpy\n");
 
  if( out == NULL || in == NULL ) {
     assert(0);
