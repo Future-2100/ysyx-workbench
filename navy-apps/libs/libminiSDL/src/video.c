@@ -36,7 +36,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     assert( dstrect->h == h );
   }
   int i,j;
-  if( (src->format->BitsPerPixel==32) && (dst->format->BitsPerPixel==32) ) {
+  if( (src->format->BitsPerPixel==32) ) {
     for( j = 0; j < h; j++) {
       for( i = 0; i < w; i++) {
         * ((uint32_t *)dst->pixels + (j+dy)*w + i + dx )  = 
@@ -45,11 +45,11 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     }
   }
 
-  else if (( src->format->BitsPerPixel == 8 ) && ( dst->format->BitsPerPixel == 8 )) {
+  else if (( src->format->BitsPerPixel == 8 ) ) {
     for( j = 0; j < h; j++) {
       for( i = 0; i < w; i++) {
-        * (dst->pixels + (j+dy)*dst->w + i + dx )  = 
-        * (src->pixels + (j+sy)*src->w + i + sx )  ;
+        * (dst->pixels + (j+dy)* w + i + dx )  = 
+        * (src->pixels + (j+sy)* w + i + sx )  ;
       }
     }
     printf("end of the convert in 8 to 8\n");
@@ -114,8 +114,6 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     w = s->w;
     h = s->h;
   }
-  assert( x+w <= s->w );
-  assert( y+h <= s->h );
 
   uint32_t color[w];
   if( s->format->BitsPerPixel == 32 ) {
