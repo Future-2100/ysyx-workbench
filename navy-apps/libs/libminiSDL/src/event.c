@@ -111,6 +111,7 @@ uint8_t* SDL_GetKeyState(int *numkeys) {
 
   printf("in SDL_GetKeyState \n");
   if( numkeys==NULL ) printf("numkeys = NULL\n");
+  else assert(0);
   return keyState;
 }
 

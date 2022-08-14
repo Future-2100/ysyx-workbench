@@ -6,6 +6,7 @@
 #include <stdio.h>
 
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
+  printf("in SDL_BlitSurface>>>>>>>>>>>>>\n");
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
   
@@ -48,15 +49,15 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   else if (( src->format->BitsPerPixel == 8 ) ) {
     for( j = 0; j < h; j++) {
       for( i = 0; i < w; i++) {
-        * (dst->pixels + (j+dy)* w + i + dx )  = 
-        * (src->pixels + (j+sy)* w + i + sx )  ;
+        * ((uint8_t *)dst->pixels + (j+dy)* w + i + dx )  = 
+        * ((uint8_t *)src->pixels + (j+dy)* w + i + dx )  ;
       }
     }
-    printf("end of the convert in 8 to 8\n");
   }
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
+   printf("in SDL_FillRect\n");
    assert(dst);
     int w = 0;
     int h = 0;
@@ -84,11 +85,20 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     printf("SDL_FillRect : BitsPerPixel = %d\n", dst->format->BitsPerPixel);
     assert(0);
   }
-  printf("end of SDL_FileRect\n");
+}
+
+
+uint32_t SDL_MapRGB( uint8_t r, uint8_t g, uint8_t b ) {
+  uint32_t rdata = r;
+  uint32_t gdata = g;
+  uint32_t bdata = b;
+  uint32_t pixels =  ( rdata << 16 ) | ( gdata << 8 ) | ( bdata );
+  return pixels;
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
- /* 
+ 
+  /*
   if(s->format->BytesPerPixel == 1) {
     if(s->format->palette == NULL) {
       printf("palette == NULL\n");
@@ -97,18 +107,24 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     char *buf = (char *)malloc(w * h * 4);
     for(int i = 0; i < h; i++) {
       for(int j = 0; j < w; j++) {
-        memcpy( buf + (i * w + j) * 4, s->format->palette->colors + *(char *)(s->pixels + i * w + j), 4 );
+        char r = *((uint8_t *)s->format->palette->colors + *(char *)(s->pixels + i * w + j) + 2 ) ;
+        char g = *((uint8_t *)s->format->palette->colors + *(char *)(s->pixels + i * w + j) + 1 ) ;
+        char b = *((uint8_t *)s->format->palette->colors + *(char *)(s->pixels + i * w + j) + 0 ) ;
+        *(buf + (i * w + j) * 4 ) = SDL_MapRGB(r,g,b);
+        //memcpy( buf + (i * w + j) * 4, s->format->palette->colors + *(char *)(s->pixels + i * w + j), 4 );
       }
     }
-    NDL_DrawRect(buf, 0, 0, w, h);
+    NDL_DrawRect((uint32_t *)buf, 0, 0, w, h);
     free(buf);
   }
   else {
     printf(" SDL_UpdateRect : format->BytesPerPixel : %d, not completed\n ", s->format->BytesPerPixel);
     assert(0);
   }
-*/
- 
+  */
+
+  printf(">>>>>>>>>>>>>>>>in SDL_UpdateRect\n");
+  printf("x:%d y:%d w:%d h:%d , s->w:%d  s->h:%d  \n", x,y,w,h,s->w,s->h);
   assert(s);
   int i,j;
   if( w==0 && h==0 ) {
@@ -116,32 +132,36 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     h = s->h;
   }
 
-  uint32_t color[w];
+  //uint32_t color[w];
+  uint32_t *pixels = (uint32_t *)malloc( w * h * 4);
   if( s->format->BitsPerPixel == 32 ) {
     for( j = 0; j < h; j++) {
       for( i = 0; i < w; i++) {
-        color[i] = *((uint32_t *)s->pixels + (uintptr_t)((j+y)*s->w + i + x) );
+        memcpy( pixels + (j+y)*w + i + x , s->pixels + (j*s->w + i) * 4 , 4 );
+        //color[i] = *((uint32_t *)s->pixels + (j+y)*s->w + i + x );
       }
-      NDL_DrawRect( color, x, y+j, w, 1);
     }
+    NDL_DrawRect( pixels, x, y, w, h);
   }
 
   else if( s->format->BitsPerPixel == 8 ) {
-    SDL_Surface *display = SDL_SetVideoMode(320,200,32,SDL_HWSURFACE);
+ //   SDL_Surface *display = SDL_SetVideoMode(320,200,32,SDL_HWSURFACE);
     for( j = 0; j < h; j++) {
       for( i = 0; i < w; i++) {
         uint8_t index =  s->pixels[(j+y)*s->w + i + x] ;
         uint8_t r = s->format->palette->colors[index].r ;
         uint8_t g = s->format->palette->colors[index].g ;
         uint8_t b = s->format->palette->colors[index].b ;
-        uint8_t a = s->format->palette->colors[index].a ;
-        color[i] = SDL_MapRGBA(display->format, r, g, b, a );
+        //uint8_t a = s->format->palette->colors[index].a ;
+        *( pixels + (j+y)*s->w + i + x ) = SDL_MapRGB(r, g, b);
         //color[i] = *((uint32_t *)s->format->palette->colors + (uintptr_t)*(s->pixels + (j+y)*s->w + i + x ) );
       }
-      NDL_DrawRect( color, 0, j,  w, 1 );
+      //NDL_DrawRect( color, 0, j,  w, 1 );
     }
-    printf("finished 8 bits SDL_UpdateRect display\n");
+    //printf("finished 8 bits SDL_UpdateRect display\n");
+    NDL_DrawRect( pixels, 0, 0, w, h );
   }
+  printf("end of SDL_UpdateRect\n");
   
 }
 
@@ -326,12 +346,12 @@ uint32_t SDL_MapRGBA(SDL_PixelFormat *fmt, uint8_t r, uint8_t g, uint8_t b, uint
 
 int SDL_LockSurface(SDL_Surface *s) {
 
-  //printf("in SDL_LockSurface(SDL_Surface *s)\n");
+  printf("in SDL_LockSurface(SDL_Surface *s)\n");
   assert(0);
   return 0;
 }
 
 void SDL_UnlockSurface(SDL_Surface *s) {
-  //printf("in SDL_UnlockSurface(SDL_Surface *s)");
+  printf("in SDL_UnlockSurface(SDL_Surface *s)");
   assert(0);
 }

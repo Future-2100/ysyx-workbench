@@ -74,6 +74,7 @@
 
 #include <stdint.h>
 #include <assert.h>
+#include <stdio.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -129,31 +130,35 @@ typedef	__uint128_t fixedptud;
 /* Multiplies a fixedpt number with an integer, returns the result. */
 static inline fixedpt fixedpt_muli(fixedpt A, int B) {
 
-  assert(0);
+  //assert(0);
+  printf("in fixedpt_muli");
   return ( A * B ) ;
 }
 
 /* Divides a fixedpt number with an integer, returns the result. */
 static inline fixedpt fixedpt_divi(fixedpt A, int B) {
-  assert(0);
+  //assert(0);
+  printf("in fixedpt_divi");
 	return ( A / B ) ;
 }
 
 /* Multiplies two fixedpt numbers, returns the result. */
 static inline fixedpt fixedpt_mul(fixedpt A, fixedpt B) {
-  assert(0);
+  //assert(0);
+  printf("in fixedpt_mul");
 	return ( A * B / 256 );
 }
 
 
 /* Divides two fixedpt numbers, returns the result. */
 static inline fixedpt fixedpt_div(fixedpt A, fixedpt B) {
-  assert(0);
+  //assert(0);
+  printf("in fixedpt_div");
 	return ( A /  B * 256 );
 }
 
 static inline fixedpt fixedpt_abs(fixedpt A) {
-  assert(0);
+  printf("in fixedpt_abs");
   if( A > 0 )
     return A ;
   else
@@ -161,7 +166,8 @@ static inline fixedpt fixedpt_abs(fixedpt A) {
 }
 
 static inline fixedpt fixedpt_floor(fixedpt A) {
-  assert(0);
+  //assert(0);
+  printf("in fixedpt_floor");
   char decimal = ( A & 0xff );
   if( decimal == 0 ) 
     return A ;
@@ -170,7 +176,8 @@ static inline fixedpt fixedpt_floor(fixedpt A) {
 }
 
 static inline fixedpt fixedpt_ceil(fixedpt A) {
-  assert(0);
+  //assert(0);
+  printf("in fixedpt_ceil");
   char decimal = ( A & 0xff );
   if( decimal == 0 ) 
     return A ;
