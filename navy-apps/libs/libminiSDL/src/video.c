@@ -55,6 +55,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   
   dstrect->w = w;
   dstrect->h = h;
+  printf("end of SDL_BlitSurface\n");
   
 
 }
