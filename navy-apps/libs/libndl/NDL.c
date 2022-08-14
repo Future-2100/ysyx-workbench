@@ -105,7 +105,7 @@ int NDL_Init(uint32_t flags) {
     char *width_p  = WIDTH ;
     char *height_p = HEIGHT;
     //read(fp, buf, sizeof(buf));
-    fread(buf, 128, 1, fp);
+    fread( buf, sizeof(char), sizeof(buf), fp );
     printf("buf : %s\n", buf);
     int i;
     for( i = 0; (i < sizeof(buf)) && (*(buf+i)!='\n') ; i++) {
