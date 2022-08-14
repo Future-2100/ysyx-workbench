@@ -96,16 +96,16 @@ int NDL_QueryAudio() {
 
 int NDL_Init(uint32_t flags) {
 
-    //int fp = open("/proc/dispinfo", 0);
-    FILE *fp = fopen("/proc/dispinfo", "r+");
+    int fp = open("/proc/dispinfo", 0);
+    //FILE *fp = fopen("/proc/dispinfo", "r+");
     assert(fp);
     char buf[128];
     char WIDTH[5];
     char HEIGHT[5];
     char *width_p  = WIDTH ;
     char *height_p = HEIGHT;
-    //read(fp, buf, sizeof(buf));
-    fread(buf, 1, sizeof(buf)/sizeof(buf[0]), fp);
+    read(fp, buf, sizeof(buf));
+    //fread(buf, 1, sizeof(buf)/sizeof(buf[0]), fp);
     printf("buf : %s\n", buf);
     int i;
     for( i = 0; (i < sizeof(buf)) && (*(buf+i)!='\n') ; i++) {
