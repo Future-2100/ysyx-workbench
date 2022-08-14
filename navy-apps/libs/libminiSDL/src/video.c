@@ -33,6 +33,8 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   else {
     dx = dstrect->x;
     dy = dstrect->y;
+    printf( "w = %d, h = %d\n",w,h );
+    printf( "dstrect->w = %d, dstrect->h = %d\n",dstrect->w,dstrect->h );
     assert( dstrect->w == w );
     assert( dstrect->h == h );
   }
