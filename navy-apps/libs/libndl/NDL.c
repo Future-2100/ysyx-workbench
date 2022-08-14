@@ -66,13 +66,16 @@ void NDL_OpenCanvas(int *w, int *h) {
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
-  int fp = open("/dev/fb");
+  //int fp = open("/dev/fb");
+  FILE *fp = fopen("/dev/fb","r+");
   int i , j ;
   
   uint32_t *ret = pixels;
   for( int i = 0; i < h; i++ ) {
-    lseek(fp, (y+i)*screen_w + x, SEEK_SET);
-    write(fp, ret, w);
+    //lseek(fp, (y+i)*screen_w + x, SEEK_SET);
+    fseek(fp, (y+i)*screen_w + x, SEEK_SET);
+    //write(fp, ret, w);
+    fwrite(ret, 4, w, fp);
     ret = ret + w ;
   }
 }
@@ -93,14 +96,16 @@ int NDL_QueryAudio() {
 
 int NDL_Init(uint32_t flags) {
 
-    int fp = open("/proc/dispinfo", 0);
+    //int fp = open("/proc/dispinfo", 0);
+    FILE *fp = fopen("/proc/dispinfo", "r");
     assert(fp);
     char buf[128];
     char WIDTH[5];
     char HEIGHT[5];
     char *width_p  = WIDTH ;
     char *height_p = HEIGHT;
-    read(fp, buf, sizeof(buf));
+    //read(fp, buf, sizeof(buf));
+    fread(buf, 1, sizeof(buf), fp);
     int i;
     for( i = 0; (i < sizeof(buf)) && (*(buf+i)!='\n') ; i++) {
       if( *(buf+i) >= '0' && *(buf+i) <= '9' ){
