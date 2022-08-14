@@ -29,7 +29,7 @@ int NDL_PollEvent(char *buf, int len) {
   //int fp = open("/dev/events", 0, 0);
   FILE *fp = fopen("/dev/events", "r");
   //return  fread(fp, buf, len);
-  return _read(fp->_file, buf, len);
+  return read(fp->_file, buf, len);
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
@@ -72,10 +72,9 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   
   uint32_t *ret = pixels;
   for( int i = 0; i < h; i++ ) {
-    //lseek(fp, (y+i)*screen_w + x, SEEK_SET);
-    fseek(fp, (y+i)*screen_w + x, SEEK_SET);
+    lseek(fp->_file, (y+i)*screen_w + x, SEEK_SET);
+    //fseek(fp, (y+i)*screen_w + x, SEEK_SET);
     write(fp->_file, ret, w);
-    //fwrite(ret, 4, w, fp);
     ret = ret + w ;
   }
 }
