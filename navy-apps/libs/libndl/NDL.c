@@ -29,7 +29,7 @@ int NDL_PollEvent(char *buf, int len) {
   //int fp = open("/dev/events", 0, 0);
   FILE *fp = fopen("/dev/events", "r");
   //return  fread(fp, buf, len);
-  return fread(buf, 1, len, fp);
+  return _read(fp->_file, buf, len);
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
