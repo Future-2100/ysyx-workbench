@@ -61,6 +61,7 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
 
   int width  = io_read(AM_GPU_CONFIG).width ;
   int height = io_read(AM_GPU_CONFIG).height;
+
   uint32_t *pixels = (uint32_t *)buf;
   assert ( offset + len <= width*height );
   
@@ -78,6 +79,9 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
   }
 
   io_write(AM_GPU_FBDRAW, 0, 0, NULL, 0, 0, true );
+
+
+//  io_write(AM_GPU_FBDRAW, ((offset / sizeof(uint32_t)) % width),  ((offset / sizeof(uint32_t)) / height), (uint32_t *)buf, (len / sizeof(uint32_t)), 1, true);
 
   return len;
 }

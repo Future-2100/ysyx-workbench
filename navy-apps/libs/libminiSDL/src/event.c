@@ -94,6 +94,7 @@ int SDL_WaitEvent(SDL_Event *event) {
     if( strcmp( keycode, keyname[i])==0  ) event->key.keysym.sym = SDLK_keycode[i];
   }
 
+  printf("key : %s\n",buf);
   return 1;
 }
 

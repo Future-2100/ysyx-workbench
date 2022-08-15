@@ -47,7 +47,6 @@ static int i_max = 0;
 
 static void set_i_max() {
   i_max = (page == MAX_PAGE ? MAX_IDX_LAST_PAGE : 9);
-  printf("page = %d, MAX_PAGE = %d, MAX_IDX_LAST_PAGE = %d\n", page, MAX_PAGE, MAX_IDX_LAST_PAGE);
 }
 static void next() {
   if (page < MAX_PAGE) {
@@ -70,9 +69,6 @@ static void clear_display(void) {
 int main(int argc, char *argv[], char *envp[]) {
   SDL_Init(0);
   screen = SDL_SetVideoMode(0, 0, 32, SDL_HWSURFACE);
-  printf("test in main\n");
-  printf("screen : w = %d, h = %d\n" ,screen->w, screen->h);
-  printf("test end in main\n");
 
   font = new BDF_Font(font_fname);
   logo_sf = SDL_LoadBMP("/share/pictures/projectn.bmp");
@@ -158,7 +154,7 @@ static void display_menu(int n) {
 
   i = 11;
 
-  sprintf(buf, "  page = %2d, #total apps = %d", page, nitems);
+  sprintf(buf, "  page = %02d, #total apps = %d", page, nitems);
   draw_text_row(buf, i);
   i ++;
 

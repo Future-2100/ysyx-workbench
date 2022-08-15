@@ -57,6 +57,7 @@ void _exit(int status) {
   _syscall_(SYS_exit, status, 0, 0);
   while (1);
 }
+//exit
 
 int _open(const char *path, int flags, mode_t mode) {
   return _syscall_(SYS_open, (intptr_t)path, flags, mode);
@@ -115,6 +116,7 @@ int _gettimeofday(struct timeval *tv, struct timezone *tz) {
 }
 
 int _execve(const char *fname, char * const argv[], char *const envp[]) {
+  _syscall_( SYS_execve, (uintptr_t)fname, 0, 0);
   _exit(SYS_execve);
   return 0;
 }

@@ -14,6 +14,9 @@ static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
 static int canvas_w = 0, canvas_h = 0;
+static int evt_fd = -1;
+static int fb_fd = -1;
+static int dispinfo_fd = -1;
 
 uint32_t bool_time = 0 ;
 
@@ -30,25 +33,21 @@ uint32_t NDL_GetTicks() {
 }
 
 int NDL_PollEvent(char *buf, int len) {
-  int fp = open("/dev/events", 0, 0);
-  //FILE *fp = fopen("/dev/events", "r");
-//  return  fread(buf, 1,len,fp);
+
+  int fp = evt_fd;
+  assert( fp != -1 );
 
   return read(fp, buf, len);
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
 
-  if ( *w == 0 && *h == 0 ) { 
-    canvas_w = screen_w;
-    canvas_h = screen_h;
+  if ( (*w == 0) && (*h == 0) ) { 
     *w = screen_w;
     *h = screen_h;
   }
-  else {
-    canvas_w = *w ; 
-    canvas_h = *h ; 
-  }
+  canvas_w = *w ; 
+  canvas_h = *h ; 
   
   if (getenv("NWM_APP")) {
     int fbctl = 4;
@@ -71,19 +70,26 @@ void NDL_OpenCanvas(int *w, int *h) {
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
-  //printf("x = %d, y = %d, w = %d, h = %d\n",x,y,w,h);
-  FILE *fp = fopen("/dev/fb","r+");
-//int fp = open("/dev/fb", 0, 0);
+
+  int fp = fb_fd;
+  assert(fp != -1);
   int i , j ;
-  
   uint32_t *ret = pixels;
-  for( int i = 0; i < h; i++ ) {
-//    lseek(fp, ((y+i)*screen_w + x), SEEK_SET);
-      fseek(fp, ((y+i)*screen_w + x), SEEK_SET);
-//    write(fp, ret , w);
-      fwrite(ret , 4, w, fp);
-      ret = ret + w ;
+
+  if( (w==0) && (h==0) ) {
+    for( int i = 0; i < canvas_h; i++ ) {
+        lseek(fp, ((y+i)*screen_w + x), SEEK_SET);
+        write(fp, ret , canvas_w);
+        ret = ret + canvas_w ;
+    }
+    return ;
   }
+
+    for( int i = 0; i < h; i++ ) {
+        lseek(fp, ((y+i)*screen_w + x), SEEK_SET);
+        write(fp, ret , w);
+        ret = ret + w ;
+    }
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
@@ -102,18 +108,17 @@ int NDL_QueryAudio() {
 
 int NDL_Init(uint32_t flags) {
 
-    //int fp = open("/proc/dispinfo", 0);
-    FILE *file = fopen("/proc/dispinfo", "r+");
-    assert(file);
-    int fp = file->_file;
+  evt_fd = open("/dev/events", O_RDONLY);
+  fb_fd = open("/dev/fb", O_WRONLY);
+  dispinfo_fd = open("/proc/dispinfo", O_RDONLY);
+
+    int fp = dispinfo_fd;
     char buf[128];
     char WIDTH[5];
     char HEIGHT[5];
     char *width_p  = WIDTH ;
     char *height_p = HEIGHT;
     read(fp, buf, sizeof(buf));
-    //fread( buf, 1,sizeof(buf), file );
-    //fread
     int i;
     for( i = 0; (i < sizeof(buf)) && (*(buf+i)!='\n') ; i++) {
       if( *(buf+i) >= '0' && *(buf+i) <= '9' ){
@@ -137,9 +142,15 @@ int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
+
   //assert(0);
   return 0;
 }
 
 void NDL_Quit() {
+
+  close(dispinfo_fd);
+  close(fb_fd);
+  close(evt_fd);
+
 }
