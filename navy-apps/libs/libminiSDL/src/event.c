@@ -23,17 +23,14 @@ int SDL_PushEvent(SDL_Event *ev) {
 }
 
 int SDL_PollEvent(SDL_Event *ev) {
-  printf("in SDL_PollEvent\n");
   char buf[64];
 
   int rt;
   if( NDL_PollEvent(buf, sizeof(buf))==0 ) {
-    printf("PollEvent return 0\n");
-    printf("%s \n" ,buf);
     return 0;
   }
   else {
-    printf("%s \n" ,buf);
+    //printf("%s \n" ,buf);
     char *src = buf;
     char keydown[5];
     char keycode[10];
@@ -62,7 +59,6 @@ int SDL_PollEvent(SDL_Event *ev) {
     Poll_keyState[ev->key.keysym.sym] = 1;
   }
 
-  printf("PollEvent return 1\n");
   return 1;
 }
 
@@ -110,7 +106,6 @@ int SDL_PeepEvents(SDL_Event *ev, int numevents, int action, uint32_t mask) {
 
 uint8_t keyState[83];
 uint8_t* SDL_GetKeyState(int *numkeys) {
-  printf("in SDL_GetKeyState \n");
 
   for( int i=0; i < sizeof(keyState); i++ ) {
     keyState[i] = Poll_keyState[i] ;

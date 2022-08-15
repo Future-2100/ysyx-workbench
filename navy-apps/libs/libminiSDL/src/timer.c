@@ -21,7 +21,6 @@ uint32_t SDL_GetTicks() {
 
 void SDL_Delay(uint32_t ms) {
 
-  printf("in SDL_Delay\n");
   uint32_t time_now = NDL_GetTicks();
   uint32_t time_next = NDL_GetTicks();
   uint32_t time_delay = ms * 1000;

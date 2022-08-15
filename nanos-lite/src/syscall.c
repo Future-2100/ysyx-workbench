@@ -2,6 +2,8 @@
 #include "syscall.h"
 #include "fs.h"
 #include <sys/time.h>
+#include <proc.h>
+
 
 //uintptr_t sys_brk( uintptr_t new_break ); 
 
@@ -11,6 +13,7 @@
 }
 */
 
+void naive_uload(PCB *pcb, const char *filename);
 
 void do_syscall(Context *c) {
   uintptr_t a[4];
@@ -20,12 +23,23 @@ void do_syscall(Context *c) {
   a[3] = c->GPR4;
 
   switch (a[0]) {
+    case SYS_execve:
+#ifdef CONFIG_STRACE
+                     printf("sys_execve : a[1] = %x, a[2] = %x, a[3] = %x\n", a[1], a[2], a[3] );
+#endif
+                     naive_uload(NULL, (char *)a[1]);
+                     break;
+
     case SYS_exit  : 
 #ifdef CONFIG_STRACE 
                      printf("sys_exit : a[1] = %x, a[2] = %x, a[3] = %x\n", a[1], a[2], a[3] );
 #endif
-                     halt(a[1]) ;  
-                     c->GPRx = 0 ;
+                     //halt(a[1]) ;  
+                     //char *buf = "/bin/menu";
+                     c->GPR1 = SYS_execve;
+                     //c->GPR2 = (uintptr_t)buf;
+                     do_syscall( c );
+                     //naive_uload(NULL,(char *)c->GPR2);
                      break;
 
     case SYS_yield : 
