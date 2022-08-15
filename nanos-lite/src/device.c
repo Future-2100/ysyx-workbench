@@ -76,7 +76,6 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
 
   io_write(AM_GPU_FBDRAW, 0, end_y, pixels, end_x, 1, false);
 
-
   /*
 
   for(int i = 0; i < len; i++ ) {
