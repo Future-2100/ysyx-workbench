@@ -66,33 +66,6 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
   int start_x = offset % width;
   int start_y = offset / width;
 
-  int end_x = ( offset + len ) % width;
-  int end_y = ( offset + len ) / width;
-
-
-  io_write(AM_GPU_FBDRAW, start_x, start_y, pixels, width-start_x, 1, false);
-  pixels += width-start_x;
-
-
-  int rect_h = end_y - start_y - 1 ;
-  int x = 0, y = 0;
-  for( int j = 0; j < rect_h; j++ ) {
-    for( int i = 0; i < width; i++ ) {
-      io_write(AM_GPU_FBDRAW, x, y, pixels, 1, 1, false);
-      x++ ;
-      pixels++;
-    }
-    x = 0 ;
-    y++;
-  }
-  //io_write(AM_GPU_FBDRAW, 0, start_y + 1 , pixels, width, (end_y - start_y - 1), false);
-
-  //pixels += ( width * (end_y - start_y - 1));
-
-  io_write(AM_GPU_FBDRAW, 0, end_y, pixels, end_x, 1, false);
-
-
-  /*
   for(int i = 0; i < len; i++ ) {
     assert( offset >= 0 && offset <= width*height );
     assert( start_x <= width && start_x >=0 && start_y <= height && start_y >=0 );
@@ -102,7 +75,6 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
     start_x = offset % width;
     start_y = offset / width;
   }
-  */
 
   io_write(AM_GPU_FBDRAW, 0, 0, NULL, 0, 0, true );
 
