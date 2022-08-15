@@ -158,7 +158,6 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   free(pixels);
 
   printf("end of SDL_UpdateRect\n");
-  
 }
 
 // APIs below are already implemented.
