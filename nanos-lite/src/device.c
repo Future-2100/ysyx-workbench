@@ -93,7 +93,7 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
     start_y = offset / width;
   }
 
-  io_write(AM_GPU_FBDRAW,   0,   0, NULL, 0, 0, true );
+  io_write(AM_GPU_FBDRAW, 0, 0, NULL, 0, 0, true );
 
   return len;
 }
