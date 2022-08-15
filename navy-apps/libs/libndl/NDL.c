@@ -6,6 +6,10 @@
 #include <sys/time.h>
 #include <assert.h>
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
 static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
@@ -74,10 +78,10 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   uint32_t *ret = pixels;
   //lseek(fp, (y+i)*screen_w + x, SEEK_SET);
   for( int i = 0; i < h; i++ ) {
-    //fseek(fp, (y+i)*screen_w + x, SEEK_SET);
-    lseek(fp, ((y+i)*screen_w + x), SEEK_SET);
-    write(fp, ret , w);
-  //fwrite(ret, 4, w, fp);
+    fseek(file, (y+i)*screen_w + x, SEEK_SET);
+   // lseek(fp, ((y+i)*screen_w + x), SEEK_SET);
+//    write(fp, ret , w);
+    fwrite(ret, 4, w, file);
     ret = ret + w ;
   }
 }
@@ -135,7 +139,6 @@ int NDL_Init(uint32_t flags) {
   }
   //assert(0);
   return 0;
-
 }
 
 void NDL_Quit() {
