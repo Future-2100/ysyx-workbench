@@ -71,8 +71,12 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
   uint32_t *pixels = (uint32_t *)buf;
 
   io_write(AM_GPU_FBDRAW, start_x, start_y, pixels, width-start_x, 1, false);
+  pixels += width-start_x;
+
 
   io_write(AM_GPU_FBDRAW, 0, start_y + 1 , pixels, width, (end_y - start_y - 1), false);
+
+  pixels += ( width * (end_y - start_y - 1));
 
   io_write(AM_GPU_FBDRAW, 0, end_y, pixels, end_x, 1, false);
 
