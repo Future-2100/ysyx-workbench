@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
-  printf("in SDL_BlitSurface>>>>>>>>>>>>>\n");
+//  printf("in SDL_BlitSurface>>>>>>>>>>>>>\n");
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
 
@@ -71,12 +71,12 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   
   dstrect->w = w;
   dstrect->h = h;
-  printf("end of SDL_BlitSurface\n");
+//printf("end of SDL_BlitSurface\n");
 
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
-   printf("in SDL_FillRect\n");
+// printf("in SDL_FillRect\n");
    assert(dst);
     int w = 0;
     int h = 0;
@@ -118,7 +118,7 @@ uint32_t SDL_MapRGB( uint8_t r, uint8_t g, uint8_t b , uint8_t a) {
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
 
-  printf(">>>>>>>>>>>>>>>>in SDL_UpdateRect\n");
+//printf(">>>>>>>>>>>>>>>>in SDL_UpdateRect\n");
   assert(s);
 
   if( w==0 ) w = s->w;
@@ -157,7 +157,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   NDL_DrawRect( pixels, x, y, w, h );
   free(pixels);
 
-  printf("end of SDL_UpdateRect\n");
+//printf("end of SDL_UpdateRect\n");
 }
 
 // APIs below are already implemented.
