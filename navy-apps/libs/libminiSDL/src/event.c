@@ -4,6 +4,7 @@
 #include <assert.h>
 
 #define keyname(k) #k,
+uint8_t Poll_keyState[83];
 
 static const char *keyname[] = {
   "NONE",
@@ -24,6 +25,7 @@ int SDL_PushEvent(SDL_Event *ev) {
 int SDL_PollEvent(SDL_Event *ev) {
   printf("in SDL_PollEvent\n");
   char buf[64];
+
   int rt;
   if( NDL_PollEvent(buf, sizeof(buf))==0 ) {
     printf("PollEvent return 0\n");
@@ -57,6 +59,7 @@ int SDL_PollEvent(SDL_Event *ev) {
     for(int i=0; i<83; i++) {
       if( strcmp( keycode, keyname[i])==0 ) ev->key.keysym.sym = SDLK_keycode[i];
     }
+    Poll_keyState[ev->key.keysym.sym] = 1;
   }
 
   printf("PollEvent return 1\n");
@@ -104,17 +107,14 @@ int SDL_PeepEvents(SDL_Event *ev, int numevents, int action, uint32_t mask) {
 }
 
 
+
 uint8_t keyState[83];
 uint8_t* SDL_GetKeyState(int *numkeys) {
   printf("in SDL_GetKeyState \n");
-  SDL_Event *ev;
-  printf("num of keyState = %d\n", sizeof(keyState));
-  for( int i=0; i < sizeof(keyState); i++ ) {
-    keyState[i] = 0;
-  }
 
-  while ( SDL_PollEvent(ev)  ) {
-    keyState[ev->key.keysym.sym] = 1;
+  for( int i=0; i < sizeof(keyState); i++ ) {
+    keyState[i] = Poll_keyState[i] ;
+    Poll_keyState[i] = 0 ;  
   }
 
   return keyState;
