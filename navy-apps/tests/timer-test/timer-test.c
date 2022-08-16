@@ -12,8 +12,8 @@ int main() {
   struct timeval tv;
   uint32_t seconds = 0;
   while(1) {
-    while( NDL_GetTicks() / 1000000 < times ) ;
-    seconds = NDL_GetTicks() / 1000000 ;
+    while( NDL_GetTicks() / 1000 < times ) ;
+    seconds = NDL_GetTicks() / 1000 ;
     printf(" Now time is %d seconds\n", seconds );
     times ++ ;
   }
