@@ -73,7 +73,7 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
   int start_y = (offset/4) / width;
 
   for(int i = 0; i < len; i++ ) {
-    assert( offset >= 0 && offset <= width*height );
+    assert( offset >= 0 && offset <= width*height*4 );
     assert( start_x <= width && start_x >=0 && start_y <= height && start_y >=0 );
     io_write(AM_GPU_FBDRAW, start_x, start_y, pixels, 1, 1, false);
     offset += 4 ;
