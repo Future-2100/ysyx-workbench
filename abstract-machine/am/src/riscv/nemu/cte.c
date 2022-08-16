@@ -2,6 +2,7 @@
 #include <riscv/riscv.h>
 #include <klib.h>
 
+<<<<<<< HEAD
 static Context* (*user_handler)(Event, Context*) = NULL;
 
 Context* __am_irq_handle(Context *c) {
@@ -12,6 +13,43 @@ Context* __am_irq_handle(Context *c) {
     }
 
     c = user_handler(ev, c);
+=======
+/*
+struct Context {
+  // TODO: fix the order of these members to match trap.S
+
+  uintptr_t gpr[32], mcause, mstatus, mepc;
+
+  void *pdir;
+};
+*/
+
+//#define CONFIG_ETRACE
+
+static Context* (*user_handler)(Event, Context*) = NULL;
+
+Context* __am_irq_handle(Context *c) {
+#ifdef CONFIG_ETRACE
+  printf("---------------- trap triggered -------------------\n");
+  printf(" mcause  =   %d \n", c->mcause );
+  printf(" mstatus = 0x%x \n", c->mstatus);
+  printf(" mepc    = 0x%x \n", c->mepc   );
+  for(int i = 0; i < 32; i++) {
+    printf(" gpr[%d]  = 0x%x \n", i, c->gpr[i]);
+  }
+  printf("------------- Context information end ------------\n");
+#endif
+
+  if (user_handler) {
+    Event ev = {0};
+    switch (c->mcause) {
+      case 11  : ev.event = EVENT_SYSCALL; break;
+      default  : ev.event = EVENT_ERROR  ; break;
+    }
+
+    c = user_handler(ev, c);
+    //user_handler = do_event()
+>>>>>>> tracer-ysyx2204
     assert(c != NULL);
   }
 

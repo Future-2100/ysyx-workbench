@@ -12,6 +12,35 @@
  */
 #define MAX_INST_TO_PRINT 30
 #define NR_IRING 20
+<<<<<<< HEAD
+
+extern FUNCT function[0];
+int func_num;
+
+typedef struct iring {
+  char iringbuf[128] ;
+  struct iring *next;
+  bool used;
+} IRING ;
+
+static IRING iring_pool[NR_IRING] = {};
+
+static IRING *iring_head;
+static IRING *iring_end ;
+
+void init_iring_pool() {
+  int i;
+  for( i=0; i<NR_IRING; i++) {
+    iring_pool[i].next = ( i==NR_IRING-1 ? iring_pool : &iring_pool[i+1] );
+    iring_pool[i].used = false;
+  }
+  iring_head = iring_pool;
+  iring_end  = iring_pool + NR_IRING-1 ;
+  
+}
+
+=======
+>>>>>>> tracer-ysyx2204
 
 extern FUNCT function[0];
 int func_num;
@@ -39,7 +68,7 @@ void init_iring_pool() {
 }
 
 
-CPU_state cpu = {};
+CPU_state cpu = { .mstatus = 0xa00001800 };
 uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;

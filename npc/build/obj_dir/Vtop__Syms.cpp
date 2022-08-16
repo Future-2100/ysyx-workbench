@@ -10,9 +10,12 @@ void Vtop___024root____Vdpiexp_top__DOT__end_sim_TOP(Vtop__Syms* __restrict vlSy
 // FUNCTIONS
 Vtop__Syms::~Vtop__Syms()
 {
+<<<<<<< HEAD
 #ifdef VM_TRACE
     if (__Vm_dumping) _traceDumpClose();
 #endif  // VM_TRACE
+=======
+>>>>>>> tracer-ysyx2204
 }
 
 Vtop__Syms::Vtop__Syms(VerilatedContext* contextp, const char* namep,Vtop* modelp)
@@ -35,6 +38,7 @@ Vtop__Syms::Vtop__Syms(VerilatedContext* contextp, const char* namep,Vtop* model
         __Vscope_top.exportInsert(__Vfinal, "end_sim", (void*)(&Vtop___024root____Vdpiexp_top__DOT__end_sim_TOP));
     }
 }
+<<<<<<< HEAD
 
 void Vtop__Syms::_traceDump() {
     const VerilatedLockGuard lock(__Vm_dumperMutex);
@@ -57,3 +61,5 @@ void Vtop__Syms::_traceDumpClose() {
     __Vm_dumping = false;
     VL_DO_CLEAR(delete __Vm_dumperp, __Vm_dumperp = nullptr);
 }
+=======
+>>>>>>> tracer-ysyx2204

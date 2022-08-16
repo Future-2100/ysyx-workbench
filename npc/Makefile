@@ -1,6 +1,9 @@
 TOPNAME = top
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> tracer-ysyx2204
 ############################## Verilator Check #####################################
 
 # Check for sanity to avoid later confusion
@@ -43,7 +46,11 @@ VERILATOR_FLAGS += --MMD
 # VERILATOR_FLAGS += -Os -x-assign 0
 
 #Make waveforms
+<<<<<<< HEAD
 VERILATOR_FLAGS += --trace
+=======
+#VERILATOR_FLAGS += --trace
+>>>>>>> tracer-ysyx2204
 VERILATOR_FLAGS += --coverage
 
 # Check SystemVerilog assertions
@@ -67,7 +74,12 @@ $(shell mkdir -p $(BUILD_DIR))
 
 
 # project source
+<<<<<<< HEAD
 VS_DIR = $(WORK_DIR)/vsrc
+=======
+#VS_DIR = $(WORK_DIR)/vsrc/Single_Cycle
+VS_DIR = $(WORK_DIR)/vsrc/Pipeline
+>>>>>>> tracer-ysyx2204
 VSRCS = $(shell find $(VS_DIR) -name "*.v")
 
 CS_DIR = $(WORK_DIR)/csrc
@@ -119,6 +131,11 @@ endif
 
 all : default
 
+<<<<<<< HEAD
+=======
+wave : 
+	gtkwave build/logs/top.vcd
+>>>>>>> tracer-ysyx2204
 
 run : sim
 

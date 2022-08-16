@@ -3,7 +3,10 @@
 
 #include "Vtop.h"
 #include "Vtop__Syms.h"
+<<<<<<< HEAD
 #include "verilated_vcd_c.h"
+=======
+>>>>>>> tracer-ysyx2204
 #include "verilated_dpi.h"
 
 //============================================================
@@ -13,6 +16,7 @@ Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     : vlSymsp{new Vtop__Syms(_vcontextp__, _vcname__, this)}
     , clk{vlSymsp->TOP.clk}
     , rstn{vlSymsp->TOP.rstn}
+<<<<<<< HEAD
     , a{vlSymsp->TOP.a}
     , ebreak{vlSymsp->TOP.ebreak}
     , dnxt_pc{vlSymsp->TOP.dnxt_pc}
@@ -25,6 +29,16 @@ Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     , ren{vlSymsp->TOP.ren}
     , rdata{vlSymsp->TOP.rdata}
     , addr{vlSymsp->TOP.addr}
+=======
+    , pc{vlSymsp->TOP.pc}
+    , instr{vlSymsp->TOP.instr}
+    , snxt_pc{vlSymsp->TOP.snxt_pc}
+    , dnxt_pc{vlSymsp->TOP.dnxt_pc}
+    , this_ebreak{vlSymsp->TOP.this_ebreak}
+    , this_valid{vlSymsp->TOP.this_valid}
+    , this_pc{vlSymsp->TOP.this_pc}
+    , this_instr{vlSymsp->TOP.this_instr}
+>>>>>>> tracer-ysyx2204
     , rootp{&(vlSymsp->TOP)}
 {
 }
@@ -59,7 +73,10 @@ static void _eval_initial_loop(Vtop__Syms* __restrict vlSymsp) {
     // Evaluate till stable
     int __VclockLoop = 0;
     QData __Vchange = 1;
+<<<<<<< HEAD
     vlSymsp->__Vm_activity = true;
+=======
+>>>>>>> tracer-ysyx2204
     do {
         VL_DEBUG_IF(VL_DBG_MSGF("+ Initial loop\n"););
         Vtop___024root___eval_settle(&(vlSymsp->TOP));
@@ -71,7 +88,11 @@ static void _eval_initial_loop(Vtop__Syms* __restrict vlSymsp) {
             Verilated::debug(1);
             __Vchange = Vtop___024root___change_request(&(vlSymsp->TOP));
             Verilated::debug(__Vsaved_debug);
+<<<<<<< HEAD
             VL_FATAL_MT("/home/grand/ysyx-workbench/npc/vsrc/top.v", 1, "",
+=======
+            VL_FATAL_MT("/home/grand/ysyx-workbench/npc/vsrc/Pipeline/top.v", 1, "",
+>>>>>>> tracer-ysyx2204
                 "Verilated model didn't DC converge\n"
                 "- See https://verilator.org/warn/DIDNOTCONVERGE");
         } else {
@@ -91,7 +112,10 @@ void Vtop::eval_step() {
     // Evaluate till stable
     int __VclockLoop = 0;
     QData __Vchange = 1;
+<<<<<<< HEAD
     vlSymsp->__Vm_activity = true;
+=======
+>>>>>>> tracer-ysyx2204
     do {
         VL_DEBUG_IF(VL_DBG_MSGF("+ Clock loop\n"););
         Vtop___024root___eval(&(vlSymsp->TOP));
@@ -102,7 +126,11 @@ void Vtop::eval_step() {
             Verilated::debug(1);
             __Vchange = Vtop___024root___change_request(&(vlSymsp->TOP));
             Verilated::debug(__Vsaved_debug);
+<<<<<<< HEAD
             VL_FATAL_MT("/home/grand/ysyx-workbench/npc/vsrc/top.v", 1, "",
+=======
+            VL_FATAL_MT("/home/grand/ysyx-workbench/npc/vsrc/Pipeline/top.v", 1, "",
+>>>>>>> tracer-ysyx2204
                 "Verilated model didn't converge\n"
                 "- See https://verilator.org/warn/DIDNOTCONVERGE");
         } else {
@@ -111,6 +139,7 @@ void Vtop::eval_step() {
     } while (VL_UNLIKELY(__Vchange));
 }
 
+<<<<<<< HEAD
 void Vtop::eval_end_step() {
     VL_DEBUG_IF(VL_DBG_MSGF("+eval_end_step Vtop::eval_end_step\n"); );
 #ifdef VM_TRACE
@@ -119,6 +148,8 @@ void Vtop::eval_end_step() {
 #endif  // VM_TRACE
 }
 
+=======
+>>>>>>> tracer-ysyx2204
 //============================================================
 // Invoke final blocks
 
@@ -136,6 +167,7 @@ VerilatedContext* Vtop::contextp() const {
 const char* Vtop::name() const {
     return vlSymsp->name();
 }
+<<<<<<< HEAD
 
 //============================================================
 // Trace configuration
@@ -163,3 +195,5 @@ void Vtop::trace(VerilatedVcdC* tfp, int, int) {
     tfp->spTrace()->addInitCb(&traceInit, &(vlSymsp->TOP));
     Vtop___024root__traceRegister(&(vlSymsp->TOP), tfp->spTrace());
 }
+=======
+>>>>>>> tracer-ysyx2204

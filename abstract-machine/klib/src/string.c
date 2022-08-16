@@ -25,6 +25,10 @@ char *strcpy(char *dst, const char *src) {
     *(dst+i) = *(src+i);
     i++;
   }
+<<<<<<< HEAD
+=======
+  *(dst+i) = '\0' ;
+>>>>>>> tracer-ysyx2204
 
   return dst;
 }
@@ -68,11 +72,20 @@ int strcmp(const char *s1, const char *s2) {
       i++;
     }
 
+<<<<<<< HEAD
     if( *(s1+i) == *(s2+i) ) return 0;
     if( *(s1+i) < *(s2+i) ) return -1;
     if( *(s1+i) > *(s2+i) ) return  1;
 
     return 100;
+=======
+    /*
+    if( *(s1+i) == *(s2+i) ) return 0;
+    if( *(s1+i) < *(s2+i) ) return -1;
+    if( *(s1+i) > *(s2+i) ) return  1;
+    return 100;
+    */
+>>>>>>> tracer-ysyx2204
 
   return 0;
 }
@@ -126,6 +139,7 @@ void *memmove(void *dst, const void *src, size_t n) {
 }
 
 void *memcpy(void *out, const void *in, size_t n) {
+<<<<<<< HEAD
   if( out == NULL || in == NULL || out <= in+n ) {
     return NULL;
   }
@@ -134,6 +148,35 @@ void *memcpy(void *out, const void *in, size_t n) {
   while(n--) *tmp_dest++ = *tmp_src++;
   
   return out;
+=======
+
+ if( out == NULL || in == NULL ) {
+    assert(0);
+    return NULL;
+ }
+
+ void *ret = out;
+ if( out <= in || (char *)out >= (char *)in + n) {
+  //无内存重叠，从低地址开始复制
+  while(n--) {
+      *(char *)out = *(char *)in;
+      out = (char *)out + 1;
+      in  = (char *)in  + 1;
+  }
+ }
+ else {
+  //内存重叠，从高地址开始复制
+  in  = (char *)in  + n - 1;
+  out = (char *)out + n - 1;
+  while(n--) {
+      *(char *)out = *(char *)in;
+      out = (char *)out - 1;
+      in  = (char *)in  - 1;
+  }
+}
+  
+  return ret;
+>>>>>>> tracer-ysyx2204
 }
 
 

@@ -101,7 +101,13 @@ void init_monitor(int argc, char** argv) {
   init_log(log_file);
 
   /* Read the elf file. */
+<<<<<<< HEAD
   init_elf(elf_file);
+=======
+  #ifdef CONFIG_ELF
+  init_elf(elf_file);
+  #endif
+>>>>>>> tracer-ysyx2204
 
   /* Initial memory. */
   init_mem();

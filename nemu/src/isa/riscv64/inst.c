@@ -2,6 +2,7 @@
 #include <cpu/cpu.h>
 #include <cpu/ifetch.h>
 #include <cpu/decode.h>
+#include <isa.h>
 
 #define R(i) gpr(i)
 #define Mr vaddr_read
@@ -13,6 +14,10 @@ enum {
   TYPE_J,
   TYPE_R,
   TYPE_B,
+<<<<<<< HEAD
+=======
+  TYPE_C,
+>>>>>>> tracer-ysyx2204
 };
 
 #define src1R(n) do { *src1 = R(n); } while (0)
@@ -36,6 +41,7 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
   int rd  = BITS(i, 11, 7);
   int rs1 = BITS(i, 19, 15);
   int rs2 = BITS(i, 24, 20);
+  int csr = BITS(i, 31, 20);
   destR(rd);
   switch (type) {
     case TYPE_I: src1R(rs1);     src2I(immI(i)); break;
@@ -44,6 +50,10 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
     case TYPE_J: src1J(immJ(i)); break;
     case TYPE_B: destI(immB(i)); src1R(rs1); src2R(rs2); break;
     case TYPE_R: src1R(rs1);     src2R(rs2); break;
+<<<<<<< HEAD
+=======
+    case TYPE_C: *src1 = rs1;     *src2 = csr ; break;
+>>>>>>> tracer-ysyx2204
   }
 }
 
@@ -119,6 +129,10 @@ static int decode_exec(Decode *s) {
   ////fence
   ////ecall
   INSTPAT("0000000 00001 00000 000 00000 11100 11", ebreak , N, NEMUTRAP(s->pc, R(10))); // R(10) is $a0
+<<<<<<< HEAD
+=======
+  INSTPAT("0000000 00000 00000 000 00000 11100 11", ecall  , N, s->dnpc = isa_raise_intr(0x0b, s->pc ));  // R(17) is $a7
+>>>>>>> tracer-ysyx2204
 
   INSTPAT("??????? ????? ????? 110 ????? 00000 11", lwu    , I, R(dest) = Mr(src1 + src2, 4) );
   INSTPAT("??????? ????? ????? 011 ????? 00000 11", ld     , I, R(dest) = Mr(src1 + src2, 8));
@@ -151,6 +165,20 @@ static int decode_exec(Decode *s) {
   INSTPAT("0000001 ????? ????? 110 ????? 01110 11", remw   , R, R(dest) = SEXT(BITS( (int32_t)BITS(src1,31,0) % (int32_t)BITS(src2,31,0),31,0 ),32) );
   INSTPAT("0000001 ????? ????? 111 ????? 01110 11", remuw  , R, R(dest) = SEXT(BITS( BITS(src1,31,0) % BITS(src2,31,0),31,0 ),32) );
 
+<<<<<<< HEAD
+=======
+  INSTPAT("??????? ????? ????? 001 ????? 11100 11", csrrw  , C, R(dest) = isa_csrrw( src1, src2 ));
+  INSTPAT("??????? ????? ????? 010 ????? 11100 11", csrrs  , C, R(dest) = isa_csrrs( src1, src2 ));
+  INSTPAT("??????? ????? ????? 011 ????? 11100 11", csrrc  , C, R(dest) = isa_csrrc( src1, src2 ));
+  /*
+  INSTPAT("??????? ????? ????? 101 ????? 11100 11", csrrwi , C, () );
+  INSTPAT("??????? ????? ????? 110 ????? 11100 11", csrrsi , C, () );
+  INSTPAT("??????? ????? ????? 111 ????? 11100 11", csrrci , C, () );
+  */
+
+  INSTPAT("0011000 00010 00000 000 00000 11100 11", mret   , C, s->dnpc = isa_mret());
+
+>>>>>>> tracer-ysyx2204
   INSTPAT("??????? ????? ????? ??? ????? ????? ??", inv    , N, INV(s->pc));
   INSTPAT_END();
 

@@ -36,6 +36,10 @@ bool cte_init(Context*(*handler)(Event, Context*)) {
 
   // register event handler
   user_handler = handler;
+<<<<<<< HEAD
+=======
+  //user_handler = do_event
+>>>>>>> tracer-ysyx2204
 
   return true;
 }
