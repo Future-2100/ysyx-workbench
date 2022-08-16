@@ -5,7 +5,7 @@ FILE *elf_fp = NULL;
 
 extern int func_num;
 
-FUNCT function[0];
+FUNCT function[255];
 
 void init_elf(char *elf_file){
   if(elf_file == NULL) {
