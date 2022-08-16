@@ -14,11 +14,7 @@ VM_PARALLEL_BUILDS = 1
 # Threaded output mode?  0/1/N threads (from --threads)
 VM_THREADS = 0
 # Tracing output mode?  0/1 (from --trace/--trace-fst)
-<<<<<<< HEAD
-VM_TRACE = 1
-=======
 VM_TRACE = 0
->>>>>>> tracer-ysyx2204
 # Tracing output mode in FST format?  0/1 (from --trace-fst)
 VM_TRACE_FST = 0
 # Tracing threaded output mode?  0/1/N threads (from --trace-thread)
@@ -39,36 +35,21 @@ VM_CLASSES_FAST += \
 VM_CLASSES_SLOW += \
 	Vtop___024root__Slow \
 	Vtop___024root__1__Slow \
-<<<<<<< HEAD
-=======
 	Vtop___024root__2__Slow \
->>>>>>> tracer-ysyx2204
 
 # Generated support classes, fast-path, compile with highest optimization
 VM_SUPPORT_FAST += \
 	Vtop__Dpi \
-<<<<<<< HEAD
-	Vtop__Trace \
-=======
->>>>>>> tracer-ysyx2204
 
 # Generated support classes, non-fast-path, compile with low/medium optimization
 VM_SUPPORT_SLOW += \
 	Vtop__Syms \
-<<<<<<< HEAD
-	Vtop__Trace__Slow \
-=======
->>>>>>> tracer-ysyx2204
 
 # Global classes, need linked once per executable, fast-path, compile with highest optimization
 VM_GLOBAL_FAST += \
 	verilated \
 	verilated_dpi \
 	verilated_cov \
-<<<<<<< HEAD
-	verilated_vcd_c \
-=======
->>>>>>> tracer-ysyx2204
 
 # Global classes, need linked once per executable, non-fast-path, compile with low/medium optimization
 VM_GLOBAL_SLOW += \

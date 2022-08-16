@@ -14,12 +14,6 @@
 
 class Vtop__Syms;
 class Vtop___024root;
-<<<<<<< HEAD
-class VerilatedVcdC;
-class Vtop_VerilatedVcd;
-
-=======
->>>>>>> tracer-ysyx2204
 
 // This class is the main interface to the Verilated model
 class Vtop VL_NOT_FINAL {
@@ -34,20 +28,6 @@ class Vtop VL_NOT_FINAL {
     // propagate new values into/out from the Verilated model.
     VL_IN8(&clk,0,0);
     VL_IN8(&rstn,0,0);
-<<<<<<< HEAD
-    VL_OUT64(&a,63,0);
-    VL_OUT8(&ebreak,0,0);
-    VL_OUT64(&dnxt_pc,63,0);
-    VL_OUT64(&snxt_pc,63,0);
-    VL_OUT64(&pc,63,0);
-    VL_IN(&inst,31,0);
-    VL_OUT64(&wdata,63,0);
-    VL_OUT8(&wlen,3,0);
-    VL_OUT8(&wen,0,0);
-    VL_OUT8(&ren,0,0);
-    VL_IN64(&rdata,63,0);
-    VL_OUT64(&addr,63,0);
-=======
     VL_OUT64(&pc,63,0);
     VL_IN(&instr,31,0);
     VL_OUT64(&snxt_pc,63,0);
@@ -56,7 +36,6 @@ class Vtop VL_NOT_FINAL {
     VL_OUT8(&this_valid,0,0);
     VL_OUT64(&this_pc,63,0);
     VL_OUT(&this_instr,31,0);
->>>>>>> tracer-ysyx2204
 
     // CELLS
     // Public to allow access to /* verilator public */ items.
@@ -81,26 +60,14 @@ class Vtop VL_NOT_FINAL {
   public:
     // API METHODS
     /// Evaluate the model.  Application must call when inputs change.
-<<<<<<< HEAD
-    void eval() { eval_step(); eval_end_step(); }
-=======
     void eval() { eval_step(); }
->>>>>>> tracer-ysyx2204
     /// Evaluate when calling multiple units/models per time step.
     void eval_step();
     /// Evaluate at end of a timestep for tracing, when using eval_step().
     /// Application must call after all eval() and before time changes.
-<<<<<<< HEAD
-    void eval_end_step();
-    /// Simulation complete, run final blocks.  Application must call on completion.
-    void final();
-    /// Trace signals in the model; called by application code
-    void trace(VerilatedVcdC* tfp, int levels, int options = 0);
-=======
     void eval_end_step() {}
     /// Simulation complete, run final blocks.  Application must call on completion.
     void final();
->>>>>>> tracer-ysyx2204
     /// Return current simulation context for this model.
     /// Used to get to e.g. simulation time via contextp()->time()
     VerilatedContext* contextp() const;

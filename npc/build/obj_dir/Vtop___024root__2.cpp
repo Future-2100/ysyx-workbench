@@ -7,12 +7,6 @@
 
 #include "verilated_dpi.h"
 
-<<<<<<< HEAD
-void Vtop___024root___combo__TOP__4(Vtop___024root* vlSelf);
-void Vtop___024root___sequent__TOP__5(Vtop___024root* vlSelf);
-void Vtop___024root___sequent__TOP__6(Vtop___024root* vlSelf);
-void Vtop___024root___combo__TOP__7(Vtop___024root* vlSelf);
-=======
 VL_INLINE_OPT void Vtop___024root___sequent__TOP__8(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
@@ -5035,32 +5029,18 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__8(Vtop___024root* vlSelf) {
 void Vtop___024root___combo__TOP__5(Vtop___024root* vlSelf);
 void Vtop___024root___sequent__TOP__6(Vtop___024root* vlSelf);
 void Vtop___024root___sequent__TOP__7(Vtop___024root* vlSelf);
->>>>>>> tracer-ysyx2204
 
 void Vtop___024root___eval(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval\n"); );
     // Body
-<<<<<<< HEAD
-    Vtop___024root___combo__TOP__4(vlSelf);
-    vlSelf->__Vm_traceActivity[1U] = 1U;
-    if (((IData)(vlSelf->clk) & (~ (IData)(vlSelf->__Vclklast__TOP__clk)))) {
-        Vtop___024root___sequent__TOP__5(vlSelf);
-    }
-    if (((~ (IData)(vlSelf->clk)) & (IData)(vlSelf->__Vclklast__TOP__clk))) {
-        Vtop___024root___sequent__TOP__6(vlSelf);
-        vlSelf->__Vm_traceActivity[2U] = 1U;
-    }
-    Vtop___024root___combo__TOP__7(vlSelf);
-=======
     Vtop___024root___combo__TOP__5(vlSelf);
     if (((IData)(vlSelf->clk) & (~ (IData)(vlSelf->__Vclklast__TOP__clk)))) {
         Vtop___024root___sequent__TOP__6(vlSelf);
         Vtop___024root___sequent__TOP__7(vlSelf);
         Vtop___024root___sequent__TOP__8(vlSelf);
     }
->>>>>>> tracer-ysyx2204
     // Final
     vlSelf->__Vclklast__TOP__clk = vlSelf->clk;
 }

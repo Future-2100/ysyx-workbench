@@ -17,11 +17,7 @@
 #ifndef VL_DPIDECL_end_sim_
 #define VL_DPIDECL_end_sim_
 void end_sim() {
-<<<<<<< HEAD
-    // DPI export at /home/grand/ysyx-workbench/npc/vsrc/top.v:253:8
-=======
     // DPI export at /home/grand/ysyx-workbench/npc/vsrc/Pipeline/top.v:339:8
->>>>>>> tracer-ysyx2204
     return Vtop::end_sim();
 }
 #endif
