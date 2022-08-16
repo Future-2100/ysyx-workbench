@@ -33,7 +33,7 @@ void do_syscall(Context *c) {
 #ifdef CONFIG_STRACE 
                      printf("sys_exit : a[1] = %x, a[2] = %x, a[3] = %x\n", a[1], a[2], a[3] );
 #endif
-                     halt(a[1]) ;  
+                     //halt(a[1]) ;  
                      char *buf = "/bin/menu";
                      a[1] = (uintptr_t)buf;
                      naive_uload(NULL,(char *)a[1]);
