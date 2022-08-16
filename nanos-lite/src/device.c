@@ -9,6 +9,9 @@
 #define NAME(key) \
   [AM_KEY_##key] = #key,
 
+static size_t screen_w = 0;
+static size_t screen_h = 0;
+
 static const char *keyname[256] __attribute__((used)) = {
   [AM_KEY_NONE] = "NONE",
   AM_KEYS(NAME)
@@ -40,12 +43,10 @@ size_t events_read(void *buf, size_t offset, size_t len) {
         strcpy( dst, "ku " );
       }
       dst = dst + 3;
-      int offset = sizeof(keyname[ev.keycode]);
+      size_t offset = sizeof(keyname[ev.keycode]);
       strcpy( dst, keyname[ev.keycode] );
-      dst = dst + offset -1;
+      dst = dst + offset ;
       *dst = '\n';
-      dst++;
-      *dst = '\0';
       return 1;
     }
 }
@@ -63,23 +64,29 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
 
-  int width  = io_read(AM_GPU_CONFIG).width ;
-  int height = io_read(AM_GPU_CONFIG).height;
 
   uint32_t *pixels = (uint32_t *)buf;
-  assert ( offset + len <= width*height*4 );
-  
-  int start_x = (offset/4) % width;
-  int start_y = (offset/4) / width;
 
-  for(int i = 0; i < len; i++ ) {
-    assert( offset >= 0 && offset <= width*height*4 );
+  size_t screen_offset = offset / 4u;
+  size_t times = len / 4u;
+  
+  size_t start_x = screen_offset % screen_w;
+  size_t start_y = screen_offset / screen_w;
+
+  for(int i = 0; i < times; i++ ) {
+    /*
+    if(!( offset >= 0 && offset <= width*height*4 )) {
+        printf("offset = %p \n", offset);
+        assert(0);
+    }
     assert( start_x <= width && start_x >=0 && start_y <= height && start_y >=0 );
+    */
+
     io_write(AM_GPU_FBDRAW, start_x, start_y, pixels, 1, 1, false);
-    offset += 4 ;
     pixels ++ ;
-    start_x = (offset/4) % (width) ;
-    start_y = (offset/4) / (width) ;
+    screen_offset ++ ;
+    start_x = screen_offset % screen_w ;
+    start_y = screen_offset / screen_w ;
   }
 
   io_write(AM_GPU_FBDRAW, 0, 0, NULL, 0, 0, true );
@@ -93,6 +100,8 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
 void init_device() {
   Log("Initializing devices...");
   ioe_init();
+  screen_w  = (size_t)io_read(AM_GPU_CONFIG).width ;
+  screen_h  = (size_t)io_read(AM_GPU_CONFIG).height;
 }
 /*
 bool ioe_init() {

@@ -13,66 +13,46 @@
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
-  printf("in loader\n");
   int fd = fs_open(filename, 0, 0);
-  printf("end of fs_open\n");
   assert(fd);
 
   uint32_t ident;
   fs_read(fd, &ident, 4);
-  printf("end of fs_read\n");
   assert ( ident == 0x464c457f );
 
   Elf64_Off phoff;
   fs_lseek(fd, 32, SEEK_SET);
-  printf("end of fs_lseek\n");
   fs_read(fd, &phoff, 8);
-  printf("end of fs_read\n");
   //ramdisk_read( &phoff, 32, 8);
   //assert( phoff == 0x40 );
   
   uint16_t phentsize;
   fs_lseek(fd, 54, SEEK_SET);
-  printf("end of fs_lseek\n");
   fs_read(fd, &phentsize, 2);
-  printf("end of fs_read\n");
   //ramdisk_read( &phentsize, 54, 2);
 
   uint16_t phnum;
   fs_lseek(fd, 56, SEEK_SET);
-  printf("end of fs_lseek\n");
   fs_read(fd, &phnum, 2);
-  printf("end of fs_read\n");
   //ramdisk_read( &phnum, 56, 2);
 
   Elf64_Addr entry;
   fs_lseek(fd, 24, SEEK_SET);
-  printf("end of fs_lseek\n");
   fs_read(fd, &entry, 8);
-  printf("end of fs_read\n");
   //assert( entry==0x83008040 );
   //ramdisk_read( &entry, 24, 8 );
 
   Elf_Phdr elf_phdr;
   for( int i = 0; i < phnum ; i++ ) {
     fs_lseek(fd, phoff + phentsize*i, SEEK_SET);
-    printf("end of fs_lseek\n");
     fs_read (fd, &elf_phdr.p_type  , 4);
-  printf("end of fs_read\n");
     fs_read (fd, &elf_phdr.p_flags , 4);
-  printf("end of fs_read\n");
     fs_read (fd, &elf_phdr.p_offset, 8);
-  printf("end of fs_read\n");
     fs_read (fd, &elf_phdr.p_vaddr , 8);
-  printf("end of fs_read, vaddr = %p\n",elf_phdr.p_vaddr);
     fs_read (fd, &elf_phdr.p_paddr , 8);
-  printf("end of fs_read\n");
     fs_read (fd, &elf_phdr.p_filesz, 8);
-  printf("end of fs_read\n");
     fs_read (fd, &elf_phdr.p_memsz , 8);
-  printf("end of fs_read\n");
     fs_read (fd, &elf_phdr.p_align , 8);
-  printf("end of fs_read\n");
    // ramdisk_read( &elf_phdr.p_type   , phoff + phentsize*i +  0 , 4 );
    // ramdisk_read( &elf_phdr.p_flags  , phoff + phentsize*i +  4 , 4 );
    // ramdisk_read( &elf_phdr.p_offset , phoff + phentsize*i +  8 , 8 );
@@ -83,12 +63,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
    // ramdisk_read( &elf_phdr.p_align  , phoff + phentsize*i + 48 , 8 );
     if( elf_phdr.p_type == PT_LOAD ) {
       fs_lseek( fd, elf_phdr.p_offset, SEEK_SET );
-      printf("end of fs_lsee----\n");
-      printf("elf_phdr.p_vaddr = %p, elf_phdr.p_memsz = %p\n",elf_phdr.p_vaddr,elf_phdr.p_memsz);
       fs_read(fd, (char *)elf_phdr.p_vaddr, elf_phdr.p_memsz);
-      printf("end of fs_read\n");
       memset( (char *)(elf_phdr.p_vaddr + elf_phdr.p_filesz), 0, elf_phdr.p_memsz - elf_phdr.p_filesz);
-      printf("end of memset\n");
      }
   }
 
@@ -100,7 +76,6 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
-  printf(">>>>>>>>>>>\n");
   uintptr_t entry = loader(pcb, filename);
   Log("Jump to entry = %p", entry);
   ((void(*)())entry) ();
