@@ -2,6 +2,18 @@
 #include <riscv/riscv.h>
 #include <klib.h>
 
+<<<<<<< HEAD
+static Context* (*user_handler)(Event, Context*) = NULL;
+
+Context* __am_irq_handle(Context *c) {
+  if (user_handler) {
+    Event ev = {0};
+    switch (c->mcause) {
+      default: ev.event = EVENT_ERROR; break;
+    }
+
+    c = user_handler(ev, c);
+=======
 /*
 struct Context {
   // TODO: fix the order of these members to match trap.S
@@ -37,6 +49,7 @@ Context* __am_irq_handle(Context *c) {
 
     c = user_handler(ev, c);
     //user_handler = do_event()
+>>>>>>> tracer-ysyx2204
     assert(c != NULL);
   }
 

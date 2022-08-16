@@ -32,15 +32,30 @@ int atoi(const char* nptr) {
   return x;
 }
 
+<<<<<<< HEAD
+static char *hbrk ;
+static bool malloc_reseted = false ;
+
+static void mmry_reset() {
+  hbrk = (void *)ROUNDUP(heap.start, 8);
+  malloc_reseted = true ;
+}
+=======
 static char *hbrk = 0;
+>>>>>>> tracer-ysyx2204
 
 void *malloc(size_t size) {
   // On native, malloc() will be called during initializaion of C runtime.
   // Therefore do not call panic() here, else it will yield a dead recursion:
   //   panic() -> putchar() -> (glibc) -> malloc() -> panic()
   
+<<<<<<< HEAD
+  if( malloc_reseted == false ) {
+    mmry_reset();
+=======
   if(  hbrk == 0 ){
     hbrk = (void *)ROUNDUP(heap.start, 8);
+>>>>>>> tracer-ysyx2204
   }
   
   size = (size_t )ROUNDUP(size, 8);

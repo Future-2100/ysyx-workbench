@@ -3,6 +3,16 @@
 #include "../local-include/reg.h"
 
 bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
+<<<<<<< HEAD
+
+  for(int i=0; i<32; i++) {
+    if( difftest_check_reg( reg_name(i, 64), pc, ref_r->gpr[check_reg_idx(i)], gpr(i) ) == false )
+      return false;
+  }
+  return true ;
+}
+=======
+>>>>>>> tracer-ysyx2204
 
   for(int i=0; i<32; i++) {
     if( difftest_check_reg( reg_name(i, 64), pc, ref_r->gpr[check_reg_idx(i)], gpr(i) ) == false )

@@ -25,7 +25,10 @@ char *strcpy(char *dst, const char *src) {
     *(dst+i) = *(src+i);
     i++;
   }
+<<<<<<< HEAD
+=======
   *(dst+i) = '\0' ;
+>>>>>>> tracer-ysyx2204
 
   return dst;
 }
@@ -69,12 +72,20 @@ int strcmp(const char *s1, const char *s2) {
       i++;
     }
 
+<<<<<<< HEAD
+    if( *(s1+i) == *(s2+i) ) return 0;
+    if( *(s1+i) < *(s2+i) ) return -1;
+    if( *(s1+i) > *(s2+i) ) return  1;
+
+    return 100;
+=======
     /*
     if( *(s1+i) == *(s2+i) ) return 0;
     if( *(s1+i) < *(s2+i) ) return -1;
     if( *(s1+i) > *(s2+i) ) return  1;
     return 100;
     */
+>>>>>>> tracer-ysyx2204
 
   return 0;
 }
@@ -128,6 +139,16 @@ void *memmove(void *dst, const void *src, size_t n) {
 }
 
 void *memcpy(void *out, const void *in, size_t n) {
+<<<<<<< HEAD
+  if( out == NULL || in == NULL || out <= in+n ) {
+    return NULL;
+  }
+  char *tmp_dest = out;
+  const char *tmp_src = in;
+  while(n--) *tmp_dest++ = *tmp_src++;
+  
+  return out;
+=======
 
  if( out == NULL || in == NULL ) {
     assert(0);
@@ -155,6 +176,7 @@ void *memcpy(void *out, const void *in, size_t n) {
 }
   
   return ret;
+>>>>>>> tracer-ysyx2204
 }
 
 
