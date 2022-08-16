@@ -16,6 +16,5 @@ int main() {
     seconds = NDL_GetTicks() / 1000000 ;
     printf(" Now time is %d seconds\n", seconds );
     times ++ ;
-
   }
 }
