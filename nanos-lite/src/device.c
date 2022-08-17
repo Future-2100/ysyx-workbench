@@ -29,26 +29,16 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 size_t events_read(void *buf, size_t offset, size_t len) {
   //bool has_kbd = io_read(AM_INPUT_CONFIG).present;
 
-  char *dst = buf;
+  size_t ret = 0 ;
   AM_INPUT_KEYBRD_T ev ;
   ev = io_read(AM_INPUT_KEYBRD);
     if( ev.keycode == AM_KEY_NONE )  {
-      return 0;
+      ret =  0;
     }
     else { 
-      if( ev.keydown ) {
-        strcpy( dst, "kd " );
-      }
-      else {
-        strcpy( dst, "ku " );
-      }
-      dst = dst + 3;
-      size_t offset = sizeof(keyname[ev.keycode]);
-      strcpy( dst, keyname[ev.keycode] );
-      dst = dst + offset ;
-      *dst = '\n';
-      return 1;
+      ret = snprintf(buf, len, "%s %s\n", ev.keydown?"kd":"ku", keyname[ev.keycode]);
     }
+    return ret;
 }
 
 

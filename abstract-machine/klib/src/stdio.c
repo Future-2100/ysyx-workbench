@@ -205,6 +205,7 @@ int sprintf(char *out, const char *fmt, ...) {
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
 
+  size_t len = 0;
   va_list valist;
   va_start(valist, fmt);
 
@@ -218,6 +219,7 @@ int snprintf(char *out, size_t n, const char *fmt, ...) {
       char_buf = number_buf + 1 ;
       while( *char_buf ) {
         *out_offset = *char_buf;
+        len++;
         char_buf++;
         out_offset ++;
       }
@@ -231,6 +233,7 @@ int snprintf(char *out, size_t n, const char *fmt, ...) {
       char_buf = number_buf ;
       while( *char_buf ) {
         *out_offset = *char_buf ;
+        len++;
         char_buf++;
         out_offset ++ ;
       }
@@ -244,6 +247,8 @@ int snprintf(char *out, size_t n, const char *fmt, ...) {
       char* string = va_arg(valist, char*);
         while( *string ){
           *out_offset = *string ;
+          len++;
+        char_buf++;
           string++;
           out_offset++;
         }
@@ -253,12 +258,16 @@ int snprintf(char *out, size_t n, const char *fmt, ...) {
     else if( *fmt == '%' && *(fmt+1) == 'c' ) {
       char character = va_arg(valist, int);
       *out_offset = character ;
+      len++;
+        char_buf++;
+        char_buf++;
       fmt++;
       out_offset ++;
     }
 
     else {
       *out_offset = *fmt ;
+      len++;
       out_offset ++ ;
     }
 
@@ -267,7 +276,7 @@ int snprintf(char *out, size_t n, const char *fmt, ...) {
   }
   *out_offset = '\0';
   va_end(valist);
-  return 0;
+  return len;
 }
 
 int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
