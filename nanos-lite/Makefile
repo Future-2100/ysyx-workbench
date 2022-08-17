@@ -4,8 +4,8 @@ HAS_NAVY = 1
 RAMDISK_FILE = build/ramdisk.img
 
 AUTO=en
-ARCH=native
-#ARCH=riscv64-nemu
+#ARCH=native
+ARCH=riscv64-nemu
 
 NAME = nanos-lite
 SRCS = $(shell find -L ./src/ -name "*.c" -o -name "*.cpp" -o -name "*.S")

@@ -22,15 +22,15 @@ static int dispinfo_fd = -1;
 uint32_t bool_time = 0 ;
 
 uint32_t NDL_GetTicks() {
-  struct timeval tv;
-  struct timezone tz;
+	struct timeval tv;
+	gettimeofday(&tv,NULL);
   if( bool_time == 0 ) {
-    gettimeofday(&tv,&tz);
-    bool_time = tv.tv_sec * 1000000 + tv.tv_usec;
+    gettimeofday(&tv,NULL);
+    bool_time = tv.tv_sec * 1000 + tv.tv_usec/1000;
   }
-  gettimeofday(&tv,&tz);
-  uint32_t now = tv.tv_sec * 1000000 + tv.tv_usec;
-  uint32_t milisec = (now - bool_time)/1000;
+  gettimeofday(&tv,NULL);
+  uint32_t now = tv.tv_sec * 1000 + tv.tv_usec/1000;
+  uint32_t milisec = (now - bool_time);
   return milisec;
 }
 

@@ -12,6 +12,7 @@
 }
 */
 
+size_t gettimeofday_time = 0;
 void naive_uload(PCB *pcb, const char *filename);
 
 void do_syscall(Context *c) {
@@ -99,7 +100,7 @@ void do_syscall(Context *c) {
                      uint64_t res = io_read(AM_TIMER_UPTIME).us;
                      tv->tv_sec = res / 1000000;
                      res = res % 1000000;
-                     tv->tv_usec = res / 1000;
+                     tv->tv_usec = res ;
                      c->GPRx = 0;
                      break;
 
