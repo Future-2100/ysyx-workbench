@@ -154,6 +154,9 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
       }
     }
   }
+  int canvas_w = s->w;
+  int canvas_h = s->h;
+  NDL_OpenCanvas( &canvas_w, &canvas_h );
   NDL_DrawRect( pixels, x, y, w, h );
   free(pixels);
 

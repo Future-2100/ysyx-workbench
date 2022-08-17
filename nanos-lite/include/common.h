@@ -8,6 +8,7 @@
 //#define TIME_SHARING
 //#define CONFIG_ETRACE
 //#define CONFIG_STRACE
+//#define CONFIG_FTRACE
 
 #include <am.h>
 #include <klib.h>

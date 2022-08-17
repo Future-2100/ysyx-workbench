@@ -23,9 +23,8 @@ void SDL_Delay(uint32_t ms) {
 
   uint32_t time_now = NDL_GetTicks();
   uint32_t time_next = NDL_GetTicks();
-  uint32_t time_delay = ms * 1000;
 
-  while( time_next - time_now <= ( time_delay ) ) {
+  while( time_next - time_now <=  ms  ) {
     time_next = NDL_GetTicks();
   }
   

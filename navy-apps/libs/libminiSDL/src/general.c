@@ -1,8 +1,12 @@
 #include <NDL.h>
 #include <assert.h>
 #include <stdio.h>
+extern uint8_t keyState[83];
 
 int SDL_Init(uint32_t flags) {
+  for(int i = 0 ; i < 83; i++) {
+    keyState[i] = 0;
+  }
   return NDL_Init(flags);
 }
 

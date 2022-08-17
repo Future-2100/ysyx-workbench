@@ -10,8 +10,6 @@ typedef concat(__GUEST_ISA__, _CPU_state) CPU_state;
 typedef concat(__GUEST_ISA__, _ISADecodeInfo) ISADecodeInfo;
 //riscv64_CPU_state
 
-<<<<<<< HEAD
-=======
 // csr register for riscv-64
 #define  MTVEC_ADDR 0x305
 #define   MEPC_ADDR 0x341
@@ -29,7 +27,6 @@ word_t isa_csrrw( int src1, vaddr_t csr_index );
 word_t isa_csrrs( int src1, vaddr_t csr_index );
 word_t isa_csrrc( int src1, vaddr_t csr_index );
 vaddr_t isa_mret();
->>>>>>> tracer-ysyx2204
 
 // monitor
 extern char isa_logo[];

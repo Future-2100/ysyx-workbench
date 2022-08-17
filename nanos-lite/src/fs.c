@@ -52,8 +52,8 @@ static Finfo file_table[] __attribute__((used)) = {
 
 int fb_num = 0 ;
 void init_fs() {
-      int width  = io_read(AM_GPU_CONFIG).width ;
-      int height = io_read(AM_GPU_CONFIG).height;
+      size_t width  = io_read(AM_GPU_CONFIG).width ;
+      size_t height = io_read(AM_GPU_CONFIG).height;
       file_table[FD_FB].size = width * height * 4 ;
       fb_num = sizeof(file_table)/ sizeof(file_table[0]) ;
 #ifdef CONFIG_FTRACE
@@ -78,8 +78,10 @@ int fs_open(const char *pathname, int flags, int mode){
 }
 
 size_t fs_read(int fd, void *buf, size_t len){
+#ifdef CONFIG_FTRACE
+  printf("read file : %s, fd = %d, buf = %p, len = %d, offset = %p\n",file_table[fd].name, fd, buf, len , file_table[fd].open_offset);
+#endif
   assert( fd >=0 && fd < fb_num );
-  assert( len >=0 );
   size_t ret = 0;
 
   if( file_table[fd].read == NULL ) {
@@ -98,8 +100,10 @@ size_t fs_read(int fd, void *buf, size_t len){
 }
 
 size_t fs_write(int fd, void *buf, size_t len){
+#ifdef CONFIG_FTRACE
+  printf("write file : %s, fd = %d, buf = %p, len = %d, offset = %p\n",file_table[fd].name, fd, buf, len , file_table[fd].open_offset);
+#endif
   assert( fd >=0 && fd < fb_num );
-  assert( len >=0 );
   size_t ret = 0;
 
   if( file_table[fd].write == NULL ) {
@@ -129,6 +133,17 @@ size_t fs_write(int fd, void *buf, size_t len){
 }
 
 size_t fs_lseek(int fd, size_t offset, int whence){
+#ifdef CONFIG_FTRACE
+  char seek_set[] = "SEEK_SET";
+  char seek_end[] = "SEEK_END";
+  char seek_cur[] = "SEEK_CUR";
+  char *seek_flag = NULL ;
+  if( whence==SEEK_SET ) seek_flag = seek_set;
+  else if ( whence==SEEK_END ) seek_flag = seek_end;
+  else if ( whence==SEEK_CUR ) seek_flag = seek_cur;
+
+  printf("lseek file : %s, fd = %d, offset = %p, whence = \"%s\"\n",file_table[fd].name, fd, offset, seek_flag);
+#endif
   if( fd > 2 ) {
     switch (whence) {
       case SEEK_SET :  file_table[fd].open_offset = offset;

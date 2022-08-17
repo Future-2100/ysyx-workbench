@@ -5,11 +5,7 @@ FILE *elf_fp = NULL;
 
 extern int func_num;
 
-<<<<<<< HEAD
-FUNCT function[0];
-=======
 FUNCT function[255];
->>>>>>> tracer-ysyx2204
 
 void init_elf(char *elf_file){
   if(elf_file == NULL) {

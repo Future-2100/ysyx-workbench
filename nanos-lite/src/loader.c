@@ -16,9 +16,26 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   int fd = fs_open(filename, 0, 0);
   assert(fd);
 
+  Elf_Ehdr header;
+  printf("Elf_Ehdr size : %d\n", sizeof(header));
+  fs_read(fd, &header, sizeof(Elf_Ehdr));
+  uint32_t *e_ident = (uint32_t *)(header.e_ident);
+  assert ( *e_ident == 0x464c457f );
+
+  Elf_Phdr elf_phdr;
+  for( int i = 0; i < header.e_phnum ; i++ ) {
+    fs_lseek(fd, header.e_phoff + header.e_phentsize*i, SEEK_SET);
+    fs_read (fd, &elf_phdr, sizeof(elf_phdr));
+    if( elf_phdr.p_type == PT_LOAD ) {
+      fs_lseek( fd, elf_phdr.p_offset, SEEK_SET );
+      fs_read(fd, (char *)elf_phdr.p_vaddr, elf_phdr.p_memsz);
+      memset( (char *)(elf_phdr.p_vaddr + elf_phdr.p_filesz), 0, elf_phdr.p_memsz - elf_phdr.p_filesz);
+     }
+  }
+
+  /*
   uint32_t ident;
   fs_read(fd, &ident, 4);
-  assert ( ident == 0x464c457f );
 
   Elf64_Off phoff;
   fs_lseek(fd, 32, SEEK_SET);
@@ -43,7 +60,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   //ramdisk_read( &entry, 24, 8 );
 
   Elf_Phdr elf_phdr;
-  for( int i = 0; i < phnum; i++ ) {
+  for( int i = 0; i < phnum ; i++ ) {
     fs_lseek(fd, phoff + phentsize*i, SEEK_SET);
     fs_read (fd, &elf_phdr.p_type  , 4);
     fs_read (fd, &elf_phdr.p_flags , 4);
@@ -67,12 +84,14 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       memset( (char *)(elf_phdr.p_vaddr + elf_phdr.p_filesz), 0, elf_phdr.p_memsz - elf_phdr.p_filesz);
      }
   }
+  */
 
       Log("program loaded successful" );
   //halt(0);
   //return 0 ;
   fs_close(fd);
-  return entry;
+  //return entry;
+  return header.e_entry;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {

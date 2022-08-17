@@ -9,6 +9,9 @@
 #define NAME(key) \
   [AM_KEY_##key] = #key,
 
+static size_t screen_w = 0;
+static size_t screen_h = 0;
+
 static const char *keyname[256] __attribute__((used)) = {
   [AM_KEY_NONE] = "NONE",
   AM_KEYS(NAME)
@@ -26,24 +29,16 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 size_t events_read(void *buf, size_t offset, size_t len) {
   //bool has_kbd = io_read(AM_INPUT_CONFIG).present;
 
-  char *dst = buf;
+  size_t ret = 0 ;
   AM_INPUT_KEYBRD_T ev ;
   ev = io_read(AM_INPUT_KEYBRD);
     if( ev.keycode == AM_KEY_NONE )  {
-      *dst = '\0';
-      return 0;
+      ret =  0;
     }
     else { 
-      if( ev.keydown ) {
-        strcpy( dst, "kd " );
-      }
-      else {
-        strcpy( dst, "ku " );
-      }
-      dst = dst + 3;
-      strcpy( dst, keyname[ev.keycode] );
-      return 1;
+      ret = snprintf(buf, len, "%s %s\n", ev.keydown?"kd":"ku", keyname[ev.keycode]);
     }
+    return ret;
 }
 
 
@@ -59,23 +54,29 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
 
-  int width  = io_read(AM_GPU_CONFIG).width ;
-  int height = io_read(AM_GPU_CONFIG).height;
 
   uint32_t *pixels = (uint32_t *)buf;
-  assert ( offset + len <= width*height );
-  
-  int start_x = offset % width;
-  int start_y = offset / width;
 
-  for(int i = 0; i < len; i++ ) {
-    assert( offset >= 0 && offset <= width*height );
+  size_t screen_offset = offset / 4u;
+  size_t times = len / 4u;
+  
+  size_t start_x = screen_offset % screen_w;
+  size_t start_y = screen_offset / screen_w;
+
+  for(int i = 0; i < times; i++ ) {
+    /*
+    if(!( offset >= 0 && offset <= width*height*4 )) {
+        printf("offset = %p \n", offset);
+        assert(0);
+    }
     assert( start_x <= width && start_x >=0 && start_y <= height && start_y >=0 );
+    */
+
     io_write(AM_GPU_FBDRAW, start_x, start_y, pixels, 1, 1, false);
-    offset ++ ;
     pixels ++ ;
-    start_x = offset % width;
-    start_y = offset / width;
+    screen_offset ++ ;
+    start_x = screen_offset % screen_w ;
+    start_y = screen_offset / screen_w ;
   }
 
   io_write(AM_GPU_FBDRAW, 0, 0, NULL, 0, 0, true );
@@ -89,6 +90,8 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
 void init_device() {
   Log("Initializing devices...");
   ioe_init();
+  screen_w  = (size_t)io_read(AM_GPU_CONFIG).width ;
+  screen_h  = (size_t)io_read(AM_GPU_CONFIG).height;
 }
 /*
 bool ioe_init() {
