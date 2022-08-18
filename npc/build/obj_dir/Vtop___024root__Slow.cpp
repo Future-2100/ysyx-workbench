@@ -50,6 +50,7 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___settle__TOP__1\n"); );
     // Variables
     CData/*3:0*/ top__DOT__mm_wlen;
+    CData/*0:0*/ top__DOT__idu_inst__DOT__decoder_inst__DOT__addi_en;
     CData/*0:0*/ top__DOT__forward_inst__DOT__ex_forward_1;
     CData/*0:0*/ top__DOT__forward_inst__DOT__ex_forward_2;
     CData/*0:0*/ top__DOT__forward_inst__DOT__mm_forward_1;
@@ -14648,7 +14649,7 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                                                         == 
                                                         (0x7fU 
                                                          & vlSelf->top__DOT__ifu_instr)));
-    vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__addi_en 
+    top__DOT__idu_inst__DOT__decoder_inst__DOT__addi_en 
         = (IData)((0x13U == (0x707fU & vlSelf->top__DOT__ifu_instr)));
     if ((1U & ((IData)(vlSelf->snxt_pc) ^ (IData)(vlSelf->top__DOT____Vtogcov__snxt_pc)))) {
         ++(vlSymsp->__Vcoverage[98]);
@@ -17612,11 +17613,11 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
         vlSelf->top__DOT__idu_inst__DOT____Vtogcov__load_en 
             = vlSelf->top__DOT__idu_inst__DOT__load_en;
     }
-    if (((IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__addi_en) 
+    if (((IData)(top__DOT__idu_inst__DOT__decoder_inst__DOT__addi_en) 
          ^ (IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT____Vtogcov__addi_en))) {
         ++(vlSymsp->__Vcoverage[1941]);
         vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT____Vtogcov__addi_en 
-            = vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__addi_en;
+            = top__DOT__idu_inst__DOT__decoder_inst__DOT__addi_en;
     }
     vlSelf->top__DOT__idu_inst__DOT__imm_en = (((((
                                                    (((((IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__lui_en) 
@@ -17626,20 +17627,20 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                                                     | (IData)(vlSelf->top__DOT__idu_inst__DOT__branch_en)) 
                                                    | (IData)(vlSelf->top__DOT__idu_inst__DOT__load_en)) 
                                                   | (IData)(vlSelf->top__DOT__idu_inst__DOT__store_en)) 
-                                                 | (IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__addi_en)) 
+                                                 | (IData)(top__DOT__idu_inst__DOT__decoder_inst__DOT__addi_en)) 
                                                 | (IData)(vlSelf->top__DOT__idu_inst__DOT__iop_en)) 
                                                | (IData)(vlSelf->top__DOT__idu_inst__DOT__iwop_en));
     vlSelf->top__DOT__idu_inst__DOT__add_rs1_en = (
                                                    ((((IData)(vlSelf->top__DOT__idu_inst__DOT__jalr_en) 
                                                       | (IData)(vlSelf->top__DOT__idu_inst__DOT__load_en)) 
                                                      | (IData)(vlSelf->top__DOT__idu_inst__DOT__store_en)) 
-                                                    | (IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__addi_en)) 
+                                                    | (IData)(top__DOT__idu_inst__DOT__decoder_inst__DOT__addi_en)) 
                                                    | (IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__add_en));
     vlSelf->top__DOT__idu_inst__DOT__I_type = (((((IData)(vlSelf->top__DOT__idu_inst__DOT__jalr_en) 
                                                   | (IData)(vlSelf->top__DOT__idu_inst__DOT__load_en)) 
                                                  | (IData)(vlSelf->top__DOT__idu_inst__DOT__iop_en)) 
                                                 | (IData)(vlSelf->top__DOT__idu_inst__DOT__iwop_en)) 
-                                               | (IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__addi_en));
+                                               | (IData)(top__DOT__idu_inst__DOT__decoder_inst__DOT__addi_en));
     if ((1U & ((IData)(top__DOT__mm_rdata) ^ (IData)(vlSelf->top__DOT____Vtogcov__mm_rdata)))) {
         ++(vlSymsp->__Vcoverage[1495]);
         vlSelf->top__DOT____Vtogcov__mm_rdata = ((0xfffffffffffffffeULL 
@@ -20664,7 +20665,7 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__idu_inst__DOT__wb_alu_en = ((
                                                    ((((((((IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__lui_en) 
                                                           | (IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__auipc_en)) 
-                                                         | (IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__addi_en)) 
+                                                         | (IData)(top__DOT__idu_inst__DOT__decoder_inst__DOT__addi_en)) 
                                                         | (IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__add_en)) 
                                                        | (IData)(vlSelf->top__DOT__idu_inst__DOT__iop_en)) 
                                                       | (IData)(vlSelf->top__DOT__idu_inst__DOT__rop_en)) 
@@ -20683,7 +20684,7 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                                             | (IData)(vlSelf->top__DOT__idu_inst__DOT__branch_en)) 
                                            | (IData)(vlSelf->top__DOT__idu_inst__DOT__load_en)) 
                                           | (IData)(vlSelf->top__DOT__idu_inst__DOT__store_en)) 
-                                         | (IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__addi_en)) 
+                                         | (IData)(top__DOT__idu_inst__DOT__decoder_inst__DOT__addi_en)) 
                                         | (IData)(vlSelf->top__DOT__idu_inst__DOT__iop_en)) 
                                        | (IData)(vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__add_en)) 
                                       | (IData)(vlSelf->top__DOT__idu_inst__DOT__rop_en)) 

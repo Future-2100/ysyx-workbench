@@ -183,7 +183,7 @@ always@(posedge clk) begin
       idu_wb_alu_en    <=  'b0 ; 
       idu_ebreak_en    <=  'b0 ; 
   end
-  else if ( flush_nop | hazard_nop ) begin
+  else if ( flush_nop | hazard_nop | !ifu_valid) begin
       idu_index_rs1    <=  'b0 ; 
       idu_index_rs2    <=  'b0 ; 
       idu_index_rd     <=  'b0 ; 
@@ -228,7 +228,7 @@ always@(posedge clk) begin
       idu_pc           <= ifu_pc            ; 
       idu_data_rs1     <= data_rs1          ; 
       idu_imm          <= imm               ; 
-      idu_data_rs2     <= data_rs2         ; 
+      idu_data_rs2     <= data_rs2          ; 
       idu_add_pc_en    <= add_pc_en         ; 
       idu_add_rs1_en   <= add_rs1_en        ; 
       idu_add_zero_en  <= add_zero_en       ; 
