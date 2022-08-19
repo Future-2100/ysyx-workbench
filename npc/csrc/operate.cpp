@@ -145,6 +145,7 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       //**************  AXI4-lite   *********************
       if( top->ARVALID == 1 ) {
         top->ARREADY = rand()%2;
+        printf("ARREADY = %d\n", top->ARREADY);
       }
 
       if( top->ARVALID == 1 && top->ARREADY == 1 && top->ARPORT == 4) {
