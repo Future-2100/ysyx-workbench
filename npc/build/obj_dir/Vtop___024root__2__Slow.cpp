@@ -2442,6 +2442,7 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     }
     vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__lui_en = 0;
     vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__auipc_en = 0;
+    vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__addi_en = 0;
     vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__add_en = 0;
     vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT____Vtogcov__opcode1_0___05F11 = 0;
     vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT____Vtogcov__opcode4_2___05F000 = 0;

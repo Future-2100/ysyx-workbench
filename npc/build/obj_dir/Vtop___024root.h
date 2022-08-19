@@ -107,6 +107,7 @@ VL_MODULE(Vtop___024root) {
         CData/*0:0*/ top__DOT__idu_inst__DOT__ebreak_en;
         CData/*0:0*/ top__DOT__idu_inst__DOT__decoder_inst__DOT__lui_en;
         CData/*0:0*/ top__DOT__idu_inst__DOT__decoder_inst__DOT__auipc_en;
+        CData/*0:0*/ top__DOT__idu_inst__DOT__decoder_inst__DOT__addi_en;
         CData/*0:0*/ top__DOT__idu_inst__DOT__decoder_inst__DOT__add_en;
         CData/*0:0*/ top__DOT__exu_inst__DOT__wb_spc_en;
         CData/*0:0*/ top__DOT__exu_inst__DOT__wb_en;
@@ -161,9 +162,9 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__riop_and;
         QData/*63:0*/ top__DOT__mmu_inst__DOT__load_data;
         QData/*63:0*/ top__DOT__mmu_inst__DOT__mmu_alu_result;
-        QData/*63:0*/ top__DOT__mmu_inst__DOT__mmu_snxt_pc;
     };
     struct {
+        QData/*63:0*/ top__DOT__mmu_inst__DOT__mmu_snxt_pc;
         QData/*63:0*/ top__DOT__mmu_inst__DOT__mmu_load_data;
         VlUnpacked<QData/*63:0*/, 32> top__DOT__idu_inst__DOT__regfile_inst__DOT__gpr;
     };
