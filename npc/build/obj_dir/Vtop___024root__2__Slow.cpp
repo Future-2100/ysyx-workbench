@@ -6378,8 +6378,8 @@ void Vtop___024root___configure_coverage(Vtop___024root* vlSelf, bool first) {
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1716]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/top.v", 300, 3, ".top", "v_line/top", "block", "300");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1717]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/top.v", 348, 3, ".top", "v_line/top", "block", "348-352");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1718]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/top.v", 356, 3, ".top", "v_line/top", "block", "356");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1719]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/top.v", 377, 3, ".top", "v_line/top", "block", "377-379");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1720]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/top.v", 384, 8, ".top", "v_line/top", "block", "384-385");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1719]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/top.v", 371, 3, ".top", "v_line/top", "block", "371-373");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1720]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/top.v", 377, 8, ".top", "v_line/top", "block", "377-378");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[0]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 2, 26, ".top.axi_interface_inst", "v_toggle/axi_interface", "clk", "");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 3, 26, ".top.axi_interface_inst", "v_toggle/axi_interface", "rstn", "");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[2]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 4, 27, ".top.axi_interface_inst", "v_toggle/axi_interface", "pc[0]", "");

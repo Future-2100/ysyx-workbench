@@ -367,17 +367,10 @@ forward  forward_inst(
     input byte wlen, 
     input byte wen
   );
-/*
-  import "DPI-C" function void axi_arready(
-    input  byte arvalid ,
-    output byte arready
-  );
-  */
 
   always@(*) begin
     vmem_read ( mm_addr, mm_rdata, {7'b0, mm_ren } );
     vmem_write( mm_addr, mm_wdata, {4'b0, mm_wlen}, {7'b0, mm_wen} );
-    //axi_arready( {7'b0, ARVALID} , {7'b0, ARREADY} );
   end
 
   export "DPI-C" task end_sim;

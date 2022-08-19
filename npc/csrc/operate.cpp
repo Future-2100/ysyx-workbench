@@ -62,7 +62,7 @@ void reset(int n) {
 
 void init_module() {
 
-  top->clk = 0;
+  top->clk = 1;
   reset(20);
   printf("pc = %lx\n",top->pc);
   printf(ANSI_FMT_GREEN "---------- module reseted ----------" ANSI_FMT_NONE "\n");
@@ -117,14 +117,6 @@ extern "C" void vmem_read(long long raddr, long long *rdata , char ren) {
   }
 }
 
-/*
-extern "C" void axi_arready(char arvalid, char *arready) {
-  if( top->clk && arvalid ) {
-    *arready = rand()%2;
-  }
-}
-*/
-
 
 bool fetch_req = false;
 uintptr_t fetch_addr = 0;
@@ -135,14 +127,17 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
 
       //top->instr = inst_fetch(&top->pc, 4);
       
+      if( top->ARVALID==1 ) {
+        top->ARREADY = rand()%2;
+      }
+
       top->clk = !top->clk;   //posedge clk
       top->eval();
       contextp->timeInc(10);
 
-
-      if( top->ARVALID==1 ) {
-        top->ARREADY = rand()%2;
-      }
+      top->clk = !top->clk;   //negedge clk 
+      top->eval();
+      contextp->timeInc(10);
 
       if( top->ARVALID == 1 && top->ARREADY == 1 && top->ARPORT == 4) {
         fetch_req  = true;
@@ -190,9 +185,6 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
         return ;
       }
 
-      top->clk = !top->clk;   //negedge clk 
-      top->eval();
-      contextp->timeInc(10);
 
 }
 
