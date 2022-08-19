@@ -131,16 +131,12 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       //top->instr = inst_fetch(&top->pc, 4);
       top->clk = !top->clk;   //posedge clk
       top->eval();
+      contextp->timeInc(10);
+
       if( top->ARVALID==1 ) {
         top->ARREADY = rand()%2;
         top->eval();
       }
-
-      contextp->timeInc(10);
-
-      top->clk = !top->clk;   //negedge clk 
-      top->eval();
-      contextp->timeInc(10);
 
       if( top->ARVALID == 1 && top->ARREADY == 1 && top->ARPORT == 4) {
         fetch_req  = true;
@@ -188,6 +184,9 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
         return ;
       }
 
+      top->clk = !top->clk;   //negedge clk 
+      top->eval();
+      contextp->timeInc(10);
 
 }
 
