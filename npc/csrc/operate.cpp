@@ -135,7 +135,7 @@ extern "C" void axi_port(char arvalid, char *arready, char arport, long long ara
     if( *arready==1 && arvalid==1 && arport==4 ) {
       fetch_req = true;
       fetch_addr = araddr;
-      printf("%ldus : fetch_req is true",contextp->time());
+      printf("%ldus : fetch_req is true\n",contextp->time());
     }
 
     if( fetch_req==true ) {
