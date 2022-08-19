@@ -126,7 +126,7 @@ endif
 all : default
 
 wave : 
-	gtkwave build/logs/top.vcd
+	gtkwave build/logs/top.vcd build/logs/axi.gtkw
 
 run : sim
 
