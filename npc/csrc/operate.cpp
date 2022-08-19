@@ -126,12 +126,11 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       *diff_en = false;
 
       //top->instr = inst_fetch(&top->pc, 4);
-      
+      top->clk = !top->clk;   //posedge clk
       if( top->ARVALID==1 ) {
         top->ARREADY = rand()%2;
       }
 
-      top->clk = !top->clk;   //posedge clk
       top->eval();
       contextp->timeInc(10);
 
