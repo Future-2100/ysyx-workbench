@@ -134,7 +134,6 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       //top->instr = inst_fetch(&top->pc, 4);
       //**************  AXI4-lite   *********************
       
-      top->eval();
       if( top->ARVALID == 1 ) {
         top->ARREADY = rand()%2;
       }
