@@ -13,7 +13,7 @@ extern "C" {
 
 
     // DPI EXPORTS
-    // DPI export at /home/grand/ysyx-workbench/npc/vsrc/pipeline/top.v:400:8
+    // DPI export at /home/grand/ysyx-workbench/npc/vsrc/pipeline/top.v:402:8
     extern void end_sim();
 
     // DPI IMPORTS
