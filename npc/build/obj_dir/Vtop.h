@@ -30,6 +30,7 @@ class Vtop VL_NOT_FINAL {
     VL_IN8(&rstn,0,0);
     VL_OUT64(&pc,63,0);
     VL_IN(&instr,31,0);
+    VL_IN8(&instr_valid,0,0);
     VL_OUT64(&snxt_pc,63,0);
     VL_OUT64(&dnxt_pc,63,0);
     VL_OUT8(&this_ebreak,0,0);

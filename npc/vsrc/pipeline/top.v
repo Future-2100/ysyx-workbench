@@ -1,9 +1,10 @@
 module top(
-  input wire    clk   ,
-  input wire    rstn  ,
+  input wire              clk       ,
+  input wire              rstn      ,
 
-  output  wire  [63:0]    pc        ,
-  input   wire  [31:0]    instr     ,
+  output  wire  [63:0]    pc            ,
+  input   wire  [31:0]    instr         ,
+  input   wire            instr_valid   ,  
   output  wire  [63:0]    snxt_pc   ,
   output  wire  [63:0]    dnxt_pc   ,
 
@@ -31,6 +32,7 @@ ifu ifu_inst(
   .dnxt_pc     ( dnxt_pc      )   ,
   .pc          ( pc           )   ,
   .instr       ( instr        )   ,
+  .instr_valid ( instr_valid  )   ,
   .ifu_pc      ( ifu_pc       )   ,
   .ifu_instr   ( ifu_instr    )   ,
   .ifu_snxt_pc ( ifu_snxt_pc  )   ,

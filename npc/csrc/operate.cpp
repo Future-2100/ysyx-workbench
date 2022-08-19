@@ -62,6 +62,7 @@ void reset(int n) {
   //top->ifu_ARREADY = 0;
   while( n-- > 0) single_cycle();
   top->rstn = 1;
+  top->instr_valid = 1;
   top->clk = !top->clk;
   top->eval();
   contextp->timeInc(10);
@@ -175,7 +176,7 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       if( top->this_valid ) {
         *diff_en = true ;
       s->snpc = top->this_pc + 4;
-      s->dnpc = top->dnxt_pc;
+      //s->dnpc = top->dnxt_pc;
       s->pc   = top->this_pc;
       s->isa.inst.val = top->this_instr;
         for (int i=0; i<32; i++) {
