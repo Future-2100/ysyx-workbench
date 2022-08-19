@@ -133,6 +133,8 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       top->eval();
       contextp->timeInc(10);
 
+      top->ARREADY = 0;
+
       if( top->ARVALID==1 ) {
         top->ARREADY = rand()%2;
         printf("arready = %d\n", top->ARREADY);
@@ -187,7 +189,6 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       top->eval();
       contextp->timeInc(10);
 
-      //top->ARREADY = 0;
 
 }
 
