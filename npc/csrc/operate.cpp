@@ -58,6 +58,9 @@ void reset(int n) {
   //top->ifu_ARREADY = 0;
   while( n-- > 0) single_cycle();
   top->rstn = 1;
+  top->clk = !top->clk;
+  top->eval();
+  contextp->timeInc(10);
 } 
 
 void init_module() {
