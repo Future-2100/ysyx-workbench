@@ -134,7 +134,9 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       contextp->timeInc(10);
 
       if( top->ARVALID==1 ) {
-        top->ARREADY = rand()%2;
+        int arready = rand()%2;
+        top->ARREADY = arready;
+        printf("arready = %d\n", arready);
       }
 
       if( top->ARVALID == 1 && top->ARREADY == 1 && top->ARPORT == 4) {

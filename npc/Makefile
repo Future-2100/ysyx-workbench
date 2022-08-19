@@ -1,4 +1,6 @@
 TOPNAME = top
+AUTO=en
+WAVE=en
 
 ############################## Verilator Check #####################################
 
@@ -92,6 +94,10 @@ VERILATOR_OUTFLAGS += --exe
 # Specify the name for the executable built if using --exe. Default to the --prefix if not specified
 VERILATOR_OUTFLAGS += -o $(abspath $(BIN))
 
+
+ifeq ($(AUTO),en)
+NPC_FLAGS += -b
+endif
 
 
 $(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
