@@ -47,11 +47,7 @@ void init_verilator(int argc, char** argv, char** env) {
 
 static void single_cycle() {
 
-  top->clk = 0; 
-  top->eval(); 
-  contextp->timeInc(10);
-
-  top->clk = 1; 
+  top->clk = !top->clk ; 
   top->eval(); 
   contextp->timeInc(10);
 
@@ -69,7 +65,8 @@ void reset(int n) {
 
 void init_module() {
 
-  reset(10);
+  top->clk = 0;
+  reset(20);
   printf("pc = %lx\n",top->pc);
   printf(ANSI_FMT_GREEN "---------- module reseted ----------" ANSI_FMT_NONE "\n");
   //printf("pc = %lx\n",top->pc);
@@ -143,18 +140,12 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       
       top->clk = !top->clk;   //posedge clk
       top->eval();
+      contextp->timeInc(10);
+
+
       if( top->ARVALID==1 ) {
         top->ARREADY = rand()%2;
       }
-      top->eval();
-      contextp->timeInc(10);
-
-      top->clk = !top->clk;   //negedge clk 
-      top->eval();
-      contextp->timeInc(10);
-
-
-      //**************  AXI4-lite   *********************
 
       if( top->ARVALID == 1 && top->ARREADY == 1 && top->ARPORT == 4) {
         fetch_req  = true;
@@ -201,6 +192,11 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
         printf(ANSI_FMT_NONE "\n");
         return ;
       }
+
+      top->clk = !top->clk;   //negedge clk 
+      top->eval();
+      contextp->timeInc(10);
+
 }
 
 
