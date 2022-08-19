@@ -124,27 +124,13 @@ extern "C" void vmem_read(long long raddr, long long *rdata , char ren) {
 }
 
 /*
-extern "C" void if_axi() {
-  if( top->clk && ARVALID ) {
-      *ARREADY = rand()%2;
-  }
-
-  if( top->ARVALID==1 && top->ARREADY==1 && ARPORT==4 ) {
-    int ready == rand()%2;
-    if(ready==1) {
-      *ARREADY = 0;
-      *RVALID  = 1;
-      *RDATA   = inst_fetch(ARADDR,4);
-      *RRESP   = 0;
-      if( RREADY==1 )
-        *ARREADY = 1;
-    }
-    else {
-      *ARREADY = 0;
-    }
+extern "C" void axi_arready(char arvalid, char *arready) {
+  if( top->clk && arvalid ) {
+    *arready = rand()%2;
   }
 }
 */
+
 
 bool fetch_req = false;
 uintptr_t fetch_addr = 0;
@@ -153,14 +139,14 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
 
       *diff_en = false;
 
-      top->clk = !top->clk;   //posedge clk
       //top->instr = inst_fetch(&top->pc, 4);
-      //**************  AXI4-lite   *********************
-      if( top->ARVALID == 1 ) {
+      
+      top->clk = !top->clk;   //posedge clk
+      top->eval();
+      if( top->ARVALID==1 ) {
         top->ARREADY = rand()%2;
       }
-      
-      top->eval();
+
       contextp->timeInc(10);
 
       top->clk = !top->clk;   //negedge clk 
