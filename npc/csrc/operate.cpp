@@ -159,6 +159,10 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       top->eval();
       contextp->timeInc(10);
 
+      top->clk = !top->clk;   //negedge clk 
+      top->eval();
+      contextp->timeInc(10);
+
       if( top->this_valid ) {
         *diff_en = true ;
       s->snpc = top->this_pc + 4;
@@ -178,10 +182,6 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
         printf(ANSI_FMT_NONE "\n");
         return ;
       }
-
-      top->clk = !top->clk;   //negedge clk 
-      top->eval();
-      contextp->timeInc(10);
 
 }
 
