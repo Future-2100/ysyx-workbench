@@ -146,7 +146,7 @@ always@(posedge clk) begin
     instr_valid  <= 'b0  ;
   end 
   else begin
-    case ( cstate ) /* verilator lint_off CASEINCOMPLETE */
+    case ( cstate ) 
       IDLE : begin 
                if( posedge_rstn ) begin
                    ARVALID     <=  1'b1          ;  

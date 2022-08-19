@@ -130,13 +130,10 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
 
       *diff_en = false;
 
-      top->clk  = !top->clk;   //posedge clk
       //top->instr = inst_fetch(&top->pc, 4);
       //**************  AXI4-lite   *********************
       
-      if( top->ARVALID == 1 ) {
-        top->ARREADY = rand()%2;
-      }
+      top->clk = !top->clk;   //posedge clk
       top->eval();
       contextp->timeInc(10);
 
@@ -146,6 +143,10 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
 
 
       //**************  AXI4-lite   *********************
+      if( top->ARVALID == 1 ) {
+        top->ARREADY = rand()%2;
+      }
+
       if( top->ARVALID == 1 && top->ARREADY == 1 && top->ARPORT == 4) {
         fetch_req  = true;
         fetch_addr = top->ARADDR ;
