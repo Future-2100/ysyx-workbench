@@ -134,9 +134,8 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       contextp->timeInc(10);
 
       if( top->ARVALID==1 ) {
-        int arready = rand()%2;
-        top->ARREADY = arready;
-        printf("arready = %d\n", arready);
+        top->ARREADY = rand()%2;
+        printf("arready = %d\n", top->ARREADY);
       }
 
       if( top->ARVALID == 1 && top->ARREADY == 1 && top->ARPORT == 4) {
@@ -162,7 +161,6 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       else {
           top->RVALID = 0;
       }
-      top->ARREADY = 0;
       
 
       if( top->this_valid ) {
@@ -188,6 +186,8 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       top->clk = !top->clk;   //negedge clk 
       top->eval();
       contextp->timeInc(10);
+
+      //top->ARREADY = 0;
 
 }
 
