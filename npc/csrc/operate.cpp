@@ -147,7 +147,7 @@ extern "C" void axi_port(char arvalid, char *arready, char arport, long long ara
     else *rvalid = 0;
   }
 
-  if( !top->clk ) {
+  else if( !top->clk ) {
     printf("in !top->clk\n");
     if( *arready==1 && arvalid==1 && arport==4 ) {
       fetch_req = true;
@@ -155,6 +155,7 @@ extern "C" void axi_port(char arvalid, char *arready, char arport, long long ara
       printf("%ldus : fetch_req is true\n",contextp->time());
     }
   }
+
 }
 
 
