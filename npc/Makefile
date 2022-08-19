@@ -1,6 +1,6 @@
 TOPNAME = top
 AUTO=en
-WAVE=en
+#WAVE=en
 
 ############################## Verilator Check #####################################
 
