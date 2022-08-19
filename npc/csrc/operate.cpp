@@ -62,7 +62,6 @@ void reset(int n) {
   //top->ifu_ARREADY = 0;
   while( n-- > 0) single_cycle();
   top->rstn = 1;
-  top->instr_valid = 0;
   top->clk = !top->clk;
   top->eval();
   contextp->timeInc(10);
@@ -132,13 +131,12 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       *diff_en = false;
 
       top->clk  = !top->clk;   //posedge clk
-      top->instr = inst_fetch(&top->pc, 4);
-      top->instr_valid = ((unsigned)rand())%2;
-      /**************  AXI4-lite   *********************
+      //top->instr = inst_fetch(&top->pc, 4);
+      //**************  AXI4-lite   *********************
       if( top->ARVALID == 1 ) {
         top->ARREADY = rand()%2;
       }
-      */
+      
       top->eval();
       contextp->timeInc(10);
 
@@ -147,7 +145,7 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       contextp->timeInc(10);
 
 
-      /**************  AXI4-lite   *********************
+      //**************  AXI4-lite   *********************
       if( top->ARVALID == 1 && top->ARREADY == 1 && top->ARPORT == 4) {
         fetch_req  = true;
         fetch_addr = top->ARADDR ;
@@ -172,7 +170,7 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
           top->RVALID = 0;
       }
       top->ARREADY = 0;
-      */
+      
 
       if( top->this_valid ) {
         *diff_en = true ;

@@ -14,14 +14,24 @@ Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     , clk{vlSymsp->TOP.clk}
     , rstn{vlSymsp->TOP.rstn}
     , pc{vlSymsp->TOP.pc}
-    , instr{vlSymsp->TOP.instr}
-    , instr_valid{vlSymsp->TOP.instr_valid}
     , snxt_pc{vlSymsp->TOP.snxt_pc}
     , dnxt_pc{vlSymsp->TOP.dnxt_pc}
     , this_ebreak{vlSymsp->TOP.this_ebreak}
     , this_valid{vlSymsp->TOP.this_valid}
     , this_pc{vlSymsp->TOP.this_pc}
     , this_instr{vlSymsp->TOP.this_instr}
+    , ARID{vlSymsp->TOP.ARID}
+    , ARADDR{vlSymsp->TOP.ARADDR}
+    , ARLEN{vlSymsp->TOP.ARLEN}
+    , ARSIZE{vlSymsp->TOP.ARSIZE}
+    , ARBURST{vlSymsp->TOP.ARBURST}
+    , ARPORT{vlSymsp->TOP.ARPORT}
+    , ARVALID{vlSymsp->TOP.ARVALID}
+    , ARREADY{vlSymsp->TOP.ARREADY}
+    , RDATA{vlSymsp->TOP.RDATA}
+    , RRESP{vlSymsp->TOP.RRESP}
+    , RVALID{vlSymsp->TOP.RVALID}
+    , RREADY{vlSymsp->TOP.RREADY}
     , rootp{&(vlSymsp->TOP)}
 {
 }
