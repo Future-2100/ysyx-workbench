@@ -177,7 +177,7 @@ always@(posedge clk) begin
                   instr        <=  RDATA[31:0]  ;
                   instr_valid  <= 1'b1          ;
                end 
-               else if (! ARREADY) begin
+               else if ( !ARREADY) begin
                  //hold the ARdata
                    ARID        <=  ARID       ; 
                    ARADDR      <=  ARADDR     ;  
@@ -190,7 +190,7 @@ always@(posedge clk) begin
                   instr        <= 32'b0       ;
                   instr_valid  <=  1'b0       ;
                end
-               else if (  ARREADY && ! RVALID ) begin
+               else if (  ARREADY && !RVALID ) begin
                  // cancle the ARrequire 
                  // and waiting for instruction come back
                    ARID        <= 'b0    ; 
