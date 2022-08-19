@@ -1,17 +1,54 @@
 module top(
-  input wire    clk   ,
-  input wire    rstn  ,
+  input   wire              clk       ,
+  input   wire              rstn      ,
 
-  output  wire  [63:0]    pc        ,
-  input   wire  [31:0]    instr     ,
-  output  wire  [63:0]    snxt_pc   ,
-  output  wire  [63:0]    dnxt_pc   ,
+  output  wire  [63:0]    pc          ,
+  output  wire  [63:0]    snxt_pc     ,
+  output  wire  [63:0]    dnxt_pc     ,
 
   output  reg             this_ebreak ,
-  output  reg             this_valid,
-  output  reg   [63:0]    this_pc   ,
-  output  reg   [31:0]    this_instr
+  output  reg             this_valid  ,
+  output  reg   [63:0]    this_pc     ,
+  output  reg   [31:0]    this_instr  ,
+
+  output  wire    [3:0]   ARID        ,
+  output  wire    [63:0]  ARADDR      ,
+  output  wire    [7:0]   ARLEN       ,
+  output  wire    [2:0]   ARSIZE      ,
+  output  wire    [1:0]   ARBURST     ,
+  output  wire    [2:0]   ARPORT      ,
+  output  wire            ARVALID     ,
+  input   wire            ARREADY     ,
+
+  input   wire    [63:0]  RDATA       ,
+  input   wire    [1:0]   RRESP       ,
+  input   wire            RVALID      ,
+  output  wire            RREADY      
 );
+
+  wire  [31:0]    instr       ;
+  wire            instr_valid ;  
+
+axi_interface  axi_interface_inst(
+	.clk         ( clk          )   ,
+	.rstn        ( rstn         )   ,
+	.pc          ( pc           )   ,
+	.instr       ( instr        )   ,
+	.instr_valid ( instr_valid  )   ,
+  .ARID        ( ARID     )   ,
+  .ARADDR      ( ARADDR   )   ,
+  .ARLEN       ( ARLEN    )   ,
+  .ARSIZE      ( ARSIZE   )   ,
+  .ARBURST     ( ARBURST  )   ,
+  .ARPORT      ( ARPORT   )   ,
+  .ARVALID     ( ARVALID  )   ,
+  .ARREADY     ( ARREADY  )   ,
+  .RDATA       ( RDATA    )   ,
+  .RRESP       ( RRESP    )   ,
+  .RVALID      ( RVALID   )   ,
+  .RREADY      ( RREADY   )   
+);
+
 
 wire            jump_en          ; 
 wire  [63:0]    jump_pc          ; 
@@ -31,6 +68,7 @@ ifu ifu_inst(
   .dnxt_pc     ( dnxt_pc      )   ,
   .pc          ( pc           )   ,
   .instr       ( instr        )   ,
+  .instr_valid ( instr_valid  )   ,
   .ifu_pc      ( ifu_pc       )   ,
   .ifu_instr   ( ifu_instr    )   ,
   .ifu_snxt_pc ( ifu_snxt_pc  )   ,
@@ -56,7 +94,7 @@ wire    [63:0]    idu_snxt_pc      ;
 wire    [63:0]    idu_pc           ; 
 wire    [63:0]    idu_data_rs1     ; 
 wire    [63:0]    idu_imm          ; 
-wire    [63:0]    idu_data_rs2    ; 
+wire    [63:0]    idu_data_rs2     ; 
 wire              idu_add_pc_en    ; 
 wire              idu_add_rs1_en   ; 
 wire              idu_add_zero_en  ; 

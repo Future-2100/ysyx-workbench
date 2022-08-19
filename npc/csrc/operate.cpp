@@ -131,12 +131,12 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       *diff_en = false;
 
       top->clk  = !top->clk;   //posedge clk
-      top->instr = inst_fetch(&top->pc, 4);
-      /**************  AXI4-lite   *********************
-      if( top->ifu_ARVALID == 1 ) {
-        top->ifu_ARREADY = rand()%2;
+      //top->instr = inst_fetch(&top->pc, 4);
+      //**************  AXI4-lite   *********************
+      if( top->ARVALID == 1 ) {
+        top->ARREADY = rand()%2;
       }
-      */
+      
       top->eval();
       contextp->timeInc(10);
 
@@ -145,37 +145,37 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       contextp->timeInc(10);
 
 
-      /**************  AXI4-lite   *********************
-      if( top->ifu_ARVALID == 1 && top->ifu_ARREADY == 1 && top->ifu_ARPORT == 4) {
+      //**************  AXI4-lite   *********************
+      if( top->ARVALID == 1 && top->ARREADY == 1 && top->ARPORT == 4) {
         fetch_req  = true;
-        fetch_addr = top->ifu_ARADDR ;
+        fetch_addr = top->ARADDR ;
       }
       if( fetch_req == true ) {
         int ready = rand()%2;
         if(ready == 1) {
           fetch_req = false;
-          top->ifu_ARREADY = 0;
-          top->ifu_RVALID  = 1 ;
-          top->ifu_RDATA   = inst_fetch(&fetch_addr,4);
-          top->ifu_RRESP   = 0 ;
-          if( top->ifu_RREADY==1 ) {
-            top->ifu_ARREADY = 1;
+          top->ARREADY = 0;
+          top->RVALID  = 1 ;
+          top->RDATA   = inst_fetch(&fetch_addr,4);
+          top->RRESP   = 0 ;
+          if( top->RREADY==1 ) {
+            top->ARREADY = 1;
           }
         }
         else {
-          top->ifu_RVALID = 0;
+          top->RVALID = 0;
         }
       }
       else {
-          top->ifu_RVALID = 0;
+          top->RVALID = 0;
       }
-      top->ifu_ARREADY = 0;
-      */
+      top->ARREADY = 0;
+      
 
       if( top->this_valid ) {
         *diff_en = true ;
       s->snpc = top->this_pc + 4;
-      s->dnpc = top->dnxt_pc;
+      //s->dnpc = top->dnxt_pc;
       s->pc   = top->this_pc;
       s->isa.inst.val = top->this_instr;
         for (int i=0; i<32; i++) {
@@ -183,7 +183,7 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
         }
       }
 
-      if(top->this_ebreak)  { 
+      if(top->this_ebreak || contextp->time() >= 1000u)  { 
         npc_trap(NPC_END , top->this_pc, cpu_gpr[10]);
         for(int i=0; i<30; i++) printf(ANSI_FMT_BLUE "-");
         printf(" program end ");
