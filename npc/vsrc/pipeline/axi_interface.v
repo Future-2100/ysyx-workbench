@@ -187,8 +187,8 @@ always@(posedge clk) begin
                    ARPORT      <=  ARPORT     ;
                    ARVALID     <=  ARVALID    ;  
                    RREADY      <=   1'b0      ;
-                  instr        <= 32'b0       ;
-                  instr_valid  <=  1'b0       ;
+                  instr        <=  32'b0      ;
+                  instr_valid  <=   1'b0      ;
                end
                else if (  ARREADY && !RVALID ) begin
                  // cancle the ARrequire 

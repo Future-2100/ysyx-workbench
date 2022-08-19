@@ -133,12 +133,14 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       top->clk  = !top->clk;   //posedge clk
       //top->instr = inst_fetch(&top->pc, 4);
       //**************  AXI4-lite   *********************
+      
+      top->eval();
+      contextp->timeInc(1);
       if( top->ARVALID == 1 ) {
         top->ARREADY = rand()%2;
       }
-      
       top->eval();
-      contextp->timeInc(10);
+      contextp->timeInc(9);
 
       top->clk = !top->clk;   //negedge clk 
       top->eval();
