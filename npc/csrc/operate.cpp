@@ -120,9 +120,35 @@ extern "C" void vmem_read(long long raddr, long long *rdata , char ren) {
   }
 }
 
-
 bool fetch_req = false;
 uintptr_t fetch_addr = 0;
+
+extern "C" void axi_port(char arvalid, char *arready, char arport, long long araddr, char *rvalid, char rready, char *rresp, long long *rdata) {
+  if( top->clk ) {
+    if( arvalid ) *arready = rand()%2;
+    else          *arready =        0;
+
+    if( *arready==1 && arvalid==1 && arport==4 ) {
+      fetch_req = true;
+      fetch_addr = araddr;
+    }
+    if( fetch_req==true ) {
+      int ready = rand()%2;
+      if( ready==1 ) {
+        fetch_req=false;
+        *arready = 0;
+        *rvalid  = 1;
+        *rdata   = inst_fetch(&fetch_addr,4);
+        *rresp   = 0;
+        if( rready==1 )  *arready = 1;
+      }
+      else *rvalid = 0;
+    }
+    else *rvalid = 0;
+  }
+}
+
+
 
 void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
 
@@ -132,37 +158,6 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       top->clk = !top->clk;   //posedge clk
       top->eval();
       contextp->timeInc(10);
-
-      top->ARREADY = 0;
-
-      if( top->ARVALID==1 ) {
-        top->ARREADY = rand()%2;
-      }
-
-      if( top->ARVALID == 1 && top->ARREADY == 1 && top->ARPORT == 4) {
-        fetch_req  = true;
-        fetch_addr = top->ARADDR ;
-      }
-      if( fetch_req == true ) {
-        int ready = rand()%2;
-        if(ready == 1) {
-          fetch_req = false;
-          top->ARREADY = 0;
-          top->RVALID  = 1 ;
-          top->RDATA   = inst_fetch(&fetch_addr,4);
-          top->RRESP   = 0 ;
-          if( top->RREADY==1 ) {
-            top->ARREADY = 1;
-          }
-        }
-        else {
-          top->RVALID = 0;
-        }
-      }
-      else {
-          top->RVALID = 0;
-      }
-      
 
       if( top->this_valid ) {
         *diff_en = true ;
@@ -187,7 +182,6 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       top->clk = !top->clk;   //negedge clk 
       top->eval();
       contextp->timeInc(10);
-
 
 }
 

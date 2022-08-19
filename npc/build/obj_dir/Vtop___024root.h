@@ -24,27 +24,25 @@ VL_MODULE(Vtop___024root) {
     VL_IN8(rstn,0,0);
     VL_OUT8(this_ebreak,0,0);
     VL_OUT8(this_valid,0,0);
-    VL_OUT8(ARID,3,0);
-    VL_OUT8(ARLEN,7,0);
-    VL_OUT8(ARSIZE,2,0);
-    VL_OUT8(ARBURST,1,0);
-    VL_OUT8(ARPORT,2,0);
-    VL_OUT8(ARVALID,0,0);
-    VL_IN8(ARREADY,0,0);
-    VL_IN8(RRESP,1,0);
-    VL_IN8(RVALID,0,0);
-    VL_OUT8(RREADY,0,0);
     VL_OUT(this_instr,31,0);
     VL_OUT64(pc,63,0);
     VL_OUT64(snxt_pc,63,0);
     VL_OUT64(dnxt_pc,63,0);
     VL_OUT64(this_pc,63,0);
-    VL_OUT64(ARADDR,63,0);
-    VL_IN64(RDATA,63,0);
 
     // LOCAL SIGNALS
     // Anonymous structures to workaround compiler member-count bugs
     struct {
+        CData/*3:0*/ top__DOT__ARID;
+        CData/*7:0*/ top__DOT__ARLEN;
+        CData/*2:0*/ top__DOT__ARSIZE;
+        CData/*1:0*/ top__DOT__ARBURST;
+        CData/*2:0*/ top__DOT__ARPORT;
+        CData/*0:0*/ top__DOT__ARVALID;
+        CData/*0:0*/ top__DOT__ARREADY;
+        CData/*1:0*/ top__DOT__RRESP;
+        CData/*0:0*/ top__DOT__RVALID;
+        CData/*0:0*/ top__DOT__RREADY;
         CData/*0:0*/ top__DOT__instr_valid;
         CData/*0:0*/ top__DOT__jump_en;
         CData/*0:0*/ top__DOT__ifu_valid;
@@ -99,6 +97,8 @@ VL_MODULE(Vtop___024root) {
         CData/*0:0*/ top__DOT__axi_interface_inst__DOT__delay_rstn;
         CData/*0:0*/ top__DOT__axi_interface_inst__DOT__posedge_rstn;
         CData/*1:0*/ top__DOT__axi_interface_inst__DOT__nstate;
+    };
+    struct {
         CData/*1:0*/ top__DOT__axi_interface_inst__DOT__cstate;
         CData/*0:0*/ top__DOT__idu_inst__DOT__wbfwd_en1;
         CData/*0:0*/ top__DOT__idu_inst__DOT__wbfwd_en2;
@@ -109,8 +109,6 @@ VL_MODULE(Vtop___024root) {
         CData/*0:0*/ top__DOT__idu_inst__DOT__imm_en;
         CData/*0:0*/ top__DOT__idu_inst__DOT__rs2_en;
         CData/*0:0*/ top__DOT__idu_inst__DOT__addop_en;
-    };
-    struct {
         CData/*0:0*/ top__DOT__idu_inst__DOT__iop_en;
         CData/*0:0*/ top__DOT__idu_inst__DOT__iwop_en;
         CData/*0:0*/ top__DOT__idu_inst__DOT__rop_en;
@@ -149,6 +147,7 @@ VL_MODULE(Vtop___024root) {
         IData/*31:0*/ top__DOT__mmu_instr;
         IData/*31:0*/ top__DOT__idu_inst__DOT__regfile_inst__DOT__i;
         VlWide<4>/*127:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__mul_ss;
+        VlWide<4>/*127:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__mul_uu;
         VlWide<4>/*127:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__mul_su;
         IData/*31:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__wm_mulw;
         IData/*31:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__wm_divw;
@@ -162,6 +161,10 @@ VL_MODULE(Vtop___024root) {
         IData/*31:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__riwop_srl;
         IData/*31:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__riwop_sra;
         IData/*31:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__riwop_result;
+        QData/*63:0*/ top__DOT__ARADDR;
+        QData/*63:0*/ top__DOT__RDATA;
+    };
+    struct {
         QData/*63:0*/ top__DOT__ifu_pc;
         QData/*63:0*/ top__DOT__ifu_snxt_pc;
         QData/*63:0*/ top__DOT__mmu_wb_data;
@@ -175,8 +178,6 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT__exu_snxt_pc;
         QData/*63:0*/ top__DOT__exu_alu_result;
         QData/*63:0*/ top__DOT__exu_data_rs2;
-    };
-    struct {
         QData/*63:0*/ top__DOT__exu_pc;
         QData/*63:0*/ top__DOT__mmu_pc;
         QData/*63:0*/ top__DOT__mm_rdata;
@@ -194,6 +195,7 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__m_div;
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__m_divu;
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__m_rem;
+        QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__m_remu;
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__m_result;
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__riop_sub;
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT__riop_sll;
@@ -361,6 +363,10 @@ VL_MODULE(Vtop___024root) {
         CData/*0:0*/ top__DOT__forward_inst__DOT____Vtogcov__ex_forward_2;
         CData/*0:0*/ top__DOT__forward_inst__DOT____Vtogcov__mm_forward_1;
         CData/*0:0*/ top__DOT__forward_inst__DOT____Vtogcov__mm_forward_2;
+        CData/*7:0*/ __Vtask_top__DOT__axi_port__3__arready;
+        CData/*7:0*/ __Vtask_top__DOT__axi_port__3__rvalid;
+        CData/*7:0*/ __Vtask_top__DOT__axi_port__3__rresp;
+        CData/*0:0*/ __Vdly__top__DOT__ifu_valid;
         CData/*0:0*/ __Vclklast__TOP__clk;
         IData/*31:0*/ top__DOT____Vtogcov__this_instr;
         IData/*31:0*/ top__DOT____Vtogcov__ifu_instr;
@@ -369,6 +375,7 @@ VL_MODULE(Vtop___024root) {
         IData/*31:0*/ top__DOT____Vtogcov__mmu_instr;
         VlWide<4>/*127:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__mul_ss;
         VlWide<4>/*127:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__mul_uu;
+        VlWide<4>/*127:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__mul_su;
         IData/*31:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__wm_mulw;
         IData/*31:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__wm_divw;
         IData/*31:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__wm_divuw;
@@ -381,6 +388,7 @@ VL_MODULE(Vtop___024root) {
         IData/*31:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riwop_srl;
         IData/*31:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riwop_sra;
         IData/*31:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riwop_result;
+        IData/*31:0*/ __Vdly__top__DOT__ifu_instr;
         QData/*63:0*/ top__DOT____Vtogcov__pc;
         QData/*63:0*/ top__DOT____Vtogcov__snxt_pc;
         QData/*63:0*/ top__DOT____Vtogcov__dnxt_pc;
@@ -405,20 +413,21 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT____Vtogcov__mm_rdata;
         QData/*63:0*/ top__DOT__idu_inst__DOT____Vtogcov__gpr_data_rs1;
         QData/*63:0*/ top__DOT__idu_inst__DOT____Vtogcov__gpr_data_rs2;
+    };
+    struct {
         QData/*63:0*/ top__DOT__idu_inst__DOT____Vtogcov__data_rs1;
         QData/*63:0*/ top__DOT__idu_inst__DOT____Vtogcov__data_rs2;
         QData/*63:0*/ top__DOT__idu_inst__DOT____Vtogcov__imm;
         QData/*63:0*/ top__DOT__exu_inst__DOT____Vtogcov__data_rs1;
         QData/*63:0*/ top__DOT__exu_inst__DOT____Vtogcov__data_rs2;
         QData/*63:0*/ top__DOT__exu_inst__DOT____Vtogcov__alu_result;
-    };
-    struct {
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__opdata_1;
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__opdata_2;
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__sum;
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__m_div;
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__m_divu;
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__m_rem;
+        QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__m_remu;
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__m_result;
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_sub;
         QData/*63:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_sll;
@@ -435,7 +444,9 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT__mmu_inst__DOT____Vtogcov__mmu_snxt_pc;
         QData/*63:0*/ top__DOT__mmu_inst__DOT____Vtogcov__mmu_load_data;
         QData/*63:0*/ __Vtask_top__DOT__vmem_read__1__rdata;
-        VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
+        QData/*63:0*/ __Vtask_top__DOT__axi_port__3__rdata;
+        QData/*63:0*/ __Vdly__top__DOT__ifu_pc;
+        VlUnpacked<CData/*0:0*/, 2> __Vm_traceActivity;
     };
 
     // INTERNAL VARIABLES
