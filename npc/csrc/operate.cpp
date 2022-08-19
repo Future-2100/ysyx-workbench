@@ -133,7 +133,7 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
 
       top->clk  = !top->clk;   //posedge clk
       top->instr = inst_fetch(&top->pc, 4);
-      top->instr_valid = rand()%2;
+      top->instr_valid = ((unsigned)rand())%2;
       /**************  AXI4-lite   *********************
       if( top->ifu_ARVALID == 1 ) {
         top->ifu_ARREADY = rand()%2;
