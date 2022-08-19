@@ -131,6 +131,8 @@ extern "C" void axi_port(char arvalid, char *arready, char arport, long long ara
     }
     else          *arready =        0;
 
+    assert ( !(arvalid==0 && *arready==1) );
+
     if( *arready==1 && arvalid==1 && arport==4 ) {
       fetch_req = true;
       fetch_addr = araddr;
