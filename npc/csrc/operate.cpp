@@ -49,11 +49,11 @@ static void single_cycle() {
 
   top->clk = 0; 
   top->eval(); 
-  //contextp->timeInc(10);
+  contextp->timeInc(10);
 
   top->clk = 1; 
   top->eval(); 
-  //contextp->timeInc(10);
+  contextp->timeInc(10);
 
 }
 
@@ -64,7 +64,7 @@ void reset(int n) {
   top->rstn = 1;
   top->clk = !top->clk;
   top->eval();
-  //contextp->timeInc(10);
+  contextp->timeInc(10);
 } 
 
 void init_module() {
@@ -138,11 +138,11 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
         top->ARREADY = rand()%2;
       }
       top->eval();
-      //contextp->timeInc(10);
+      contextp->timeInc(10);
 
       top->clk = !top->clk;   //negedge clk 
       top->eval();
-      //contextp->timeInc(10);
+      contextp->timeInc(10);
 
 
       //**************  AXI4-lite   *********************
