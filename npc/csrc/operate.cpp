@@ -124,7 +124,7 @@ bool fetch_req = false;
 uintptr_t fetch_addr = 0;
 
 extern "C" void axi_port(char arvalid, char *arready, char arport, long long araddr, char *rvalid, char rready, char *rresp, long long *rdata) {
- // if( top->clk ) {
+  if( top->clk ) {
     if( arvalid ) *arready = rand()%2;
     else          *arready =        0;
 
@@ -135,6 +135,7 @@ extern "C" void axi_port(char arvalid, char *arready, char arport, long long ara
     if( fetch_req==true ) {
       int ready = rand()%2;
       if( ready==1 ) {
+        printf("time : %ld\n",contextp->time());
         fetch_req=false;
         *arready = 0;
         *rvalid  = 1;
@@ -145,7 +146,7 @@ extern "C" void axi_port(char arvalid, char *arready, char arport, long long ara
       else *rvalid = 0;
     }
     else *rvalid = 0;
-  //}
+  }
 }
 
 
