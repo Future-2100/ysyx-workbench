@@ -125,7 +125,10 @@ uintptr_t fetch_addr = 0;
 
 extern "C" void axi_port(char arvalid, char *arready, char arport, long long araddr, char *rvalid, char rready, char *rresp, long long *rdata) {
   if( top->clk ) {
-    if( arvalid ) *arready = rand()%2;
+    if( arvalid ) {
+      *arready = rand()%2;
+      printf("%ldus: arvalid = 1, arready = %d\n", contextp->time(), *arready);
+    }
     else          *arready =        0;
 
     if( *arready==1 && arvalid==1 && arport==4 ) {
