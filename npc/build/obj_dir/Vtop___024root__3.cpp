@@ -16,7 +16,7 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__9(Vtop___024root* vlSelf) {
         = ((IData)(vlSelf->rstn) & (~ (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__delay_rstn)));
     if (((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__posedge_rstn) 
          ^ (IData)(vlSelf->top__DOT__axi_interface_inst__DOT____Vtogcov__posedge_rstn))) {
-        ++(vlSymsp->__Vcoverage[1723]);
+        ++(vlSymsp->__Vcoverage[1725]);
         vlSelf->top__DOT__axi_interface_inst__DOT____Vtogcov__posedge_rstn 
             = vlSelf->top__DOT__axi_interface_inst__DOT__posedge_rstn;
     }
@@ -37,14 +37,14 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__9(Vtop___024root* vlSelf) {
                                                   : 0U)));
     if ((1U & ((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__nstate) 
                ^ (IData)(vlSelf->top__DOT__axi_interface_inst__DOT____Vtogcov__nstate)))) {
-        ++(vlSymsp->__Vcoverage[1724]);
+        ++(vlSymsp->__Vcoverage[1726]);
         vlSelf->top__DOT__axi_interface_inst__DOT____Vtogcov__nstate 
             = ((2U & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT____Vtogcov__nstate)) 
                | (1U & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__nstate)));
     }
     if ((2U & ((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__nstate) 
                ^ (IData)(vlSelf->top__DOT__axi_interface_inst__DOT____Vtogcov__nstate)))) {
-        ++(vlSymsp->__Vcoverage[1725]);
+        ++(vlSymsp->__Vcoverage[1727]);
         vlSelf->top__DOT__axi_interface_inst__DOT____Vtogcov__nstate 
             = ((1U & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT____Vtogcov__nstate)) 
                | (2U & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__nstate)));

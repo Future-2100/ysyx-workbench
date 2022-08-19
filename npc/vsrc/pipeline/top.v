@@ -350,6 +350,7 @@ forward  forward_inst(
       $dumpfile("build/logs/top.vcd");
       $dumpvars();
     $display("[%0t] Model running...\n", $time);
+    if( $time >= 1000 ) $finish;
   end
 
   import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
