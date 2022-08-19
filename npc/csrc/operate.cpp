@@ -124,6 +124,7 @@ bool fetch_req = false;
 uintptr_t fetch_addr = 0;
 
 extern "C" void axi_port(char arvalid, char *arready, char arport, long long araddr, char *rvalid, char rready, char *rresp, long long *rdata) {
+  printf("clk = %d\n",top->clk);
   if( top->clk ) {
     if( arvalid ) {
       *arready = rand()%2;
