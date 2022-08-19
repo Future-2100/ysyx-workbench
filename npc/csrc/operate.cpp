@@ -129,6 +129,7 @@ extern "C" void axi_port(char arvalid, char *arready, char arport, long long ara
       *arready = rand()%2;
       printf("%ldus: arvalid = 1, arready = %d\n", contextp->time(), *arready);
     }
+
     else *arready = 0;
 
     if( fetch_req==true ) {
@@ -147,6 +148,7 @@ extern "C" void axi_port(char arvalid, char *arready, char arport, long long ara
   }
 
   if( !top->clk ) {
+    printf("in !top->clk\n");
     if( *arready==1 && arvalid==1 && arport==4 ) {
       fetch_req = true;
       fetch_addr = araddr;
