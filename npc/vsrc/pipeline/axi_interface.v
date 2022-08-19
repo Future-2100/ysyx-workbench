@@ -3,8 +3,8 @@ module axi_interface(
 	input   wire            rstn        ,
   input   wire    [63:0]  pc          ,
 
-  output  reg     [31:0]  instr       ,
-  output  reg             instr_valid ,
+  output  wire     [31:0]  instr       ,
+  output  wire             instr_valid ,
 
 //	input		wire		[63:0]	mm_addr		  ,
 //	input		wire    [63:0]  mm_wdata    ,
@@ -142,8 +142,6 @@ always@(posedge clk) begin
      ARBURST     <= 'b0  ;
      ARBURST     <= 'b0  ;  
      RREADY      <= 'b0  ;
-    instr        <= 'b0  ;
-    instr_valid  <= 'b0  ;
   end 
   else begin
     case ( cstate ) 
@@ -157,8 +155,6 @@ always@(posedge clk) begin
                    ARBURST     <=  AxBURST_INCR  ;  
                    ARPORT      <=  AxPORT_Instr  ;
                    RREADY      <=   1'b1         ;
-                  instr           <=  32'b0         ;
-                  instr_valid     <=   1'b0         ;
                end
              end
 
@@ -174,8 +170,6 @@ always@(posedge clk) begin
                    ARBURST     <= AxBURST_INCR  ;  
                    ARPORT      <= AxPORT_Instr  ;
                    RREADY      <=   1'b1        ;
-                  instr        <=  RDATA[31:0]  ;
-                  instr_valid  <= 1'b1          ;
                end 
                else if ( !ARREADY) begin
                  //hold the ARdata
@@ -187,8 +181,6 @@ always@(posedge clk) begin
                    ARPORT      <=  ARPORT     ;
                    ARVALID     <=  ARVALID    ;  
                    RREADY      <=   1'b0      ;
-                  instr        <=  32'b0      ;
-                  instr_valid  <=   1'b0      ;
                end
                else if (  ARREADY && !RVALID ) begin
                  // cancle the ARrequire 
@@ -201,8 +193,6 @@ always@(posedge clk) begin
                    ARPORT      <= 'b0    ;
                    ARVALID     <= 'b0    ;  
                    RREADY      <= 'b1    ;
-                  instr        <= instr  ;
-                  instr_valid  <= 1'b0   ;
                end
              end
       RESP : if(  RVALID &&  RRESP==xRESP_OKAY ) begin
@@ -216,8 +206,6 @@ always@(posedge clk) begin
                    ARBURST     <=  AxBURST_INCR  ;  
                    ARPORT      <=  AxPORT_Instr  ;
                    RREADY      <= 'b1            ;
-                  instr        <=  RDATA[31:0]   ;
-                  instr_valid  <=  1'b1          ;
              end
              else begin
                //wait for instruction come back
@@ -230,13 +218,15 @@ always@(posedge clk) begin
                    ARPORT      <= 'b0    ;
                    ARVALID     <= 'b0    ;  
                    RREADY      <= 'b1    ;
-                  instr        <= instr  ;
-                  instr_valid  <= 1'b0   ;
              end
     default : ;
     endcase
   end
 end
+
+assign  instr = RDATA[31:0];
+assign  instr_valid = ( RREADY && RVALID && (RRESP==xRESP_OKAY) );
+
 
 endmodule
 
