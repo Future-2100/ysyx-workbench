@@ -66,8 +66,8 @@ $(shell mkdir -p $(BUILD_DIR))
 
 
 # project source
-#VS_DIR = $(WORK_DIR)/vsrc/Single_Cycle
-VS_DIR = $(WORK_DIR)/vsrc/Pipeline
+#VS_DIR = $(WORK_DIR)/vsrc/single_Cycle
+VS_DIR = $(WORK_DIR)/vsrc/pipeline
 VSRCS = $(shell find $(VS_DIR) -name "*.v")
 
 CS_DIR = $(WORK_DIR)/csrc
