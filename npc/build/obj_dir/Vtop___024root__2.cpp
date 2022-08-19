@@ -13,6 +13,16 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__8(Vtop___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___sequent__TOP__8\n"); );
     // Body
     if ((1U & ((IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_xor 
+                        >> 0x1aU)) ^ (IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_xor 
+                                              >> 0x1aU))))) {
+        ++(vlSymsp->__Vcoverage[3334]);
+        vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_xor 
+            = ((0xfffffffffbffffffULL & vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_xor) 
+               | ((QData)((IData)((1U & (IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_xor 
+                                                 >> 0x1aU))))) 
+                  << 0x1aU));
+    }
+    if ((1U & ((IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_xor 
                         >> 0x1bU)) ^ (IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_xor 
                                               >> 0x1bU))))) {
         ++(vlSymsp->__Vcoverage[3335]);
@@ -5348,6 +5358,7 @@ void Vtop___024root___eval(Vtop___024root* vlSelf) {
     Vtop___024root___combo__TOP__5(vlSelf);
     if (((IData)(vlSelf->clk) & (~ (IData)(vlSelf->__Vclklast__TOP__clk)))) {
         Vtop___024root___sequent__TOP__6(vlSelf);
+        vlSelf->__Vm_traceActivity[1U] = 1U;
         Vtop___024root___sequent__TOP__7(vlSelf);
         Vtop___024root___sequent__TOP__8(vlSelf);
     }

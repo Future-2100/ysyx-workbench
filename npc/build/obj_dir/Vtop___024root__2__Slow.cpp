@@ -2391,7 +2391,7 @@ void Vtop___024root___initial__TOP__4(Vtop___024root* vlSelf) {
     __Vtemp7[3U] = 0x696c642fU;
     __Vtemp7[4U] = 0x6275U;
     vlSymsp->_vm_contextp__->dumpfile(VL_CVT_PACK_STR_NW(5, __Vtemp7));
-    VL_PRINTF_MT("-Info: /home/grand/ysyx-workbench/npc/vsrc/pipeline/top.v:315: $dumpvar ignored, as Verilated without --trace\n");
+    vlSymsp->_traceDumpOpen();
     VL_WRITEF("[%0t] Model running...\n\n",64,VL_TIME_UNITED_Q(1),
               -12);
     ++(vlSymsp->__Vcoverage[1563]);
@@ -2417,6 +2417,8 @@ void Vtop___024root___eval_settle(Vtop___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval_settle\n"); );
     // Body
     Vtop___024root___settle__TOP__1(vlSelf);
+    vlSelf->__Vm_traceActivity[1U] = 1U;
+    vlSelf->__Vm_traceActivity[0U] = 1U;
     Vtop___024root___settle__TOP__2(vlSelf);
     Vtop___024root___settle__TOP__3(vlSelf);
 }
@@ -2449,6 +2451,8 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__ifu_snxt_pc = 0;
     vlSelf->top__DOT__ifu_valid = 0;
     vlSelf->top__DOT__hazard_nop = 0;
+    vlSelf->top__DOT__need_rs1 = 0;
+    vlSelf->top__DOT__need_rs2 = 0;
     vlSelf->top__DOT__mmu_wb_data = 0;
     vlSelf->top__DOT__mmu_index_rd = 0;
     vlSelf->top__DOT__mmu_wb_en = 0;
@@ -2509,6 +2513,8 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__mmu_ebreak_en = 0;
     vlSelf->top__DOT__mmu_pc = 0;
     vlSelf->top__DOT__mmu_instr = 0;
+    vlSelf->top__DOT__mm_wlen = 0;
+    vlSelf->top__DOT__mm_rdata = 0;
     vlSelf->top__DOT____Vtogcov__clk = 0;
     vlSelf->top__DOT____Vtogcov__rstn = 0;
     vlSelf->top__DOT____Vtogcov__pc = 0;
@@ -2648,6 +2654,7 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     for (int __Vi0=0; __Vi0<32; ++__Vi0) {
         vlSelf->top__DOT__idu_inst__DOT__regfile_inst__DOT__gpr[__Vi0] = 0;
     }
+    vlSelf->top__DOT__idu_inst__DOT__regfile_inst__DOT__i = 0;
     vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__lui_en = 0;
     vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__auipc_en = 0;
     vlSelf->top__DOT__idu_inst__DOT__decoder_inst__DOT__addi_en = 0;
@@ -2682,8 +2689,20 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__exu_inst__DOT____Vtogcov__data_rs2 = 0;
     vlSelf->top__DOT__exu_inst__DOT____Vtogcov__alu_result = 0;
     vlSelf->top__DOT__exu_inst__DOT____Vtogcov__br_result = 0;
+    vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__opdata_1 = 0;
+    vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__opdata_2 = 0;
     vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__sum = 0;
+    VL_ZERO_RESET_W(128, vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__mul_ss);
+    VL_ZERO_RESET_W(128, vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__mul_su);
+    vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__m_div = 0;
+    vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__m_divu = 0;
+    vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__m_rem = 0;
     vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__m_result = 0;
+    vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__wm_mulw = 0;
+    vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__wm_divw = 0;
+    vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__wm_divuw = 0;
+    vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__wm_remw = 0;
+    vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__wm_remuw = 0;
     vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__wm_result = 0;
     vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_sub = 0;
     vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_sll = 0;
@@ -2695,6 +2714,11 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_or = 0;
     vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_and = 0;
     vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_result = 0;
+    vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riwop_add = 0;
+    vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riwop_sub = 0;
+    vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riwop_sll = 0;
+    vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riwop_srl = 0;
+    vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riwop_sra = 0;
     vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__addiw_en = 0;
     vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__addw_en = 0;
     vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__subw_en = 0;
@@ -2768,11 +2792,18 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__hazard_inst__DOT__hazard_rs2 = 0;
     vlSelf->top__DOT__hazard_inst__DOT____Vtogcov__hazard_rs1 = 0;
     vlSelf->top__DOT__hazard_inst__DOT____Vtogcov__hazard_rs2 = 0;
+    vlSelf->top__DOT__forward_inst__DOT__ex_forward_1 = 0;
+    vlSelf->top__DOT__forward_inst__DOT__ex_forward_2 = 0;
+    vlSelf->top__DOT__forward_inst__DOT__mm_forward_1 = 0;
+    vlSelf->top__DOT__forward_inst__DOT__mm_forward_2 = 0;
     vlSelf->top__DOT__forward_inst__DOT____Vtogcov__ex_forward_1 = 0;
     vlSelf->top__DOT__forward_inst__DOT____Vtogcov__ex_forward_2 = 0;
     vlSelf->top__DOT__forward_inst__DOT____Vtogcov__mm_forward_1 = 0;
     vlSelf->top__DOT__forward_inst__DOT____Vtogcov__mm_forward_2 = 0;
     vlSelf->__Vtask_top__DOT__vmem_read__1__rdata = 0;
+    for (int __Vi0=0; __Vi0<2; ++__Vi0) {
+        vlSelf->__Vm_traceActivity[__Vi0] = 0;
+    }
 }
 
 void Vtop___024root___configure_coverage(Vtop___024root* vlSelf, bool first) {
