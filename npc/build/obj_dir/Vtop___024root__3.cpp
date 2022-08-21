@@ -33,7 +33,8 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__9(Vtop___024root* vlSelf) {
                         ? vlSelf->top__DOT__exu_alu_result
                         : ((1U & ((IData)(vlSelf->top__DOT__hazard_nop) 
                                   | (~ (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__rresp_instr_en))))
-                            ? vlSelf->pc : vlSelf->snxt_pc));
+                            ? vlSelf->top__DOT__ifu_inst__DOT__instr_pc
+                            : vlSelf->snxt_pc));
     if (((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__posedge_rstn) 
          ^ (IData)(vlSelf->top__DOT__axi_interface_inst__DOT____Vtogcov__posedge_rstn))) {
         ++(vlSymsp->__Vcoverage[1710]);

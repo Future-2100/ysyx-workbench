@@ -27,7 +27,7 @@ module ifu(
 assign  snxt_pc = pc + 4;
 
 assign  dnxt_pc = (jump_en) ? jump_pc : 
-                  (hazard_stop | !instr_valid) ? pc : snxt_pc ;
+                  (hazard_stop | !instr_valid) ? instr_pc : snxt_pc ;
                   
 
 reg [63:0] instr_pc;
