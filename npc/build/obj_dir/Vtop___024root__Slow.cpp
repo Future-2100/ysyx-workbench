@@ -9522,7 +9522,7 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                                                  >> 0x3fU))))) 
                   << 0x3fU));
     }
-    vlSelf->snxt_pc = (4ULL + vlSelf->pc);
+    vlSelf->snxt_pc = (4ULL + vlSelf->top__DOT__ifu_inst__DOT__instr_pc);
     vlSelf->top__DOT__mm_wlen = ((((1U & (- (IData)(
                                                     (0U 
                                                      == (IData)(vlSelf->top__DOT__exu_funct3))))) 
