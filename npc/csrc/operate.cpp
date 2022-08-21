@@ -190,16 +190,16 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
         }
       }
 
-      if( top->ARVALID  ==1    && 
-          top->ARID     ==1    &&
-          top->ARLEN    ==0    &&
-          top->ARSIZE   ==3    &&
-          top->ARBURST  ==1    &&
-          top->ARLOCK   ==0    &&
-          top->ARCACHE  ==0    &&
-          top->ARPORT   ==0    &&
-          top->ARQOS    ==0    &&
-          top->ARREGION ==0  
+      else if( top->ARVALID  ==1    && 
+               top->ARID     ==1    &&
+               top->ARLEN    ==0    &&
+               top->ARSIZE   ==3    &&
+               top->ARBURST  ==1    &&
+               top->ARLOCK   ==0    &&
+               top->ARCACHE  ==0    &&
+               top->ARPORT   ==0    &&
+               top->ARQOS    ==0    &&
+               top->ARREGION ==0  
         ) {
         int arready = rand()%2 ;
         top->ARREADY = arready ;
@@ -220,7 +220,7 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
         int resp_en = rand()%2;
         if( resp_en ) {
           read_req = false;
-          top->RID   = 0;
+          top->RID   = 1;
           top->RDATA = paddr_read((read_addr),8) ;
           top->RRESP = 0;
           top->RLAST = 1;
