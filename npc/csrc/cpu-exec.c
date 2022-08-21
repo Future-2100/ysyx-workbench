@@ -86,9 +86,11 @@ static void execute(uint64_t n) {
 }
 
 void npc_trap(int state, vaddr_t pc, int halt_ret) {
+  printf("is in npc_trap\n");
   npc_state.state = state;
   npc_state.halt_pc = pc;
   npc_state.halt_ret = halt_ret;
+  printf("is out of npc_trap\n");
 }
 
 void npc_quit() {
@@ -131,16 +133,13 @@ void cpu_exec(uint64_t n) {
   switch (npc_state.state) {
     case NPC_RUNNING: npc_state.state = NPC_STOP; break;
 
-    case NPC_END: 
-    case NPC_ABORT:
+    case NPC_END: case NPC_ABORT:
       Log("npc: %s at pc = " FMT_WORD,
           (npc_state.state == NPC_ABORT ? ANSI_FMT("ABORT", ANSI_FMT_RED) :
            (npc_state.halt_ret == 0 ? ANSI_FMT("HIT GOOD TRAP", ANSI_FMT_GREEN) :
              ANSI_FMT("HIT BAD TRAP", ANSI_FMT_RED))),
           npc_state.halt_pc);
-    case NPC_QUIT: statistic(); break;
-
-  return;
+    case NPC_QUIT: statistic();
   }
 }
 
