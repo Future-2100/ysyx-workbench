@@ -454,8 +454,8 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT__mmu_inst__DOT____Vtogcov__mmu_alu_result;
         QData/*63:0*/ top__DOT__mmu_inst__DOT____Vtogcov__mmu_snxt_pc;
         QData/*63:0*/ top__DOT__mmu_inst__DOT____Vtogcov__mmu_load_data;
-        QData/*63:0*/ __Vdly__top__DOT__ifu_snxt_pc;
         QData/*63:0*/ __Vdly__top__DOT__ifu_pc;
+        QData/*63:0*/ __Vdly__top__DOT__ifu_snxt_pc;
         VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
     };
 

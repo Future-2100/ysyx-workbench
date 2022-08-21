@@ -197,7 +197,7 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
           top->ARBURST  ==1    &&
           top->ARLOCK   ==0    &&
           top->ARCACHE  ==0    &&
-          top->ARPORT   ==4    &&
+          top->ARPORT   ==0    &&
           top->ARQOS    ==0    &&
           top->ARREGION ==0  
         ) {

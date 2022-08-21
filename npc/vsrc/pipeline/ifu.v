@@ -63,16 +63,17 @@ always@(posedge clk) begin
     ifu_snxt_pc     <= ifu_snxt_pc;
     ifu_valid       <= ifu_valid;
   end else if( instr_valid )begin
-    ifu_pc          <= pc;
+    ifu_pc          <= pc     ;
     ifu_instr       <= instr  ;
     ifu_snxt_pc     <= snxt_pc;
-    ifu_valid       <= instr_valid  ;
-  end else begin
+    ifu_valid       <= 1'b1   ;
+  end /* else begin
     ifu_pc          <= ifu_pc     ;
     ifu_instr       <= ifu_instr  ;
     ifu_snxt_pc     <= ifu_snxt_pc;
     ifu_valid       <= 1'b0       ;
   end
+  */
 end
 
 endmodule
