@@ -114,7 +114,8 @@ void assert_fail_msg() {
 void cpu_exec(uint64_t n) {
   g_print_step = ( n < MAX_INST_TO_PRINT ) ;
   switch (npc_state.state) {
-    case NPC_END : case NPC_ABORT:
+    case NPC_END : 
+    case NPC_ABORT:
       printf( "Program execution has ended. To restart the program, exit NPC and run again.\n" );
       return ;
     default : npc_state.state = NPC_RUNNING;
@@ -130,13 +131,16 @@ void cpu_exec(uint64_t n) {
   switch (npc_state.state) {
     case NPC_RUNNING: npc_state.state = NPC_STOP; break;
 
-    case NPC_END: case NPC_ABORT:
+    case NPC_END: 
+    case NPC_ABORT:
       Log("npc: %s at pc = " FMT_WORD,
           (npc_state.state == NPC_ABORT ? ANSI_FMT("ABORT", ANSI_FMT_RED) :
            (npc_state.halt_ret == 0 ? ANSI_FMT("HIT GOOD TRAP", ANSI_FMT_GREEN) :
              ANSI_FMT("HIT BAD TRAP", ANSI_FMT_RED))),
           npc_state.halt_pc);
-    case NPC_QUIT: statistic();
+    case NPC_QUIT: statistic(); break;
+
+  return;
   }
 }
 
