@@ -3,6 +3,7 @@ module memory(
   input   wire          load_en     ,
   input   wire          store_en    ,
   input   wire  [2:0]   funct3      ,
+  input   wire          instr_valid ,
 
   input   wire  [63:0]  store_data  ,
   input   wire  [63:0]  address     ,
@@ -37,8 +38,8 @@ module memory(
 
   assign  mm_addr  = address   ;
   assign  mm_wdata = store_data;
-  assign  mm_wen   = store_en  ;
-  assign  mm_ren   = load_en   ;
+  assign  mm_wen   = store_en  & instr_valid ;
+  assign  mm_ren   = load_en   & instr_valid ;
 
   assign  load_data = ( {64{ funct3_000 }} & { {56{memory_rdata[7] }},memory_rdata[7:0] } ) |   //lb
                       ( {64{ funct3_001 }} & { {48{memory_rdata[15]}},memory_rdata[15:0]} ) |   //lh

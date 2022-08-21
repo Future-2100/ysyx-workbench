@@ -126,7 +126,7 @@ always@(posedge clk) begin
      exu_pc          <=   'b0  ;   
      exu_instr       <=   'b0  ;   
      exu_valid       <=   'b0  ;   
-  end else if (flush_nop) begin
+  end else if (instr_valid & flush_nop) begin
      exu_jal_en      <=   'b0  ;      
      exu_jalr_en     <=   'b0  ;   
      exu_branch_en   <=   'b0  ;   

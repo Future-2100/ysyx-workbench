@@ -187,7 +187,7 @@ always@(posedge clk) begin
       idu_wb_alu_en    <=  'b0 ; 
       idu_ebreak_en    <=  'b0 ; 
   end
-  else if ( flush_nop | hazard_nop ) begin
+  else if (instr_valid & ( flush_nop | hazard_nop) ) begin
       idu_index_rs1    <=  'b0 ; 
       idu_index_rs2    <=  'b0 ; 
       idu_index_rd     <=  'b0 ; 

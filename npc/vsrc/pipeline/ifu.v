@@ -52,12 +52,12 @@ always@(posedge clk) begin
     ifu_instr       <= 32'b0;
     ifu_snxt_pc     <= 64'b0;
     ifu_valid       <=  1'b0;
-  end else if (flush_nop) begin
+  end else if (instr_valid & flush_nop) begin
     ifu_pc          <= pc     ;
     ifu_instr       <= 32'h13 ;
     ifu_snxt_pc     <= snxt_pc;
     ifu_valid       <=  1'b0  ;
-  end else if (hazard_stop) begin
+  end else if (instr_valid & hazard_stop) begin
     ifu_pc          <= ifu_pc   ;
     ifu_instr       <= ifu_instr;
     ifu_snxt_pc     <= ifu_snxt_pc;

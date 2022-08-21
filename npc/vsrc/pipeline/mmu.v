@@ -64,6 +64,7 @@ memory memory_inst(
   .load_en     ( exu_load_en     )  ,
   .store_en    ( exu_store_en    )  ,
   .funct3      ( exu_funct3      )  ,
+  .instr_valid ( instr_valid     )  ,
   .store_data  (     store_data  )  ,
   .address     (     address     )  ,
   .load_data   (     load_data   )  ,
