@@ -86,6 +86,8 @@ memory memory_inst(
   reg       mmu_wb_spc_en       ;
   reg       mmu_load_en         ;
 
+  wire  mmu_update = exu_load_en ? rdata_valid : instr_valid;
+
   always@(posedge clk) begin
     if(!rstn) begin
        mmu_alu_result    <=   'b0 ;  
@@ -100,7 +102,7 @@ memory memory_inst(
        mmu_ebreak_en     <=   'b0 ;
        mmu_pc            <=   'b0 ;
        mmu_instr         <=   'b0 ;
-    end else if( instr_valid )begin
+    end else if( rdata_valid ) begin
        mmu_alu_result    <=   exu_alu_result  ;  
        mmu_snxt_pc       <=   exu_snxt_pc     ; 
        mmu_load_data     <=   load_data       ;
@@ -113,10 +115,7 @@ memory memory_inst(
        mmu_ebreak_en     <=   exu_ebreak_en   ;
        mmu_pc            <=   exu_pc          ;
        mmu_instr         <=   exu_instr       ;
-     end else if( rdata_valid )begin
-       mmu_load_data     <=   load_data       ;
      end
-
   end 
 
   assign  mmu_wb_data = ( {64{ mmu_wb_alu_en }} &  mmu_alu_result ) | 

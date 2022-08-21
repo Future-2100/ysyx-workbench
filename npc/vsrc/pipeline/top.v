@@ -110,6 +110,8 @@ idu idu_inst(
   .clk              ( clk              ) ,
   .rstn             ( rstn             ) ,
   .instr_valid      ( instr_valid      ) ,
+  .rdata_valid      ( rdata_valid      ) ,
+  .exu_load_en      ( exu_load_en      ) ,
   .flush_nop        ( flush_nop        ) ,
   .hazard_nop       ( hazard_nop       ) ,
   .need_rs1         ( need_rs1         ) ,
@@ -181,6 +183,7 @@ exu exu_inst(
   .      clk        (       clk        )  ,
   .     rstn        (      rstn        )  ,
   .instr_valid      ( instr_valid      )  ,
+  .rdata_valid      ( rdata_valid      )  ,
   .flush_nop        ( flush_nop        )  ,
   .fwd_en_1         ( fwd_en_1         )  ,
   .fwd_en_2         ( fwd_en_2         )  ,
@@ -323,6 +326,7 @@ axi_interface  axi_interface_inst(
   .RREADY         ( RREADY          )   
 );
 
+wire  this_update = exu_load_en ? rdata_valid : instr_valid;
   always@(posedge clk) begin
     if(!rstn) begin
       this_valid <=  1'b0;
@@ -330,7 +334,7 @@ axi_interface  axi_interface_inst(
       this_instr <= 32'b0;
       this_ebreak<=  1'b0;
     end
-    else if( instr_valid )begin
+    else if( this_update )begin
       this_valid   <= mmu_valid     ;
       this_pc      <= mmu_pc        ;
       this_instr   <= mmu_instr     ;

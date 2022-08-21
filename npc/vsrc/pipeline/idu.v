@@ -8,6 +8,8 @@ module idu(
   output  wire              need_rs2         ,
 
   input   wire              instr_valid      ,
+  input   wire              rdata_valid      ,
+  input   wire              exu_load_en      ,
 
   input   wire    [31:0]    ifu_instr        ,
   input   wire    [63:0]    ifu_pc           ,
@@ -69,6 +71,8 @@ regfile regfile_inst (
   .rstn ( rstn ) ,
 
   .instr_valid( instr_valid ),
+  .rdata_valid( rdata_valid ),
+  .exu_load_en( exu_load_en ),
 
   .index_rs1 ( index_rs1 ) ,
   .index_rs2 ( index_rs2 ) ,

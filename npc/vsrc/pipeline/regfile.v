@@ -3,6 +3,8 @@ module regfile(
   input   wire    rstn  ,
 
   input   wire            instr_valid ,
+  input   wire            rdata_valid ,
+  input   wire            exu_load_en ,
 
   input   wire    [4:0]   index_rs1   ,
   input   wire    [4:0]   index_rs2   ,
@@ -14,6 +16,8 @@ module regfile(
   input   wire    [63:0]   data_rd    
 );
 
+  wire  update = exu_load_en? rdata_valid : instr_valid ;
+
   reg  [63:0]  gpr [31:0] ;
 
   integer i;
@@ -24,7 +28,7 @@ module regfile(
         gpr[i] <= 64'b0;
       end
     end
-    else if( wr_en && (index_rd != 0) && instr_valid ) begin
+    else if( wr_en && (index_rd != 0) && update ) begin
       gpr[index_rd] <= data_rd;
     end
   end
