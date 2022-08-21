@@ -32,7 +32,7 @@ assign  dnxt_pc = (jump_en) ? jump_pc :
 always@(posedge clk) begin
   if(!rstn)
     pc <= 64'h80000000 ;
-  else if( jump_en )
+  else if( instr_valid & jump_en )
     pc <= jump_pc  ;
   else if( instr_valid & hazard_stop )
     pc <= pc       ;

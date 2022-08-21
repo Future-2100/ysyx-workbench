@@ -323,7 +323,7 @@ mmu mmu_inst(
       this_instr <= 32'b0;
       this_ebreak<=  1'b0;
     end
-    else begin
+    else if( instr_valid )begin
       this_valid   <= mmu_valid     ;
       this_pc      <= mmu_pc        ;
       this_instr   <= mmu_instr     ;
