@@ -19,6 +19,19 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__7(Vtop___024root* vlSelf) {
     VlWide<4>/*127:0*/ __Vtemp12;
     VlWide<4>/*127:0*/ __Vtemp13;
     // Body
+    if ((1U & ((IData)((vlSelf->top__DOT__ifu_pc >> 0x37U)) 
+               ^ (IData)((vlSelf->top__DOT____Vtogcov__ifu_pc 
+                          >> 0x37U))))) {
+        ++(vlSymsp->__Vcoverage[585]);
+        vlSelf->top__DOT____Vtogcov__ifu_pc = ((0xff7fffffffffffffULL 
+                                                & vlSelf->top__DOT____Vtogcov__ifu_pc) 
+                                               | ((QData)((IData)(
+                                                                  (1U 
+                                                                   & (IData)(
+                                                                             (vlSelf->top__DOT__ifu_pc 
+                                                                              >> 0x37U))))) 
+                                                  << 0x37U));
+    }
     if ((1U & ((IData)((vlSelf->top__DOT__ifu_pc >> 0x38U)) 
                ^ (IData)((vlSelf->top__DOT____Vtogcov__ifu_pc 
                           >> 0x38U))))) {
@@ -17415,15 +17428,5 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__7(Vtop___024root* vlSelf) {
                | ((QData)((IData)((1U & (IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_sll 
                                                  >> 0x10U))))) 
                   << 0x10U));
-    }
-    if ((1U & ((IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_sll 
-                        >> 0x11U)) ^ (IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_sll 
-                                              >> 0x11U))))) {
-        ++(vlSymsp->__Vcoverage[3307]);
-        vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_sll 
-            = ((0xfffffffffffdffffULL & vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_sll) 
-               | ((QData)((IData)((1U & (IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_sll 
-                                                 >> 0x11U))))) 
-                  << 0x11U));
     }
 }
