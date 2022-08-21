@@ -80,7 +80,7 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
 }
 
 extern "C" void vmem_write(long long waddr, long long wdata, char wlen, char wen) {
-  if(wen && top->clk ){
+  if(wen && top->clk){
 #ifdef CONFIG_MTRACE
     printf("waddr = 0x%llx, wdata = 0x%llx, wlen = %d\n", waddr, wdata, wlen);
 #endif
@@ -199,7 +199,7 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
                top->ARCACHE  ==0    &&
                top->ARPORT   ==0    &&
                top->ARQOS    ==0    &&
-               top->ARREGION ==0  
+               top->ARREGION ==0
         ) {
         int arready = rand()%2 ;
         top->ARREADY = arready ;

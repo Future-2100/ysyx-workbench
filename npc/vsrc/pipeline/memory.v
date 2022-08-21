@@ -38,8 +38,8 @@ module memory(
 
   assign  mm_addr  = address   ;
   assign  mm_wdata = store_data;
-  assign  mm_wen   = store_en  & instr_valid ;
-  assign  mm_ren   = load_en   & instr_valid ;
+  assign  mm_wen   = store_en  ;
+  assign  mm_ren   = load_en   ;
 
   assign  load_data = ( {64{ funct3_000 }} & { {56{memory_rdata[7] }},memory_rdata[7:0] } ) |   //lb
                       ( {64{ funct3_001 }} & { {48{memory_rdata[15]}},memory_rdata[15:0]} ) |   //lh

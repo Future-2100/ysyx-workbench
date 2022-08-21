@@ -125,6 +125,9 @@ endif
 
 all : default
 
+editc:
+	vim ./csrc/operate.cpp
+
 wave : 
 	gtkwave build/logs/top.vcd gtkwave/axi.gtkw
 
