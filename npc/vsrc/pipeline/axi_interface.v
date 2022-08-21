@@ -19,7 +19,7 @@ module axi_interface(
 
 //-------read require channel--------
   output  reg     [3:0]   ARID     ,
-  output  reg     [63:0]  ARADDR   ,
+  output  wire    [63:0]  ARADDR   ,
   output  reg     [7:0]   ARLEN    ,
   output  reg     [2:0]   ARSIZE   ,
   output  reg     [1:0]   ARBURST  ,
@@ -82,6 +82,8 @@ always@(posedge clk)
 
 wire  posedge_rstn = rstn & ~delay_rstn;
 
+assign  ARADDR = pc ;
+
 localparam IDLE = 2'b00;
 localparam REQU = 2'b01;
 localparam RESP = 2'b10;
@@ -138,7 +140,6 @@ always@(posedge clk) begin
   if(!rstn) begin
      ARVALID     <= 'b0  ;  
      ARID        <= 'b0  ; 
-     ARADDR      <= 'b0  ;  
      ARLEN       <= 'b0  ;  
      ARSIZE      <= 'b0  ;  
      ARBURST     <= 'b0  ;
@@ -156,7 +157,6 @@ always@(posedge clk) begin
                if( posedge_rstn ) begin
                    ARVALID     <=  1'b1          ;  
                    ARID        <=  ID_instr      ; 
-                   ARADDR      <=  pc            ;  
                    ARLEN       <=  8'b0          ;  
                    ARSIZE      <=  AxSIZE_4      ; 
                    ARBURST     <=  AxBURST_INCR  ;  
@@ -172,7 +172,6 @@ always@(posedge clk) begin
                if( ARREADY==0 ) begin
                    ARVALID     <= ARVALID       ;  
                    ARID        <= ARID          ; 
-                   ARADDR      <= ARADDR        ;  
                    ARLEN       <= ARLEN         ;  
                    ARSIZE      <= ARSIZE        ; 
                    ARBURST     <= ARBURST       ;  
@@ -191,7 +190,6 @@ always@(posedge clk) begin
                 //execute the instruction
                    ARVALID     <=  1'b1          ;  
                    ARID        <=  ID_instr      ; 
-                   ARADDR      <=  pc            ;  
                    ARLEN       <=  8'b0          ;  
                    ARSIZE      <=  AxSIZE_4      ; 
                    ARBURST     <=  AxBURST_INCR  ;  
