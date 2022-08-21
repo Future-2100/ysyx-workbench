@@ -165,6 +165,8 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       top->eval();
       contextp->timeInc(1);
 
+      top->ARREADY = 0;
+
       if( top->ARVALID  ==1    && 
           top->ARID     ==0    &&
           top->ARLEN    ==0    &&
@@ -183,9 +185,6 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
           fetch_req = true;
           fetch_addr = top->ARADDR;
         }
-      }
-      else {
-        top->ARREADY = 0;
       }
 
       top->eval();
@@ -210,7 +209,6 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       }
       else   top->RVALID = 0;
 
-      top->ARREADY = 0;
 
       if( top->this_valid ) {
         *diff_en = true ;
