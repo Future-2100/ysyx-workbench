@@ -7042,8 +7042,8 @@ void Vtop___024root___configure_coverage(Vtop___024root* vlSelf, bool first) {
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1741]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/ifu.v", 35, 8, ".top.ifu_inst", "v_line/ifu", "elsif", "35-36");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1742]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/ifu.v", 33, 3, ".top.ifu_inst", "v_line/ifu", "elsif", "33-34");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1743]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/ifu.v", 32, 1, ".top.ifu_inst", "v_line/ifu", "block", "32");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1744]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/ifu.v", 65, 12, ".top.ifu_inst", "v_branch/ifu", "if", "65-69");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1745]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/ifu.v", 65, 13, ".top.ifu_inst", "v_branch/ifu", "else", "");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1744]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/ifu.v", 65, 12, ".top.ifu_inst", "v_line/ifu", "if", "65-69");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1745]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/ifu.v", 65, 13, ".top.ifu_inst", "v_line/ifu", "else", "70-74");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1746]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/ifu.v", 60, 12, ".top.ifu_inst", "v_line/ifu", "elsif", "60-64");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1747]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/ifu.v", 55, 12, ".top.ifu_inst", "v_line/ifu", "elsif", "55-59");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[1748]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/ifu.v", 50, 3, ".top.ifu_inst", "v_line/ifu", "elsif", "50-54");
