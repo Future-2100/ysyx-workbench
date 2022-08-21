@@ -40,31 +40,6 @@ module top(
   wire  [31:0]    instr       ;
   wire            instr_valid ;  
 
-axi_interface  axi_interface_inst(
-	.clk         ( clk          )   ,
-	.rstn        ( rstn         )   ,
-	.pc          ( pc           )   ,
-	.instr       ( instr        )   ,
-	.instr_valid ( instr_valid  )   ,
-  .ARID        ( ARID         )   ,    
-  .ARADDR      ( ARADDR       )   ,
-  .ARLEN       ( ARLEN        )   ,
-  .ARSIZE      ( ARSIZE       )   ,
-  .ARBURST     ( ARBURST      )   ,
-  .ARLOCK      ( ARLOCK       )   ,
-  .ARCACHE     ( ARCACHE      )   ,
-  .ARPORT      ( ARPORT       )   ,
-  .ARQOS       ( ARQOS        )   ,
-  .ARREGION    ( ARREGION     )   ,
-  .ARVALID     ( ARVALID      )   ,
-  .ARREADY     ( ARREADY      )   ,
-  .RID         ( RID          )   ,
-  .RDATA       ( RDATA        )   ,
-  .RRESP       ( RRESP        )   ,
-  .RLAST       ( RLAST        )   ,
-  .RVALID      ( RVALID       )   ,
-  .RREADY      ( RREADY       )   
-);
 
 wire            jump_en          ; 
 wire  [63:0]    jump_pc          ; 
@@ -315,6 +290,34 @@ mmu mmu_inst(
   .mm_rdata           ( mm_rdata           ) 
 );
 
+axi_interface  axi_interface_inst(
+	.clk            ( clk             )   ,
+	.rstn           ( rstn            )   ,
+	.pc             ( pc              )   ,
+	.instr          ( instr           )   ,
+	.instr_valid    ( instr_valid     )   ,
+  .mm_addr        ( mm_addr         )   ,
+  .mm_rdata       ( mm_rdata        )   ,
+  .mm_ren         ( mm_ren          )   ,
+  .ARID           ( ARID            )   ,    
+  .ARADDR         ( ARADDR          )   ,
+  .ARLEN          ( ARLEN           )   ,
+  .ARSIZE         ( ARSIZE          )   ,
+  .ARBURST        ( ARBURST         )   ,
+  .ARLOCK         ( ARLOCK          )   ,
+  .ARCACHE        ( ARCACHE         )   ,
+  .ARPORT         ( ARPORT          )   ,
+  .ARQOS          ( ARQOS           )   ,
+  .ARREGION       ( ARREGION        )   ,
+  .ARVALID        ( ARVALID         )   ,
+  .ARREADY        ( ARREADY         )   ,
+  .RID            ( RID             )   ,
+  .RDATA          ( RDATA           )   ,
+  .RRESP          ( RRESP           )   ,
+  .RLAST          ( RLAST           )   ,
+  .RVALID         ( RVALID          )   ,
+  .RREADY         ( RREADY          )   
+);
 
   always@(posedge clk) begin
     if(!rstn) begin
@@ -373,12 +376,13 @@ forward  forward_inst(
 
   import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
   initial set_gpr_ptr(idu_inst.regfile_inst.gpr);
-
+/*
   import "DPI-C" function void vmem_read(
     input  longint raddr, 
     output longint rdata,
     input  byte    ren 
   );
+  */
 
   import "DPI-C" function void vmem_write(
     input longint waddr, 
@@ -401,7 +405,7 @@ forward  forward_inst(
   */
 
   always@(*) begin
-    vmem_read ( mm_addr, mm_rdata, {7'b0, mm_ren } );
+//    vmem_read ( mm_addr, mm_rdata, {7'b0, mm_ren } );
     vmem_write( mm_addr, mm_wdata, {4'b0, mm_wlen}, {7'b0, mm_wen} );
     /*
     axi_port  ( 

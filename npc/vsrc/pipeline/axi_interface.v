@@ -1,20 +1,19 @@
 module axi_interface(
-	input   wire            clk         ,
-	input   wire            rstn        ,
-  input   wire    [63:0]  pc          ,
+	input   wire             clk         ,
+	input   wire             rstn        ,
+  input   wire    [63:0]   pc          ,
 
   output  wire     [31:0]  instr       ,
   output  wire             instr_valid ,
 
-//	input		wire		[63:0]	mm_addr		  ,
+	input		wire		[63:0]	 mm_addr		  ,
 //	input		wire    [63:0]  mm_wdata    ,
 //  input   wire    [3:0]   mm_wlen     ,
 //  input   wire            mm_wen      ,
 //  output  wire            mm_wvalid   ,
 //
-//  output  wire    [63:0]  mm_rdata    ,
-//  input   wire            mm_ren      ,
-//  output  wire            mm_rvalid   ,
+   output  reg    [63:0]   mm_rdata         ,
+   input   wire            mm_ren           ,
 
 //-------read require channel--------
   output  reg     [3:0]   ARID     ,
@@ -81,19 +80,20 @@ always@(posedge clk)
 
 wire  posedge_rstn = rstn & ~delay_rstn;
 
-assign  ARADDR = pc ;
 
-localparam IDLE = 2'b00;
-localparam REQU = 2'b01;
-localparam RESP = 2'b10;
+localparam IDLE  = 4'b0000;
+localparam IREQU = 4'b0001;
+localparam IRESP = 4'b0010;
+localparam MREQU = 4'b0100;
+localparam MRESP = 4'b1000;
 
 localparam ID_instr = 4'b0;
-//localparam ID_data  = 4'b1;
+localparam ID_data  = 4'b1;
 
 //localparam AxSIZE_1   = 3'b000;
 //localparam AxSIZE_2   = 3'b001;
 localparam AxSIZE_4   = 3'b010;
-//localparam AxSIZE_8   = 3'b011;
+localparam AxSIZE_8   = 3'b011;
 //localparam AxSIZE_16  = 3'b100;
 //localparam AxSIZE_32  = 3'b101;
 //localparam AxSIZE_64  = 3'b110;
@@ -104,15 +104,15 @@ localparam AxBURST_INCR  = 2'b01;
 //localparam AxBURST_WRAP  = 2'b10;
 
 localparam AxPORT_Instr = 3'b100;
-//localparam AxPORT_Data  = 3'b000;
+localparam AxPORT_Data  = 3'b000;
 
 localparam xRESP_OKAY   = 2'b00;
 //localparam xRESP_EXOKAY = 2'b01;
 //localparam xRESP_SLVERR = 2'b10;
 //localparam xRESP_DECERR = 2'b11;
 
-reg [1:0]  nstate;
-reg [1:0]  cstate;
+reg [3:0]  nstate;
+reg [3:0]  cstate;
 
 always@(posedge clk) begin
   if(!rstn)
@@ -121,15 +121,21 @@ always@(posedge clk) begin
     cstate <= nstate;
 end
 
-wire  rresp_instr_en = (RVALID && RRESP==xRESP_OKAY && RID==4'b0 && RLAST==1'b1);
+wire  rresp_instr_en = (RVALID && RRESP==xRESP_OKAY && RID==ID_instr && RLAST==1'b1);
+wire  rresp_data_en  = (RVALID && RRESP==xRESP_OKAY && RID==ID_data  && RLAST==1'b1);
 
 always@(*) begin
   case (cstate)
-    IDLE : nstate = posedge_rstn ? REQU : IDLE ;
+    IDLE : nstate = posedge_rstn ? IREQU : IDLE ;
 
-    REQU : nstate = ( ARREADY )  ? RESP : REQU;
+    IREQU : nstate = ( ARREADY )  ? IRESP : IREQU;
 
-    RESP : nstate = rresp_instr_en ? REQU : RESP ;
+    IRESP : nstate = (  rresp_instr_en == 0 ) ? IRESP : 
+                     (( rresp_instr_en & mm_ren )? MREQU : IREQU);
+    MREQU : nstate = ( ARREADY ) ? MRESP : MREQU;
+
+    MRESP : nstate = (  rresp_data_en == 0 ) ? MRESP :
+                     (( rresp_data_en & mm_ren )? MREQU : IREQU);
 
     default : nstate = IDLE;
   endcase
@@ -167,7 +173,7 @@ always@(posedge clk) begin
                end
              end
 
-      REQU : begin
+     IREQU : begin
                if( ARREADY==0 ) begin
                    ARVALID     <= ARVALID       ;  
                    ARID        <= ARID          ; 
@@ -184,7 +190,7 @@ always@(posedge clk) begin
                    ARVALID <= 1'b0;
              end
            end
-      RESP : if( rresp_instr_en ) begin
+     IRESP : if( rresp_instr_en && !mm_ren ) begin
                 //load the new ARchannel data
                 //execute the instruction
                    ARVALID     <=  1'b1          ;  
@@ -198,19 +204,92 @@ always@(posedge clk) begin
                    ARREGION    <=  4'b0          ;
                    ARPORT      <=  AxPORT_Instr  ;
              end
+             else if( rresp_instr_en && mm_ren ) begin
+                   ARVALID     <=  1'b1          ;  
+                   ARID        <=  ID_data       ; 
+                   ARLEN       <=  8'b0          ;  
+                   ARSIZE      <=  AxSIZE_8      ; 
+                   ARBURST     <=  AxBURST_INCR  ;  
+                   ARLOCK      <=  1'b0          ;
+                   ARCACHE     <=  4'b0          ;
+                   ARQOS       <=  4'b0          ;
+                   ARREGION    <=  4'b0          ;
+                   ARPORT      <=  AxPORT_Data   ;
+             end
              else begin
                //wait for instruction come back
                //do nothing
                    ARVALID     <= 1'b0    ;  
+             end
+      MREQU : if( ARREADY==0 ) begin
+                   ARVALID     <= ARVALID  ;  
+                   ARID        <= ARID     ; 
+                   ARLEN       <= ARLEN    ;  
+                   ARSIZE      <= ARSIZE   ; 
+                   ARBURST     <= ARBURST  ;  
+                   ARLOCK      <= ARLOCK   ;
+                   ARCACHE     <= ARCACHE  ;
+                   ARQOS       <= ARQOS    ;
+                   ARREGION    <= ARREGION ;
+                   ARPORT      <= ARPORT   ;
+             end
+             else begin
+                  ARVALID <= 1'b0;
+             end
+      MRESP : if( rresp_data_en && !mm_ren ) begin
+                   ARVALID     <=  1'b1          ;  
+                   ARID        <=  ID_instr      ; 
+                   ARLEN       <=  8'b0          ;  
+                   ARSIZE      <=  AxSIZE_4      ; 
+                   ARBURST     <=  AxBURST_INCR  ;  
+                   ARLOCK      <=  1'b0          ;
+                   ARCACHE     <=  4'b0          ;
+                   ARQOS       <=  4'b0          ;
+                   ARREGION    <=  4'b0          ;
+                   ARPORT      <=  AxPORT_Instr  ;
+             end
+             else if( rresp_data_en && mm_ren )begin
+                   ARVALID     <=  1'b1          ;  
+                   ARID        <=  ID_data       ; 
+                   ARLEN       <=  8'b0          ;  
+                   ARSIZE      <=  AxSIZE_8      ; 
+                   ARBURST     <=  AxBURST_INCR  ;  
+                   ARLOCK      <=  1'b0          ;
+                   ARCACHE     <=  4'b0          ;
+                   ARQOS       <=  4'b0          ;
+                   ARREGION    <=  4'b0          ;
+                   ARPORT      <=  AxPORT_Data   ;
+             end
+             else begin
+                  ARVALID <= 1'b0;
              end
     default : ;
     endcase
   end
 end
 
+assign  ARADDR = (
+                   ARVALID     ==  1'b1          &&  
+                   ARID        ==  ID_instr      && 
+                   ARLEN       ==  8'b0          &&  
+                   ARSIZE      ==  AxSIZE_4      && 
+                   ARBURST     ==  AxBURST_INCR  &&  
+                   ARLOCK      ==  1'b0          &&
+                   ARCACHE     ==  4'b0          &&
+                   ARQOS       ==  4'b0          &&
+                   ARREGION    ==  4'b0          &&
+                   ARPORT      ==  AxPORT_Instr    
+                 )? pc : mm_addr ;
+
 assign  instr = RDATA[31:0];
 assign  instr_valid = rresp_instr_en ;
 
+always@(posedge clk) begin
+  if(!rstn)
+    mm_rdata <= 64'b0;
+  else if( rresp_data_en )
+    mm_rdata <= RDATA;
+end
 
 endmodule
 

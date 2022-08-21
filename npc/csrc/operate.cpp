@@ -97,6 +97,7 @@ extern "C" void vmem_write(long long waddr, long long wdata, char wlen, char wen
   }
 }
 
+/*
 extern "C" void vmem_read(long long raddr, long long *rdata , char ren) {
   if(ren && top->clk ){
 #ifdef CONFIG_MTRACE
@@ -119,7 +120,7 @@ extern "C" void vmem_read(long long raddr, long long *rdata , char ren) {
 #endif
   }
 }
-
+*/
 
 /*
 extern "C" void axi_port(char arvalid, char *arready, char arport, long long araddr, char *rvalid, char rready, char *rresp, long long *rdata) {
@@ -155,7 +156,9 @@ extern "C" void axi_port(char arvalid, char *arready, char arport, long long ara
 
 
 bool fetch_req = false;
+bool read_req  = false;
 uintptr_t fetch_addr = 0;
+uintptr_t read_addr  = 0;
 
 void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
 
@@ -187,6 +190,25 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
         }
       }
 
+      if( top->ARVALID  ==1    && 
+          top->ARID     ==1    &&
+          top->ARLEN    ==0    &&
+          top->ARSIZE   ==3    &&
+          top->ARBURST  ==1    &&
+          top->ARLOCK   ==0    &&
+          top->ARCACHE  ==0    &&
+          top->ARPORT   ==4    &&
+          top->ARQOS    ==0    &&
+          top->ARREGION ==0  
+        ) {
+        int arready = rand()%2 ;
+        top->ARREADY = arready ;
+        if( arready ) {
+          read_req  = true;
+          read_addr = top->ARADDR;
+        }
+      }
+
       top->eval();
       contextp->timeInc(9);
 
@@ -201,6 +223,21 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
           fetch_req = false;
           top->RID   = 0;
           top->RDATA = inst_fetch(&fetch_addr,4);
+          top->RRESP = 0;
+          top->RLAST = 1;
+          top->RVALID= 1;
+        }
+        else top->RVALID = 0;
+      }
+      else   top->RVALID = 0;
+
+
+      if( read_req == true && top->RREADY==1 ) {
+        int resp_en = rand()%2;
+        if( resp_en ) {
+          read_req = false;
+          top->RID   = 0;
+          top->RDATA = paddr_read((read_addr),8) ;
           top->RRESP = 0;
           top->RLAST = 1;
           top->RVALID= 1;
