@@ -216,22 +216,6 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       top->eval();
       contextp->timeInc(10);
 
-
-      if( fetch_req == true && top->RREADY==1 ) {
-        int resp_en = rand()%2;
-        if( resp_en ) {
-          fetch_req = false;
-          top->RID   = 0;
-          top->RDATA = inst_fetch(&fetch_addr,4);
-          top->RRESP = 0;
-          top->RLAST = 1;
-          top->RVALID= 1;
-        }
-        else top->RVALID = 0;
-      }
-      else   top->RVALID = 0;
-
-
       if( read_req == true && top->RREADY==1 ) {
         int resp_en = rand()%2;
         if( resp_en ) {
@@ -244,8 +228,19 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
         }
         else top->RVALID = 0;
       }
+      else if( fetch_req == true && top->RREADY==1 ) {
+        int resp_en = rand()%2;
+        if( resp_en ) {
+          fetch_req = false;
+          top->RID   = 0;
+          top->RDATA = inst_fetch(&fetch_addr,4);
+          top->RRESP = 0;
+          top->RLAST = 1;
+          top->RVALID= 1;
+        }
+        else top->RVALID = 0;
+      }
       else   top->RVALID = 0;
-
 
       if( top->this_valid ) {
         *diff_en = true ;
