@@ -20,19 +20,6 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__7(Vtop___024root* vlSelf) {
     VlWide<4>/*127:0*/ __Vtemp13;
     // Body
     if ((1U & ((IData)((vlSelf->top__DOT__exu_alu_result 
-                        >> 0x21U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__jump_pc 
-                                              >> 0x21U))))) {
-        ++(vlSymsp->__Vcoverage[499]);
-        vlSelf->top__DOT____Vtogcov__jump_pc = ((0xfffffffdffffffffULL 
-                                                 & vlSelf->top__DOT____Vtogcov__jump_pc) 
-                                                | ((QData)((IData)(
-                                                                   (1U 
-                                                                    & (IData)(
-                                                                              (vlSelf->top__DOT__exu_alu_result 
-                                                                               >> 0x21U))))) 
-                                                   << 0x21U));
-    }
-    if ((1U & ((IData)((vlSelf->top__DOT__exu_alu_result 
                         >> 0x22U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__jump_pc 
                                               >> 0x22U))))) {
         ++(vlSymsp->__Vcoverage[500]);
@@ -18359,5 +18346,15 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__7(Vtop___024root* vlSelf) {
                | ((QData)((IData)((1U & (IData)((vlSelf->top__DOT__idu_inst__DOT__imm 
                                                  >> 0x2eU))))) 
                   << 0x2eU));
+    }
+    if ((1U & ((IData)((vlSelf->top__DOT__idu_inst__DOT__imm 
+                        >> 0x2fU)) ^ (IData)((vlSelf->top__DOT__idu_inst__DOT____Vtogcov__imm 
+                                              >> 0x2fU))))) {
+        ++(vlSymsp->__Vcoverage[2048]);
+        vlSelf->top__DOT__idu_inst__DOT____Vtogcov__imm 
+            = ((0xffff7fffffffffffULL & vlSelf->top__DOT__idu_inst__DOT____Vtogcov__imm) 
+               | ((QData)((IData)((1U & (IData)((vlSelf->top__DOT__idu_inst__DOT__imm 
+                                                 >> 0x2fU))))) 
+                  << 0x2fU));
     }
 }

@@ -67,7 +67,7 @@ always@(posedge clk) begin
     ifu_instr       <= instr  ;
     ifu_snxt_pc     <= snxt_pc;
     ifu_valid       <= 1'b1   ;
-  end /* else begin
+  end /*else begin
     ifu_pc          <= ifu_pc     ;
     ifu_instr       <= ifu_instr  ;
     ifu_snxt_pc     <= ifu_snxt_pc;

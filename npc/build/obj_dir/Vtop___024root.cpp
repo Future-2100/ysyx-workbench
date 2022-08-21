@@ -40,7 +40,7 @@ void Vtop___024root____Vdpiexp_top__DOT__end_sim_TOP(Vtop__Syms* __restrict vlSy
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root____Vdpiexp_top__DOT__end_sim_TOP\n"); );
     // Variables
     // Body
-    VL_FINISH_MT("/home/grand/ysyx-workbench/npc/vsrc/pipeline/top.v", 426, "");
+    VL_FINISH_MT("/home/grand/ysyx-workbench/npc/vsrc/pipeline/top.v", 428, "");
     ++(vlSymsp->__Vcoverage[1709]);
 }
 
@@ -1406,13 +1406,13 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__6(Vtop___024root* vlSelf) {
         }
     }
     if (vlSelf->rstn) {
-        if ((1U & (~ (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__rresp_instr_en)))) {
-            ++(vlSymsp->__Vcoverage[1703]);
+        if (vlSelf->top__DOT__axi_interface_inst__DOT__rresp_instr_en) {
+            ++(vlSymsp->__Vcoverage[1702]);
         }
     }
     if (vlSelf->rstn) {
-        if (vlSelf->top__DOT__axi_interface_inst__DOT__rresp_instr_en) {
-            ++(vlSymsp->__Vcoverage[1702]);
+        if ((1U & (~ (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__rresp_instr_en)))) {
+            ++(vlSymsp->__Vcoverage[1703]);
         }
     }
     if (vlSelf->rstn) {
@@ -2141,13 +2141,8 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__6(Vtop___024root* vlSelf) {
     } else {
         vlSelf->__Vdly__top__DOT__ifu_pc = 0ULL;
     }
-    if (vlSelf->rstn) {
-        if (vlSelf->top__DOT__axi_interface_inst__DOT__rresp_instr_en) {
-            vlSelf->this_valid = vlSelf->top__DOT__mmu_valid;
-        }
-    } else {
-        vlSelf->this_valid = 0U;
-    }
+    vlSelf->this_valid = ((IData)(vlSelf->rstn) & ((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__rresp_instr_en) 
+                                                   & (IData)(vlSelf->top__DOT__mmu_valid)));
     if (vlSelf->rstn) {
         if (vlSelf->top__DOT__axi_interface_inst__DOT__rresp_instr_en) {
             vlSelf->this_ebreak = vlSelf->top__DOT__mmu_ebreak_en;
@@ -15307,5 +15302,18 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__6(Vtop___024root* vlSelf) {
                                                                               (vlSelf->top__DOT__exu_alu_result 
                                                                                >> 0x20U))))) 
                                                    << 0x20U));
+    }
+    if ((1U & ((IData)((vlSelf->top__DOT__exu_alu_result 
+                        >> 0x21U)) ^ (IData)((vlSelf->top__DOT____Vtogcov__jump_pc 
+                                              >> 0x21U))))) {
+        ++(vlSymsp->__Vcoverage[499]);
+        vlSelf->top__DOT____Vtogcov__jump_pc = ((0xfffffffdffffffffULL 
+                                                 & vlSelf->top__DOT____Vtogcov__jump_pc) 
+                                                | ((QData)((IData)(
+                                                                   (1U 
+                                                                    & (IData)(
+                                                                              (vlSelf->top__DOT__exu_alu_result 
+                                                                               >> 0x21U))))) 
+                                                   << 0x21U));
     }
 }

@@ -331,6 +331,8 @@ axi_interface  axi_interface_inst(
       this_pc      <= mmu_pc        ;
       this_instr   <= mmu_instr     ;
       this_ebreak  <= mmu_ebreak_en ;
+    end else begin
+      this_valid <= 1'b0;
     end
   end
 
