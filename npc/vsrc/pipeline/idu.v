@@ -216,7 +216,7 @@ always@(posedge clk) begin
       idu_wb_alu_en    <=  'b0 ; 
       idu_ebreak_en    <=  'b0 ; 
   end
-  else begin
+  else if( ifu_valid ) begin
       idu_index_rs1    <= index_rs1         ; 
       idu_index_rs2    <= index_rs2         ; 
       idu_index_rd     <= index_rd          ; 
@@ -228,7 +228,7 @@ always@(posedge clk) begin
       idu_pc           <= ifu_pc            ; 
       idu_data_rs1     <= data_rs1          ; 
       idu_imm          <= imm               ; 
-      idu_data_rs2     <= data_rs2         ; 
+      idu_data_rs2     <= data_rs2          ; 
       idu_add_pc_en    <= add_pc_en         ; 
       idu_add_rs1_en   <= add_rs1_en        ; 
       idu_add_zero_en  <= add_zero_en       ; 
@@ -248,7 +248,39 @@ always@(posedge clk) begin
       idu_store_en     <= store_en          ; 
       idu_wb_alu_en    <= wb_alu_en         ; 
       idu_ebreak_en    <= ebreak_en         ; 
-
+  end
+  else begin
+      idu_index_rs1    <= 'b0    ; 
+      idu_index_rs2    <= 'b0    ; 
+      idu_index_rd     <= 'b0    ; 
+      idu_instr        <= 'b0    ; 
+      idu_funct3       <= 'b0    ; 
+      idu_funct7       <= 'b0    ; 
+      idu_valid        <= 'b0    ; 
+      idu_snxt_pc      <= 'b0    ; 
+      idu_pc           <= 'b0    ; 
+      idu_data_rs1     <= 'b0    ; 
+      idu_imm          <= 'b0    ; 
+      idu_data_rs2     <= 'b0    ; 
+      idu_add_pc_en    <= 'b0    ; 
+      idu_add_rs1_en   <= 'b0    ; 
+      idu_add_zero_en  <= 'b0    ; 
+      idu_imm_en       <= 'b0    ; 
+      idu_rs2_en       <= 'b0    ; 
+      idu_addop_en     <= 'b0    ; 
+      idu_iop_en       <= 'b0    ; 
+      idu_rop_en       <= 'b0    ; 
+      idu_mop_en       <= 'b0    ; 
+      idu_iwop_en      <= 'b0    ; 
+      idu_rwop_en      <= 'b0    ; 
+      idu_mwop_en      <= 'b0    ; 
+      idu_jal_en       <= 'b0    ; 
+      idu_jalr_en      <= 'b0    ; 
+      idu_branch_en    <= 'b0    ; 
+      idu_load_en      <= 'b0    ; 
+      idu_store_en     <= 'b0    ; 
+      idu_wb_alu_en    <= 'b0    ; 
+      idu_ebreak_en    <= 'b0    ; 
   end
 end
 
