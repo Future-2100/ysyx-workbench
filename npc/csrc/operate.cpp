@@ -120,8 +120,6 @@ extern "C" void vmem_read(long long raddr, long long *rdata , char ren) {
   }
 }
 
-bool fetch_req = false;
-uintptr_t fetch_addr = 0;
 
 /*
 extern "C" void axi_port(char arvalid, char *arready, char arport, long long araddr, char *rvalid, char rready, char *rresp, long long *rdata) {
@@ -155,6 +153,9 @@ extern "C" void axi_port(char arvalid, char *arready, char arport, long long ara
 }
 */
 
+
+bool fetch_req = false;
+uintptr_t fetch_addr = 0;
 
 void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
 
