@@ -161,6 +161,9 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       *diff_en = false;
 
       //top->instr = inst_fetch(&top->pc, 4);
+      top->clk = !top->clk;   //posedge clk
+      top->eval();
+      contextp->timeInc(1);
 
       if( top->ARVALID  ==1    && 
           top->ARID     ==0    &&
@@ -185,9 +188,8 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
         top->ARREADY = 0;
       }
 
-      top->clk = !top->clk;   //posedge clk
       top->eval();
-      contextp->timeInc(10);
+      contextp->timeInc(9);
 
       top->clk = !top->clk;   //negedge clk 
       top->eval();
