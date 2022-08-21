@@ -268,6 +268,15 @@ always@(posedge clk) begin
   end
 end
 
+reg [63:0] mm_raddr;
+always@(posedge clk) begin
+  if( !rstn ) begin
+    mm_raddr <= 64'b0;
+  end else if( instr_valid )begin
+    mm_raddr <= mm_addr;
+  end
+end
+
 assign  ARADDR = (
                    ARVALID     ==  1'b1          &&  
                    ARID        ==  ID_instr      && 
@@ -290,7 +299,7 @@ assign  ARADDR = (
                    ARQOS       ==  4'b0          &&
                    ARREGION    ==  4'b0          &&
                    ARPORT      ==  AxPORT_Data    
-                 )? mm_addr : 64'h80000000 );
+                 )? mm_raddr : 64'h80000000 );
 
 assign  instr = RDATA[31:0];
 assign  instr_valid = rresp_instr_en ;
