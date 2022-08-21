@@ -38,6 +38,24 @@ class Vtop VL_NOT_FINAL {
     VL_OUT8(&this_valid,0,0);
     VL_OUT64(&this_pc,63,0);
     VL_OUT(&this_instr,31,0);
+    VL_OUT8(&ARID,3,0);
+    VL_OUT64(&ARADDR,63,0);
+    VL_OUT8(&ARLEN,7,0);
+    VL_OUT8(&ARSIZE,2,0);
+    VL_OUT8(&ARBURST,1,0);
+    VL_OUT8(&ARLOCK,0,0);
+    VL_OUT8(&ARCACHE,3,0);
+    VL_OUT8(&ARPORT,2,0);
+    VL_OUT8(&ARQOS,3,0);
+    VL_OUT8(&ARREGION,3,0);
+    VL_OUT8(&ARVALID,0,0);
+    VL_IN8(&ARREADY,0,0);
+    VL_IN8(&RID,3,0);
+    VL_IN64(&RDATA,63,0);
+    VL_IN8(&RRESP,1,0);
+    VL_IN8(&RLAST,0,0);
+    VL_IN8(&RVALID,0,0);
+    VL_OUT8(&RREADY,0,0);
 
     // CELLS
     // Public to allow access to /* verilator public */ items.

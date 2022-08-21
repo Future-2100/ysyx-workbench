@@ -20,6 +20,24 @@ Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     , this_valid{vlSymsp->TOP.this_valid}
     , this_pc{vlSymsp->TOP.this_pc}
     , this_instr{vlSymsp->TOP.this_instr}
+    , ARID{vlSymsp->TOP.ARID}
+    , ARADDR{vlSymsp->TOP.ARADDR}
+    , ARLEN{vlSymsp->TOP.ARLEN}
+    , ARSIZE{vlSymsp->TOP.ARSIZE}
+    , ARBURST{vlSymsp->TOP.ARBURST}
+    , ARLOCK{vlSymsp->TOP.ARLOCK}
+    , ARCACHE{vlSymsp->TOP.ARCACHE}
+    , ARPORT{vlSymsp->TOP.ARPORT}
+    , ARQOS{vlSymsp->TOP.ARQOS}
+    , ARREGION{vlSymsp->TOP.ARREGION}
+    , ARVALID{vlSymsp->TOP.ARVALID}
+    , ARREADY{vlSymsp->TOP.ARREADY}
+    , RID{vlSymsp->TOP.RID}
+    , RDATA{vlSymsp->TOP.RDATA}
+    , RRESP{vlSymsp->TOP.RRESP}
+    , RLAST{vlSymsp->TOP.RLAST}
+    , RVALID{vlSymsp->TOP.RVALID}
+    , RREADY{vlSymsp->TOP.RREADY}
     , rootp{&(vlSymsp->TOP)}
 {
 }

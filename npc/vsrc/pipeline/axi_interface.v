@@ -22,25 +22,25 @@ module axi_interface(
   output  reg     [7:0]   ARLEN    ,
   output  reg     [2:0]   ARSIZE   ,
   output  reg     [1:0]   ARBURST  ,
-//output  wire            ARLOCK   ,
-//output  wire    [3:0]   ARCACHE  ,
+  output  wire            ARLOCK   ,
+  output  wire    [3:0]   ARCACHE  ,
   output  reg     [2:0]   ARPORT   ,
-//output  wire    [3:0]   ARQOS    ,
-//output  wire    [3:0]   ARREGION ,
+  output  wire    [3:0]   ARQOS    ,
+  output  wire    [3:0]   ARREGION ,
 //output  wire            ARUSER   ,
   output  reg             ARVALID  ,
   input   wire            ARREADY  ,
 
 //-------read response channel-------
-//input   wire    [3:0]   RID      ,
+  input   wire    [3:0]   RID      ,
   input   reg     [63:0]  RDATA    ,
   input   reg     [1:0]   RRESP    ,
-//input   wire            RLAST    ,
+  input   wire            RLAST    ,
 //input   wire            RUSER    ,
   input   reg             RVALID   ,
   output  wire            RREADY   
 
-////-------write require channel-------
+//-------write require channel-------
 //  output  wire    [3:0]   AWID        ,
 //  output  wire    [63:0]  AWADDR      ,
 //  output  wire    [7:0]   AWLEN       ,
@@ -119,14 +119,15 @@ always@(posedge clk) begin
     cstate <= nstate;
 end
 
+wire  rresp_instr_en = (RVALID && RRESP==xRESP_OKAY && RID==4'b0 && RLAST==1'b1);
 
 always@(*) begin
   case (cstate)
     IDLE : nstate = posedge_rstn ? REQU : IDLE ;
 
-    REQU : nstate = ( ARREADY & !( RVALID) ) ? RESP : REQU;
+    REQU : nstate = ( ARREADY )  ? RESP : REQU;
 
-    RESP : nstate = (RVALID && RRESP==2'b0) ? REQU : RESP ;
+    RESP : nstate = rresp_instr_en ? REQU : RESP ;
 
     default : nstate = IDLE;
   endcase
@@ -140,10 +141,15 @@ always@(posedge clk) begin
      ARLEN       <= 'b0  ;  
      ARSIZE      <= 'b0  ;  
      ARBURST     <= 'b0  ;
-     ARBURST     <= 'b0  ;  
+     ARLOCK      <= 'b0  ;
+     ARCACHE     <= 'b0  ;
+     ARQOS       <= 'b0  ;
+     ARREGION    <= 'b0  ;
+     ARPORT      <= 'b0  ;
      RREADY      <= 'b0  ;
   end 
   else begin
+    RREADY <= 1'b1;
     case ( cstate ) 
       IDLE : begin 
                if( posedge_rstn ) begin
@@ -153,71 +159,51 @@ always@(posedge clk) begin
                    ARLEN       <=  8'b0          ;  
                    ARSIZE      <=  AxSIZE_4      ; 
                    ARBURST     <=  AxBURST_INCR  ;  
+                   ARLOCK      <=  1'b0          ;
+                   ARCACHE     <=  4'b0          ;
+                   ARQOS       <=  4'b0          ;
+                   ARREGION    <=  4'b0          ;
                    ARPORT      <=  AxPORT_Instr  ;
-                   RREADY      <=   1'b1         ;
                end
              end
 
       REQU : begin
-               if(  ARREADY && ( RVALID &&  RRESP==xRESP_OKAY) ) begin
-                 //load the new ARchannel data 
-                 //execute the instruction
-                   ARVALID     <= 1'b1          ;  
-                   ARID        <= ID_instr      ; 
-                   ARADDR      <=  pc           ;  
-                   ARLEN       <= 8'b0          ;  
-                   ARSIZE      <= AxSIZE_4      ;  
-                   ARBURST     <= AxBURST_INCR  ;  
-                   ARPORT      <= AxPORT_Instr  ;
-                   RREADY      <=   1'b1        ;
-               end 
-               else if ( !ARREADY) begin
-                 //hold the ARdata
-                   ARID        <=  ARID       ; 
-                   ARADDR      <=  ARADDR     ;  
-                   ARLEN       <=  ARLEN      ;  
-                   ARSIZE      <=  ARSIZE     ;  
-                   ARBURST     <=  ARBURST    ;  
-                   ARPORT      <=  ARPORT     ;
-                   ARVALID     <=  ARVALID    ;  
-                   RREADY      <=   1'b0      ;
-               end
-               else if (  ARREADY && !RVALID ) begin
-                 // cancle the ARrequire 
-                 // and waiting for instruction come back
-                   ARID        <= 'b0    ; 
-                   ARADDR      <= 'b0    ;  
-                   ARLEN       <= 'b0    ;  
-                   ARSIZE      <= 'b0    ;  
-                   ARBURST     <= 'b0    ;  
-                   ARPORT      <= 'b0    ;
-                   ARVALID     <= 'b0    ;  
-                   RREADY      <= 'b1    ;
-               end
+               if( ARREADY==0 ) begin
+                   ARVALID     <= ARVALID       ;  
+                   ARID        <= ARID          ; 
+                   ARADDR      <= ARADDR        ;  
+                   ARLEN       <= ARLEN         ;  
+                   ARSIZE      <= ARSIZE        ; 
+                   ARBURST     <= ARBURST       ;  
+                   ARLOCK      <= ARLOCK        ;
+                   ARCACHE     <= ARCACHE       ;
+                   ARQOS       <= ARQOS         ;
+                   ARREGION    <= ARREGION      ;
+                   ARPORT      <= ARPORT        ;
              end
-      RESP : if(  RVALID &&  RRESP==xRESP_OKAY ) begin
+             else begin
+                   ARVALID <= 1'b0;
+             end
+           end
+      RESP : if( rresp_instr_en ) begin
                 //load the new ARchannel data
                 //execute the instruction
                    ARVALID     <=  1'b1          ;  
                    ARID        <=  ID_instr      ; 
-                   ARADDR      <=  pc            ;
-                   ARLEN       <=  8'b0          ;
-                   ARSIZE      <=  AxSIZE_4      ;
+                   ARADDR      <=  pc            ;  
+                   ARLEN       <=  8'b0          ;  
+                   ARSIZE      <=  AxSIZE_4      ; 
                    ARBURST     <=  AxBURST_INCR  ;  
+                   ARLOCK      <=  1'b0          ;
+                   ARCACHE     <=  4'b0          ;
+                   ARQOS       <=  4'b0          ;
+                   ARREGION    <=  4'b0          ;
                    ARPORT      <=  AxPORT_Instr  ;
-                   RREADY      <= 'b1            ;
              end
              else begin
                //wait for instruction come back
                //do nothing
-                   ARID        <= 'b0    ; 
-                   ARADDR      <= 'b0    ;  
-                   ARLEN       <= 'b0    ;  
-                   ARSIZE      <= 'b0    ;  
-                   ARBURST     <= 'b0    ;  
-                   ARPORT      <= 'b0    ;
-                   ARVALID     <= 'b0    ;  
-                   RREADY      <= 'b1    ;
+                   ARVALID     <= 1'b0    ;  
              end
     default : ;
     endcase
@@ -225,7 +211,7 @@ always@(posedge clk) begin
 end
 
 assign  instr = RDATA[31:0];
-assign  instr_valid = ( RREADY && RVALID && (RRESP==xRESP_OKAY) );
+assign  instr_valid = rresp_instr_en ;
 
 
 endmodule

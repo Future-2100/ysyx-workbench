@@ -9,23 +9,32 @@ module top(
   output  reg             this_ebreak ,
   output  reg             this_valid  ,
   output  reg   [63:0]    this_pc     ,
-  output  reg   [31:0]    this_instr
+  output  reg   [31:0]    this_instr  ,
+
+  output  reg     [3:0]   ARID     ,
+  output  reg     [63:0]  ARADDR   ,
+  output  reg     [7:0]   ARLEN    ,
+  output  reg     [2:0]   ARSIZE   ,
+  output  reg     [1:0]   ARBURST  ,
+  output  wire            ARLOCK   ,
+  output  wire    [3:0]   ARCACHE  ,
+  output  reg     [2:0]   ARPORT   ,
+  output  wire    [3:0]   ARQOS    ,
+  output  wire    [3:0]   ARREGION ,
+//output  wire            ARUSER   ,
+  output  reg             ARVALID  ,
+  input   wire            ARREADY  ,
+
+//-------read response channel-------
+  input   wire    [3:0]   RID      ,
+  input   reg     [63:0]  RDATA    ,
+  input   reg     [1:0]   RRESP    ,
+  input   wire            RLAST    ,
+//input   wire            RUSER    ,
+  input   reg             RVALID   ,
+  output  wire            RREADY   
 
 );
-
-  wire    [3:0]   ARID        ;
-  wire    [63:0]  ARADDR      ;
-  wire    [7:0]   ARLEN       ;
-  wire    [2:0]   ARSIZE      ;
-  wire    [1:0]   ARBURST     ;
-  wire    [2:0]   ARPORT      ;
-  wire            ARVALID     ;
-  wire            ARREADY     ;
-
-  wire    [63:0]  RDATA       ;
-  wire    [1:0]   RRESP       ;
-  wire            RVALID      ;
-  wire            RREADY      ;
 
 
   wire  [31:0]    instr       ;
@@ -37,18 +46,24 @@ axi_interface  axi_interface_inst(
 	.pc          ( pc           )   ,
 	.instr       ( instr        )   ,
 	.instr_valid ( instr_valid  )   ,
-  .ARID        ( ARID     )   ,
-  .ARADDR      ( ARADDR   )   ,
-  .ARLEN       ( ARLEN    )   ,
-  .ARSIZE      ( ARSIZE   )   ,
-  .ARBURST     ( ARBURST  )   ,
-  .ARPORT      ( ARPORT   )   ,
-  .ARVALID     ( ARVALID  )   ,
-  .ARREADY     ( ARREADY  )   ,
-  .RDATA       ( RDATA    )   ,
-  .RRESP       ( RRESP    )   ,
-  .RVALID      ( RVALID   )   ,
-  .RREADY      ( RREADY   )   
+  .ARID        ( ARID         )   ,    
+  .ARADDR      ( ARADDR       )   ,
+  .ARLEN       ( ARLEN        )   ,
+  .ARSIZE      ( ARSIZE       )   ,
+  .ARBURST     ( ARBURST      )   ,
+  .ARLOCK      ( ARLOCK       )   ,
+  .ARCACHE     ( ARCACHE      )   ,
+  .ARPORT      ( ARPORT       )   ,
+  .ARQOS       ( ARQOS        )   ,
+  .ARREGION    ( ARREGION     )   ,
+  .ARVALID     ( ARVALID      )   ,
+  .ARREADY     ( ARREADY      )   ,
+  .RID         ( RID          )   ,
+  .RDATA       ( RDATA        )   ,
+  .RRESP       ( RRESP        )   ,
+  .RLAST       ( RLAST        )   ,
+  .RVALID      ( RVALID       )   ,
+  .RREADY      ( RREADY       )   
 );
 
 
@@ -370,6 +385,7 @@ forward  forward_inst(
     input byte wen
   );
 
+  /*
   import "DPI-C" function void axi_port(
     input  byte     arvalid,
     output byte     arready,
@@ -380,10 +396,12 @@ forward  forward_inst(
     output byte     rresp  ,
     output longint  rdata  
   );
+  */
 
   always@(*) begin
     vmem_read ( mm_addr, mm_rdata, {7'b0, mm_ren } );
     vmem_write( mm_addr, mm_wdata, {4'b0, mm_wlen}, {7'b0, mm_wen} );
+    /*
     axi_port  ( 
       { 7'b0, ARVALID },
       { 7'b0, ARREADY },
@@ -394,6 +412,7 @@ forward  forward_inst(
       { 6'b0, RRESP   },
       RDATA
     );
+  */
   end
 
   export "DPI-C" task end_sim;

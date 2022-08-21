@@ -123,6 +123,7 @@ extern "C" void vmem_read(long long raddr, long long *rdata , char ren) {
 bool fetch_req = false;
 uintptr_t fetch_addr = 0;
 
+/*
 extern "C" void axi_port(char arvalid, char *arready, char arport, long long araddr, char *rvalid, char rready, char *rresp, long long *rdata) {
 
     if( arvalid ) {
@@ -151,9 +152,8 @@ extern "C" void axi_port(char arvalid, char *arready, char arport, long long ara
       fetch_addr = araddr;
       printf("%ldus : fetch_req is true\n",contextp->time());
     }
-
 }
-
+*/
 
 
 void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
@@ -161,6 +161,30 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       *diff_en = false;
 
       //top->instr = inst_fetch(&top->pc, 4);
+
+      if( top->ARVALID  ==1    && 
+          top->ARID     ==0    &&
+          top->ARLEN    ==0    &&
+          top->ARSIZE   ==2    &&
+          top->ARBURST  ==1    &&
+          top->ARLOCK   ==0    &&
+          top->ARCACHE  ==0    &&
+          top->ARPORT   ==4    &&
+          top->ARQOS    ==0    &&
+          top->ARREGION ==0  
+        ) {
+        int arready = rand()%2 ;
+        printf(" %ldps : ARREADY = %d\n", contextp->time(), arready);
+        top->ARREADY = arready ;
+        if( arready ) {
+          fetch_req = true;
+          fetch_addr = top->ARADDR;
+        }
+      }
+      else {
+        top->ARREADY = 0;
+      }
+
       top->clk = !top->clk;   //posedge clk
       top->eval();
       contextp->timeInc(10);
@@ -169,12 +193,29 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       top->eval();
       contextp->timeInc(10);
 
+
+      if( fetch_req == true && top->RREADY==1 ) {
+        int resp_en = rand()%2;
+        if( resp_en ) {
+          fetch_req = false;
+          top->RID   = 0;
+          top->RDATA = inst_fetch(&fetch_addr,4);
+          top->RRESP = 0;
+          top->RLAST = 1;
+          top->RVALID= 1;
+        }
+        else top->RVALID = 0;
+      }
+      else   top->RVALID = 0;
+
+      top->ARREADY = 0;
+
       if( top->this_valid ) {
         *diff_en = true ;
-      s->snpc = top->this_pc + 4;
+        s->snpc = top->this_pc + 4;
       //s->dnpc = top->dnxt_pc;
-      s->pc   = top->this_pc;
-      s->isa.inst.val = top->this_instr;
+        s->pc   = top->this_pc;
+        s->isa.inst.val = top->this_instr;
         for (int i=0; i<32; i++) {
           cpu->gpr[i] = cpu_gpr[i];
         }
