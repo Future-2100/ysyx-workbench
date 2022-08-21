@@ -5,7 +5,6 @@ module axi_interface(
 
   output  wire     [31:0]  instr       ,
   output  wire             instr_valid ,
-  output  wire             ifetch_en   ,
 
 //	input		wire		[63:0]	mm_addr		  ,
 //	input		wire    [63:0]  mm_wdata    ,
@@ -211,7 +210,6 @@ end
 
 assign  instr = RDATA[31:0];
 assign  instr_valid = rresp_instr_en ;
-assign  ifetch_en = ( ARVALID==1'b1 && ARREADY==1'b1 && ARID==ID_instr && ARLEN==8'b0 && ARSIZE==AxSIZE_4 && ARBURST==AxBURST_INCR && ARPORT==AxPORT_Instr );
 
 
 endmodule

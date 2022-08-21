@@ -39,7 +39,6 @@ module top(
 
   wire  [31:0]    instr       ;
   wire            instr_valid ;  
-  wire            ifetch_en   ;
 
 axi_interface  axi_interface_inst(
 	.clk         ( clk          )   ,
@@ -47,7 +46,6 @@ axi_interface  axi_interface_inst(
 	.pc          ( pc           )   ,
 	.instr       ( instr        )   ,
 	.instr_valid ( instr_valid  )   ,
-  .ifetch_en   ( ifetch_en    )   ,
   .ARID        ( ARID         )   ,    
   .ARADDR      ( ARADDR       )   ,
   .ARLEN       ( ARLEN        )   ,
@@ -87,7 +85,6 @@ ifu ifu_inst(
   .pc          ( pc           )   ,
   .instr       ( instr        )   ,
   .instr_valid ( instr_valid  )   ,
-  .ifetch_en   ( ifetch_en    )   ,
   .ifu_pc      ( ifu_pc       )   ,
   .ifu_instr   ( ifu_instr    )   ,
   .ifu_snxt_pc ( ifu_snxt_pc  )   ,

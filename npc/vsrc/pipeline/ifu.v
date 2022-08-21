@@ -12,7 +12,6 @@ module ifu(
 
   input   wire  [31:0]    instr            ,
   input   wire            instr_valid      ,
-  input   wire            ifetch_en        ,
 
   output  reg   [63:0]    ifu_pc           ,
   output  reg   [31:0]    ifu_instr        ,
@@ -37,7 +36,7 @@ always@(posedge clk) begin
     pc <= jump_pc  ;
   else if( instr_valid & hazard_stop )
     pc <= pc       ;
-  else if( ifetch_en )
+  else if( instr_valid )
     pc <= snxt_pc  ;
   /*
   else if( hazard_stop & ( !jump_en ) )
