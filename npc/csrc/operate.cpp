@@ -227,6 +227,7 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
         printf(" program end ");
         for(int i=0; i<30; i++) printf("-");
         printf(ANSI_FMT_NONE "\n");
+        end_sim();
         return ;
       }
 
