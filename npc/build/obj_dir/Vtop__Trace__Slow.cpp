@@ -212,6 +212,7 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declBit(c+13,"top idu_inst hazard_nop", false,-1);
         tracep->declBit(c+14,"top idu_inst need_rs1", false,-1);
         tracep->declBit(c+15,"top idu_inst need_rs2", false,-1);
+        tracep->declBit(c+1,"top idu_inst instr_valid", false,-1);
         tracep->declBus(c+9,"top idu_inst ifu_instr", false,-1, 31,0);
         tracep->declQuad(c+7,"top idu_inst ifu_pc", false,-1, 63,0);
         tracep->declQuad(c+10,"top idu_inst ifu_snxt_pc", false,-1, 63,0);
@@ -286,6 +287,7 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declQuad(c+126,"top idu_inst imm", false,-1, 63,0);
         tracep->declBit(c+323,"top idu_inst regfile_inst clk", false,-1);
         tracep->declBit(c+324,"top idu_inst regfile_inst rstn", false,-1);
+        tracep->declBit(c+1,"top idu_inst regfile_inst instr_valid", false,-1);
         tracep->declBus(c+92,"top idu_inst regfile_inst index_rs1", false,-1, 4,0);
         tracep->declBus(c+93,"top idu_inst regfile_inst index_rs2", false,-1, 4,0);
         tracep->declQuad(c+95,"top idu_inst regfile_inst gpr_data_rs1", false,-1, 63,0);
@@ -354,6 +356,7 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declQuad(c+126,"top idu_inst imm_gen_inst imm", false,-1, 63,0);
         tracep->declBit(c+323,"top exu_inst clk", false,-1);
         tracep->declBit(c+324,"top exu_inst rstn", false,-1);
+        tracep->declBit(c+1,"top exu_inst instr_valid", false,-1);
         tracep->declBit(c+4,"top exu_inst flush_nop", false,-1);
         tracep->declBit(c+56,"top exu_inst fwd_en_1", false,-1);
         tracep->declBit(c+57,"top exu_inst fwd_en_2", false,-1);
@@ -488,6 +491,7 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declBus(c+297,"top exu_inst alu_inst riwop_result", false,-1, 31,0);
         tracep->declBit(c+323,"top mmu_inst clk", false,-1);
         tracep->declBit(c+324,"top mmu_inst rstn", false,-1);
+        tracep->declBit(c+1,"top mmu_inst instr_valid", false,-1);
         tracep->declBit(c+62,"top mmu_inst exu_jal_en", false,-1);
         tracep->declBit(c+63,"top mmu_inst exu_jalr_en", false,-1);
         tracep->declBit(c+64,"top mmu_inst exu_branch_en", false,-1);

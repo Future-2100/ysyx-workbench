@@ -373,6 +373,7 @@ VL_MODULE(Vtop___024root) {
         CData/*0:0*/ top__DOT__forward_inst__DOT____Vtogcov__ex_forward_2;
         CData/*0:0*/ top__DOT__forward_inst__DOT____Vtogcov__mm_forward_1;
         CData/*0:0*/ top__DOT__forward_inst__DOT____Vtogcov__mm_forward_2;
+        CData/*0:0*/ __Vdly__top__DOT__ifu_valid;
         CData/*0:0*/ __Vclklast__TOP__clk;
         IData/*31:0*/ top__DOT____Vtogcov__this_instr;
         IData/*31:0*/ top__DOT____Vtogcov__ifu_instr;
@@ -393,6 +394,7 @@ VL_MODULE(Vtop___024root) {
         IData/*31:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riwop_srl;
         IData/*31:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riwop_sra;
         IData/*31:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riwop_result;
+        IData/*31:0*/ __Vdly__top__DOT__ifu_instr;
         QData/*63:0*/ top__DOT____Vtogcov__pc;
         QData/*63:0*/ top__DOT____Vtogcov__snxt_pc;
         QData/*63:0*/ top__DOT____Vtogcov__dnxt_pc;
@@ -415,10 +417,10 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT____Vtogcov__exu_pc;
         QData/*63:0*/ top__DOT____Vtogcov__mmu_pc;
         QData/*63:0*/ top__DOT____Vtogcov__mm_rdata;
-        QData/*63:0*/ top__DOT__idu_inst__DOT____Vtogcov__gpr_data_rs1;
-        QData/*63:0*/ top__DOT__idu_inst__DOT____Vtogcov__gpr_data_rs2;
     };
     struct {
+        QData/*63:0*/ top__DOT__idu_inst__DOT____Vtogcov__gpr_data_rs1;
+        QData/*63:0*/ top__DOT__idu_inst__DOT____Vtogcov__gpr_data_rs2;
         QData/*63:0*/ top__DOT__idu_inst__DOT____Vtogcov__data_rs1;
         QData/*63:0*/ top__DOT__idu_inst__DOT____Vtogcov__data_rs2;
         QData/*63:0*/ top__DOT__idu_inst__DOT____Vtogcov__imm;
@@ -447,6 +449,7 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT__mmu_inst__DOT____Vtogcov__mmu_snxt_pc;
         QData/*63:0*/ top__DOT__mmu_inst__DOT____Vtogcov__mmu_load_data;
         QData/*63:0*/ __Vtask_top__DOT__vmem_read__1__rdata;
+        QData/*63:0*/ __Vdly__top__DOT__ifu_pc;
         VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
     };
 

@@ -2,6 +2,8 @@ module regfile(
   input   wire    clk   ,
   input   wire    rstn  ,
 
+  input   wire            instr_valid ,
+
   input   wire    [4:0]   index_rs1   ,
   input   wire    [4:0]   index_rs2   ,
   output  wire    [63:0]  gpr_data_rs1   ,
@@ -22,7 +24,7 @@ module regfile(
         gpr[i] <= 64'b0;
       end
     end
-    else if( wr_en && (index_rd != 0) ) begin
+    else if( wr_en && (index_rd != 0) && instr_valid ) begin
       gpr[index_rd] <= data_rd;
     end
   end

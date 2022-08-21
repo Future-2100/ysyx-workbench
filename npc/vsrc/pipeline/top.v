@@ -134,6 +134,7 @@ wire              idu_ebreak_en    ;
 idu idu_inst(
   .clk              ( clk              ) ,
   .rstn             ( rstn             ) ,
+  .instr_valid      ( instr_valid      ) ,
   .flush_nop        ( flush_nop        ) ,
   .hazard_nop       ( hazard_nop       ) ,
   .need_rs1         ( need_rs1         ) ,
@@ -204,6 +205,7 @@ reg              exu_valid        ;
 exu exu_inst(
   .      clk        (       clk        )  ,
   .     rstn        (      rstn        )  ,
+  .instr_valid      ( instr_valid      )  ,
   .flush_nop        ( flush_nop        )  ,
   .fwd_en_1         ( fwd_en_1         )  ,
   .fwd_en_2         ( fwd_en_2         )  ,
@@ -277,6 +279,7 @@ wire    [63:0]  mm_rdata           ;
 mmu mmu_inst(
   .clk                ( clk                ) ,
   .rstn               ( rstn               ) ,
+  .instr_valid        ( instr_valid        ) ,
   .exu_jal_en         ( exu_jal_en         ) ,
   .exu_jalr_en        ( exu_jalr_en        ) ,
   .exu_branch_en      ( exu_branch_en      ) ,

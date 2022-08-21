@@ -3,6 +3,8 @@ module exu(
   input   wire                   clk         ,
   input   wire                  rstn         ,
 
+  input   wire             instr_valid       ,
+
   input   wire             flush_nop         ,
   input   wire             fwd_en_1          ,
   input   wire             fwd_en_2          ,
@@ -143,7 +145,7 @@ always@(posedge clk) begin
      exu_pc          <=   'b0  ;   
      exu_instr       <=   'b0  ;   
      exu_valid       <=   'b0  ;   
-  end else begin
+  end else if( instr_valid )begin
      exu_jal_en      <=   idu_jal_en      ;      
      exu_jalr_en     <=   idu_jalr_en     ;   
      exu_branch_en   <=   idu_branch_en   ;   

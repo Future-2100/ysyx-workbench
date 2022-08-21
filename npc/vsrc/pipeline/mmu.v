@@ -2,6 +2,8 @@ module mmu(
   input   wire            clk                 ,
   input   wire            rstn                ,
 
+  input   wire            instr_valid         ,
+
   input   wire            exu_jal_en          ,
   input   wire            exu_jalr_en         ,
   input   wire            exu_branch_en       ,
@@ -96,7 +98,7 @@ memory memory_inst(
        mmu_ebreak_en     <=   'b0 ;
        mmu_pc            <=   'b0 ;
        mmu_instr         <=   'b0 ;
-    end else begin
+    end else if( instr_valid )begin
        mmu_alu_result    <=   exu_alu_result  ;  
        mmu_snxt_pc       <=   exu_snxt_pc     ; 
        mmu_load_data     <=   load_data   ; 
