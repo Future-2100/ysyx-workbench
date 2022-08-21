@@ -14,6 +14,7 @@ module axi_interface(
 //
    output  reg    [63:0]   mm_rdata         ,
    input   wire            mm_ren           ,
+   output  wire            rdata_valid      ,
 
 //-------read require channel--------
   output  reg     [3:0]   ARID     ,
@@ -303,13 +304,9 @@ assign  ARADDR = (
 
 assign  instr = RDATA[31:0];
 assign  instr_valid = rresp_instr_en ;
+assign  mm_rdata    =  RDATA;
+assign  rdata_valid = rresp_data_en;
 
-always@(posedge clk) begin
-  if(!rstn)
-    mm_rdata <= 64'b0;
-  else if( rresp_data_en )
-    mm_rdata <= RDATA;
-end
 
 endmodule
 

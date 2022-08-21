@@ -251,10 +251,13 @@ wire            mm_wen             ;
 wire            mm_ren             ; 
 wire    [63:0]  mm_rdata           ; 
 
+wire            rdata_valid        ;
+
 mmu mmu_inst(
   .clk                ( clk                ) ,
   .rstn               ( rstn               ) ,
   .instr_valid        ( instr_valid        ) ,
+  .rdata_valid        ( rdata_valid        ) ,
   .exu_jal_en         ( exu_jal_en         ) ,
   .exu_jalr_en        ( exu_jalr_en        ) ,
   .exu_branch_en      ( exu_branch_en      ) ,
@@ -296,6 +299,7 @@ axi_interface  axi_interface_inst(
 	.pc             ( pc              )   ,
 	.instr          ( instr           )   ,
 	.instr_valid    ( instr_valid     )   ,
+  .rdata_valid    ( rdata_valid     )   ,
   .mm_addr        ( mm_addr         )   ,
   .mm_rdata       ( mm_rdata        )   ,
   .mm_ren         ( mm_ren          )   ,

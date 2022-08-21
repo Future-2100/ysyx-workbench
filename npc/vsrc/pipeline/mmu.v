@@ -3,6 +3,7 @@ module mmu(
   input   wire            rstn                ,
 
   input   wire            instr_valid         ,
+  input   wire            rdata_valid         ,
 
   input   wire            exu_jal_en          ,
   input   wire            exu_jalr_en         ,
@@ -102,7 +103,7 @@ memory memory_inst(
     end else if( instr_valid )begin
        mmu_alu_result    <=   exu_alu_result  ;  
        mmu_snxt_pc       <=   exu_snxt_pc     ; 
-       mmu_load_data     <=   load_data   ; 
+       mmu_load_data     <=   load_data       ;
        mmu_wb_alu_en     <=   exu_wb_alu_en   ; 
        mmu_wb_spc_en     <=   exu_wb_spc_en   ; 
        mmu_load_en       <=   exu_load_en     ; 
@@ -112,7 +113,10 @@ memory memory_inst(
        mmu_ebreak_en     <=   exu_ebreak_en   ;
        mmu_pc            <=   exu_pc          ;
        mmu_instr         <=   exu_instr       ;
-    end
+     end else if( rdata_valid )begin
+       mmu_load_data     <=   load_data       ;
+     end
+
   end 
 
   assign  mmu_wb_data = ( {64{ mmu_wb_alu_en }} &  mmu_alu_result ) | 
