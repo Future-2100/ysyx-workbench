@@ -279,7 +279,18 @@ assign  ARADDR = (
                    ARQOS       ==  4'b0          &&
                    ARREGION    ==  4'b0          &&
                    ARPORT      ==  AxPORT_Instr    
-                 )? pc : mm_addr ;
+                 )? pc : ( (
+                   ARVALID     ==  1'b1          &&  
+                   ARID        ==  ID_data       && 
+                   ARLEN       ==  8'b0          &&  
+                   ARSIZE      ==  AxSIZE_8      && 
+                   ARBURST     ==  AxBURST_INCR  &&  
+                   ARLOCK      ==  1'b0          &&
+                   ARCACHE     ==  4'b0          &&
+                   ARQOS       ==  4'b0          &&
+                   ARREGION    ==  4'b0          &&
+                   ARPORT      ==  AxPORT_Data    
+                 )? mm_addr : 64'h80000000 );
 
 assign  instr = RDATA[31:0];
 assign  instr_valid = rresp_instr_en ;

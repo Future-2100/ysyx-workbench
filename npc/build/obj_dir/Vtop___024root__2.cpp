@@ -13,6 +13,36 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__8(Vtop___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___sequent__TOP__8\n"); );
     // Body
     if ((1U & ((IData)((vlSelf->top__DOT__idu_inst__DOT__imm 
+                        >> 0x2dU)) ^ (IData)((vlSelf->top__DOT__idu_inst__DOT____Vtogcov__imm 
+                                              >> 0x2dU))))) {
+        ++(vlSymsp->__Vcoverage[2046]);
+        vlSelf->top__DOT__idu_inst__DOT____Vtogcov__imm 
+            = ((0xffffdfffffffffffULL & vlSelf->top__DOT__idu_inst__DOT____Vtogcov__imm) 
+               | ((QData)((IData)((1U & (IData)((vlSelf->top__DOT__idu_inst__DOT__imm 
+                                                 >> 0x2dU))))) 
+                  << 0x2dU));
+    }
+    if ((1U & ((IData)((vlSelf->top__DOT__idu_inst__DOT__imm 
+                        >> 0x2eU)) ^ (IData)((vlSelf->top__DOT__idu_inst__DOT____Vtogcov__imm 
+                                              >> 0x2eU))))) {
+        ++(vlSymsp->__Vcoverage[2047]);
+        vlSelf->top__DOT__idu_inst__DOT____Vtogcov__imm 
+            = ((0xffffbfffffffffffULL & vlSelf->top__DOT__idu_inst__DOT____Vtogcov__imm) 
+               | ((QData)((IData)((1U & (IData)((vlSelf->top__DOT__idu_inst__DOT__imm 
+                                                 >> 0x2eU))))) 
+                  << 0x2eU));
+    }
+    if ((1U & ((IData)((vlSelf->top__DOT__idu_inst__DOT__imm 
+                        >> 0x2fU)) ^ (IData)((vlSelf->top__DOT__idu_inst__DOT____Vtogcov__imm 
+                                              >> 0x2fU))))) {
+        ++(vlSymsp->__Vcoverage[2048]);
+        vlSelf->top__DOT__idu_inst__DOT____Vtogcov__imm 
+            = ((0xffff7fffffffffffULL & vlSelf->top__DOT__idu_inst__DOT____Vtogcov__imm) 
+               | ((QData)((IData)((1U & (IData)((vlSelf->top__DOT__idu_inst__DOT__imm 
+                                                 >> 0x2fU))))) 
+                  << 0x2fU));
+    }
+    if ((1U & ((IData)((vlSelf->top__DOT__idu_inst__DOT__imm 
                         >> 0x30U)) ^ (IData)((vlSelf->top__DOT__idu_inst__DOT____Vtogcov__imm 
                                               >> 0x30U))))) {
         ++(vlSymsp->__Vcoverage[2049]);
