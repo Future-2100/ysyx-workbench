@@ -180,7 +180,6 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
           top->ARREGION ==0  
         ) {
         int arready = rand()%2 ;
-        printf(" %ldps : ARREADY = %d\n", contextp->time(), arready);
         top->ARREADY = arready ;
         if( arready ) {
           fetch_req = true;
@@ -223,7 +222,6 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       }
 
       if(top->this_ebreak) {//|| contextp->time() >= 10000u)  { 
-        printf("is in top->this_break\n");
         npc_trap(NPC_END , top->this_pc, cpu_gpr[10]);
         for(int i=0; i<30; i++) printf(ANSI_FMT_BLUE "-");
         printf(" program end ");

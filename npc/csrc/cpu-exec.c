@@ -86,11 +86,9 @@ static void execute(uint64_t n) {
 }
 
 void npc_trap(int state, vaddr_t pc, int halt_ret) {
-  printf("is in npc_trap\n");
   npc_state.state = state;
   npc_state.halt_pc = pc;
   npc_state.halt_ret = halt_ret;
-  printf("is out of npc_trap\n");
 }
 
 void npc_quit() {
