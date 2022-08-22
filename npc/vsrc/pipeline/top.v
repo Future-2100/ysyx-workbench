@@ -32,13 +32,46 @@ module top(
   input   wire            RLAST    ,
 //input   wire            RUSER    ,
   input   reg             RVALID   ,
-  output  wire            RREADY   
+  output  wire            RREADY   ,
+
+//-------write require channel-------
+  output  wire    [3:0]   AWID        ,
+  output  wire    [63:0]  AWADDR      ,
+  output  wire    [7:0]   AWLEN       ,
+  output  wire    [2:0]   AWSIZE      ,
+  output  wire    [1:0]   AWBURST     ,
+  output  wire            AWLOCK      ,
+  output  wire    [3:0]   AWCACHE     ,
+  output  wire    [2:0]   AWPORT      ,
+  output  wire    [3:0]   AWQOS       ,
+  output  wire    [3:0]   AWREGION    ,
+//output  wire            AWUSER      ,
+  output  wire            AWVALID     ,
+  input   wire            AWREADY     ,
+
+//-------write data channel----------
+  output  wire    [3:0]   WID         ,
+  output  wire    [63:0]  WDATA       ,
+  output  wire    [7:0]   WSTRB       ,
+  output  wire            WLAST       ,
+//output  wire            WUSER       ,
+  output  wire            WVALID      ,
+  input   wire            WREADY      ,
+
+//-------write response channel-------
+  input   wire    [3:0]   BID         , 
+  input   wire    [1:0]   BRESP       , 
+//input   wire            BUSER       ,
+  input   wire            BVALID      ,
+  output  wire            BREADY    
 
 );
 
 
   wire  [31:0]    instr       ;
   wire            instr_valid ;  
+  wire            wdata_valid ;
+  wire            rdata_valid ;
 
   wire    update;
 
@@ -50,7 +83,6 @@ wire  [63:0]    ifu_snxt_pc      ;
 wire            ifu_valid        ; 
 wire            hazard_stop      ; 
 wire            flush_nop        ;       
-wire            rdata_valid      ;
 
 ifu ifu_inst(
   .clk         ( clk          )   ,
@@ -64,6 +96,7 @@ ifu ifu_inst(
   .update      ( update       )   ,
   .instr_valid ( instr_valid  )   ,
   .rdata_valid ( rdata_valid  )   ,
+  .wdata_valid ( wdata_valid  )   ,
   .ifu_pc      ( ifu_pc       )   ,
   .ifu_instr   ( ifu_instr    )   ,
   .ifu_snxt_pc ( ifu_snxt_pc  )   ,
@@ -301,10 +334,16 @@ axi_interface  axi_interface_inst(
 	.pc             ( pc              )   ,
 	.instr          ( instr           )   ,
 	.instr_valid    ( instr_valid     )   ,
-  .rdata_valid    ( rdata_valid     )   ,
+
   .mm_addr        ( mm_addr         )   ,
+  .mm_wdata       ( mm_wdata        )   ,   
+  .mm_wlen        ( mm_wlen         )   ,
+  .mm_wen         ( mm_wen          )   ,
+  .wdata_valid    ( wdata_valid     )   ,
+
   .mm_rdata       ( mm_rdata        )   ,
   .mm_ren         ( mm_ren          )   ,
+  .rdata_valid    ( rdata_valid     )   ,
   .ARID           ( ARID            )   ,    
   .ARADDR         ( ARADDR          )   ,
   .ARLEN          ( ARLEN           )   ,
@@ -317,15 +356,46 @@ axi_interface  axi_interface_inst(
   .ARREGION       ( ARREGION        )   ,
   .ARVALID        ( ARVALID         )   ,
   .ARREADY        ( ARREADY         )   ,
+
   .RID            ( RID             )   ,
   .RDATA          ( RDATA           )   ,
   .RRESP          ( RRESP           )   ,
   .RLAST          ( RLAST           )   ,
   .RVALID         ( RVALID          )   ,
-  .RREADY         ( RREADY          )   
+  .RREADY         ( RREADY          )   ,
+
+  .AWID           ( AWID            )   , 
+  .AWADDR         ( AWADDR          )   , 
+  .AWLEN          ( AWLEN           )   , 
+  .AWSIZE         ( AWSIZE          )   , 
+  .AWBURST        ( AWBURST         )   , 
+  .AWLOCK         ( AWLOCK          )   , 
+  .AWCACHE        ( AWCACHE         )   , 
+  .AWPORT         ( AWPORT          )   , 
+  .AWQOS          ( AWQOS           )   , 
+  .AWREGION       ( AWREGION        )   , 
+  .AWVALID        ( AWVALID         )   , 
+  .AWREADY        ( AWREADY         )   , 
+
+  .WID            ( WID             )   , 
+  .WDATA          ( WDATA           )   , 
+  .WSTRB          ( WSTRB           )   , 
+  .WLAST          ( WLAST           )   , 
+  .WVALID         ( WVALID          )   , 
+  .WREADY         ( WREADY          )   , 
+
+  .BID            ( BID             )   , 
+  .BRESP          ( BRESP           )   , 
+  .BVALID         ( BVALID          )   , 
+  .BREADY         ( BREADY          )   
+
 );
 
-assign  update = exu_load_en ? rdata_valid : instr_valid;
+
+wire  exu_instr_en =  !( exu_load_en | exu_store_en );
+assign update = ( exu_load_en  & rdata_valid ) |
+                ( exu_store_en & wdata_valid ) |
+                ( exu_instr_en & instr_valid ) ;
 
   always@(posedge clk) begin
     if(!rstn) begin

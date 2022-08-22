@@ -38,6 +38,28 @@ Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     , RLAST{vlSymsp->TOP.RLAST}
     , RVALID{vlSymsp->TOP.RVALID}
     , RREADY{vlSymsp->TOP.RREADY}
+    , AWID{vlSymsp->TOP.AWID}
+    , AWADDR{vlSymsp->TOP.AWADDR}
+    , AWLEN{vlSymsp->TOP.AWLEN}
+    , AWSIZE{vlSymsp->TOP.AWSIZE}
+    , AWBURST{vlSymsp->TOP.AWBURST}
+    , AWLOCK{vlSymsp->TOP.AWLOCK}
+    , AWCACHE{vlSymsp->TOP.AWCACHE}
+    , AWPORT{vlSymsp->TOP.AWPORT}
+    , AWQOS{vlSymsp->TOP.AWQOS}
+    , AWREGION{vlSymsp->TOP.AWREGION}
+    , AWVALID{vlSymsp->TOP.AWVALID}
+    , AWREADY{vlSymsp->TOP.AWREADY}
+    , WID{vlSymsp->TOP.WID}
+    , WDATA{vlSymsp->TOP.WDATA}
+    , WSTRB{vlSymsp->TOP.WSTRB}
+    , WLAST{vlSymsp->TOP.WLAST}
+    , WVALID{vlSymsp->TOP.WVALID}
+    , WREADY{vlSymsp->TOP.WREADY}
+    , BID{vlSymsp->TOP.BID}
+    , BRESP{vlSymsp->TOP.BRESP}
+    , BVALID{vlSymsp->TOP.BVALID}
+    , BREADY{vlSymsp->TOP.BREADY}
     , rootp{&(vlSymsp->TOP)}
 {
 }

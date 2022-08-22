@@ -157,6 +157,12 @@ extern "C" void axi_port(char arvalid, char *arready, char arport, long long ara
 
 bool fetch_req = false;
 bool read_req  = false;
+bool handshake_w  = false;
+bool handshake_aw = false;
+uintptr_t write_addr = 0;
+word_t    write_data = 0;
+int       write_size = 0;
+
 uintptr_t fetch_addr = 0;
 uintptr_t read_addr  = 0;
 
@@ -169,7 +175,7 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       top->eval();
       contextp->timeInc(1);
 
-      top->ARREADY = 0;
+      top->ARREADY = 0 ;
 
       if( top->ARVALID  ==1    && 
           top->ARID     ==0    &&
@@ -209,6 +215,42 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
         }
       }
 
+      if( top->AWVALID  == 1 &&
+          top->AWID     == 1 &&
+          top->AWLEN    == 0 &&
+          top->AWBURST  == 1 &&
+          top->AWLOCK   == 0 &&
+          top->AWCACHE  == 0 &&
+          top->AWPORT   == 0 &&
+          top->AWQOS    == 0 &&
+          top->AWREGION == 0  
+        ) {
+        int awready = rand()%2;
+        top->AWREADY = awready;
+        if( awready ) {
+          handshake_aw = true;
+          write_addr   = top->AWADDR ;
+               if( top->AWSIZE==0 ) write_size = 1;
+          else if( top->AWSIZE==1 ) write_size = 2;
+          else if( top->AWSIZE==2 ) write_size = 4;
+          else if( top->AWSIZE==3 ) write_size = 8;
+        }
+      }
+
+      if( top->WVALID  == 1 &&
+          top->WID     == 1 &&
+          top->WLAST   == 1
+      ) {
+        int wready = rand()%2;
+        top->WREADY = wready;
+        if( wready ) {
+          handshake_w = true;
+          write_data  = top->WDATA;
+        //  write_strobe= top->WSTRB;
+        }
+      }
+
+
       top->eval();
       contextp->timeInc(9);
 
@@ -241,6 +283,21 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
         else top->RVALID = 0;
       }
       else   top->RVALID = 0;
+
+
+      if( handshake_w && handshake_aw && top->BREADY==1 ) {
+        int bresp_en = rand()%2;
+        if( bresp_en ) {
+          handshake_w = false;
+          handshake_aw= false;
+          top->BID    = 1    ;
+          top->BRESP  = 0    ;
+          top->BVALID = 1    ;
+          paddr_write(write_addr, write_size, write_data);
+        }
+        else top->BVALID = 0 ;
+      }
+      else top->BVALID = 0;
 
       if( top->this_valid ) {
         *diff_en = true ;

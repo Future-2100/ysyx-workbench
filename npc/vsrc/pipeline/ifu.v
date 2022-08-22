@@ -13,6 +13,7 @@ module ifu(
   input   wire  [31:0]    instr            ,
   input   wire            instr_valid      ,
   input   wire            rdata_valid      ,
+  input   wire            wdata_valid      ,
   input   wire            update           ,
 
   output  reg   [63:0]    ifu_pc           ,
@@ -33,7 +34,7 @@ always@(posedge clk ) begin
     instr_reg <= instr;
 end
 
-wire  [31:0] real_instr = (update && rdata_valid) ? instr_reg : instr;
+wire  [31:0] real_instr = (update && (rdata_valid|wdata_valid) ) ? instr_reg : instr;
 
 assign  snxt_pc = pc + 4;
 
