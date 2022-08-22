@@ -135,12 +135,12 @@ always@(*) begin
                      (( rresp_instr_en & mm_ren )? MREQU : IREQU);
     MREQU : nstate = ( ARREADY ) ? MRESP : MREQU;
 
-    MRESP : nstate = (  rresp_data_en == 0 ) ? MRESP :
-                     (( rresp_data_en & mm_ren )? MREQU : IREQU);
+    MRESP : nstate = ( rresp_data_en ) ? MRESP : IREQU ;
 
     default : nstate = IDLE;
   endcase
 end
+
 
 always@(posedge clk) begin
   if(!rstn) begin
@@ -237,7 +237,7 @@ always@(posedge clk) begin
              else begin
                   ARVALID <= 1'b0;
              end
-      MRESP : if( rresp_data_en && !mm_ren ) begin
+      MRESP : if( rresp_data_en ) begin
                    ARVALID     <=  1'b1          ;  
                    ARID        <=  ID_instr      ; 
                    ARLEN       <=  8'b0          ;  
@@ -248,20 +248,7 @@ always@(posedge clk) begin
                    ARQOS       <=  4'b0          ;
                    ARREGION    <=  4'b0          ;
                    ARPORT      <=  AxPORT_Instr  ;
-             end
-             else if( rresp_data_en && mm_ren )begin
-                   ARVALID     <=  1'b1          ;  
-                   ARID        <=  ID_data       ; 
-                   ARLEN       <=  8'b0          ;  
-                   ARSIZE      <=  AxSIZE_8      ; 
-                   ARBURST     <=  AxBURST_INCR  ;  
-                   ARLOCK      <=  1'b0          ;
-                   ARCACHE     <=  4'b0          ;
-                   ARQOS       <=  4'b0          ;
-                   ARREGION    <=  4'b0          ;
-                   ARPORT      <=  AxPORT_Data   ;
-             end
-             else begin
+             end else begin
                   ARVALID <= 1'b0;
              end
     default : ;

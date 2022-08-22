@@ -8133,6 +8133,17 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                       >> 2U)))) {
             if ((1U & (~ ((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate) 
                           >> 1U)))) {
+                if ((1U & (~ (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate)))) {
+                    ++(vlSymsp->__Vcoverage[4258]);
+                }
+            }
+        }
+    }
+    if ((8U & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate))) {
+        if ((1U & (~ ((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate) 
+                      >> 2U)))) {
+            if ((1U & (~ ((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate) 
+                          >> 1U)))) {
                 if ((1U & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate))) {
                     ++(vlSymsp->__Vcoverage[4259]);
                 }
@@ -8161,14 +8172,6 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
     }
     if ((1U & (~ ((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate) 
                   >> 3U)))) {
-        if ((4U & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate))) {
-            if ((2U & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate))) {
-                ++(vlSymsp->__Vcoverage[4259]);
-            }
-        }
-    }
-    if ((1U & (~ ((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate) 
-                  >> 3U)))) {
         if ((1U & (~ ((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate) 
                       >> 2U)))) {
             if ((1U & (~ ((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate) 
@@ -8176,6 +8179,14 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                 if ((1U & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate))) {
                     ++(vlSymsp->__Vcoverage[4255]);
                 }
+            }
+        }
+    }
+    if ((1U & (~ ((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate) 
+                  >> 3U)))) {
+        if ((4U & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate))) {
+            if ((2U & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate))) {
+                ++(vlSymsp->__Vcoverage[4259]);
             }
         }
     }
@@ -8191,28 +8202,6 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
             if ((2U & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate))) {
                 if ((1U & (~ (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate)))) {
                     ++(vlSymsp->__Vcoverage[4256]);
-                }
-            }
-        }
-    }
-    if ((8U & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate))) {
-        if ((1U & (~ ((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate) 
-                      >> 2U)))) {
-            if ((1U & (~ ((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate) 
-                          >> 1U)))) {
-                if ((1U & (~ (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate)))) {
-                    ++(vlSymsp->__Vcoverage[4258]);
-                }
-            }
-        }
-    }
-    if ((1U & (~ ((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate) 
-                  >> 3U)))) {
-        if ((1U & (~ ((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate) 
-                      >> 2U)))) {
-            if ((2U & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate))) {
-                if ((1U & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate))) {
-                    ++(vlSymsp->__Vcoverage[4259]);
                 }
             }
         }
@@ -8235,6 +8224,17 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                           >> 1U)))) {
                 if ((1U & (~ (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate)))) {
                     ++(vlSymsp->__Vcoverage[4257]);
+                }
+            }
+        }
+    }
+    if ((1U & (~ ((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate) 
+                  >> 3U)))) {
+        if ((1U & (~ ((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate) 
+                      >> 2U)))) {
+            if ((2U & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate))) {
+                if ((1U & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate))) {
+                    ++(vlSymsp->__Vcoverage[4259]);
                 }
             }
         }
@@ -15816,11 +15816,7 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                 ? 0U : ((2U & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate))
                          ? 0U : ((1U & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate))
                                   ? 0U : ((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__rresp_data_en)
-                                           ? (((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__rresp_data_en) 
-                                               & (IData)(vlSelf->top__DOT__exu_load_en))
-                                               ? 4U
-                                               : 1U)
-                                           : 8U))))
+                                           ? 8U : 1U))))
             : ((4U & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate))
                 ? ((2U & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate))
                     ? 0U : ((1U & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate))
@@ -18793,13 +18789,13 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
     }
     if (((IData)(vlSelf->top__DOT__forward_inst__DOT__ex_forward_1) 
          ^ (IData)(vlSelf->top__DOT__forward_inst__DOT____Vtogcov__ex_forward_1))) {
-        ++(vlSymsp->__Vcoverage[4284]);
+        ++(vlSymsp->__Vcoverage[4283]);
         vlSelf->top__DOT__forward_inst__DOT____Vtogcov__ex_forward_1 
             = vlSelf->top__DOT__forward_inst__DOT__ex_forward_1;
     }
     if (((IData)(vlSelf->top__DOT__forward_inst__DOT__mm_forward_1) 
          ^ (IData)(vlSelf->top__DOT__forward_inst__DOT____Vtogcov__mm_forward_1))) {
-        ++(vlSymsp->__Vcoverage[4286]);
+        ++(vlSymsp->__Vcoverage[4285]);
         vlSelf->top__DOT__forward_inst__DOT____Vtogcov__mm_forward_1 
             = vlSelf->top__DOT__forward_inst__DOT__mm_forward_1;
     }
@@ -18812,13 +18808,13 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                                            : 0ULL));
     if (((IData)(vlSelf->top__DOT__forward_inst__DOT__ex_forward_2) 
          ^ (IData)(vlSelf->top__DOT__forward_inst__DOT____Vtogcov__ex_forward_2))) {
-        ++(vlSymsp->__Vcoverage[4285]);
+        ++(vlSymsp->__Vcoverage[4284]);
         vlSelf->top__DOT__forward_inst__DOT____Vtogcov__ex_forward_2 
             = vlSelf->top__DOT__forward_inst__DOT__ex_forward_2;
     }
     if (((IData)(vlSelf->top__DOT__forward_inst__DOT__mm_forward_2) 
          ^ (IData)(vlSelf->top__DOT__forward_inst__DOT____Vtogcov__mm_forward_2))) {
-        ++(vlSymsp->__Vcoverage[4287]);
+        ++(vlSymsp->__Vcoverage[4286]);
         vlSelf->top__DOT__forward_inst__DOT____Vtogcov__mm_forward_2 
             = vlSelf->top__DOT__forward_inst__DOT__mm_forward_2;
     }
