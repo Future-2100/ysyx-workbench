@@ -11,6 +11,8 @@ module ifu(
   output  reg   [63:0]    pc               ,
 
   input   wire  [31:0]    instr            ,
+  input   wire            instr_valid      ,
+  input   wire            rdata_valid      ,
   input   wire            update           ,
 
   output  reg   [63:0]    ifu_pc           ,
@@ -23,11 +25,21 @@ module ifu(
 );
 
 
+reg [31:0] instr_reg;
+always@(posedge clk ) begin
+  if(!rstn)
+    instr_reg <= 32'b0;
+  else if ( instr_valid )
+    instr_reg <= instr;
+end
+
+wire  [31:0] real_instr = (update && rdata_valid) ? instr_reg : instr;
+
 assign  snxt_pc = pc + 4;
 
 assign  dnxt_pc = (jump_en) ? jump_pc : 
                   ( hazard_stop ) ? pc : snxt_pc ;
-                  
+
 
 always@(posedge clk) begin
   if(!rstn)
@@ -57,7 +69,7 @@ always@(posedge clk) begin
     ifu_instr <= ifu_instr;
   end
   else if ( update ) begin
-    ifu_instr <= instr;
+    ifu_instr <= real_instr;
   end
 end
 

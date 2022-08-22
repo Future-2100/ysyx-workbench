@@ -50,6 +50,7 @@ wire  [63:0]    ifu_snxt_pc      ;
 wire            ifu_valid        ; 
 wire            hazard_stop      ; 
 wire            flush_nop        ;       
+wire            rdata_valid      ;
 
 ifu ifu_inst(
   .clk         ( clk          )   ,
@@ -61,6 +62,8 @@ ifu ifu_inst(
   .pc          ( pc           )   ,
   .instr       ( instr        )   ,
   .update      ( update       )   ,
+  .instr_valid ( instr_valid  )   ,
+  .rdata_valid ( rdata_valid  )   ,
   .ifu_pc      ( ifu_pc       )   ,
   .ifu_instr   ( ifu_instr    )   ,
   .ifu_snxt_pc ( ifu_snxt_pc  )   ,
@@ -252,7 +255,6 @@ wire            mm_wen             ;
 wire            mm_ren             ; 
 wire    [63:0]  mm_rdata           ; 
 
-wire            rdata_valid        ;
 
 mmu mmu_inst(
   .clk                ( clk                ) ,
