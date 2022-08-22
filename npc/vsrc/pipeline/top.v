@@ -11,44 +11,69 @@ module top(
   output  reg   [63:0]    this_pc     ,
   output  reg   [31:0]    this_instr  ,
 
-  output  wire    [3:0]   ARID        ,
-  output  wire    [63:0]  ARADDR      ,
-  output  wire    [7:0]   ARLEN       ,
-  output  wire    [2:0]   ARSIZE      ,
-  output  wire    [1:0]   ARBURST     ,
-  output  wire    [2:0]   ARPORT      ,
-  output  wire            ARVALID     ,
-  input   wire            ARREADY     ,
+  output  reg     [3:0]   ARID     ,
+  output  reg     [63:0]  ARADDR   ,
+  output  reg     [7:0]   ARLEN    ,
+  output  reg     [2:0]   ARSIZE   ,
+  output  reg     [1:0]   ARBURST  ,
+  output  wire            ARLOCK   ,
+  output  wire    [3:0]   ARCACHE  ,
+  output  reg     [2:0]   ARPORT   ,
+  output  wire    [3:0]   ARQOS    ,
+  output  wire    [3:0]   ARREGION ,
+//output  wire            ARUSER   ,
+  output  reg             ARVALID  ,
+  input   wire            ARREADY  ,
 
-  input   wire    [63:0]  RDATA       ,
-  input   wire    [1:0]   RRESP       ,
-  input   wire            RVALID      ,
-  output  wire            RREADY      
+//-------read response channel-------
+  input   wire    [3:0]   RID      ,
+  input   reg     [63:0]  RDATA    ,
+  input   reg     [1:0]   RRESP    ,
+  input   wire            RLAST    ,
+//input   wire            RUSER    ,
+  input   reg             RVALID   ,
+  output  wire            RREADY   ,
+
+//-------write require channel-------
+  output  wire    [3:0]   AWID        ,
+  output  wire    [63:0]  AWADDR      ,
+  output  wire    [7:0]   AWLEN       ,
+  output  wire    [2:0]   AWSIZE      ,
+  output  wire    [1:0]   AWBURST     ,
+  output  wire            AWLOCK      ,
+  output  wire    [3:0]   AWCACHE     ,
+  output  wire    [2:0]   AWPORT      ,
+  output  wire    [3:0]   AWQOS       ,
+  output  wire    [3:0]   AWREGION    ,
+//output  wire            AWUSER      ,
+  output  wire            AWVALID     ,
+  input   wire            AWREADY     ,
+
+//-------write data channel----------
+  output  wire    [3:0]   WID         ,
+  output  wire    [63:0]  WDATA       ,
+  output  wire    [7:0]   WSTRB       ,
+  output  wire            WLAST       ,
+//output  wire            WUSER       ,
+  output  wire            WVALID      ,
+  input   wire            WREADY      ,
+
+//-------write response channel-------
+  input   wire    [3:0]   BID         , 
+  input   wire    [1:0]   BRESP       , 
+//input   wire            BUSER       ,
+  input   wire            BVALID      ,
+  output  wire            BREADY    
+
 );
+
 
   wire  [31:0]    instr       ;
   wire            instr_valid ;  
+  wire            wdata_valid ;
+  wire            rdata_valid ;
 
-axi_interface  axi_interface_inst(
-	.clk         ( clk          )   ,
-	.rstn        ( rstn         )   ,
-	.pc          ( pc           )   ,
-	.instr       ( instr        )   ,
-	.instr_valid ( instr_valid  )   ,
-  .ARID        ( ARID     )   ,
-  .ARADDR      ( ARADDR   )   ,
-  .ARLEN       ( ARLEN    )   ,
-  .ARSIZE      ( ARSIZE   )   ,
-  .ARBURST     ( ARBURST  )   ,
-  .ARPORT      ( ARPORT   )   ,
-  .ARVALID     ( ARVALID  )   ,
-  .ARREADY     ( ARREADY  )   ,
-  .RDATA       ( RDATA    )   ,
-  .RRESP       ( RRESP    )   ,
-  .RVALID      ( RVALID   )   ,
-  .RREADY      ( RREADY   )   
-);
-
+  wire    update;
 
 wire            jump_en          ; 
 wire  [63:0]    jump_pc          ; 
@@ -68,7 +93,10 @@ ifu ifu_inst(
   .dnxt_pc     ( dnxt_pc      )   ,
   .pc          ( pc           )   ,
   .instr       ( instr        )   ,
+  .update      ( update       )   ,
   .instr_valid ( instr_valid  )   ,
+  .rdata_valid ( rdata_valid  )   ,
+  .wdata_valid ( wdata_valid  )   ,
   .ifu_pc      ( ifu_pc       )   ,
   .ifu_instr   ( ifu_instr    )   ,
   .ifu_snxt_pc ( ifu_snxt_pc  )   ,
@@ -122,6 +150,7 @@ idu idu_inst(
   .hazard_nop       ( hazard_nop       ) ,
   .need_rs1         ( need_rs1         ) ,
   .need_rs2         ( need_rs2         ) ,
+  .update           ( update           ) ,
   .ifu_instr        ( ifu_instr        ) ,
   .ifu_pc           ( ifu_pc           ) ,
   .ifu_snxt_pc      ( ifu_snxt_pc      ) ,
@@ -188,6 +217,7 @@ reg              exu_valid        ;
 exu exu_inst(
   .      clk        (       clk        )  ,
   .     rstn        (      rstn        )  ,
+  .update           ( update           )  ,
   .flush_nop        ( flush_nop        )  ,
   .fwd_en_1         ( fwd_en_1         )  ,
   .fwd_en_2         ( fwd_en_2         )  ,
@@ -258,9 +288,11 @@ wire            mm_wen             ;
 wire            mm_ren             ; 
 wire    [63:0]  mm_rdata           ; 
 
+
 mmu mmu_inst(
   .clk                ( clk                ) ,
   .rstn               ( rstn               ) ,
+  .update             ( update             ) ,
   .exu_jal_en         ( exu_jal_en         ) ,
   .exu_jalr_en        ( exu_jalr_en        ) ,
   .exu_branch_en      ( exu_branch_en      ) ,
@@ -296,6 +328,74 @@ mmu mmu_inst(
   .mm_rdata           ( mm_rdata           ) 
 );
 
+axi_interface  axi_interface_inst(
+	.clk            ( clk             )   ,
+	.rstn           ( rstn            )   ,
+	.pc             ( pc              )   ,
+	.instr          ( instr           )   ,
+	.instr_valid    ( instr_valid     )   ,
+
+  .mm_addr        ( mm_addr         )   ,
+  .mm_wdata       ( mm_wdata        )   ,   
+  .mm_wlen        ( mm_wlen         )   ,
+  .mm_wen         ( mm_wen          )   ,
+  .wdata_valid    ( wdata_valid     )   ,
+
+  .mm_rdata       ( mm_rdata        )   ,
+  .mm_ren         ( mm_ren          )   ,
+  .rdata_valid    ( rdata_valid     )   ,
+  .ARID           ( ARID            )   ,    
+  .ARADDR         ( ARADDR          )   ,
+  .ARLEN          ( ARLEN           )   ,
+  .ARSIZE         ( ARSIZE          )   ,
+  .ARBURST        ( ARBURST         )   ,
+  .ARLOCK         ( ARLOCK          )   ,
+  .ARCACHE        ( ARCACHE         )   ,
+  .ARPORT         ( ARPORT          )   ,
+  .ARQOS          ( ARQOS           )   ,
+  .ARREGION       ( ARREGION        )   ,
+  .ARVALID        ( ARVALID         )   ,
+  .ARREADY        ( ARREADY         )   ,
+
+  .RID            ( RID             )   ,
+  .RDATA          ( RDATA           )   ,
+  .RRESP          ( RRESP           )   ,
+  .RLAST          ( RLAST           )   ,
+  .RVALID         ( RVALID          )   ,
+  .RREADY         ( RREADY          )   ,
+
+  .AWID           ( AWID            )   , 
+  .AWADDR         ( AWADDR          )   , 
+  .AWLEN          ( AWLEN           )   , 
+  .AWSIZE         ( AWSIZE          )   , 
+  .AWBURST        ( AWBURST         )   , 
+  .AWLOCK         ( AWLOCK          )   , 
+  .AWCACHE        ( AWCACHE         )   , 
+  .AWPORT         ( AWPORT          )   , 
+  .AWQOS          ( AWQOS           )   , 
+  .AWREGION       ( AWREGION        )   , 
+  .AWVALID        ( AWVALID         )   , 
+  .AWREADY        ( AWREADY         )   , 
+
+  .WID            ( WID             )   , 
+  .WDATA          ( WDATA           )   , 
+  .WSTRB          ( WSTRB           )   , 
+  .WLAST          ( WLAST           )   , 
+  .WVALID         ( WVALID          )   , 
+  .WREADY         ( WREADY          )   , 
+
+  .BID            ( BID             )   , 
+  .BRESP          ( BRESP           )   , 
+  .BVALID         ( BVALID          )   , 
+  .BREADY         ( BREADY          )   
+
+);
+
+
+wire  exu_instr_en =  !( exu_load_en | exu_store_en );
+assign update = ( exu_load_en  & rdata_valid ) |
+                ( exu_store_en & wdata_valid ) |
+                ( exu_instr_en & instr_valid ) ;
 
   always@(posedge clk) begin
     if(!rstn) begin
@@ -304,11 +404,13 @@ mmu mmu_inst(
       this_instr <= 32'b0;
       this_ebreak<=  1'b0;
     end
-    else begin
+    else if( update )begin
       this_valid   <= mmu_valid     ;
       this_pc      <= mmu_pc        ;
       this_instr   <= mmu_instr     ;
       this_ebreak  <= mmu_ebreak_en ;
+    end else begin
+      this_valid <= 1'b0;
     end
   end
 
@@ -354,12 +456,13 @@ forward  forward_inst(
 
   import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
   initial set_gpr_ptr(idu_inst.regfile_inst.gpr);
-
+/*
   import "DPI-C" function void vmem_read(
     input  longint raddr, 
     output longint rdata,
     input  byte    ren 
   );
+  */
 
   import "DPI-C" function void vmem_write(
     input longint waddr, 
@@ -368,16 +471,40 @@ forward  forward_inst(
     input byte wen
   );
 
+  /*
+  import "DPI-C" function void axi_port(
+    input  byte     arvalid,
+    output byte     arready,
+    input  byte     arport ,
+    input  longint  araddr ,
+    output byte     rvalid ,
+    input  byte     rready ,
+    output byte     rresp  ,
+    output longint  rdata  
+  );
+  */
+
   always@(*) begin
-    vmem_read ( mm_addr, mm_rdata, {7'b0, mm_ren } );
+//    vmem_read ( mm_addr, mm_rdata, {7'b0, mm_ren } );
     vmem_write( mm_addr, mm_wdata, {4'b0, mm_wlen}, {7'b0, mm_wen} );
+    /*
+    axi_port  ( 
+      { 7'b0, ARVALID },
+      { 7'b0, ARREADY },
+      { 5'b0, ARPORT  },
+      ARADDR,
+      { 7'b0, RVALID  },
+      { 7'b0, RREADY  },
+      { 6'b0, RRESP   },
+      RDATA
+    );
+  */
   end
 
   export "DPI-C" task end_sim;
   task end_sim;
     $finish;
   endtask
-
 
 endmodule
 

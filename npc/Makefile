@@ -1,4 +1,6 @@
 TOPNAME = top
+AUTO=en
+#WAVE=en
 
 ############################## Verilator Check #####################################
 
@@ -93,6 +95,10 @@ VERILATOR_OUTFLAGS += --exe
 VERILATOR_OUTFLAGS += -o $(abspath $(BIN))
 
 
+ifeq ($(AUTO),en)
+NPC_FLAGS += -b
+endif
+
 
 $(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 	@rm -rf $(OBJ_DIR)
@@ -119,8 +125,11 @@ endif
 
 all : default
 
+editc:
+	vim ./csrc/operate.cpp
+
 wave : 
-	gtkwave build/logs/top.vcd
+	gtkwave build/logs/top.vcd gtkwave/axi.gtkw
 
 run : sim
 

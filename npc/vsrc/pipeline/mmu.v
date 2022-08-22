@@ -2,6 +2,8 @@ module mmu(
   input   wire            clk                 ,
   input   wire            rstn                ,
 
+  input   wire            update              ,
+
   input   wire            exu_jal_en          ,
   input   wire            exu_jalr_en         ,
   input   wire            exu_branch_en       ,
@@ -82,6 +84,7 @@ memory memory_inst(
   reg       mmu_wb_spc_en       ;
   reg       mmu_load_en         ;
 
+
   always@(posedge clk) begin
     if(!rstn) begin
        mmu_alu_result    <=   'b0 ;  
@@ -96,10 +99,10 @@ memory memory_inst(
        mmu_ebreak_en     <=   'b0 ;
        mmu_pc            <=   'b0 ;
        mmu_instr         <=   'b0 ;
-    end else begin
+    end else if( update ) begin
        mmu_alu_result    <=   exu_alu_result  ;  
        mmu_snxt_pc       <=   exu_snxt_pc     ; 
-       mmu_load_data     <=   load_data   ; 
+       mmu_load_data     <=   load_data       ;
        mmu_wb_alu_en     <=   exu_wb_alu_en   ; 
        mmu_wb_spc_en     <=   exu_wb_spc_en   ; 
        mmu_load_en       <=   exu_load_en     ; 
@@ -109,7 +112,7 @@ memory memory_inst(
        mmu_ebreak_en     <=   exu_ebreak_en   ;
        mmu_pc            <=   exu_pc          ;
        mmu_instr         <=   exu_instr       ;
-    end
+     end
   end 
 
   assign  mmu_wb_data = ( {64{ mmu_wb_alu_en }} &  mmu_alu_result ) | 

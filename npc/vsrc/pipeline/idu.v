@@ -7,6 +7,8 @@ module idu(
   output  wire              need_rs1         ,
   output  wire              need_rs2         ,
 
+  input   wire              update           ,
+
   input   wire    [31:0]    ifu_instr        ,
   input   wire    [63:0]    ifu_pc           ,
   input   wire    [63:0]    ifu_snxt_pc      ,
@@ -65,6 +67,8 @@ wire  wbfwd_en2 = mmu_wb_en & ( mmu_index_rd == index_rs2 ) & ( mmu_index_rd != 
 regfile regfile_inst (
   .clk  ( clk  ) ,
   .rstn ( rstn ) ,
+
+  .update ( update  ),
 
   .index_rs1 ( index_rs1 ) ,
   .index_rs2 ( index_rs2 ) ,
@@ -183,7 +187,7 @@ always@(posedge clk) begin
       idu_wb_alu_en    <=  'b0 ; 
       idu_ebreak_en    <=  'b0 ; 
   end
-  else if ( flush_nop | hazard_nop ) begin
+  else if ( update & ( flush_nop | hazard_nop) ) begin
       idu_index_rs1    <=  'b0 ; 
       idu_index_rs2    <=  'b0 ; 
       idu_index_rd     <=  'b0 ; 
@@ -216,7 +220,7 @@ always@(posedge clk) begin
       idu_wb_alu_en    <=  'b0 ; 
       idu_ebreak_en    <=  'b0 ; 
   end
-  else begin
+  else if( update ) begin
       idu_index_rs1    <= index_rs1         ; 
       idu_index_rs2    <= index_rs2         ; 
       idu_index_rd     <= index_rd          ; 
@@ -228,7 +232,7 @@ always@(posedge clk) begin
       idu_pc           <= ifu_pc            ; 
       idu_data_rs1     <= data_rs1          ; 
       idu_imm          <= imm               ; 
-      idu_data_rs2     <= data_rs2         ; 
+      idu_data_rs2     <= data_rs2          ; 
       idu_add_pc_en    <= add_pc_en         ; 
       idu_add_rs1_en   <= add_rs1_en        ; 
       idu_add_zero_en  <= add_zero_en       ; 
@@ -248,7 +252,6 @@ always@(posedge clk) begin
       idu_store_en     <= store_en          ; 
       idu_wb_alu_en    <= wb_alu_en         ; 
       idu_ebreak_en    <= ebreak_en         ; 
-
   end
 end
 

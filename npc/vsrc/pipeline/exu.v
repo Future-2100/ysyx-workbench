@@ -3,6 +3,8 @@ module exu(
   input   wire                   clk         ,
   input   wire                  rstn         ,
 
+  input   wire             update            ,
+
   input   wire             flush_nop         ,
   input   wire             fwd_en_1          ,
   input   wire             fwd_en_2          ,
@@ -80,6 +82,7 @@ module exu(
   wire  [63:0] alu_result ;
   wire          br_result ;
 
+
 alu alu_inst(
   .add_pc_en    ( idu_add_pc_en    )  ,
   .add_rs1_en   ( idu_add_rs1_en   )  ,
@@ -124,7 +127,7 @@ always@(posedge clk) begin
      exu_pc          <=   'b0  ;   
      exu_instr       <=   'b0  ;   
      exu_valid       <=   'b0  ;   
-  end else if (flush_nop) begin
+  end else if ( update & flush_nop) begin
      exu_jal_en      <=   'b0  ;      
      exu_jalr_en     <=   'b0  ;   
      exu_branch_en   <=   'b0  ;   
@@ -143,7 +146,7 @@ always@(posedge clk) begin
      exu_pc          <=   'b0  ;   
      exu_instr       <=   'b0  ;   
      exu_valid       <=   'b0  ;   
-  end else begin
+  end else if( update )begin
      exu_jal_en      <=   idu_jal_en      ;      
      exu_jalr_en     <=   idu_jalr_en     ;   
      exu_branch_en   <=   idu_branch_en   ;   
