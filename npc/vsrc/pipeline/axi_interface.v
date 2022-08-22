@@ -81,11 +81,15 @@ always@(posedge clk)
 
 wire  posedge_rstn = rstn & ~delay_rstn;
 
-localparam r_IDLE  = 4'b0000;
-localparam r_IREQU = 4'b0001;
-localparam r_IRESP = 4'b0010;
-localparam r_MREQU = 4'b0100;
-localparam r_MRESP = 4'b1000;
+localparam IDLE     = 8'b0000_0000;
+localparam r_IREQU  = 8'b0000_0001;
+localparam r_IRESP  = 8'b0000_0010;
+localparam r_MREQU  = 8'b0000_0100;
+localparam r_MRESP  = 8'b0000_1000;
+localparam w_MREQU  = 8'b0001_0000;
+localparam w_WAITW  = 8'b0010_0000;
+localparam w_WAITAW = 8'b0100_0000;
+localparam w_MRESP  = 8'b1000_0000;
 
 localparam ID_instr = 4'b0;
 localparam ID_data  = 4'b1;
@@ -112,33 +116,46 @@ localparam xRESP_OKAY   = 2'b00;
 //localparam xRESP_DECERR = 2'b11;
 
 
-reg [3:0]  nstate_r;
-reg [3:0]  cstate_r;
+reg [7:0]  nstate;
+reg [7:0]  cstate;
 
 
 always@(posedge clk) begin
   if(!rstn)
-    cstate_r <= r_IDLE;
+    cstate <= IDLE;
   else
-    cstate_r <= nstate_r;
+    cstate <= nstate;
 end
 
 wire  rresp_instr_en = (RVALID && RRESP==xRESP_OKAY && RID==ID_instr && RLAST==1'b1);
 wire  rresp_data_en  = (RVALID && RRESP==xRESP_OKAY && RID==ID_data  && RLAST==1'b1);
 
 always@(*) begin
-  case (cstate_r)
-    r_IDLE : nstate_r = posedge_rstn ? r_IREQU : r_IDLE ;
+  case (cstate)
+    IDLE  : nstate = posedge_rstn ? r_IREQU : IDLE ;
 
-    r_IREQU : nstate_r = ( ARREADY )  ? r_IRESP : r_IREQU;
+    r_IREQU : nstate = ( ARREADY )  ? r_IRESP : r_IREQU;
 
-    r_IRESP : nstate_r = (  rresp_instr_en == 0 ) ? r_IRESP : 
-                     (( rresp_instr_en & mm_ren )? r_MREQU : r_IREQU);
-    r_MREQU : nstate_r = ( ARREADY ) ? r_MRESP : r_MREQU;
+    r_IRESP : nstate = ( rresp_instr_en == 0     ) ? r_IRESP : (
+                         ( rresp_instr_en & mm_ren ) ? r_MREQU : (
+                         ( rresp_instr_en & mm_wen ) ? w_MREQU :
+                                                       r_IREQU ));
 
-    r_MRESP : nstate_r = ( rresp_data_en ) ? r_IREQU : r_MRESP ;
+    r_MREQU : nstate = ( ARREADY ) ? r_MRESP : r_MREQU;
 
-    default : nstate_r = r_IDLE;
+    r_MRESP : nstate = ( rresp_data_en ) ? r_IREQU : r_MRESP ;
+
+    w_MREQU : nstate = ( AWREADY &&  WREADY )? w_MRESP  : (
+                             ( AWREADY && !WREADY )? w_WAITW  : (
+                             (!AWREADY &&  WREADY )? w_WAITAW : w_MREQU) );
+
+    w_WAITW : nstate = ( WREADY  ) ? w_MRESP : w_WAITW  ;
+
+    w_WAITAW: nstate = ( AWREADY ) ? w_MRESP : w_WAITAW ;
+
+    w_MRESP : nstate = ( wresp_data_en ) ? r_IREQU : w_MRESP ;
+
+    default : nstate = IDLE;
   endcase
 end
 
@@ -146,8 +163,10 @@ end
 always@(posedge clk) begin
   if(!rstn) begin
     RREADY <= 1'b0;
+    BREADY <= 1'b0;
   end else begin
     RREADY <= 1'b1;
+    BREADY <= 1'b1;
   end
 end
 
@@ -166,8 +185,8 @@ always@(posedge clk) begin
      ARPORT      <= 'b0  ;
   end 
   else begin
-    case ( cstate_r ) 
-      r_IDLE : begin 
+    case ( cstate ) 
+      IDLE : begin 
                if( posedge_rstn ) begin
                    ARVALID     <=  1'b1          ;  
                    ARID        <=  ID_instr      ; 
@@ -199,7 +218,7 @@ always@(posedge clk) begin
                    ARVALID <= 1'b0;
              end
            end
-     r_IRESP : if( rresp_instr_en && !mm_ren ) begin
+     r_IRESP : if( rresp_instr_en && !mm_ren && !mm_wen ) begin
                 //load the new ARchannel data
                 //execute the instruction
                    ARVALID     <=  1'b1          ;  
@@ -259,6 +278,20 @@ always@(posedge clk) begin
              end else begin
                   ARVALID <= 1'b0;
              end
+      w_MRESP : if( wresp_data_en ) begin
+                   ARVALID     <=  1'b1          ;  
+                   ARID        <=  ID_instr      ; 
+                   ARLEN       <=  8'b0          ;  
+                   ARSIZE      <=  AxSIZE_4      ; 
+                   ARBURST     <=  AxBURST_INCR  ;  
+                   ARLOCK      <=  1'b0          ;
+                   ARCACHE     <=  4'b0          ;
+                   ARQOS       <=  4'b0          ;
+                   ARREGION    <=  4'b0          ;
+                   ARPORT      <=  AxPORT_Instr  ;
+                 end else begin
+                  ARVALID <= 1'b0;
+                 end
     default : ;
     endcase
   end
@@ -293,36 +326,6 @@ assign  instr_valid = rresp_instr_en ;
 assign  mm_rdata    =  RDATA;
 assign  rdata_valid = rresp_data_en;
 
-
-localparam w_IDLE   = 4'b0000;
-localparam w_MREQU  = 4'b0001;
-localparam w_WAITW  = 4'b0010;
-localparam w_WAITAW = 4'b0100;
-localparam w_MRESP  = 4'b1000;
-
-reg [3:0]  nstate_w;
-reg [3:0]  cstate_w;
-
-always@(posedge clk) begin
-  if(!rstn)
-    cstate_w <= 4'b0;
-  else
-    cstate_w <= nstate_w;
-end
-
-always@(*) begin
-  case (cstate_w)
-    w_IDLE   :    nstate_w = ( mm_wen )  ? w_MREQU : w_IDLE   ;
-    w_MREQU  :    nstate_w = ( AWREADY &&  WREADY )? w_MRESP  : (
-                             ( AWREADY && !WREADY )? w_WAITW  : (
-                             (!AWREADY &&  WREADY )? w_WAITAW : w_MREQU) );
-    w_WAITW  :    nstate_w = ( WREADY  ) ? w_MRESP : w_WAITW  ;
-    w_WAITAW :    nstate_w = ( AWREADY ) ? w_MRESP : w_WAITAW ;
-    w_MRESP  :    nstate_w = ( wresp_data_en ) ? w_IDLE : w_MRESP ;
-    default  :    nstate_w = w_IDLE ;
-  endcase
-end
-
 wire  [2:0] awsize = ( { 3{( mm_wlen == 4'd1 )}} & AxSIZE_1 ) | 
                      ( { 3{( mm_wlen == 4'd2 )}} & AxSIZE_2 ) |
                      ( { 3{( mm_wlen == 4'd4 )}} & AxSIZE_2 ) |
@@ -343,9 +346,9 @@ always@(posedge clk) begin
     AWQOS   <=  4'b0;
     AWREGION<=  4'b0;
   end else begin
-    case ( cstate_w )
-      w_IDLE   : 
-        if( mm_wen ) begin
+    case ( cstate )
+      r_IRESP   : 
+        if( rresp_instr_en && mm_wen ) begin
           AWVALID <=  1'b1;
           AWID    <=  ID_data;
           AWADDR  <=  mm_addr;
@@ -377,7 +380,6 @@ always@(posedge clk) begin
           AWVALID <= 1'b0;
       end
 
-      w_WAITW  : ; 
       w_WAITAW : if( !AWREADY ) begin
           AWVALID <=  AWVALID   ;
           AWID    <=  AWID      ;
@@ -393,7 +395,6 @@ always@(posedge clk) begin
       end else begin
           AWVALID <= 1'b0;
       end
-      w_MRESP  :begin ; end
       default  : ;
     endcase
   end
@@ -414,9 +415,9 @@ always@(posedge clk) begin
     WSTRB  <=  8'b0;
     WLAST  <=  1'b0;
   end else begin
-    case ( cstate_w )
-      w_IDLE   :   begin
-        if( mm_wen ) begin
+    case ( cstate )
+      r_IRESP:   begin
+        if( rresp_instr_en && mm_wen ) begin
           WVALID <=  1'b1;
           WID    <=  ID_data ;
           WDATA  <=  mm_wdata;
@@ -435,7 +436,6 @@ always@(posedge clk) begin
       end else begin
           WVALID <= 1'b0;
       end
-      w_WAITAW  : begin ; end
       w_WAITW   : if( !WREADY ) begin
           WVALID <= WVALID  ;  
           WID    <= WID     ;
@@ -445,18 +445,11 @@ always@(posedge clk) begin
       end else begin
           WVALID <= 1'b0;
       end
-      w_MRESP  :begin ; end
       default  : ;
     endcase
   end
 end
 
-always@(posedge clk) begin
-  if( !rstn )
-    BREADY <= 1'b0;
-  else
-    BREADY <= 1'b1;
-end
 
 //assign  AWADDR  =  mm_addr ;
 //assign  WDATA   =  mm_wdata;

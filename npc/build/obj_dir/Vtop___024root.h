@@ -164,12 +164,10 @@ VL_MODULE(Vtop___024root) {
         CData/*0:0*/ top__DOT__mmu_inst__DOT__mmu_load_en;
         CData/*0:0*/ top__DOT__axi_interface_inst__DOT__delay_rstn;
         CData/*0:0*/ top__DOT__axi_interface_inst__DOT__posedge_rstn;
-        CData/*3:0*/ top__DOT__axi_interface_inst__DOT__nstate_r;
-        CData/*3:0*/ top__DOT__axi_interface_inst__DOT__cstate_r;
+        CData/*7:0*/ top__DOT__axi_interface_inst__DOT__nstate;
+        CData/*7:0*/ top__DOT__axi_interface_inst__DOT__cstate;
         CData/*0:0*/ top__DOT__axi_interface_inst__DOT__rresp_instr_en;
         CData/*0:0*/ top__DOT__axi_interface_inst__DOT__rresp_data_en;
-        CData/*3:0*/ top__DOT__axi_interface_inst__DOT__nstate_w;
-        CData/*3:0*/ top__DOT__axi_interface_inst__DOT__cstate_w;
         CData/*2:0*/ top__DOT__axi_interface_inst__DOT__awsize;
         CData/*7:0*/ top__DOT__axi_interface_inst__DOT__wstrb;
         CData/*0:0*/ top__DOT__axi_interface_inst__DOT__wresp_data_en;
@@ -203,10 +201,10 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT__ifu_pc;
         QData/*63:0*/ top__DOT__ifu_snxt_pc;
         QData/*63:0*/ top__DOT__mmu_wb_data;
-    };
-    struct {
         QData/*63:0*/ top__DOT__idu_snxt_pc;
         QData/*63:0*/ top__DOT__idu_pc;
+    };
+    struct {
         QData/*63:0*/ top__DOT__idu_data_rs1;
         QData/*63:0*/ top__DOT__idu_imm;
         QData/*63:0*/ top__DOT__idu_data_rs2;
@@ -420,10 +418,8 @@ VL_MODULE(Vtop___024root) {
         CData/*0:0*/ top__DOT__mmu_inst__DOT__memory_inst__DOT____Vtogcov__funct3_111;
         CData/*0:0*/ top__DOT__axi_interface_inst__DOT____Vtogcov__delay_rstn;
         CData/*0:0*/ top__DOT__axi_interface_inst__DOT____Vtogcov__posedge_rstn;
-        CData/*3:0*/ top__DOT__axi_interface_inst__DOT____Vtogcov__nstate_r;
-        CData/*3:0*/ top__DOT__axi_interface_inst__DOT____Vtogcov__cstate_r;
-        CData/*3:0*/ top__DOT__axi_interface_inst__DOT____Vtogcov__nstate_w;
-        CData/*3:0*/ top__DOT__axi_interface_inst__DOT____Vtogcov__cstate_w;
+        CData/*7:0*/ top__DOT__axi_interface_inst__DOT____Vtogcov__nstate;
+        CData/*7:0*/ top__DOT__axi_interface_inst__DOT____Vtogcov__cstate;
         CData/*2:0*/ top__DOT__axi_interface_inst__DOT____Vtogcov__awsize;
         CData/*7:0*/ top__DOT__axi_interface_inst__DOT____Vtogcov__wstrb;
         CData/*0:0*/ top__DOT__hazard_inst__DOT____Vtogcov__hazard_rs1;
@@ -448,10 +444,10 @@ VL_MODULE(Vtop___024root) {
         IData/*31:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__wm_divuw;
         IData/*31:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__wm_remw;
         IData/*31:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__wm_remuw;
-    };
-    struct {
         IData/*31:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__wm_result;
         IData/*31:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riwop_add;
+    };
+    struct {
         IData/*31:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riwop_sub;
         IData/*31:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riwop_sll;
         IData/*31:0*/ top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riwop_srl;
