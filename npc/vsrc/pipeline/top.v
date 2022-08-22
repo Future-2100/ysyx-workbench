@@ -42,7 +42,6 @@ module top(
 
   wire    update;
   wire    ifu_update = instr_valid;
-  wire    idu_update = instr_valid;
 
 wire            jump_en          ; 
 wire  [63:0]    jump_pc          ; 
@@ -63,6 +62,7 @@ ifu ifu_inst(
   .pc          ( pc           )   ,
   .instr       ( instr        )   ,
   .ifu_update  ( ifu_update   )   ,
+  .update      ( update       )   ,
   .ifu_pc      ( ifu_pc       )   ,
   .ifu_instr   ( ifu_instr    )   ,
   .ifu_snxt_pc ( ifu_snxt_pc  )   ,
@@ -117,7 +117,6 @@ idu idu_inst(
   .need_rs1         ( need_rs1         ) ,
   .need_rs2         ( need_rs2         ) ,
   .update           ( update           ) ,
-  .idu_update       ( idu_update       ) ,
   .ifu_instr        ( ifu_instr        ) ,
   .ifu_pc           ( ifu_pc           ) ,
   .ifu_snxt_pc      ( ifu_snxt_pc      ) ,
