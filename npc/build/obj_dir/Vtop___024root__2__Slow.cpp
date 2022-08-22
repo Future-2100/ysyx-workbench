@@ -13,6 +13,86 @@ void Vtop___024root___settle__TOP__3(Vtop___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___settle__TOP__3\n"); );
     // Body
     if ((1U & ((IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_slt 
+                        >> 0x1aU)) ^ (IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_slt 
+                                              >> 0x1aU))))) {
+        ++(vlSymsp->__Vcoverage[3550]);
+        vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_slt 
+            = ((0xfffffffffbffffffULL & vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_slt) 
+               | ((QData)((IData)((1U & (IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_slt 
+                                                 >> 0x1aU))))) 
+                  << 0x1aU));
+    }
+    if ((1U & ((IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_slt 
+                        >> 0x1bU)) ^ (IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_slt 
+                                              >> 0x1bU))))) {
+        ++(vlSymsp->__Vcoverage[3551]);
+        vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_slt 
+            = ((0xfffffffff7ffffffULL & vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_slt) 
+               | ((QData)((IData)((1U & (IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_slt 
+                                                 >> 0x1bU))))) 
+                  << 0x1bU));
+    }
+    if ((1U & ((IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_slt 
+                        >> 0x1cU)) ^ (IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_slt 
+                                              >> 0x1cU))))) {
+        ++(vlSymsp->__Vcoverage[3552]);
+        vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_slt 
+            = ((0xffffffffefffffffULL & vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_slt) 
+               | ((QData)((IData)((1U & (IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_slt 
+                                                 >> 0x1cU))))) 
+                  << 0x1cU));
+    }
+    if ((1U & ((IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_slt 
+                        >> 0x1dU)) ^ (IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_slt 
+                                              >> 0x1dU))))) {
+        ++(vlSymsp->__Vcoverage[3553]);
+        vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_slt 
+            = ((0xffffffffdfffffffULL & vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_slt) 
+               | ((QData)((IData)((1U & (IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_slt 
+                                                 >> 0x1dU))))) 
+                  << 0x1dU));
+    }
+    if ((1U & ((IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_slt 
+                        >> 0x1eU)) ^ (IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_slt 
+                                              >> 0x1eU))))) {
+        ++(vlSymsp->__Vcoverage[3554]);
+        vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_slt 
+            = ((0xffffffffbfffffffULL & vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_slt) 
+               | ((QData)((IData)((1U & (IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_slt 
+                                                 >> 0x1eU))))) 
+                  << 0x1eU));
+    }
+    if ((1U & ((IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_slt 
+                        >> 0x1fU)) ^ (IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_slt 
+                                              >> 0x1fU))))) {
+        ++(vlSymsp->__Vcoverage[3555]);
+        vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_slt 
+            = ((0xffffffff7fffffffULL & vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_slt) 
+               | ((QData)((IData)((1U & (IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_slt 
+                                                 >> 0x1fU))))) 
+                  << 0x1fU));
+    }
+    if ((1U & ((IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_slt 
+                        >> 0x20U)) ^ (IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_slt 
+                                              >> 0x20U))))) {
+        ++(vlSymsp->__Vcoverage[3556]);
+        vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_slt 
+            = ((0xfffffffeffffffffULL & vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_slt) 
+               | ((QData)((IData)((1U & (IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_slt 
+                                                 >> 0x20U))))) 
+                  << 0x20U));
+    }
+    if ((1U & ((IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_slt 
+                        >> 0x21U)) ^ (IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_slt 
+                                              >> 0x21U))))) {
+        ++(vlSymsp->__Vcoverage[3557]);
+        vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_slt 
+            = ((0xfffffffdffffffffULL & vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_slt) 
+               | ((QData)((IData)((1U & (IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_slt 
+                                                 >> 0x21U))))) 
+                  << 0x21U));
+    }
+    if ((1U & ((IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT__riop_slt 
                         >> 0x22U)) ^ (IData)((vlSelf->top__DOT__exu_inst__DOT__alu_inst__DOT____Vtogcov__riop_slt 
                                               >> 0x22U))))) {
         ++(vlSymsp->__Vcoverage[3558]);
@@ -17094,27 +17174,27 @@ void Vtop___024root___configure_coverage(Vtop___024root* vlSelf, bool first) {
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4535]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 164, 3, ".top.axi_interface_inst", "v_branch/axi_interface", "if", "164-166");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4536]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 164, 4, ".top.axi_interface_inst", "v_branch/axi_interface", "else", "167-169");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4537]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 163, 1, ".top.axi_interface_inst", "v_line/axi_interface", "block", "163");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4538]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 191, 16, ".top.axi_interface_inst", "v_branch/axi_interface", "if", "191-202");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4538]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 191, 16, ".top.axi_interface_inst", "v_branch/axi_interface", "if", "191-193,195-202");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4539]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 191, 17, ".top.axi_interface_inst", "v_branch/axi_interface", "else", "");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4540]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 190, 12, ".top.axi_interface_inst", "v_line/axi_interface", "case", "190");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4541]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 207, 16, ".top.axi_interface_inst", "v_branch/axi_interface", "if", "207-218");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4541]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 207, 16, ".top.axi_interface_inst", "v_branch/axi_interface", "if", "207-209,211-218");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4542]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 207, 17, ".top.axi_interface_inst", "v_branch/axi_interface", "else", "220-221");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4543]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 206, 14, ".top.axi_interface_inst", "v_line/axi_interface", "case", "206");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4544]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 239, 19, ".top.axi_interface_inst", "v_line/axi_interface", "if", "239-250");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4544]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 239, 19, ".top.axi_interface_inst", "v_line/axi_interface", "if", "239-241,243-250");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4545]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 239, 20, ".top.axi_interface_inst", "v_line/axi_interface", "else", "252,255");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4546]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 224, 16, ".top.axi_interface_inst", "v_line/axi_interface", "elsif", "224,227-237");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4546]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 224, 16, ".top.axi_interface_inst", "v_line/axi_interface", "elsif", "224,227-228,230-237");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4547]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 224, 14, ".top.axi_interface_inst", "v_line/axi_interface", "case", "224");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4548]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 257, 17, ".top.axi_interface_inst", "v_branch/axi_interface", "if", "257-268");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4548]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 257, 17, ".top.axi_interface_inst", "v_branch/axi_interface", "if", "257-259,261-268");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4549]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 257, 18, ".top.axi_interface_inst", "v_branch/axi_interface", "else", "270-271");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4550]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 257, 15, ".top.axi_interface_inst", "v_line/axi_interface", "case", "257");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4551]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 273, 17, ".top.axi_interface_inst", "v_branch/axi_interface", "if", "273-284");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4551]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 273, 17, ".top.axi_interface_inst", "v_branch/axi_interface", "if", "273-275,277-284");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4552]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 273, 18, ".top.axi_interface_inst", "v_branch/axi_interface", "else", "285-286");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4553]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 273, 15, ".top.axi_interface_inst", "v_line/axi_interface", "case", "273");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4554]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 288, 17, ".top.axi_interface_inst", "v_branch/axi_interface", "if", "288-299");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4554]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 288, 17, ".top.axi_interface_inst", "v_branch/axi_interface", "if", "288-290,292-299");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4555]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 288, 18, ".top.axi_interface_inst", "v_branch/axi_interface", "else", "300-301");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4556]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 288, 15, ".top.axi_interface_inst", "v_line/axi_interface", "case", "288");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4557]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 303, 5, ".top.axi_interface_inst", "v_line/axi_interface", "case", "303");
-    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4558]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 175, 3, ".top.axi_interface_inst", "v_branch/axi_interface", "if", "175-186");
+    vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4558]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 175, 3, ".top.axi_interface_inst", "v_branch/axi_interface", "if", "175-177,179-186");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4559]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 175, 4, ".top.axi_interface_inst", "v_branch/axi_interface", "else", "188-189");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4560]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 174, 1, ".top.axi_interface_inst", "v_line/axi_interface", "block", "174");
     vlSelf->__vlCoverInsert(&(vlSymsp->__Vcoverage[4561]), first, "/home/grand/ysyx-workbench/npc/vsrc/pipeline/axi_interface.v", 338, 13, ".top.axi_interface_inst", "v_toggle/axi_interface", "awsize[0]", "");

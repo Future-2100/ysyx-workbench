@@ -18,7 +18,7 @@ module axi_interface(
 
 //-------read require channel--------
   output  reg     [3:0]   ARID     ,
-  output  reg     [63:0]  ARADDR   ,
+  output  wire    [63:0]  ARADDR   ,
   output  reg     [7:0]   ARLEN    ,
   output  reg     [2:0]   ARSIZE   ,
   output  reg     [1:0]   ARBURST  ,
@@ -175,7 +175,7 @@ always@(posedge clk) begin
   if(!rstn) begin
      ARVALID     <= 'b0  ;  
      ARID        <= 'b0  ; 
-     ARADDR      <= 'b0  ;
+     //ARADDR      <= 'b0  ;
      ARLEN       <= 'b0  ;  
      ARSIZE      <= 'b0  ;  
      ARBURST     <= 'b0  ;
@@ -191,7 +191,7 @@ always@(posedge clk) begin
                if( posedge_rstn ) begin
                    ARVALID     <=  1'b1          ;  
                    ARID        <=  ID_instr      ; 
-                   ARADDR      <=  pc            ;
+                  // ARADDR      <=  pc            ;
                    ARLEN       <=  8'b0          ;  
                    ARSIZE      <=  AxSIZE_4      ; 
                    ARBURST     <=  AxBURST_INCR  ;  
@@ -207,7 +207,7 @@ always@(posedge clk) begin
                if( ARREADY==0 ) begin
                    ARVALID     <= ARVALID       ;  
                    ARID        <= ARID          ; 
-                   ARADDR      <= ARADDR        ;
+                 //  ARADDR      <= ARADDR        ;
                    ARLEN       <= ARLEN         ;  
                    ARSIZE      <= ARSIZE        ; 
                    ARBURST     <= ARBURST       ;  
@@ -226,7 +226,7 @@ always@(posedge clk) begin
                 //execute the instruction
                    ARVALID     <=  1'b1          ;  
                    ARID        <=  ID_instr      ; 
-                   ARADDR      <=  pc            ;
+                 //  ARADDR      <=  pc            ;
                    ARLEN       <=  8'b0          ;  
                    ARSIZE      <=  AxSIZE_4      ; 
                    ARBURST     <=  AxBURST_INCR  ;  
@@ -239,7 +239,7 @@ always@(posedge clk) begin
              else if( rresp_instr_en && mm_ren ) begin
                    ARVALID     <=  1'b1          ;  
                    ARID        <=  ID_data       ; 
-                   ARADDR      <=  mm_addr       ;
+                 //  ARADDR      <=  mm_addr       ;
                    ARLEN       <=  8'b0          ;  
                    ARSIZE      <=  AxSIZE_8      ; 
                    ARBURST     <=  AxBURST_INCR  ;  
@@ -257,7 +257,7 @@ always@(posedge clk) begin
       r_MREQU : if( ARREADY==0 ) begin
                    ARVALID     <= ARVALID  ;  
                    ARID        <= ARID     ; 
-                   ARADDR      <= ARADDR   ;
+                  // ARADDR      <= ARADDR   ;
                    ARLEN       <= ARLEN    ;  
                    ARSIZE      <= ARSIZE   ; 
                    ARBURST     <= ARBURST  ;  
@@ -273,7 +273,7 @@ always@(posedge clk) begin
       r_MRESP : if( rresp_data_en ) begin
                    ARVALID     <=  1'b1          ;  
                    ARID        <=  ID_instr      ; 
-                   ARADDR      <=  pc            ;
+                 //  ARADDR      <=  pc            ;
                    ARLEN       <=  8'b0          ;  
                    ARSIZE      <=  AxSIZE_4      ; 
                    ARBURST     <=  AxBURST_INCR  ;  
@@ -288,7 +288,7 @@ always@(posedge clk) begin
       w_MRESP : if( wresp_data_en ) begin
                    ARVALID     <=  1'b1          ;  
                    ARID        <=  ID_instr      ; 
-                   ARADDR      <=  pc            ;
+                 //  ARADDR      <=  pc            ;
                    ARLEN       <=  8'b0          ;  
                    ARSIZE      <=  AxSIZE_4      ; 
                    ARBURST     <=  AxBURST_INCR  ;  
@@ -304,7 +304,7 @@ always@(posedge clk) begin
     endcase
   end
 end
-/*
+
 assign  ARADDR = (
                    ARVALID     ==  1'b1          &&  
                    ARID        ==  ID_instr      && 
@@ -328,7 +328,7 @@ assign  ARADDR = (
                    ARREGION    ==  4'b0          &&
                    ARPORT      ==  AxPORT_Data    
                  )? mm_addr : 64'h80000000 );
-                 */
+
 
 assign  instr = RDATA[31:0];
 assign  instr_valid = rresp_instr_en ;

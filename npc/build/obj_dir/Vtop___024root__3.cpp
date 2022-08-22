@@ -12,15 +12,15 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__9(Vtop___024root* vlSelf) {
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___combo__TOP__9\n"); );
     // Body
-    vlSelf->top__DOT__axi_interface_inst__DOT__rresp_instr_en 
-        = ((((IData)(vlSelf->RVALID) & (0U == (IData)(vlSelf->RRESP))) 
-            & (0U == (IData)(vlSelf->RID))) & (IData)(vlSelf->RLAST));
     vlSelf->top__DOT__axi_interface_inst__DOT__wresp_data_en 
         = (((IData)(vlSelf->BVALID) & (0U == (IData)(vlSelf->BRESP))) 
            & (1U == (IData)(vlSelf->BID)));
     vlSelf->top__DOT__axi_interface_inst__DOT__rresp_data_en 
         = ((((IData)(vlSelf->RVALID) & (0U == (IData)(vlSelf->RRESP))) 
             & (1U == (IData)(vlSelf->RID))) & (IData)(vlSelf->RLAST));
+    vlSelf->top__DOT__axi_interface_inst__DOT__rresp_instr_en 
+        = ((((IData)(vlSelf->RVALID) & (0U == (IData)(vlSelf->RRESP))) 
+            & (0U == (IData)(vlSelf->RID))) & (IData)(vlSelf->RLAST));
     vlSelf->top__DOT__axi_interface_inst__DOT__posedge_rstn 
         = ((IData)(vlSelf->rstn) & (~ (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__delay_rstn)));
     vlSelf->top__DOT__mmu_inst__DOT__load_data = ((
@@ -79,11 +79,6 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__9(Vtop___024root* vlSelf) {
                                                                         (6U 
                                                                          == (IData)(vlSelf->top__DOT__exu_funct3))))) 
                                                      & (QData)((IData)(vlSelf->RDATA))));
-    if (((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__rresp_instr_en) 
-         ^ (IData)(vlSelf->top__DOT____Vtogcov__instr_valid))) {
-        ++(vlSymsp->__Vcoverage[650]);
-        vlSelf->top__DOT____Vtogcov__instr_valid = vlSelf->top__DOT__axi_interface_inst__DOT__rresp_instr_en;
-    }
     if (((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__wresp_data_en) 
          ^ (IData)(vlSelf->top__DOT____Vtogcov__wdata_valid))) {
         ++(vlSymsp->__Vcoverage[651]);
@@ -93,6 +88,11 @@ VL_INLINE_OPT void Vtop___024root___combo__TOP__9(Vtop___024root* vlSelf) {
          ^ (IData)(vlSelf->top__DOT____Vtogcov__rdata_valid))) {
         ++(vlSymsp->__Vcoverage[652]);
         vlSelf->top__DOT____Vtogcov__rdata_valid = vlSelf->top__DOT__axi_interface_inst__DOT__rresp_data_en;
+    }
+    if (((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__rresp_instr_en) 
+         ^ (IData)(vlSelf->top__DOT____Vtogcov__instr_valid))) {
+        ++(vlSymsp->__Vcoverage[650]);
+        vlSelf->top__DOT____Vtogcov__instr_valid = vlSelf->top__DOT__axi_interface_inst__DOT__rresp_instr_en;
     }
     vlSelf->top__DOT__update = ((((IData)(vlSelf->top__DOT__exu_load_en) 
                                   & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__rresp_data_en)) 
