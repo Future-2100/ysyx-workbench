@@ -2,8 +2,7 @@ module mmu(
   input   wire            clk                 ,
   input   wire            rstn                ,
 
-  input   wire            instr_valid         ,
-  input   wire            rdata_valid         ,
+  input   wire            update              ,
 
   input   wire            exu_jal_en          ,
   input   wire            exu_jalr_en         ,
@@ -65,7 +64,6 @@ memory memory_inst(
   .load_en     ( exu_load_en     )  ,
   .store_en    ( exu_store_en    )  ,
   .funct3      ( exu_funct3      )  ,
-  .instr_valid ( instr_valid     )  ,
   .store_data  (     store_data  )  ,
   .address     (     address     )  ,
   .load_data   (     load_data   )  ,
@@ -86,7 +84,6 @@ memory memory_inst(
   reg       mmu_wb_spc_en       ;
   reg       mmu_load_en         ;
 
-  wire  mmu_update = exu_load_en ? rdata_valid : instr_valid;
 
   always@(posedge clk) begin
     if(!rstn) begin
@@ -102,7 +99,7 @@ memory memory_inst(
        mmu_ebreak_en     <=   'b0 ;
        mmu_pc            <=   'b0 ;
        mmu_instr         <=   'b0 ;
-    end else if( rdata_valid ) begin
+    end else if( update ) begin
        mmu_alu_result    <=   exu_alu_result  ;  
        mmu_snxt_pc       <=   exu_snxt_pc     ; 
        mmu_load_data     <=   load_data       ;

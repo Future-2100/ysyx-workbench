@@ -2,9 +2,7 @@ module regfile(
   input   wire    clk   ,
   input   wire    rstn  ,
 
-  input   wire            instr_valid ,
-  input   wire            rdata_valid ,
-  input   wire            exu_load_en ,
+  input   wire            update  ,
 
   input   wire    [4:0]   index_rs1   ,
   input   wire    [4:0]   index_rs2   ,
@@ -16,7 +14,6 @@ module regfile(
   input   wire    [63:0]   data_rd    
 );
 
-  wire  update = exu_load_en? rdata_valid : instr_valid ;
 
   reg  [63:0]  gpr [31:0] ;
 

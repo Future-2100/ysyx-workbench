@@ -268,7 +268,7 @@ always@(posedge clk) begin
     endcase
   end
 end
-
+/*
 reg [63:0] mm_raddr;
 always@(posedge clk) begin
   if( !rstn ) begin
@@ -277,6 +277,7 @@ always@(posedge clk) begin
     mm_raddr <= mm_addr;
   end
 end
+*/
 
 assign  ARADDR = (
                    ARVALID     ==  1'b1          &&  
@@ -300,7 +301,7 @@ assign  ARADDR = (
                    ARQOS       ==  4'b0          &&
                    ARREGION    ==  4'b0          &&
                    ARPORT      ==  AxPORT_Data    
-                 )? mm_raddr : 64'h80000000 );
+                 )? mm_addr : 64'h80000000 );
 
 assign  instr = RDATA[31:0];
 assign  instr_valid = rresp_instr_en ;

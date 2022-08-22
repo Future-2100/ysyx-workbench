@@ -3,7 +3,6 @@ module memory(
   input   wire          load_en     ,
   input   wire          store_en    ,
   input   wire  [2:0]   funct3      ,
-  input   wire          instr_valid ,
 
   input   wire  [63:0]  store_data  ,
   input   wire  [63:0]  address     ,

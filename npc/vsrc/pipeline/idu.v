@@ -7,9 +7,7 @@ module idu(
   output  wire              need_rs1         ,
   output  wire              need_rs2         ,
 
-  input   wire              instr_valid      ,
-  input   wire              rdata_valid      ,
-  input   wire              exu_load_en      ,
+  input   wire              update           ,
 
   input   wire    [31:0]    ifu_instr        ,
   input   wire    [63:0]    ifu_pc           ,
@@ -70,9 +68,7 @@ regfile regfile_inst (
   .clk  ( clk  ) ,
   .rstn ( rstn ) ,
 
-  .instr_valid( instr_valid ),
-  .rdata_valid( rdata_valid ),
-  .exu_load_en( exu_load_en ),
+  .update ( update  ),
 
   .index_rs1 ( index_rs1 ) ,
   .index_rs2 ( index_rs2 ) ,
@@ -191,7 +187,7 @@ always@(posedge clk) begin
       idu_wb_alu_en    <=  'b0 ; 
       idu_ebreak_en    <=  'b0 ; 
   end
-  else if (instr_valid & ( flush_nop | hazard_nop) ) begin
+  else if ( update & ( flush_nop | hazard_nop) ) begin
       idu_index_rs1    <=  'b0 ; 
       idu_index_rs2    <=  'b0 ; 
       idu_index_rd     <=  'b0 ; 
@@ -224,7 +220,7 @@ always@(posedge clk) begin
       idu_wb_alu_en    <=  'b0 ; 
       idu_ebreak_en    <=  'b0 ; 
   end
-  else if( instr_valid ) begin
+  else if( update ) begin
       idu_index_rs1    <= index_rs1         ; 
       idu_index_rs2    <= index_rs2         ; 
       idu_index_rd     <= index_rd          ; 
