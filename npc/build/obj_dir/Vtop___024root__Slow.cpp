@@ -15816,7 +15816,7 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                 ? 0U : ((2U & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate))
                          ? 0U : ((1U & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate))
                                   ? 0U : ((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__rresp_data_en)
-                                           ? 8U : 1U))))
+                                           ? 1U : 8U))))
             : ((4U & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate))
                 ? ((2U & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate))
                     ? 0U : ((1U & (IData)(vlSelf->top__DOT__axi_interface_inst__DOT__cstate))

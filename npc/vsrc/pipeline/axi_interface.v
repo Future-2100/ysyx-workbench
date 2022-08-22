@@ -135,7 +135,7 @@ always@(*) begin
                      (( rresp_instr_en & mm_ren )? MREQU : IREQU);
     MREQU : nstate = ( ARREADY ) ? MRESP : MREQU;
 
-    MRESP : nstate = ( rresp_data_en ) ? MRESP : IREQU ;
+    MRESP : nstate = ( rresp_data_en ) ? IREQU : MRESP ;
 
     default : nstate = IDLE;
   endcase
