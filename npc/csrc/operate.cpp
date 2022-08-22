@@ -176,6 +176,8 @@ void run_step(Decode *s, CPU_state *cpu, bool *diff_en) {
       contextp->timeInc(1);
 
       top->ARREADY = 0 ;
+      top->AWREADY = 0 ;
+      top->WREADY  = 0 ;
 
       if( top->ARVALID  ==1    && 
           top->ARID     ==0    &&
