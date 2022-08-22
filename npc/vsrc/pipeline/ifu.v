@@ -11,7 +11,7 @@ module ifu(
   output  reg   [63:0]    pc               ,
 
   input   wire  [31:0]    instr            ,
-  input   wire            update           ,
+  input   wire            ifu_update       ,
 
   output  reg   [63:0]    ifu_pc           ,
   output  reg   [31:0]    ifu_instr        ,
@@ -32,11 +32,11 @@ assign  dnxt_pc = (jump_en) ? jump_pc :
 always@(posedge clk) begin
   if(!rstn)
     pc <= 64'h80000000 ;
-  else if( update & jump_en )
+  else if( ifu_update & jump_en )
     pc <= jump_pc  ;
-  else if( update & hazard_stop )
+  else if( ifu_update & hazard_stop )
     pc <= pc       ;
-  else if( update )
+  else if( ifu_update )
     pc <= snxt_pc  ;
   /*
   else if( hazard_stop & ( !jump_en ) )
@@ -52,17 +52,17 @@ always@(posedge clk) begin
     ifu_instr       <= 32'b0;
     ifu_snxt_pc     <= 64'b0;
     ifu_valid       <=  1'b0;
-  end else if (update & flush_nop) begin
+  end else if (ifu_update & flush_nop) begin
     ifu_pc          <= pc     ;
     ifu_instr       <= 32'h13 ;
     ifu_snxt_pc     <= snxt_pc;
     ifu_valid       <=  1'b0  ;
-  end else if (update & hazard_stop) begin
+  end else if (ifu_update & hazard_stop) begin
     ifu_pc          <= ifu_pc   ;
     ifu_instr       <= ifu_instr;
     ifu_snxt_pc     <= ifu_snxt_pc;
     ifu_valid       <= ifu_valid;
-  end else if( update )begin
+  end else if( ifu_update )begin
     ifu_pc          <= pc     ;
     ifu_instr       <= instr  ;
     ifu_snxt_pc     <= snxt_pc;

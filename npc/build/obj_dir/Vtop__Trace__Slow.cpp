@@ -79,6 +79,7 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declBus(c+356,"top instr", false,-1, 31,0);
         tracep->declBit(c+1,"top instr_valid", false,-1);
         tracep->declBit(c+2,"top update", false,-1);
+        tracep->declBit(c+1,"top ifu_update", false,-1);
         tracep->declBit(c+8,"top jump_en", false,-1);
         tracep->declQuad(c+9,"top jump_pc", false,-1, 63,0);
         tracep->declQuad(c+11,"top ifu_pc", false,-1, 63,0);
@@ -165,7 +166,7 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declQuad(c+329,"top ifu_inst dnxt_pc", false,-1, 63,0);
         tracep->declQuad(c+325,"top ifu_inst pc", false,-1, 63,0);
         tracep->declBus(c+356,"top ifu_inst instr", false,-1, 31,0);
-        tracep->declBit(c+2,"top ifu_inst update", false,-1);
+        tracep->declBit(c+1,"top ifu_inst ifu_update", false,-1);
         tracep->declQuad(c+11,"top ifu_inst ifu_pc", false,-1, 63,0);
         tracep->declBus(c+13,"top ifu_inst ifu_instr", false,-1, 31,0);
         tracep->declQuad(c+14,"top ifu_inst ifu_snxt_pc", false,-1, 63,0);
