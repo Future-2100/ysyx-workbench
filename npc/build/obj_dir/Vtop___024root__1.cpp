@@ -189,10 +189,11 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__7(Vtop___024root* vlSelf) {
                                                   << 0x3fU));
     }
     if (vlSelf->rstn) {
-        if (((IData)(vlSelf->top__DOT__update) & ((IData)(vlSelf->top__DOT__jump_en) 
-                                                  | (IData)(vlSelf->top__DOT__hazard_nop)))) {
+        if (((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__rresp_instr_en) 
+             & ((IData)(vlSelf->top__DOT__jump_en) 
+                | (IData)(vlSelf->top__DOT__hazard_nop)))) {
             vlSelf->top__DOT__idu_pc = 0ULL;
-        } else if (vlSelf->top__DOT__update) {
+        } else if (vlSelf->top__DOT__axi_interface_inst__DOT__rresp_instr_en) {
             vlSelf->top__DOT__idu_pc = vlSelf->top__DOT__ifu_pc;
         }
     } else {
@@ -431,10 +432,11 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__7(Vtop___024root* vlSelf) {
                                                      & vlSelf->top__DOT__exu_instr));
     }
     if (vlSelf->rstn) {
-        if (((IData)(vlSelf->top__DOT__update) & ((IData)(vlSelf->top__DOT__jump_en) 
-                                                  | (IData)(vlSelf->top__DOT__hazard_nop)))) {
+        if (((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__rresp_instr_en) 
+             & ((IData)(vlSelf->top__DOT__jump_en) 
+                | (IData)(vlSelf->top__DOT__hazard_nop)))) {
             vlSelf->top__DOT__idu_instr = 0U;
-        } else if (vlSelf->top__DOT__update) {
+        } else if (vlSelf->top__DOT__axi_interface_inst__DOT__rresp_instr_en) {
             vlSelf->top__DOT__idu_instr = vlSelf->top__DOT__ifu_instr;
         }
     } else {
@@ -1731,10 +1733,11 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__7(Vtop___024root* vlSelf) {
         vlSelf->top__DOT____Vtogcov__exu_wb_en = vlSelf->top__DOT__exu_wb_en;
     }
     if (vlSelf->rstn) {
-        if (((IData)(vlSelf->top__DOT__update) & ((IData)(vlSelf->top__DOT__jump_en) 
-                                                  | (IData)(vlSelf->top__DOT__hazard_nop)))) {
+        if (((IData)(vlSelf->top__DOT__axi_interface_inst__DOT__rresp_instr_en) 
+             & ((IData)(vlSelf->top__DOT__jump_en) 
+                | (IData)(vlSelf->top__DOT__hazard_nop)))) {
             vlSelf->top__DOT__idu_index_rd = 0U;
-        } else if (vlSelf->top__DOT__update) {
+        } else if (vlSelf->top__DOT__axi_interface_inst__DOT__rresp_instr_en) {
             vlSelf->top__DOT__idu_index_rd = (0x1fU 
                                               & (vlSelf->top__DOT__ifu_instr 
                                                  >> 7U));

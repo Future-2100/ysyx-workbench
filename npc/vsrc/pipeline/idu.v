@@ -7,6 +7,7 @@ module idu(
   output  wire              need_rs1         ,
   output  wire              need_rs2         ,
 
+  input   wire              idu_update       ,
   input   wire              update           ,
 
   input   wire    [31:0]    ifu_instr        ,
@@ -187,7 +188,7 @@ always@(posedge clk) begin
       idu_wb_alu_en    <=  'b0 ; 
       idu_ebreak_en    <=  'b0 ; 
   end
-  else if ( update & ( flush_nop | hazard_nop) ) begin
+  else if ( idu_update & ( flush_nop | hazard_nop) ) begin
       idu_index_rs1    <=  'b0 ; 
       idu_index_rs2    <=  'b0 ; 
       idu_index_rd     <=  'b0 ; 
@@ -220,7 +221,7 @@ always@(posedge clk) begin
       idu_wb_alu_en    <=  'b0 ; 
       idu_ebreak_en    <=  'b0 ; 
   end
-  else if( update ) begin
+  else if( idu_update ) begin
       idu_index_rs1    <= index_rs1         ; 
       idu_index_rs2    <= index_rs2         ; 
       idu_index_rd     <= index_rd          ; 
